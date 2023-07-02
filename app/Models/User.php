@@ -19,8 +19,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'apm',
+        'app',
+        'academic_degree',
         'email',
         'password',
+        'phone',
+        'state',
+        'municipality',
+        'rol_id'
     ];
 
     /**
@@ -41,4 +48,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function Roles() {
+        return $this->belongsTo(Roles::class,'rol_id');
+    }
+
+    public function ProjectsUsers() {
+        return $this->hasOne(ProjectsUsers::class,'user_id','id');
+
+    }
 }

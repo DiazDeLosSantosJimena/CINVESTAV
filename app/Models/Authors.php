@@ -13,7 +13,8 @@ class Authors extends Model
         'project_id',
         'name',
         'apm',
-        'app'
+        'app',
+        'academic_degree'
     ];
 
     public function Project() {

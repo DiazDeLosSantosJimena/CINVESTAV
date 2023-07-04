@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('app', 50);
             $table->string('apm', 50);
+            $table->string('academic_degree');
             $table->timestamps();
         });
     }

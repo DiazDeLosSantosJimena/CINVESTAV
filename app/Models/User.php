@@ -27,6 +27,7 @@ class User extends Authenticatable
         'phone',
         'state',
         'municipality',
+        'assistance',
         'rol_id'
     ];
 
@@ -55,6 +56,9 @@ class User extends Authenticatable
 
     public function ProjectsUsers() {
         return $this->hasOne(ProjectsUsers::class,'user_id','id');
+    }
 
+    public function Evaluations() {
+        return $this->hasMany(Evaluations::class,'rol_id');
     }
 }

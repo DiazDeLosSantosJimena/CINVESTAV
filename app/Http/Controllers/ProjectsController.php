@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class EvaluateProposal extends Controller
+class ProjectsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('visor');
-    }
-
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-
+        //
     }
 
     /**

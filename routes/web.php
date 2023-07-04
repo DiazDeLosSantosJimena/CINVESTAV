@@ -80,23 +80,17 @@ Route::middleware('auth')->group(function () {
     Route::get('perfil', function () {
         return view('usuarios.perfil');
     })->name('perfil');
-    
+
     Route::get('EditPerfil', function () {
         return view('usuarios.EditPerfil');
     });
 
 });
 
-//RUTAS DE RAMAS
-Route::resource('ramas', RamaController::class);
-Route::name('editRama')->put('editRama/{id}', [RamaController::class, 'edit']);
-Route::name('deleteRama')->put('deleteRama/{id}',[RamaController::class, 'destroy']);
 
 require __DIR__.'/auth.php';
 
-Route::get('vista', function () {
-    return view('ramas.index');
-});
+
 
 
 

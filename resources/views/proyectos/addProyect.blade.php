@@ -211,7 +211,7 @@
             </div>
         </div>
         <div class="col-6 text-center mt-3">
-            <a href="{{ route('project.index') }}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('proyectos.index') }}" class="btn btn-secondary">Cancelar</a>
         </div>
         <div class="col-6 text-center mt-3">
             <button type="submit" class="btn btn-success disabled" id="btnRegistro">Enviar</button>

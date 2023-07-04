@@ -17,18 +17,18 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('project_id')->constrained('projects');
-            $table->int('title');
-            $table->int('extension');
-            $table->int('key_words');
-            $table->int('abstract_keywords');
-            $table->int('problematic');
-            $table->int('theoretical');
-            $table->int('methodology');
-            $table->int('proposal');
-            $table->int('results');
-            $table->int('APA_table');
-            $table->int('APA_references');
-            $table->int('format'); //Fuente,Margen y Extensión
+            $table->integer('title');
+            $table->integer('extension');
+            $table->integer('key_words');
+            $table->integer('abstract_keywords');
+            $table->integer('problematic');
+            $table->integer('theoretical');
+            $table->integer('methodology');
+            $table->integer('proposal');
+            $table->integer('results');
+            $table->integer('APA_table');
+            $table->integer('APA_references');
+            $table->integer('format'); //Fuente,Margen y Extensión
             $table->string('status');
             $table->string('comment')->nullable();
             $table->timestamps();

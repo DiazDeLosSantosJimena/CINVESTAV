@@ -35,39 +35,48 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'title' => 'Mr',
+            'academic_degree' => 'Mr',
             'name' => 'Admin',
             'app' => '-',
             'apm' => 'CINVESTAV',
-            'fn' => '2000-01-01',
-            'number' => '0000000000',
+            'phone' => '0000000000',
             'email' => 'admin@cinvestav.com',
             'password' => Hash::make('admin'),
-            'role_id' => 1,
+            'country' => 'México',
+            'state' => 'México',
+            'municipality' => 'Toluca',
+            'assistance' => 'p',
+            'rol_id' => 1,
         ]);
 
         User::create([
-            'title' => 'Mr',
-            'name' => 'Evaluador',
+            'academic_degree' => 'Mr',
+            'name' => 'Juez 1',
             'app' => '-',
             'apm' => 'CINVESTAV',
-            'fn' => '2000-01-01',
-            'number' => '0000000000',
-            'email' => 'viewer@cinvestav.com',
-            'password' => Hash::make('viewer'),
-            'role_id' => 2,
+            'phone' => '0000000000',
+            'email' => 'juez1@cinvestav.com',
+            'password' => Hash::make('juez'),
+            'country' => 'México',
+            'state' => 'México',
+            'municipality' => 'Toluca',
+            'assistance' => 'p',
+            'rol_id' => 2,
         ]);
 
         User::create([
-            'title' => 'Mr',
-            'name' => 'Postulante',
+            'academic_degree' => 'Mr',
+            'name' => 'Ponente',
             'app' => '-',
             'apm' => 'CINVESTAV',
-            'fn' => '2000-01-01',
-            'number' => '0000000000',
+            'phone' => '0000000000',
             'email' => 'user@cinvestav.com',
             'password' => Hash::make('user'),
-            'role_id' => 3,
+            'country' => 'México',
+            'state' => 'México',
+            'municipality' => 'Toluca',
+            'assistance' => 'p',
+            'rol_id' => 3,
         ]);
 
     }

@@ -100,12 +100,8 @@
             navbar.className = "mdl-layout__tab is-active";
         </script>
         <div class="col-md-12 col-sm-12 my-2 text-center">
-            <a href="{{ route('project.index') }}" class="btn btn-secondary">Regresar</a>
+            <a href="{{ route('evaluacion') }}" class="btn btn-secondary">Regresar</a>
         </div>
     </div>
 </div>
-<script>
-    var navbar = document.querySelector('#proyectos');
-    navbar.className = "mdl-layout__tab is-active";
-</script>
 @endsection

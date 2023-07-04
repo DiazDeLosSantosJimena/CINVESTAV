@@ -17,11 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('sesiones/login');
 });
-Route::get('/registro', function () {
-    return view('sesiones/register');
-});
 
+Route::get('registro', function () {
+    return view('auth/register');
+})->name('registro');
 
+Route::get('registroPonente', function () {
+    return view('usuarios.registro');
+})->name('registroPonente');
 
 ////////////////////////////////////////EMAILS///////////////////////////////////////
 Route::get('recuperacion', function () {
@@ -32,8 +35,8 @@ Route::get('activacion', function () {
     return view('mail/activacion');
 });
 
-
 ////////////////////////////////////////////////////////////////////////////////////////
+
 Route::get('evaluacion', function () {
     return view('evaluacion.index');
 })->name('evaluacion');
@@ -42,13 +45,17 @@ Route::get('calificacion', function () {
     return view('evaluacion.evaluacion');
 });
 
+Route::get('proyectos.index', function () {
+    return view('proyectos.index');
+})->name('proyectos.index');
+
 Route::get('addProyect', function () {
     return view('proyectos.addProyect');
-});
+})->name('addProyect');
 
 Route::get('/', function () {
     if(auth()->check()) {
-        return redirect()->route('project.index');
+        return redirect()->route('proyectos.index');
     }
     return redirect()->route('login');
 });
@@ -65,29 +72,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UsersController::class);
     Route::put('/users/{user}/restore', [UsersController::class, 'restore'])->name('users.restore');
     Route::delete('/users/{user}/forceDelete', [UsersController::class, 'forceDelete'])->name('users.forceDelete');
-
-    Route::resource('proposals', ProposalController::class);
-    Route::put('/proposals/{proposal}/restore', [ProposalController::class, 'restore'])->name('proposals.restore');
-    Route::delete('/proposals/{proposal}/forceDelete', [ProposalController::class, 'forceDelete'])->name('proposals.forceDelete');
-    Route::get('/proposals/{proposal}/download', [ProposalController::class, 'downloadFile'])->name('proposals.download');
-    Route::put('/proposals/{proposal}/evaluate', [ProposalController::class, 'evaluate'])->name('proposals.evaluateStore');
-
-
-    Route::resource('evaluate-proposals', EvaluateProposal::class);
-    Route::put('/evaluate-proposals/{evaluateProposal}/restore', [EvaluateProposal::class, 'restore'])->name('evaluate-proposals.restore');
-    Route::delete('/evaluate-proposals/{evaluateProposal}/forceDelete', [EvaluateProposal::class, 'forceDelete'])->name('evaluate-proposals.forceDelete');
-
-    Route::resource('ramas', RamaController::class);
-    Route::put('/ramas/{rama}/restore', [RamaController::class, 'restore'])->name('ramas.restore');
-    Route::delete('/ramas/{rama}/forceDelete', [RamaController::class, 'forceDelete'])->name('ramas.forceDelete');
-
-    Route::resource('project', ProjectController::class);
-    Route::put('/project/{project}/restore', [ProjectController::class, 'restore'])->name('project.restore');
-    Route::delete('/project/{project}/forceDelete', [ProjectController::class, 'forceDelete'])->name('project.forceDelete');
-
-    Route::resource('messages', MessagesController::class);
-    Route::put('/messages/{message}/restore', [MessagesController::class, 'restore'])->name('messages.restore');
-    Route::delete('/messages/{message}/forceDelete', [MessagesController::class, 'forceDelete'])->name('messages.forceDelete');
 
     Route::get('tablas', function(){
         return view('layout.cruds.tables');
@@ -109,8 +93,6 @@ Route::name('editRama')->put('editRama/{id}', [RamaController::class, 'edit']);
 Route::name('deleteRama')->put('deleteRama/{id}',[RamaController::class, 'destroy']);
 
 require __DIR__.'/auth.php';
-on');
-});
 
 Route::get('vista', function () {
     return view('ramas.index');

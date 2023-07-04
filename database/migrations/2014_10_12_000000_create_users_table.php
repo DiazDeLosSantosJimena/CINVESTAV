@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('municipality');
             $table->string('assistance');
             $table->foreignId('rol_id')->constrained('roles');
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/////resource//////////
+Route::resource('users',UsersController::class);
+
+
 Route::get('/', function () {
     return view('sesiones/login');
 });
@@ -64,27 +68,16 @@ Route::get('/dashboard', function () {
     return redirect('/');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::put('/profile/changePicture', [ProfileController::class, 'changePicture'])->name('profile.changePicture');
-    Route::resource('users', UsersController::class);
-    Route::put('/users/{user}/restore', [UsersController::class, 'restore'])->name('users.restore');
-    Route::delete('/users/{user}/forceDelete', [UsersController::class, 'forceDelete'])->name('users.forceDelete');
+Route::get('tablas', function(){
+    return view('layout.cruds.tables');
+})->name('tablas');
 
-    Route::get('tablas', function(){
-        return view('layout.cruds.tables');
-    })->name('tablas');
+Route::get('perfil', function () {
+    return view('usuarios.perfil');
+})->name('perfil');
 
-    Route::get('perfil', function () {
-        return view('usuarios.perfil');
-    })->name('perfil');
-
-    Route::get('EditPerfil', function () {
-        return view('usuarios.EditPerfil');
-    });
-
+Route::get('EditPerfil', function () {
+    return view('usuarios.EditPerfil');
 });
 
 

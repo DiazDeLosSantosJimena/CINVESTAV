@@ -22,7 +22,7 @@
             </a>
         </div>
         <div class="col-lg-4 col-sm-12 text-center">
-            <a href="registroPonente" class="btn">
+                        <a href="registroPonente" class="btn">
                 <div class="card text-center rounded-5 border-light" style="color: #0178a0; background-color: #f2f2f2;">
                     <div class="card-body">
                         <div class="row">
@@ -64,6 +64,8 @@
                         <div class="col-12 mx-5">
                             <h4>Datos Personales</h4>
                         </div>
+                        <form action="" method="post" enctype="">
+
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre:</label> <label for="nombre" class="text-danger">*</label>

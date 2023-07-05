@@ -119,7 +119,11 @@
                     <h3>Calificación</h3>
                 </div>
                 <div class="table-responsive">
-                    <form action="">
+                    <form action="{{ route('reg') }}" method="POST">
+                        @csrf
+                        <input type="hidden" value="{{ $proyect->user->id }}" name="user">
+                        <input type="hidden" value="{{ $proyect->projects->id }}" name="project">
+                        <input type="hidden" value="{{ $proyect->projects->title }}" name="nombre">
                         <table class="table table-borderless">
                             <thead>
                                 <tr class="text-center">
@@ -407,7 +411,7 @@
 
                 </div>
                 <div class="col d-flex justify-content-end">
-                    <button type="button" class="btn btn-success">Calificar</button>
+                    <button type="submit" class="btn btn-success">Calificar</button>
                     </form>
                 </div>
             </div>

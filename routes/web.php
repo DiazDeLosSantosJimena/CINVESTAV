@@ -1,6 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Projects;
+use App\Http\Controllers\EvaluationsController;
+use App\Models\ProjectsUsers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,6 +80,9 @@ Route::middleware('auth')->group(function () {
     });
 
 });
+
+////////////////////////////////////////EVALUACION///////////////////////////
+Route::post('reg', [EvaluationsController::class, 'reg'])->name('reg');
 
 
 require __DIR__.'/auth.php';

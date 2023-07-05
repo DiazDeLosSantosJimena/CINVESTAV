@@ -14,7 +14,8 @@ class EvaluationsController extends Controller
      */
     public function index()
     {
-        return view('evaluacion.index');
+        $proyectos = ProjectsUsers::with('projects', 'user')->get();
+        return view('evaluacion.index', compact('proyectos'));
     }
 
     /**

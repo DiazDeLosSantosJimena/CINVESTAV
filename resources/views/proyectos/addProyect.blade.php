@@ -183,7 +183,34 @@
             En este apartado ingrese los autores de la ponencia.
         </div>
         <div class="col-6 text-end">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-plus-lg"></i></button>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <i class="bi bi-plus-lg"></i>
+            </button>
+        </div>
+        <div class="collapse my-3" id="collapseExample">
+            <div class="card card-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 mb-3">
+                        <label for="titulo" class="form-label">Título.</label> <label for="tituloA" class="text-danger">*</label>
+                        <input type="text" class="form-control" id="tituloA" name="tituloA" aria-describedby="titulo" value="">
+                    </div>
+                    <div class="col-sm-12 col-md-3 mb-3">
+                        <label for="titulo" class="form-label">Nombre.</label> <label for="tituloA" class="text-danger">*</label>
+                        <input type="text" class="form-control" id="tituloA" name="tituloA" aria-describedby="titulo" value="">
+                    </div>
+                    <div class="col-sm-12 col-md-3 mb-3">
+                        <label for="titulo" class="form-label">Apellido Paterno.</label> <label for="tituloA" class="text-danger">*</label>
+                        <input type="text" class="form-control" id="tituloA" name="tituloA" aria-describedby="titulo" value="">
+                    </div>
+                    <div class="col-sm-12 col-md-3 mb-3">
+                        <label for="titulo" class="form-label">Apellido Materno.</label>
+                        <input type="text" class="form-control" id="tituloA" name="tituloA" aria-describedby="titulo" value="">
+                    </div>
+                    <div class="col-sm-12 col-md-12 mt-2 text-end">
+                        <button class="btn btn-success">Registrar</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-12 mt-3">
             <table class="table">

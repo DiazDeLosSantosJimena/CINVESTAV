@@ -147,7 +147,7 @@ class ProjectsController extends Controller
     {
         $proyect = ProjectsUsers::find($id);
         $files = Files::where('project_id', $proyect->projects->id)->get();
-        return view('proyectos.addProyect');
+        return view('proyectos.edit', compact('proyect', 'files'));
     }
 
     /**

@@ -27,7 +27,7 @@
                         <th>User</th>
                         @endif
                         <th scope="col" class="text-center">Estatus</th>
-                        <th scope="col" class="text-center" colspan="3">Acciones</th>
+                        <th scope="col" class="text-center" colspan="4 ">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,6 +57,11 @@
                         <td class="text-center">
                             <a href="" class="btn btn-info text-white">
                                 <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ route('pdf')}}" class="btn btn-danger text-white">
+                            <i class="bi bi-filetype-pdf"></i>
                             </a>
                         </td>
                         <td class="text-center">

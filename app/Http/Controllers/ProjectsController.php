@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Projects;
 use Illuminate\Http\Request;
-
+use PDF;
 class ProjectsController extends Controller
 {
     /**
@@ -60,5 +61,20 @@ class ProjectsController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function pdf()
+    {
+
+
+        $Projects= Projects::all();
+
+        $pdf = PDF::loadView('Documentos.pdf',['Projects'=>$Projects]);
+        // return view ('Documentos.pdf', compact('Projects'));
+        //----------Visualizar el PDF ------------------
+       return $pdf->stream();
+       // ------Descargar el PDF------
+       //return $pdf->download('___libros.pdf');
+
+
     }
 }

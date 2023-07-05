@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ProjectsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,6 +88,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
+Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);
 
 require __DIR__.'/auth.php';
 

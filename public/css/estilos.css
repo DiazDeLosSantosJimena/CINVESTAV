@@ -1,0 +1,8 @@
+.pie-pagina {
+    width: 100%;
+    margin: auto;
+    position: absolute; /* Establece la posición absoluta para que el elemento no afecte el flujo normal del documento */
+    bottom: 0; /* Coloca el pie de página al final de la página */
+    width: 100%; /* Ancho del pie de página al 100% del ancho del viewport */
+    padding: 10px;
+}

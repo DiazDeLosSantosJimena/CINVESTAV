@@ -23,14 +23,14 @@
             </div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect" style="background-color: #2e2e2e;">
                 @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
-                <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent mdl-cell--hide-desktop" id="add" href="{{ route('addProyect') }}">
+                <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent mdl-cell--hide-desktop" id="add" href="{{ route('proyectos.create') }}">
                     <i class="material-icons" role="presentation">add</i>
                     <span class="visuallyhidden">Add</span>
                 </a>
                 <a href="{{ route('proyectos.index') }}" class="mdl-layout__tab" id="proyectos">Proyectos</a>
                 @endif
                 @if(Auth::user()->rol_id === 2 || Auth::user()->rol_id === 1)
-                <a href="{{ route('evaluacion') }}" class="mdl-layout__tab" id="evaluaciones">Evaluación</a>
+                <a href="{{ route('evaluacion.index') }}" class="mdl-layout__tab" id="evaluaciones">Evaluación</a>
                 @endif
                 <a href="{{ route('registro') }}" class="mdl-layout__tab" id="registro">Registrarse</a>
                 <a href="{{ route('perfil') }}" class="mdl-layout__tab" id="perfil">Perfíl</a>

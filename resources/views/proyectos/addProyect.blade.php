@@ -1,6 +1,5 @@
 @extends('layout.navbar')
 @section('title', 'Agregar Proyecto')
-
 <style>
     .bd-callout {
         --bs-link-color-rgb: var(--bd-callout-link);
@@ -16,21 +15,21 @@
     .bd-callout-info {
         --bd-callout-color: var(--bs-info-text-emphasis);
         --bd-callout-bg: var(--bs-info-bg-subtle);
-        --bd-callout-border: #00dfee;
+        --bd-callout-border: #0078a0;
     }
 </style>
 
 @section('content')
 <div class="container">
-    <form class="row" action="" method="post" enctype="multipart/form-data">
+    <form class="row" action="{{ route('proyectos.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('post')
         <div class="col-12 mx-5">
-            <h3>Pre-registro Proyectos</h3>
+            <h3>Registro Proyectos</h3>
         </div>
         <div class="col-12">
             <div class="mb-3">
-                <label for="titulo" class="form-label">Título de la Ponencia / Cartel.</label> <label for="nombre" class="text-danger">*</label>
+                <label for="titulo" class="form-label">Título del proyecto.</label> <label for="nombre" class="text-danger">*</label>
                 <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" aria-describedby="titulo" value="{{ old('titulo') }}">
                 @error('titulo')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -39,38 +38,71 @@
                 @enderror
             </div>
         </div>
-        <div class="col-sm-12 col-md-4">
-            <div class="bd-callout bd-callout-info">
-                <p class="mx-3">Eje tematico <strong class="text-danger">*</strong></p>
-            </div>
-        </div>
-        <div class="col-12 mdl-cell--hide-phone mdl-cell--hide-tablet">
-            <div class="mb-3 text-center">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault0" value="" checked style="display: none;">
-                    <input class="form-check-input" type="radio" name="eje" id="inlineRadio1" value="U">
-                    <label class="form-check-label" for="inlineRadio1">Nivel Universitario por área.<br>(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="eje" id="inlineRadio2" value="P">
-                    <label class="form-check-label" for="inlineRadio2">Nivel Preuniversitario.<br>(Bachillerato.)</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="eje" id="inlineRadio3" value="B">
-                    <label class="form-check-label" for="inlineRadio3">Nivel Básico<br>(Primaria o secundaria.)</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="eje" id="inlineRadio4" value="STEM">
-                    <label class="form-check-label" for="inlineRadio4">Ciencia, Tecnológia, Ingenieria y Matemáticas<br>(STEM)</label>
+        <div class="col-sm-12 col-md-12 col-lg-6 row">
+            <div class="col-sm-12 col-md-12">
+                <div class="bd-callout bd-callout-info">
+                    <p class="mx-3">Modalidad de participación. <strong class="text-danger">*</strong></p>
                 </div>
             </div>
-            @error('eje')
+            <div class="col-sm-12 col-md-12 text-center">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="modality" id="flexRadioDefault0" value="" style="display: none;">
+                    <input class="form-check-input" type="radio" name="modality" id="modality1" value="P">
+                    <label class="form-check-label" for="modality1">Ponencia.</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="modality" id="modality2" value="C">
+                    <label class="form-check-label" for="modality1">Cartel.</label>
+                </div>
+            </div>
+            @error('modality')
             <label class="form-check-label text-danger" for="flexRadioDefault1">
                 {{ $message }}
             </label>
             @enderror
         </div>
-        <div class="col-12 mdl-cell--hide-desktop">
+        <div class="col-sm-12 col-md-12 col-lg-6 row">
+            <div class="col-sm-12 col-md-12">
+                <div class="bd-callout bd-callout-info">
+                    <p class="mx-3">Eje tematico. <strong class="text-danger">*</strong></p>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 mdl-cell--hide-phone mdl-cell--hide-tablet">
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault0" value="" checked style="display: none;">
+                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault1" value="U">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault2" value="P">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Nivel Preuniversitario.(Bachillerato.)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault3" value="B">
+                        <label class="form-check-label" for="flexRadioDefault3">
+                            Nivel Básico.(Primaria o secundaria.)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault4" value="STEM">
+                        <label class="form-check-label" for="flexRadioDefault4">
+                            Ciencia, Tecnológia, Ingenieria y Matemáticas(STEM)
+                        </label>
+                    </div>
+                </div>
+                @error('eje')
+                <label class="form-check-label text-danger" for="flexRadioDefault1">
+                    {{ $message }}
+                </label>
+                @enderror
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 mdl-cell--hide-desktop">
             <div class="mb-3">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault0" value="" checked style="display: none;">
@@ -104,19 +136,19 @@
             </label>
             @enderror
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-3">
+        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="bd-callout bd-callout-info">
-                <p class="mx-3">Archivos</p>
+                <p class="mx-3">Archivos.</p>
             </div>
         </div>
         <div class="col-12 row">
             <div class="col-3 text-center mt-4">
-                <p>Archivo 1 (Resumen): <strong class="text-danger">*</strong></p>
+                <p>Archivo 1 ( <a href="#" id="resumeArchive">Resumen</a> ): <strong class="text-danger">*</strong></p>
             </div>
             <div class="col-9">
                 <div class="mb-3 mt-3">
                     <input class="form-control @error('resumen') is-invalid @enderror" type="file" id="resumen" name="resumen">
-                    <div class="form-text" id="basic-addon4">(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)</div>
+                    <div class="form-text" id="resumen-addon4">(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)</div>
                 </div>
                 @error('resumen')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -126,12 +158,12 @@
             </div>
             <hr>
             <div class="col-3 text-center mt-4">
-                <p>Archivo 2 (Extenso): <strong class="text-danger">*</strong></p>
+                <p>Archivo 2 ( <a href="#" id="archivo2">Extenso</a> ): <strong class="text-danger">*</strong></p>
             </div>
             <div class="col-9">
                 <div class="mb-3 mt-3">
                     <input class="form-control @error('extenso') is-invalid @enderror" type="file" id="extenso" name="extenso">
-                    <div class="form-text" id="basic-addon4">(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)</div>
+                    <div class="form-text" id="archivo2-addon4">(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)</div>
                 </div>
                 @error('extenso')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -143,7 +175,7 @@
         <div class="col-12 row">
             <div class="col-sm-12 col-md-3">
                 <div class="bd-callout bd-callout-info">
-                    <p class="mx-3">Autores</p>
+                    <p class="mx-3">Autores.</p>
                 </div>
             </div>
         </div>
@@ -235,6 +267,21 @@
         } else {
             btnEnviar.className = "btn btn-success disabled";
         }
+    });
+
+    var radioModality1 = document.querySelector('#modality1');
+    var radioModality2 = document.querySelector('#modality2');
+    var archive2 = document.querySelector('#archivo2');
+    var ad = document.querySelector('#archivo2-addon4');
+
+    radioModality1.addEventListener('click', () => {
+        archive2.textContent = "Extenso";
+        ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)";
+    });
+
+    radioModality2.addEventListener('click', () => {
+        archive2.textContent = "Cartel";
+        ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .jpg, pdf no mayor a 2MB)";
     });
 </script>
 

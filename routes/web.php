@@ -37,21 +37,9 @@ Route::get('activacion', function () {
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('evaluacion', function () {
-    return view('evaluacion.index');
-})->name('evaluacion');
-
 Route::get('calificacion', function () {
     return view('evaluacion.evaluacion');
 });
-
-Route::get('proyectos.index', function () {
-    return view('proyectos.index');
-})->name('proyectos.index');
-
-Route::get('addProyect', function () {
-    return view('proyectos.addProyect');
-})->name('addProyect');
 
 Route::get('/', function () {
     if(auth()->check()) {
@@ -72,6 +60,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UsersController::class);
     Route::put('/users/{user}/restore', [UsersController::class, 'restore'])->name('users.restore');
     Route::delete('/users/{user}/forceDelete', [UsersController::class, 'forceDelete'])->name('users.forceDelete');
+
+    Route::resource('proyectos', ProjectsController::class);
+    Route::resource('evaluacion', EvaluationsController::class);
 
     Route::get('tablas', function(){
         return view('layout.cruds.tables');

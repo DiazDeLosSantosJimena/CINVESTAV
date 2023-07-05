@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Files;
+use App\Models\Projects;
+use App\Models\ProjectsUsers;
 use Illuminate\Http\Request;
 
 class EvaluationsController extends Controller
@@ -11,7 +14,7 @@ class EvaluationsController extends Controller
      */
     public function index()
     {
-        //
+        return view('evaluacion.index');
     }
 
     /**
@@ -33,9 +36,13 @@ class EvaluationsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        //$proyect = ProjectsUsers::with('user','projects')->where('id', $id)->first();
+        $proyect = ProjectsUsers::find($id);
+        $files = Files::where('project_id', $proyect->projects->id)->get();
+        //  dd($files);
+        return view('evaluacion.evaluacion', compact('proyect', 'files'));
     }
 
     /**

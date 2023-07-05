@@ -34,6 +34,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'postulante',
         ]);
 
+        Roles::create([
+            'name' => 'Público General',
+        ]);
+
+        Roles::create([
+            'name' => 'Invitado Especial',
+        ]);
+
         User::create([
             'academic_degree' => 'Mr',
             'name' => 'Admin',

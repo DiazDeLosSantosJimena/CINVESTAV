@@ -298,16 +298,23 @@
 
     var radioModality1 = document.querySelector('#modality1');
     var radioModality2 = document.querySelector('#modality2');
+    var archive1 = document.querySelector("#resumeArchive");
     var archive2 = document.querySelector('#archivo2');
     var ad = document.querySelector('#archivo2-addon4');
 
     radioModality1.addEventListener('click', () => {
-        archive2.textContent = "Extenso";
+        archive1.textContent = "Formato-Resumen-ponencia-EICAL-13.docx";
+        archive2.textContent = "Formato-extenso-evaluacion-EICAL-13.docx";
+        archive1.href = "{{ Storage::url('proposals/Formato-Resumen-ponencia-EICAL-13.docx') }}";
+        archive2.href = "{{ Storage::url('proposals/Formato-extenso-evaluacion-EICAL-13.docx') }}";
         ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)";
     });
 
     radioModality2.addEventListener('click', () => {
-        archive2.textContent = "Cartel";
+        archive1.textContent = "Formato-CARTEL-EICAL-13.docx";
+        archive2.textContent = "Cartel_Formato-XIII-EICAL.pptx";
+        archive1.href = "{{ Storage::url('proposals/Formato-CARTEL-EICAL-13.docx') }}";
+        archive2.href = "{{ Storage::url('proposals/Cartel_Formato-XIII-EICAL.pptx') }}";
         ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .jpg, pdf no mayor a 2MB)";
     });
 </script>

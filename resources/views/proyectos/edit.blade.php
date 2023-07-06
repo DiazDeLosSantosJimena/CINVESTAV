@@ -21,16 +21,16 @@
 
 @section('content')
 <div class="container">
-    <form class="row" action="{{ route('proyectos.update', $proyect->id) }}" method="post" enctype="multipart/form-data">
-        @csrf
-        @method('put')
+    <form class="row" action="{{ route('proyectos.update', ['id' => $proyect->projects->id]) }}" method="post" enctype="multipart/form-data">
+        {{ csrf_field('PATCH') }}
+        {{ method_field('PUT') }}
         <div class="col-12 mx-5">
             <h3>Registro Proyectos</h3>
         </div>
         <div class="col-12">
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título del proyecto.</label> <label for="nombre" class="text-danger">*</label>
-                <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" aria-describedby="titulo" value="{{ old('titulo', $proyect->project->title) }}">
+                <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" aria-describedby="titulo" value="{{ old('title', $proyect->projects->title) }}">
                 @error('titulo')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">
                     {{ $message }}
@@ -47,11 +47,11 @@
             <div class="col-sm-12 col-md-12 text-center">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="modality" id="flexRadioDefault0" value="" style="display: none;">
-                    <input class="form-check-input" type="radio" name="modality" id="modality1" value="P">
+                    <input class="form-check-input" type="radio" name="modality" id="modality1" value="P" {{ $proyect->projects->modality == 'P' ? 'checked' : '' }}>
                     <label class="form-check-label" for="modality1">Ponencia.</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="modality" id="modality2" value="C">
+                    <input class="form-check-input" type="radio" name="modality" id="modality2" value="C" {{ $proyect->projects->modality == 'C' ? 'checked' : '' }}>
                     <label class="form-check-label" for="modality1">Cartel.</label>
                 </div>
             </div>
@@ -71,25 +71,25 @@
                 <div class="mb-3">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault0" value="" checked style="display: none;">
-                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault1" value="U">
+                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault1" value="U" {{ $proyect->projects->thematic_area == 'U' ? 'checked' : '' }}>
                         <label class="form-check-label" for="flexRadioDefault1">
                             Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault2" value="P">
+                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault2" value="P" {{ $proyect->projects->thematic_area == 'P' ? 'checked' : '' }}>
                         <label class="form-check-label" for="flexRadioDefault2">
                             Nivel Preuniversitario.(Bachillerato.)
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault3" value="B">
+                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault3" value="B" {{ $proyect->projects->thematic_area == 'B' ? 'checked' : '' }}>
                         <label class="form-check-label" for="flexRadioDefault3">
                             Nivel Básico.(Primaria o secundaria.)
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault4" value="STEM">
+                        <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault4" value="STEM" {{ $proyect->projects->thematic_area == 'STEM' ? 'checked' : '' }}>
                         <label class="form-check-label" for="flexRadioDefault4">
                             Ciencia, Tecnológia, Ingenieria y Matemáticas(STEM)
                         </label>
@@ -106,25 +106,25 @@
             <div class="mb-3">
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault0" value="" checked style="display: none;">
-                    <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault1" value="U">
+                    <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault1" value="U" {{ $proyect->projects->thematic_area == 'U' ? 'checked' : '' }}>
                     <label class="form-check-label" for="flexRadioDefault1">
                         Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault2" value="P">
+                    <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault2" value="P" {{ $proyect->projects->thematic_area == 'P' ? 'checked' : '' }}>
                     <label class="form-check-label" for="flexRadioDefault2">
                         Nivel Preuniversitario.(Bachillerato.)
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault3" value="B">
+                    <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault3" value="B" {{ $proyect->projects->thematic_area == 'B' ? 'checked' : '' }}>
                     <label class="form-check-label" for="flexRadioDefault3">
                         Nivel Básico.(Primaria o secundaria.)
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault4" value="STEM">
+                    <input class="form-check-input" type="radio" name="eje" id="flexRadioDefault4" value="STEM" {{ $proyect->projects->thematic_area == 'STEM' ? 'checked' : '' }}>
                     <label class="form-check-label" for="flexRadioDefault4">
                         Ciencia, Tecnológia, Ingenieria y Matemáticas(STEM)
                     </label>
@@ -173,6 +173,17 @@
             </div>
         </div>
         <div class="col-12 row">
+            <h5>Archivos subidos:</h5>
+            @foreach($files as $file)
+            <div class="col-auto mb-3 text-center">
+                <!-- Button Chip -->
+                <a href="{{ route('proyectos.download', $file->id) }}" type="button" class="mdl-chip" style="background-color: #0178a0; color: white;">
+                    <span class="mdl-chip__text">{{ $file->name }}</span>
+                </a>
+            </div>
+            @endforeach
+        </div>
+        <div class="col-12 row">
             <div class="col-sm-12 col-md-3">
                 <div class="bd-callout bd-callout-info">
                     <p class="mx-3">Autores.</p>
@@ -183,7 +194,34 @@
             En este apartado ingrese los autores de la ponencia.
         </div>
         <div class="col-6 text-end">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-plus-lg"></i></button>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <i class="bi bi-plus-lg"></i>
+            </button>
+        </div>
+        <div class="collapse my-3" id="collapseExample">
+            <div class="card card-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 mb-3">
+                        <label for="titulo" class="form-label">Título.</label> <label for="tituloA" class="text-danger">*</label>
+                        <input type="text" class="form-control" id="tituloA" aria-describedby="titulo" value="">
+                    </div>
+                    <div class="col-sm-12 col-md-3 mb-3">
+                        <label for="titulo" class="form-label">Nombre.</label> <label for="tituloA" class="text-danger">*</label>
+                        <input type="text" class="form-control" id="tituloA" aria-describedby="titulo" value="">
+                    </div>
+                    <div class="col-sm-12 col-md-3 mb-3">
+                        <label for="titulo" class="form-label">Apellido Paterno.</label> <label for="tituloA" class="text-danger">*</label>
+                        <input type="text" class="form-control" id="tituloA" aria-describedby="titulo" value="">
+                    </div>
+                    <div class="col-sm-12 col-md-3 mb-3">
+                        <label for="titulo" class="form-label">Apellido Materno.</label>
+                        <input type="text" class="form-control" id="tituloA" aria-describedby="titulo" value="">
+                    </div>
+                    <div class="col-sm-12 col-md-12 mt-2 text-end">
+                        <button class="btn btn-success">Registrar</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-12 mt-3">
             <table class="table">
@@ -224,7 +262,7 @@
         <div class="col-12 row">
             <div class="col-12">
                 <label for="inst_pro" class="form-label">Institución de procedencia: <strong class="text-danger">*</strong></label>
-                <input type="text" id="inst_pro" name="inst_pro" class="form-control @error('inst_pro') is-invalid @enderror" aria-labelledby="Institución" value="{{ old('inst_pro') }}">
+                <input type="text" id="inst_pro" name="inst_pro" class="form-control @error('inst_pro') is-invalid @enderror" aria-labelledby="Institución" value="{{ old('inst_pro', $proyect->projects->sending_institution) }}">
                 <div class="form-text" id="basic-addon4">Le pedimos no utilizar siglas y escribir el nombre completo de la institución o empresa de procedencia.</div>
             </div>
             @error('inst_pro')
@@ -271,18 +309,39 @@
 
     var radioModality1 = document.querySelector('#modality1');
     var radioModality2 = document.querySelector('#modality2');
+    var archive1 = document.querySelector("#resumeArchive");
     var archive2 = document.querySelector('#archivo2');
     var ad = document.querySelector('#archivo2-addon4');
 
     radioModality1.addEventListener('click', () => {
-        archive2.textContent = "Extenso";
+        archive1.textContent = "Formato-Resumen-ponencia-EICAL-13.docx";
+        archive2.textContent = "Formato-extenso-evaluacion-EICAL-13.docx";
+        archive1.href = "{{ Storage::url('proposals/Formato-Resumen-ponencia-EICAL-13.docx') }}";
+        archive2.href = "{{ Storage::url('proposals/Formato-extenso-evaluacion-EICAL-13.docx') }}";
         ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)";
     });
 
     radioModality2.addEventListener('click', () => {
-        archive2.textContent = "Cartel";
+        archive1.textContent = "Formato-CARTEL-EICAL-13.docx";
+        archive2.textContent = "Cartel_Formato-XIII-EICAL.pptx";
+        archive1.href = "{{ Storage::url('proposals/Formato-CARTEL-EICAL-13.docx') }}";
+        archive2.href = "{{ Storage::url('proposals/Cartel_Formato-XIII-EICAL.pptx') }}";
         ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .jpg, pdf no mayor a 2MB)";
     });
+
+    if (radioModality1.checked === true) {
+        archive1.textContent = "Formato-Resumen-ponencia-EICAL-13.docx";
+        archive2.textContent = "Formato-extenso-evaluacion-EICAL-13.docx";
+        archive1.href = "{{ Storage::url('proposals/Formato-Resumen-ponencia-EICAL-13.docx') }}";
+        archive2.href = "{{ Storage::url('proposals/Formato-extenso-evaluacion-EICAL-13.docx') }}";
+        ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)";
+    } else if (radioModality2.checked === true) {
+        archive1.textContent = "Formato-CARTEL-EICAL-13.docx";
+        archive2.textContent = "Cartel_Formato-XIII-EICAL.pptx";
+        archive1.href = "{{ Storage::url('proposals/Formato-CARTEL-EICAL-13.docx') }}";
+        archive2.href = "{{ Storage::url('proposals/Cartel_Formato-XIII-EICAL.pptx') }}";
+        ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .jpg, pdf no mayor a 2MB)";
+    }
 </script>
 
 

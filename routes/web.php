@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/users/{user}/forceDelete', [UsersController::class, 'forceDelete'])->name('users.forceDelete');
 
     Route::resource('proyectos', ProjectsController::class);
+    Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
+    Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
     Route::resource('evaluacion', EvaluationsController::class);
 
     Route::get('tablas', function(){

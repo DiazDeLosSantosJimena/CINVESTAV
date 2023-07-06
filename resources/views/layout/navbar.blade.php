@@ -7,7 +7,7 @@
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title') | CINESTAV</title>
+    <title>@yield('title') | CINVESTAV</title>
     @include('layout.head')
 </head>
 

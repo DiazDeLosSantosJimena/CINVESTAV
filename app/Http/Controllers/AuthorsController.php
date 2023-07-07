@@ -27,15 +27,22 @@ class AuthorsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+        // $titulo = $request->input('tituloA');
+        $titulo = $request->input('registro');
+$nombre = $request->input('nombreA');
+$app = $request->input('apellidoPaternoA');
+$apellidoMaternoA = $request->input('apellidoMaternoA');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         //
+
     }
 
     /**

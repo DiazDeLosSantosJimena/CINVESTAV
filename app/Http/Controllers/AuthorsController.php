@@ -21,6 +21,7 @@ class AuthorsController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -28,37 +29,35 @@ class AuthorsController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($datos);
+
+        ///decodificar cadena de textos true adelnate pa
+        // $datos = json_decode($registro, true);
+/////decodificar cadena de texto
         $registro = $request->input('registro');
+        $datos = json_decode($registro, true);
+if ($datos !== null) {
+    foreach ($datos as $dato) {
+        $name = $dato['titulo'];
+        $names = $dato['nombre'];
+        $app = $dato['apellidoPaterno'];
+        $apm = $dato['apellidoMaterno'];
 
-        /////intento de foreach para array
-        // foreach ($registro as $data) {
-        //     $author = new Authors();
-
-        //     $author->project_id = "1";
-        //     $author->name = $data['titulo'];
-        //     $author->app = $data['nombre'];
-        //     $author->apm = $data['apellidoPaterno'];
-        //     $author->academic_degree = $data['apellidoMaterno'];
-
-        //     // dd($author);
-        //     $author->save();
-        // }
-        $author = new Authors();
+     $author = new Authors();
 
             $author->project_id = "1";
-            $author->name = "kb";
-            $author->app = "kb";
-            $author->apm = "kb";
-            $author->academic_degree = "kb";
+            $author->name = $name;
+            $author->app = $names;
+            $author->apm = $app;
+            $author->academic_degree = $apm;
 
-            // dd($author);
             $author->save();
+        }
+
+        // dd($author);
+        // dd($author);
             return redirect()->route('proyectos.index');
-        // $titulo = $request->input('tituloA');
-        $titulo = $request->input('registro');
-$nombre = $request->input('nombreA');
-$app = $request->input('apellidoPaternoA');
-$apellidoMaternoA = $request->input('apellidoMaternoA');
+    }
 
     }
 

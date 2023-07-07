@@ -58,7 +58,7 @@
           <input type="text" class="form-control" id="apellidoMaternoA" name="apellidoMaternoA" aria-describedby="apellidoMaterno" value="">
         </div>
         <div class="col-sm-12 col-md-12 mt-2 text-end">
-            <input type="hidden" id="registroarray" name="registro">
+            <input type="hidden" id="registroarray" name="registro" >
           <button class="btn btn-success" id="registrarBtn">Aceptar</button>
           <button class="btn btn-success" type="submit">Registrar</button>
 
@@ -82,7 +82,6 @@
     <tbody id="registrosTableBody">
     </tbody>
   </table>
-
   <script>
     var registros = [];
 
@@ -90,15 +89,8 @@
       event.preventDefault();
 
       if (registros.length >= 3) {
-    // intento de boton cambio de texto y type
-//         var boton = document.getElementById("registrarBtn");
-//   boton.type = "submit";
-//   boton.textContent = 'Registrar';
-
         return;
-
       }
-
 
       var titulo = document.getElementById('tituloA').value;
       var nombre = document.getElementById('nombreA').value;
@@ -115,15 +107,9 @@
 
         registros.push(registro);
 
-  var miVariable = "Hola, mundo!";
   document.getElementById("registroarray").value = JSON.stringify(registros);
         console.log(registros);
 
-
-console.log(registros);
-
-        // perla = "hola mundo ";
-        // document.getElementById("registro").value = perla;
 
         var tableBody = document.getElementById('registrosTableBody');
 
@@ -160,7 +146,6 @@ console.log(registros);
         document.getElementById('nombreA').value = '';
         document.getElementById('apellidoPaternoA').value = '';
         document.getElementById('apellidoMaternoA').value = '';
-
       }
     });
 
@@ -189,62 +174,4 @@ console.log(registros);
       }
     });
   </script>
-
-
-
-
-<script>
-    var navbar = document.querySelector('#proyectos');
-    navbar.className = "mdl-layout__tab is-active";
-
-    var checkBox = document.querySelector("#confirm");
-    var btnEnviar = document.querySelector("#btnRegistro");
-
-    checkBox.addEventListener('click', () => {
-        if (checkBox.checked) {
-            btnEnviar.className = "btn btn-success";
-        } else {
-            btnEnviar.className = "btn btn-success disabled";
-        }
-    });
-
-    var radioModality1 = document.querySelector('#modality1');
-    var radioModality2 = document.querySelector('#modality2');
-    var archive1 = document.querySelector("#resumeArchive");
-    var archive2 = document.querySelector('#archivo2');
-    var ad = document.querySelector('#archivo2-addon4');
-
-    radioModality1.addEventListener('click', () => {
-        archive1.textContent = "Formato-Resumen-ponencia-EICAL-13.docx";
-        archive2.textContent = "Formato-extenso-evaluacion-EICAL-13.docx";
-        archive1.href = "{{ Storage::url('proposals/Formato-Resumen-ponencia-EICAL-13.docx') }}";
-        archive2.href = "{{ Storage::url('proposals/Formato-extenso-evaluacion-EICAL-13.docx') }}";
-        ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)";
-    });
-
-    radioModality2.addEventListener('click', () => {
-        archive1.textContent = "Formato-CARTEL-EICAL-13.docx";
-        archive2.textContent = "Cartel_Formato-XIII-EICAL.pptx";
-        archive1.href = "{{ Storage::url('proposals/Formato-CARTEL-EICAL-13.docx') }}";
-        archive2.href = "{{ Storage::url('proposals/Cartel_Formato-XIII-EICAL.pptx') }}";
-        ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .jpg, pdf no mayor a 2MB)";
-    });
-</script>
-
-
-<script>
-    let listaAutores = [];
-
-    const objAutor = {
-        nombre: '',
-        app: '',
-        apm: '',
-        grado: ''
-    }
-
-    let editando = false;
-
-    const formulario = document.querySelector('#formulario');
-</script>
-
-@endsection
+    @endsection

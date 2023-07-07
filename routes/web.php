@@ -64,6 +64,7 @@ Route::get('perfil', function () {
     return view('usuarios.perfil');
 })->name('perfil');
     Route::resource('proyectos', ProjectsController::class);
+    Route::resource('authors', AuthorsController::class);
     Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
     Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
     Route::resource('evaluacion', EvaluationsController::class);

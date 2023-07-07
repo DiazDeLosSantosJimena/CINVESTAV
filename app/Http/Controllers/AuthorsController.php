@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Authors;
 use Illuminate\Http\Request;
 
 class AuthorsController extends Controller
@@ -27,7 +28,32 @@ class AuthorsController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $registro = $request->input('registro');
+
+        /////intento de foreach para array
+        // foreach ($registro as $data) {
+        //     $author = new Authors();
+
+        //     $author->project_id = "1";
+        //     $author->name = $data['titulo'];
+        //     $author->app = $data['nombre'];
+        //     $author->apm = $data['apellidoPaterno'];
+        //     $author->academic_degree = $data['apellidoMaterno'];
+
+        //     // dd($author);
+        //     $author->save();
+        // }
+        $author = new Authors();
+
+            $author->project_id = "1";
+            $author->name = "kb";
+            $author->app = "kb";
+            $author->apm = "kb";
+            $author->academic_degree = "kb";
+
+            // dd($author);
+            $author->save();
+            return redirect()->route('proyectos.index');
         // $titulo = $request->input('tituloA');
         $titulo = $request->input('registro');
 $nombre = $request->input('nombreA');

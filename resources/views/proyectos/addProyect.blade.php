@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<form class="row" action="{{ route('authors.store') }}" method="post" enctype="multipart/form-data">
+<form class="row" action="{{ route('authors.store') }}" id="formulario" method="post" enctype="multipart/form-data">
     @csrf
     @method('post')
 <div class="form-text col-6">
@@ -59,7 +59,8 @@
         </div>
         <div class="col-sm-12 col-md-12 mt-2 text-end">
             <input type="hidden" id="registroarray" name="registro">
-          <button class="btn btn-success" id="registrarBtn">Registrar</button>
+          <button class="btn btn-success" id="registrarBtn">Aceptar</button>
+          <button class="btn btn-success" type="submit">Registrar</button>
 
         </div>
     </form>
@@ -89,8 +90,15 @@
       event.preventDefault();
 
       if (registros.length >= 3) {
+    // intento de boton cambio de texto y type
+//         var boton = document.getElementById("registrarBtn");
+//   boton.type = "submit";
+//   boton.textContent = 'Registrar';
+
         return;
+
       }
+
 
       var titulo = document.getElementById('tituloA').value;
       var nombre = document.getElementById('nombreA').value;

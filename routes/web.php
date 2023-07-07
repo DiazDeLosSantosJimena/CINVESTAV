@@ -41,21 +41,9 @@ Route::get('activacion', function () {
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('evaluacion', function () {
-    return view('evaluacion.index');
-})->name('evaluacion');
-
 Route::get('calificacion', function () {
     return view('evaluacion.evaluacion');
 });
-
-Route::get('proyectos.index', function () {
-    return view('proyectos.index');
-})->name('proyectos.index');
-
-Route::get('addProyect', function () {
-    return view('proyectos.addProyect');
-})->name('addProyect');
 
 Route::get('/', function () {
     if(auth()->check()) {
@@ -68,6 +56,20 @@ Route::get('/dashboard', function () {
     return redirect('/');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::put('/profile/changePicture', [ProfileController::class, 'changePicture'])->name('profile.changePicture');
+    Route::resource('users', UsersController::class);
+    Route::put('/users/{user}/restore', [UsersController::class, 'restore'])->name('users.restore');
+    Route::delete('/users/{user}/forceDelete', [UsersController::class, 'forceDelete'])->name('users.forceDelete');
+
+    Route::resource('proyectos', ProjectsController::class);
+    Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
+    Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
+    Route::resource('evaluacion', EvaluationsController::class);
+
 Route::get('tablas', function(){
     return view('layout.cruds.tables');
 })->name('tablas');
@@ -75,6 +77,10 @@ Route::get('tablas', function(){
 Route::get('perfil', function () {
     return view('usuarios.perfil');
 })->name('perfil');
+
+Route::get('EditPerfil', function () {
+    return view('usuarios.EditPerfil');
+});
 
 Route::get('EditPerfil', function () {
     return view('usuarios.EditPerfil');

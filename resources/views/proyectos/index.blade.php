@@ -21,9 +21,9 @@
                     <tr>
                         <th scope="col">#</th>
                         <th class="text-center" scope="col">Nombre del Proyecto</th>
-                        <th scope="col">Descripción</th>
-                        <th class="text-center" scope="col">Rama</th>
-                        @if(Auth::user()->role_id !== 3)
+                        <th scope="col" class="text-center">Modalidad de participación</th>
+                        <th scope="col">Eje Tematico</th>
+                        @if(Auth::user()->rol_id !== 3)
                         <th>User</th>
                         @endif
                         <th scope="col" class="text-center">Estatus</th>
@@ -31,41 +31,61 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach($proyectos as $prop) --}}
+                    @foreach($proyectos as $prop)
                     <tr class="align-middle">
-                        <td></td>
-                        <td class="text-center"></td>
-                        <td></td>
-                        <td class="text-center"></td>
-                        {{-- @if(Auth::user()->role_id !== 3) --}}
-                        <td></td>
-                        {{-- @endif --}}
+                        <td>{{ $loop->index + 1 }}</td>
+                        <td class="text-center">{{ $prop->projects->title }}</td>
                         <td class="text-center">
-                        {{--@if($prop->status === 0) --}}
+                            @if($prop->projects->modality == 'P')
+                            Ponencia
+                            @elseif( $prop->projects->modality == 'C')
+                            Cartel
+                            @else
+                            {{ $prop->projects->modality }}
+                            @endif
+                        </td>
+                        <td>
+                            @if($prop->projects->thematic_area == 'U')
+                            Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
+                            @elseif( $prop->projects->thematic_area == 'P')
+                            Nivel Preuniversitario.(Bachillerato.)
+                            @elseif( $prop->projects->thematic_area == 'B')
+                            Nivel Básico.(Primaria o secundaria.)
+                            @elseif( $prop->projects->thematic_area == 'STEM')
+                            Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                            @else
+                            {{ $prop->projects->modality }}
+                            @endif
+                        </td>
+                        @if(Auth::user()->rol_id !== 3)
+                        <td>{{ $prop->user->name .' '.$prop->user->email }}</td>
+                        @endif
+                        <td class="text-center">
+                            @if($prop->projects->status === 0)
                             <span class="badge text-white text-bg-warning">Pendiente</span>
-                            {{--@elseif($prop->status === 1)--}}
+                            @elseif($prop->projects->status === 1)
                             <span class="badge text-white text-bg-success">Success</span>
-                            {{--@else--}}
+                            @else
                             <span class="badge text-white text-bg-danger">Danger</span>
-                            {{--@endif--}}
+                            @endif
                         </td>
                         <td class="text-center">
-                            <a href="" class="btn btn-primary">
+                            <a href="{{ route('proyectos.show', $prop->id) }}" class="btn btn-primary">
                                 <i class="bi bi-info-circle-fill"></i>
                             </a>
                         </td>
                         <td class="text-center">
-                            <a href="" class="btn btn-info text-white">
+                            <a href="{{ route('proyectos.edit', $prop->id) }}" class="btn btn-info text-white">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-danger" id="show-dialog" type="button">
+                            <button class="btn btn-danger" id="show-dialog{{ $prop->id }}" type="button">
                                 <i class="bi bi-trash3-fill"></i>
                             </button>
                         </td>
                     </tr>
-                    {{-- @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>

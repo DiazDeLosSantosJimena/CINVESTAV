@@ -22,7 +22,7 @@
                 <tbody>
                     <tr class="align-middle">
                         <th class="text-center" scope="row" colspan="4">Proyectos evaluados</th>
-                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="calificacion" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>
+                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="addProyect" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
                     </tr>
                 </tbody>
             </table>
@@ -44,7 +44,7 @@
                 <tbody>
                     <tr class="align-middle">
                         <th class="text-center" scope="row" colspan="4">Proyectos por evaluar</th>
-                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="calificacion" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>
+                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
                     </tr>
                 </tbody>
             </table>

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +23,13 @@ Route::get('/', function () {
     return view('sesiones/login');
 });
 
-Route::get('registro', function () {
-    return view('auth/register');
-})->name('registro');
-
 Route::get('registroPonente', function () {
     return view('usuarios.registro');
 })->name('registroPonente');
+
+Route::get('registroGeneral', function () {
+    return view('usuarios.registroG');
+})->name('registroGeneral');
 
 ////////////////////////////////////////EMAILS///////////////////////////////////////
 Route::get('recuperacion', function () {
@@ -47,7 +48,11 @@ Route::get('calificacion', function () {
 
 Route::get('/', function () {
     if(auth()->check()) {
-        return redirect()->route('proyectos.index');
+        if(Auth::user()->rol_id == 1 || Auth::user()->rol_id == 3){
+            return redirect()->route('encuentro');
+        }else if(Auth::user()->rol_id == 2){
+            return redirect()->route('encuentro');
+        }
     }
     return redirect()->route('login');
 });
@@ -63,11 +68,13 @@ Route::get('tablas', function(){
     Route::resource('proyectos', ProjectsController::class);
     Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
     Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
+    Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsController::class, 'destroy']);
     Route::resource('evaluacion', EvaluationsController::class);
+    Route::resource('usuario', UsersController::class);
 
-    Route::get('tablas', function(){
-        return view('layout.cruds.tables');
-    })->name('tablas');
+    Route::get('encuentro', function(){
+        return view('layout.encuentro');
+    })->name('encuentro');
 
     Route::get('perfil', function () {
         return view('usuarios.perfil');

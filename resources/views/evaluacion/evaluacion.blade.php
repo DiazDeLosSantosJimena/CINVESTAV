@@ -77,20 +77,20 @@
                         @endif
                     </p>
                 </div>
-                {{--@if($proyect->authors)--}}
+                @if($proyect->authors)
                 <div class="col-md-12 col-sm-12 my-3 text-center">
                     <p><strong>~ Autores ~</strong></p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Nombre:</strong><br> </p>
+                    <p><strong>Nombre:</strong><br> {{ $proyect->authors->name }} </p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Apellido Paterno:</strong><br> </p>
+                    <p><strong>Apellido Paterno:</strong><br> {{ $proyect->authors->app }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Apellido Materno:</strong><br> </p>
+                    <p><strong>Apellido Materno:</strong><br> {{ $proyect->authors->apm }}</p>
                 </div>
-                {{-- @endif --}}
+                @endif
                 <div class="col-md-12 col-sm-12 my-3">
                     <p><strong>Institución de procedencia:</strong><br> {{ $proyect->projects->sending_institution }}</p>
                 </div>
@@ -98,13 +98,13 @@
         </div>
         <div class="col-md-12 col-sm-12 my-2">
             <div class="row">
-                <div class="col-md-12 col-sm-12 text-center">
+                <div class="col-md-12 col-sm-12 mx-5">
                     <h3>Documentos</h3>
                 </div>
                 @foreach($files as $file)
                 <div class="col-auto mb-3 text-center">
                     <!-- Button Chip -->
-                    <a href="" type="button" class="mdl-chip" style="background-color: #0178a0; color: white;">
+                    <a href="{{ route('proyectos.download', $file->id) }}" type="button" class="mdl-chip" style="background-color: #0178a0; color: white;">
                         <span class="mdl-chip__text">{{ $file->name }}</span>
                     </a>
                 </div>

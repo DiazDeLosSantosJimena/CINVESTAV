@@ -9,13 +9,15 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-        <div class="col col-sm-4 mx-5">
+        <div class="col-xs-6 col-sm-4 col-md-6 mx-5">
             <h2>Proyectos</h2>
         </div>
-        <div class="col col-sm-6 p-4 d-flex justify-content-end mdl-cell--hide-desktop">
-            <a class="btn btn-success" href="addProyect"><i class="bi bi-plus-circle-fill"></i></a>
+        @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
+        <div class="col-xs-6 col-sm-4 col-md-6 p-4 d-flex justify-content-end mdl-cell--hide-desktop text-end">
+            <a class="btn btn-info rounded-5" href="{{ route('proyectos.create') }}" style="color: white;"><i class="material-icons mt-1" role="presentation">add</i></a>
         </div>
-        <div class="col-12">
+        @endif
+        <div class="col-12 table-responsive">
             <table class="table">
                 <thead>
                     <tr>
@@ -74,16 +76,18 @@
                                 <i class="bi bi-info-circle-fill"></i>
                             </a>
                         </td>
+                        @if(Auth::user()->id === $prop->user_id)
                         <td class="text-center">
                             <a href="{{ route('proyectos.edit', $prop->id) }}" class="btn btn-info text-white">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-danger" id="show-dialog{{ $prop->id }}" type="button">
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
                                 <i class="bi bi-trash3-fill"></i>
                             </button>
                         </td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
@@ -92,7 +96,34 @@
     </div>
 </div>
 
-@include('proyectos.modal')
+
+@section('modales')
+@foreach($modales as $prop)
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{ $prop->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar registro</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                Esta a punto de eliminar el registro: <br> <strong>{{ $prop->title }}</strong> <br> ¿Desea continuar?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <form action="{{ route('proyectos.delete', $prop->id) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+@endsection
+
 
 <script>
     var navbar = document.querySelector('#proyectos');

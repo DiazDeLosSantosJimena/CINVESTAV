@@ -12,7 +12,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        return view('auth/register');
     }
 
     /**
@@ -30,7 +30,6 @@ class UsersController extends Controller
     {
 
         if ($request->input('academic_degree') != ''){
-
             $academic_degree =  $request->input('academic_degree');
         }else{
             $academic_degree = "Mr";
@@ -52,7 +51,7 @@ class UsersController extends Controller
             'state' => $request->input('state'),
             'municipality' => $request->input('municipality'),
             'assistance' => $request->input('assistance'),
-            'rol_id' => '4',
+            'rol_id' => '3',
 
         ));
 

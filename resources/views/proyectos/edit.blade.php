@@ -28,9 +28,15 @@
     <form class="row" action="{{ route('proyectos.update', ['id' => $proyect->projects->id]) }}" method="post" enctype="multipart/form-data">
         {{ csrf_field('PATCH') }}
         {{ method_field('PUT') }}
+        @if(Auth::user()->rol_id == 1)
         <div class="col-12 mx-5">
-            <h3>Registro Proyectos</h3>
+            <h3>Editar Proyectos</h3>
         </div>
+        @else
+        <div class="col-12 mx-5">
+            <h3>Editar mi Proyecto</h3>
+        </div>
+        @endif
         <div class="col-12">
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título del proyecto.</label> <label for="nombre" class="text-danger">*</label>
@@ -97,6 +103,11 @@
                     </label>
                 </div>
             </div>
+            @error('eje')
+            <label class="form-check-label text-danger" for="flexRadioDefault1">
+                {{ $message }}
+            </label>
+            @enderror
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="bd-callout bd-callout-info">
@@ -170,7 +181,7 @@
             En este apartado ingrese los autores de la ponencia.
         </div>
         <div class="col-6 text-end">
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                 <i class="bi bi-plus-lg"></i>
             </button>
         </div>
@@ -178,55 +189,42 @@
             <div class="card card-body">
                 <div class="row">
                     <div class="col-sm-12 col-md-3 mb-3">
-                        <label for="titulo" class="form-label">Título.</label> <label for="tituloA" class="text-danger">*</label>
-                        <input type="text" class="form-control" id="tituloA" aria-describedby="titulo" value="">
+                        <label for="nombre" class="form-label">Nombre.</label> <label for="nombreA" class="text-danger">*</label>
+                        <input type="text" class="form-control" id="nombreA" name="nombreA" aria-describedby="nombre" value="">
                     </div>
                     <div class="col-sm-12 col-md-3 mb-3">
-                        <label for="titulo" class="form-label">Nombre.</label> <label for="tituloA" class="text-danger">*</label>
-                        <input type="text" class="form-control" id="tituloA" aria-describedby="titulo" value="">
+                        <label for="apellidoPaterno" class="form-label">Apellido Paterno.</label> <label for="apellidoPaternoA" class="text-danger">*</label>
+                        <input type="text" class="form-control" id="apellidoPaternoA" name="apellidoPaternoA" aria-describedby="apellidoPaterno" value="">
                     </div>
                     <div class="col-sm-12 col-md-3 mb-3">
-                        <label for="titulo" class="form-label">Apellido Paterno.</label> <label for="tituloA" class="text-danger">*</label>
-                        <input type="text" class="form-control" id="tituloA" aria-describedby="titulo" value="">
+                        <label for="apellidoMaterno" class="form-label">Apellido Materno.</label>
+                        <input type="text" class="form-control" id="apellidoMaternoA" name="apellidoMaternoA" aria-describedby="apellidoMaterno" value="">
                     </div>
                     <div class="col-sm-12 col-md-3 mb-3">
-                        <label for="titulo" class="form-label">Apellido Materno.</label>
-                        <input type="text" class="form-control" id="tituloA" aria-describedby="titulo" value="">
+                        <label for="titulo" class="form-label">Grado Academico.</label> <label for="tituloA" class="text-danger">*</label>
+                        <input type="text" class="form-control" id="tituloA" name="tituloA" aria-describedby="titulo" value="">
                     </div>
                     <div class="col-sm-12 col-md-12 mt-2 text-end">
-                        <button class="btn btn-success">Registrar</button>
+                        <input type="hidden" id="idAuthor" name="idAuthor" value="0">
+                        <input type="hidden" id="registroarray" name="registroA">
+                        <button class="btn btn-success" id="registrarBtn">Registrar</button>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Tabla -->
         <div class="col-12 mt-3">
-            <table class="table">
+            <table class="table mt-4">
                 <thead>
                     <tr>
-                        <th scope="col">Título</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido Paterno</th>
-                        <th scope="col">Apellido Materno</th>
+                        <th>Nombre</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>Grado Academico</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry the Bird</td>
-                        <td colspan="2">@twitter</td>
-                    </tr>
+                <tbody class="align-middle" id="registrosTableBody">
                 </tbody>
             </table>
         </div>
@@ -264,9 +262,6 @@
         </div>
     </form>
 </div>
-
-
-
 
 <script>
     var navbar = document.querySelector('#proyectos');
@@ -320,20 +315,152 @@
     }
 </script>
 
+<script>
+    var registros = [];
+    var btnRegister = document.getElementById('registrarBtn');
+
+    @foreach($authors as $author)
+    var idA = "{{ $author->id }}";
+    var registro = {
+        id: idA,
+        titulo: "{{ $author->academic_degree }}",
+        nombre: "{{ $author->name }}",
+        apellidoPaterno: "{{ $author->app }}",
+        apellidoMaterno: "{{ $author->apm }}"
+    };
+    registros.push(registro);
+
+    document.getElementById("registroarray").value = JSON.stringify(registros);
+    console.log(registros);
+
+    var navbar = document.querySelector('#proyectos');
+    navbar.className = "mdl-layout__tab is-active";
+
+    var tableBody = document.getElementById('registrosTableBody');
+
+    var fila = document.createElement('tr');
+
+    var celdaNombre = document.createElement('td');
+    celdaNombre.textContent = registro.nombre;
+    fila.appendChild(celdaNombre);
+
+    var celdaApellidoPaterno = document.createElement('td');
+    celdaApellidoPaterno.textContent = registro.apellidoPaterno;
+    fila.appendChild(celdaApellidoPaterno);
+
+    var celdaApellidoMaterno = document.createElement('td');
+    celdaApellidoMaterno.textContent = registro.apellidoMaterno;
+    fila.appendChild(celdaApellidoMaterno);
+
+    var celdaTitulo = document.createElement('td');
+    celdaTitulo.textContent = registro.titulo;
+    fila.appendChild(celdaTitulo);
+
+    var celdaAcciones = document.createElement('td');
+    var botonEditar = document.createElement('button');
+    botonEditar.textContent = 'Editar';
+    botonEditar.classList.add('btn', 'btn-sm', 'btn-primary', 'editar-btn');
+    botonEditar.dataset.index = registros.length - 1;
+    celdaAcciones.appendChild(botonEditar);
+    fila.appendChild(celdaAcciones);
+
+    tableBody.appendChild(fila);
+    @endforeach
+</script>
+
 
 <script>
-    let listaAutores = [];
+    document.getElementById('registrarBtn').addEventListener('click', function(event) {
+        event.preventDefault();
 
-    const objAutor = {
-        nombre: '',
-        app: '',
-        apm: '',
-        grado: ''
-    }
+        var idAuth = document.getElementById('idAuthor').value;
+        var titulo = document.getElementById('tituloA').value;
+        var nombre = document.getElementById('nombreA').value;
+        var apellidoPaterno = document.getElementById('apellidoPaternoA').value;
+        var apellidoMaterno = document.getElementById('apellidoMaternoA').value;
 
-    let editando = false;
+        if (titulo !== '' && nombre !== '' && apellidoPaterno !== '') {
+            var registro = {
+                id: idAuth,
+                titulo: titulo,
+                nombre: nombre,
+                apellidoPaterno: apellidoPaterno,
+                apellidoMaterno: apellidoMaterno
+            };
 
-    const formulario = document.querySelector('#formulario');
+            registros.push(registro);
+
+            document.getElementById("registroarray").value = JSON.stringify(registros);
+            console.log(registros);
+
+            var navbar = document.querySelector('#proyectos');
+            navbar.className = "mdl-layout__tab is-active";
+
+            var tableBody = document.getElementById('registrosTableBody');
+
+            var fila = document.createElement('tr');
+
+            var celdaNombre = document.createElement('td');
+            celdaNombre.textContent = registro.nombre;
+            fila.appendChild(celdaNombre);
+
+            var celdaApellidoPaterno = document.createElement('td');
+            celdaApellidoPaterno.textContent = registro.apellidoPaterno;
+            fila.appendChild(celdaApellidoPaterno);
+
+            var celdaApellidoMaterno = document.createElement('td');
+            celdaApellidoMaterno.textContent = registro.apellidoMaterno;
+            fila.appendChild(celdaApellidoMaterno);
+
+            var celdaTitulo = document.createElement('td');
+            celdaTitulo.textContent = registro.titulo;
+            fila.appendChild(celdaTitulo);
+
+            var celdaAcciones = document.createElement('td');
+            var botonEditar = document.createElement('button');
+            botonEditar.textContent = 'Editar';
+            botonEditar.classList.add('btn', 'btn-sm', 'btn-primary', 'editar-btn');
+            botonEditar.dataset.index = registros.length - 1;
+            celdaAcciones.appendChild(botonEditar);
+            fila.appendChild(celdaAcciones);
+
+            tableBody.appendChild(fila);
+
+            document.getElementById('idAuthor').value = 0;
+            document.getElementById('tituloA').value = '';
+            document.getElementById('nombreA').value = '';
+            document.getElementById('apellidoPaternoA').value = '';
+            document.getElementById('apellidoMaternoA').value = '';
+
+            if (registros.length >= 3) {
+                btnRegister.className = "btn btn-success disabled";
+            }
+        }
+    });
+
+    document.addEventListener('click', function(event) {
+        if (event.target.matches('.editar-btn')) {
+            if (registros.length >= 3) {
+                btnRegister.className = "btn btn-success";
+            }
+
+            var index = event.target.dataset.index;
+            var registro = registros[index];
+
+            document.getElementById('idAuthor').value = registro.id;
+            document.getElementById('tituloA').value = registro.titulo;
+            document.getElementById('nombreA').value = registro.nombre;
+            document.getElementById('apellidoPaternoA').value = registro.apellidoPaterno;
+            document.getElementById('apellidoMaternoA').value = registro.apellidoMaterno;
+
+
+            registros.splice(index, 1);
+
+
+            var fila = event.target.closest('tr');
+            fila.remove();
+        }
+    });
 </script>
 
 @endsection

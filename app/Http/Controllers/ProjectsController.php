@@ -115,7 +115,26 @@ class ProjectsController extends Controller
         $proyect->save();
 
         // ============= Authors =============
+        $registro = $request->input('registroA');
+        $datos = json_decode($registro, true);
+        if ($datos !== null) {
+            foreach ($datos as $dato) {
+                $title = $dato['titulo'];
+                $names = $dato['nombre'];
+                $app = $dato['apellidoPaterno'];
+                $apm = $dato['apellidoMaterno'];
 
+                $author = new Authors();
+
+                $author->project_id = $proyect->id;
+                $author->name = $names;
+                $author->app = $app;
+                $author->apm = $apm;
+                $author->academic_degree = $title;
+
+                $author->save();
+            }
+        }
         // ===================================
 
         $archive = Files::create([
@@ -162,9 +181,9 @@ class ProjectsController extends Controller
     {
         //$proyect = ProjectsUsers::with('user','projects')->where('id', $id)->first();
         $proyect = ProjectsUsers::find($id);
+        $authors = Authors::where('project_id', $id)->get();
         $files = Files::where('project_id', $proyect->projects->id)->get();
-        //  dd($files);
-        return view('evaluacion.evaluacion', compact('proyect', 'files'));
+        return view('evaluacion.evaluacion', compact('proyect', 'files', 'authors'));
     }
 
     /**
@@ -174,7 +193,8 @@ class ProjectsController extends Controller
     {
         $proyect = ProjectsUsers::with('user', 'projects')->where('id', $id)->first();
         $files = Files::where('project_id', $proyect->projects->id)->get();
-        return view('proyectos.edit', compact('proyect', 'files'));
+        $authors = Authors::where('project_id', $id)->get();
+        return view('proyectos.edit', compact('proyect', 'files', 'authors'));
     }
 
     public function downloadFile($id): BinaryFileResponse
@@ -191,6 +211,46 @@ class ProjectsController extends Controller
     public function update(Request $request, Projects $id)
     {
 
+        // ============= Authors =============
+        $registro = $request->input('registroA');
+        $datos = json_decode($registro, true);
+        //dd($datos);
+        foreach ($datos as $dato) {
+            //dd(intval($dato['idAuthor']));
+            $idAuthor = $dato['id'];
+            $title = $dato['titulo'];
+            $names = $dato['nombre'];
+            $app = $dato['apellidoPaterno'];
+            $apm = $dato['apellidoMaterno'];
+
+            $authors = Authors::find($idAuthor);
+
+            if($authors != null){
+                $authors = Authors::find($idAuthor)->where('project_id', $id->id)->first();
+
+                $authors->academic_degree = $title;
+                $authors->name = $names;
+                $authors->app = $app;
+                $authors->apm = $apm;
+
+                $authors->save();
+
+            }else{
+                $author = new Authors();
+
+                $author->project_id = $id->id;
+                $author->name = $names;
+                $author->app = $app;
+                $author->apm = $apm;
+                $author->academic_degree = $title;
+    
+                $author->save();
+            }
+        }
+
+        dd($request->all());
+
+        // ===================================
         if ($request->file('resumen')) {
             $messages = [
                 'resumen.required' => 'Suba el archivo requerido.',
@@ -284,24 +344,24 @@ class ProjectsController extends Controller
             $files->save();
         }
 
-        // if ($request->file('pago')) {
-        //     $files = Files::where('project_id', $project->id)->where('archive', 3)->first();
-        //     //busca en el storage la ruta del archivo y lo elimina
-        //     $path=Storage::path('public/' . $files->name);
-        //     unlink($path);
-        //     $exists = Storage::disk('public')->exists($files->name);
-        //     if ($exists) {
-        //         Storage::disk('public')->delete($files->name);
-        //     }
+        if ($request->file('pago')) {
+            $files = Files::where('project_id', $project->id)->where('archive', 3)->first();
+            //busca en el storage la ruta del archivo y lo elimina
+            $path = Storage::path('public/' . $files->name);
+            unlink($path);
+            $exists = Storage::disk('public')->exists($files->name);
+            if ($exists) {
+                Storage::disk('public')->delete($files->name);
+            }
 
-        //     //guarda el nuevo archivo
-        //     $files->name = $request->file('pago');
-        //     $files->name = 'proposals/' . $project->id . '_' . date('Y-m-d') . '_' . $request->file('pago')->getClientOriginalName();
-        //     $files->type = $request->file('pago')->extension();
-        //     $request->file('pago')->storeAs('public', $files->name);
+            //guarda el nuevo archivo
+            $files->name = $request->file('pago');
+            $files->name = 'proposals/' . $project->id . '_' . date('Y-m-d') . '_' . $request->file('pago')->getClientOriginalName();
+            $files->type = $request->file('pago')->extension();
+            $request->file('pago')->storeAs('public', $files->name);
 
-        //     $files->save();
-        // }
+            $files->save();
+        }
 
         return redirect()->route('proyectos.index')->with('status', 'El registro se actualizo correctamente.');
     }
@@ -342,13 +402,10 @@ class ProjectsController extends Controller
         }
         $files->delete();
 
-        $pAuthors = Authors::where('project_id', $id)->get();
-        if(count($pAuthors) > 0){
-            $pAuthors->delete();
-        }
-        
+        $pAuthors = Authors::where('project_id', $id)->delete();
+
         $pUsers = ProjectsUsers::where('project_id', $id)->where('user_id', Auth::user()->id)->delete();
-        
+
         $query = Projects::findOrFail($id);
         $query->delete();
 

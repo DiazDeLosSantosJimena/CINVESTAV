@@ -77,19 +77,21 @@
                         @endif
                     </p>
                 </div>
-                @if($proyect->authors)
+                @if(count($authors) > 0)
                 <div class="col-md-12 col-sm-12 my-3 text-center">
                     <p><strong>~ Autores ~</strong></p>
                 </div>
+                @foreach($authors as $author)
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Nombre:</strong><br> {{ $proyect->authors->name }} </p>
+                    <p><strong>Nombre:</strong><br> {{ $author->name }} </p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Apellido Paterno:</strong><br> {{ $proyect->authors->app }}</p>
+                    <p><strong>Apellido Paterno:</strong><br> {{ $author->app }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Apellido Materno:</strong><br> {{ $proyect->authors->apm }}</p>
+                    <p><strong>Apellido Materno:</strong><br> {{ $author->apm }}</p>
                 </div>
+                @endforeach
                 @endif
                 <div class="col-md-12 col-sm-12 my-3">
                     <p><strong>Institución de procedencia:</strong><br> {{ $proyect->projects->sending_institution }}</p>
@@ -414,8 +416,13 @@
         </div>
         @endif
         <script>
+            @if(Auth::user()->rol_id == 3)
+            var navbar = document.querySelector('#proyectos');
+            navbar.className = "mdl-layout__tab is-active";
+            @else
             var navbar = document.querySelector('#evaluaciones');
             navbar.className = "mdl-layout__tab is-active";
+            @endif
         </script>
         <div class="col-md-12 col-sm-12 my-2 text-center">
             <a href="{{ route('proyectos.index') }}" class="btn btn-secondary">Regresar</a>

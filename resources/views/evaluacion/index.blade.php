@@ -19,12 +19,17 @@
                         <th scope="col" class="text-center">Acción</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="align-middle">
-                        <th class="text-center" scope="row" colspan="4">Proyectos evaluados</th>
-                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="addProyect" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
-                    </tr>
-                </tbody>
+                <tbody>     
+                    @foreach ($evaluados as $p)
+                        <tr>
+                            <td>{{$p->projects->id}}</td>
+                            <td>{{$p->projects->title}}</td>
+                            <td>{{$p->projects->status}}</td>
+                            <td>{{$p->updated_at}}</td>
+                            <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('evaluacion.edit', $p->id) }}" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
+                        </tr>
+                    @endforeach
+            </tbody>
             </table>
         </div>
         <div class="col-12 mx-5 mt-5">
@@ -50,9 +55,7 @@
                                 <td>{{$p->projects->thematic_area}}</td>
                                 <td>{{$p->user->email}}</td>
                                 <td>{{$p->projects->status}}</td>
-                                <td>
-                                    <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('proyectos.show', $p->id) }}" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
-                                </td>
+                                <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('proyectos.show', $p->id) }}" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
                             </tr>
                         @endforeach
                 </tbody>

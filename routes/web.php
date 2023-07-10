@@ -40,10 +40,6 @@ Route::get('activacion', function () {
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('calificacion', function () {
-    return view('evaluacion.evaluacion');
-});
-
 Route::get('/', function () {
     if(auth()->check()) {
         return redirect()->route('proyectos.index');
@@ -83,6 +79,8 @@ Route::middleware('auth')->group(function () {
 
 ////////////////////////////////////////EVALUACION///////////////////////////
 Route::post('reg', [EvaluationsController::class, 'reg'])->name('reg');
+Route::get('edit', [EvaluationsController::class, 'edit'])->name('edit');
+Route::post('edit2', [EvaluationsController::class, 'edit2'])->name('edit2');
 
 
 require __DIR__.'/auth.php';

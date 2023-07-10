@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 /////resource//////////
-Route::resource('users',UsersController::class);
+Route::resource('users', UsersController::class);
 
 
 Route::get('/', function () {
@@ -47,12 +49,8 @@ Route::get('calificacion', function () {
 });
 
 Route::get('/', function () {
-    if(auth()->check()) {
-        if(Auth::user()->rol_id == 1 || Auth::user()->rol_id == 3){
-            return redirect()->route('encuentro');
-        }else if(Auth::user()->rol_id == 2){
-            return redirect()->route('encuentro');
-        }
+    if (auth()->check()) {
+        return redirect()->route('encuentro');
     }
     return redirect()->route('login');
 });
@@ -61,29 +59,30 @@ Route::get('/dashboard', function () {
     return redirect('/');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('tablas', function(){
+Route::get('tablas', function () {
     return view('layout.cruds.tables');
 })->name('tablas');
 
-    Route::resource('proyectos', ProjectsController::class);
-    Route::resource('authors', AuthorsController::class);
-    Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
-    Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
-    Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsController::class, 'destroy']);
-    Route::resource('evaluacion', EvaluationsController::class);
-    Route::resource('usuario', UsersController::class);
+Route::resource('proyectos', ProjectsController::class);
+Route::resource('authors', AuthorsController::class);
+Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
+Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
+Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsController::class, 'destroy']);
+Route::resource('evaluacion', EvaluationsController::class);
+Route::resource('usuario', UsersController::class);
+Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
 
-    Route::get('encuentro', function(){
-        return view('layout.encuentro');
-    })->name('encuentro');
+Route::get('encuentro', function () {
+    return view('layout.encuentro');
+})->name('encuentro');
 
-    Route::get('perfil', function () {
-        return view('usuarios.perfil');
-    })->name('perfil');
+Route::get('perfil', function () {
+    return view('usuarios.perfil');
+})->name('perfil');
 
-    Route::get('EditPerfil', function () {
-        return view('usuarios.EditPerfil');
-    });
+Route::get('EditPerfil', function () {
+    return view('usuarios.EditPerfil');
+});
 Route::get('perfil', function () {
     return view('usuarios.perfil');
 })->name('perfil');
@@ -93,10 +92,4 @@ Route::get('EditPerfil', function () {
 });
 
 
-require __DIR__.'/auth.php';
-
-
-
-
-
-
+require __DIR__ . '/auth.php';

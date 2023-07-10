@@ -51,8 +51,7 @@ class UsersController extends Controller
             'state' => $request->input('state'),
             'municipality' => $request->input('municipality'),
             'assistance' => $request->input('assistance'),
-            'rol_id' => '3',
-
+            'rol_id' => $request->input('rol_id'),
         ));
 
 //         $usuario = User::create($request->all());

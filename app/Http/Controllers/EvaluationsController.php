@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Evaluations;
 use App\Models\Files;
 use App\Models\Projects;
 use App\Models\ProjectsUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EvaluationsController extends Controller
 {
@@ -14,8 +16,13 @@ class EvaluationsController extends Controller
      */
     public function index()
     {
-        $proyectos = ProjectsUsers::with('projects', 'user')->get();
-        return view('evaluacion.index', compact('proyectos'));
+        if (Auth::user()->email == "juez1@cinvestav.com") {
+            $proyectos = Evaluations::with('projects', 'user')->whereNot('user_id', Auth::user()->id)->get();
+            $proyectosCalif = Evaluations::with('projects', 'user')->where('user_id', Auth::user()->id)->get();
+            return view('evaluacion.index', compact('proyectos'));
+        }
+
+        return redirect()->route('encuentro');
     }
 
     /**

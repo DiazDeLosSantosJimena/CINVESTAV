@@ -302,86 +302,66 @@
         var apellidoMaterno = document.getElementById('apellidoMaternoA').value;
 
         if (titulo !== '' && nombre !== '' && apellidoPaterno !== '') {
-            var registro = {
-                titulo: titulo,
-                nombre: nombre,
-                apellidoPaterno: apellidoPaterno,
-                apellidoMaterno: apellidoMaterno
-            };
+            if (registros.length < 3) {
+                var registro = {
+                    titulo: titulo,
+                    nombre: nombre,
+                    apellidoPaterno: apellidoPaterno,
+                    apellidoMaterno: apellidoMaterno
+                };
 
-            registros.push(registro);
+                registros.push(registro);
 
-            document.getElementById("registroarray").value = JSON.stringify(registros);
-            console.log(registros);
+                document.getElementById("registroarray").value = JSON.stringify(registros);
+                console.log(registros);
 
-            var navbar = document.querySelector('#proyectos');
-            navbar.className = "mdl-layout__tab is-active";
+                var navbar = document.querySelector('#proyectos');
+                navbar.className = "mdl-layout__tab is-active";
 
-            var tableBody = document.getElementById('registrosTableBody');
+                var tableBody = document.getElementById('registrosTableBody');
 
-            var fila = document.createElement('tr');
+                var fila = document.createElement('tr');
 
-            var celdaNombre = document.createElement('td');
-            celdaNombre.textContent = registro.nombre;
-            fila.appendChild(celdaNombre);
+                var celdaNombre = document.createElement('td');
+                celdaNombre.textContent = registro.nombre;
+                fila.appendChild(celdaNombre);
 
-            var celdaApellidoPaterno = document.createElement('td');
-            celdaApellidoPaterno.textContent = registro.apellidoPaterno;
-            fila.appendChild(celdaApellidoPaterno);
+                var celdaApellidoPaterno = document.createElement('td');
+                celdaApellidoPaterno.textContent = registro.apellidoPaterno;
+                fila.appendChild(celdaApellidoPaterno);
 
-            var celdaApellidoMaterno = document.createElement('td');
-            celdaApellidoMaterno.textContent = registro.apellidoMaterno;
-            fila.appendChild(celdaApellidoMaterno);
+                var celdaApellidoMaterno = document.createElement('td');
+                celdaApellidoMaterno.textContent = registro.apellidoMaterno;
+                fila.appendChild(celdaApellidoMaterno);
 
-            var celdaTitulo = document.createElement('td');
-            celdaTitulo.textContent = registro.titulo;
-            fila.appendChild(celdaTitulo);
+                var celdaTitulo = document.createElement('td');
+                celdaTitulo.textContent = registro.titulo;
+                fila.appendChild(celdaTitulo);
 
-            var celdaAcciones = document.createElement('td');
-            var botonEditar = document.createElement('button');
-            botonEditar.textContent = 'Editar';
-            botonEditar.classList.add('btn', 'btn-sm', 'btn-primary', 'editar-btn');
-            botonEditar.dataset.index = registros.length - 1;
-            celdaAcciones.appendChild(botonEditar);
-            fila.appendChild(celdaAcciones);
+                var celdaAcciones = document.createElement('td');
+                var botonEditar = document.createElement('button');
+                botonEditar.textContent = 'Borrar';
+                botonEditar.classList.add('btn', 'btn-sm', 'btn-danger', 'borrar-btn');
+                botonEditar.dataset.index = registros.length - 1;
+                celdaAcciones.appendChild(botonEditar);
+                fila.appendChild(celdaAcciones);
 
-            tableBody.appendChild(fila);
+                botonEditar.addEventListener('click', function() {
+                    var rowIndex = this.dataset.index;
+                    registros.splice(rowIndex, 1);
+                    tableBody.removeChild(this.parentNode.parentNode);
+                    console.log(registros);
+                });
 
+                tableBody.appendChild(fila);
 
-            document.getElementById('tituloA').value = '';
-            document.getElementById('nombreA').value = '';
-            document.getElementById('apellidoPaternoA').value = '';
-            document.getElementById('apellidoMaternoA').value = '';
-
-            if (registros.length >= 3) {
-                btnRegister.className = "btn btn-success disabled";
-                return;
+                document.getElementById('tituloA').value = '';
+                document.getElementById('nombreA').value = '';
+                document.getElementById('apellidoPaternoA').value = '';
+                document.getElementById('apellidoMaternoA').value = '';
+            } else {
+                alert('No se pueden hacer más de 3 registros.');
             }
-        }
-    });
-
-
-    document.addEventListener('click', function(event) {
-        if (event.target.matches('.editar-btn')) {
-            if (registros.length >= 3) {
-                btnRegister.className = "btn btn-success";
-            }
-
-            var index = event.target.dataset.index;
-            var registro = registros[index];
-
-
-            document.getElementById('tituloA').value = registro.titulo;
-            document.getElementById('nombreA').value = registro.nombre;
-            document.getElementById('apellidoPaternoA').value = registro.apellidoPaterno;
-            document.getElementById('apellidoMaternoA').value = registro.apellidoMaterno;
-
-
-            registros.splice(index, 1);
-
-
-            var fila = event.target.closest('tr');
-            fila.remove();
         }
     });
 </script>

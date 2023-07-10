@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.9 (64 bit)
-MySQL - 10.4.28-MariaDB : Database - cinvestav3
+MySQL - 10.4.28-MariaDB : Database - cinvestav
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 10.4.28-MariaDB : Database - cinvestav3
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`cinvestav3` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`cinvestav` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
-USE `cinvestav3`;
+USE `cinvestav`;
 
 /*Table structure for table `authors` */
 
@@ -105,7 +105,7 @@ CREATE TABLE `files` (
 
 /*Data for the table `files` */
 
-insert  into `files`(`id`,`project_id`,`name`,`type`,`created_at`,`updated_at`) values 
+insert  into `files`(`id`,`project_id`,`name`,`type`,`created_at`,`updated_at`) values
 (1,1,'proposals/1_2023-07-04_Formato-Resumen-ponencia-EICAL-13.docx','docx','2023-07-04 15:13:53','2023-07-04 15:13:53'),
 (2,1,'proposals/1_2023-07-04_Formato-extenso-evaluacion-EICAL-13.docx','docx','2023-07-04 15:13:53','2023-07-04 15:13:53'),
 (3,2,'proposals/2_2023-07-04_Formato-Resumen-ponencia-EICAL-13.docx','docx','2023-07-04 15:15:48','2023-07-04 15:15:48'),
@@ -126,7 +126,7 @@ CREATE TABLE `migrations` (
 
 /*Data for the table `migrations` */
 
-insert  into `migrations`(`id`,`migration`,`batch`) values 
+insert  into `migrations`(`id`,`migration`,`batch`) values
 (1,'2014_06_07_152938_create_roles_table',1),
 (2,'2014_10_12_000000_create_users_table',1),
 (3,'2014_10_12_100000_create_password_reset_tokens_table',1),
@@ -191,7 +191,7 @@ CREATE TABLE `projects` (
 
 /*Data for the table `projects` */
 
-insert  into `projects`(`id`,`modality`,`title`,`thematic_area`,`sending_institution`,`status`,`created_at`,`updated_at`) values 
+insert  into `projects`(`id`,`modality`,`title`,`thematic_area`,`sending_institution`,`status`,`created_at`,`updated_at`) values
 (1,'P','PLANET PLANTS By DSM54','U','Universidad Tecnológica del Valle de Toluca',0,'2023-07-04 15:13:53','2023-07-04 15:13:53'),
 (2,'C','TITAN By Ocean Gate','STEM','Harvar University',0,'2023-07-04 15:15:48','2023-07-04 15:15:48'),
 (3,'C','The Travel Proyect By Spotify','STEM','Spotify',0,'2023-07-04 16:10:01','2023-07-04 16:10:01');
@@ -215,7 +215,7 @@ CREATE TABLE `projects_users` (
 
 /*Data for the table `projects_users` */
 
-insert  into `projects_users`(`id`,`project_id`,`user_id`,`created_at`,`updated_at`) values 
+insert  into `projects_users`(`id`,`project_id`,`user_id`,`created_at`,`updated_at`) values
 (1,1,1,'2023-07-04 15:13:53','2023-07-04 15:13:53'),
 (2,2,1,'2023-07-04 15:15:48','2023-07-04 15:15:48'),
 (3,3,3,'2023-07-04 16:10:01','2023-07-04 16:10:01');
@@ -234,7 +234,7 @@ CREATE TABLE `roles` (
 
 /*Data for the table `roles` */
 
-insert  into `roles`(`id`,`name`,`created_at`,`updated_at`) values 
+insert  into `roles`(`id`,`name`,`created_at`,`updated_at`) values
 (1,'admin','2023-07-04 14:41:54','2023-07-04 14:41:54'),
 (2,'evaluador','2023-07-04 14:41:54','2023-07-04 14:41:54'),
 (3,'postulante','2023-07-04 14:41:54','2023-07-04 14:41:54'),
@@ -272,7 +272,7 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`app`,`apm`,`academic_degree`,`email`,`email_verified_at`,`password`,`phone`,`country`,`state`,`municipality`,`assistance`,`rol_id`,`deleted_at`,`remember_token`,`created_at`,`updated_at`) values 
+insert  into `users`(`id`,`name`,`app`,`apm`,`academic_degree`,`email`,`email_verified_at`,`password`,`phone`,`country`,`state`,`municipality`,`assistance`,`rol_id`,`deleted_at`,`remember_token`,`created_at`,`updated_at`) values
 (1,'Admin','-','CINVESTAV','Mr','admin@cinvestav.com',NULL,'$2y$10$IdU12/k4u9uqhOlp0LxPE.ShGFOYdLnkDScxXi7jzjgNbGiRlofCK','0000000000','México','México','Toluca','p',1,NULL,NULL,'2023-07-04 14:41:54','2023-07-04 14:41:54'),
 (2,'Juez 1','-','CINVESTAV','Mr','juez1@cinvestav.com',NULL,'$2y$10$OQ43oYDaEHKg1xA.nsa.6.qtstcVEf9r8szWSuSKGhG3Kxji01Z56','0000000000','México','México','Toluca','p',2,NULL,NULL,'2023-07-04 14:41:54','2023-07-04 14:41:54'),
 (3,'Ponente','-','CINVESTAV','Mr','user@cinvestav.com',NULL,'$2y$10$1TqUCTf2c9jDPZfADNVe7eg0rWOkpDAF/aWtGxLQvtckw3y4CPUUC','0000000000','México','México','Toluca','p',3,NULL,NULL,'2023-07-04 14:41:54','2023-07-04 14:41:54');

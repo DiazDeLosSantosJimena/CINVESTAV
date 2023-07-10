@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Authors;
 use Illuminate\Http\Request;
 
 class AuthorsController extends Controller
@@ -20,6 +21,7 @@ class AuthorsController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -27,15 +29,45 @@ class AuthorsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($datos);
+
+        ///decodificar cadena de textos true adelnate pa
+        // $datos = json_decode($registro, true);
+/////decodificar cadena de texto
+        $registro = $request->input('registro');
+        $datos = json_decode($registro, true);
+if ($datos !== null) {
+    foreach ($datos as $dato) {
+        $name = $dato['titulo'];
+        $names = $dato['nombre'];
+        $app = $dato['apellidoPaterno'];
+        $apm = $dato['apellidoMaterno'];
+
+     $author = new Authors();
+
+            $author->project_id = "1";
+            $author->name = $name;
+            $author->app = $names;
+            $author->apm = $app;
+            $author->academic_degree = $apm;
+
+            $author->save();
+        }
+
+        // dd($author);
+        // dd($author);
+            return redirect()->route('proyectos.index');
+    }
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
         //
+
     }
 
     /**

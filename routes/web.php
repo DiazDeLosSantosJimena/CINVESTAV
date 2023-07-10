@@ -66,6 +66,7 @@ Route::get('tablas', function(){
 })->name('tablas');
 
     Route::resource('proyectos', ProjectsController::class);
+    Route::resource('authors', AuthorsController::class);
     Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
     Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
     Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsController::class, 'destroy']);

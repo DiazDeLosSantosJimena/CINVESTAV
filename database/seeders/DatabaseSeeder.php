@@ -59,6 +59,21 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'academic_degree' => 'Mr',
+            'name' => 'Admin2',
+            'app' => '-',
+            'apm' => 'CINVESTAV',
+            'phone' => '0000000000',
+            'email' => 'edu@cinvestav.com',
+            'password' => Hash::make('admin'),
+            'country' => 'México',
+            'state' => 'México',
+            'municipality' => 'Toluca',
+            'assistance' => 'p',
+            'rol_id' => 1,
+        ]);
+
+        User::create([
+            'academic_degree' => 'Mr',
             'name' => 'Juez 1',
             'app' => '-',
             'apm' => 'CINVESTAV',

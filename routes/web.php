@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Models\Projects;
+use App\Http\Controllers\EvaluationsController;
+use App\Models\ProjectsUsers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,10 +46,6 @@ Route::get('activacion', function () {
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////
-
-Route::get('calificacion', function () {
-    return view('evaluacion.evaluacion');
-});
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -90,6 +89,11 @@ Route::get('perfil', function () {
 Route::get('EditPerfil', function () {
     return view('usuarios.EditPerfil');
 });
+
+////////////////////////////////////////EVALUACION///////////////////////////
+Route::post('reg', [EvaluationsController::class, 'reg'])->name('reg');
+Route::get('edit', [EvaluationsController::class, 'edit'])->name('edit');
+Route::post('edit2', [EvaluationsController::class, 'edit2'])->name('edit2');
 
 
 require __DIR__ . '/auth.php';

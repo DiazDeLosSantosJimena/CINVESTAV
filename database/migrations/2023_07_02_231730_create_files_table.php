@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('project_id')->constrained('projects');
             $table->string('name');
             $table->string('type');
+            $table->integer('archive');
             $table->timestamps();
         });
     }

@@ -1,161 +1,69 @@
-@extends('layout.navbar')
-@section('title', 'Registro')
-
-@section('content')
-
-<div class="container">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/material.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/navbar.css') }}">
+<link rel="shortcut icon" href="{{asset('/img/logo_negativo.png')}}" />
+<style>
+    body {
+        background-image: url("../img/cinestav_fondo.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+<div class="container h-100 w-100 d-flex justify-content-center align-items-center">
     <div class="row">
-        <div class="col-lg-4 col-sm-12 text-center">
-            <a class="btn" data-bs-toggle="collapse" href="#formulario" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="role(4)">
-                <div class="card text-center rounded-5 border-light" style="color: #0178a0; background-color: #f2f2f2;">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <h4>Público General</h4>
-                            </div>
-                            <div class="col-12">
-                                <h1 class="display-1"><i class="bi bi-people-fill"></i></h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-4 col-sm-12 text-center">
-                        <a href="registroPonente" class="btn">
-                <div class="card text-center rounded-5 border-light" style="color: #0178a0; background-color: #f2f2f2;">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <h4>&emsp;&ensp;Ponente&ensp;&emsp;</h4>
-                            </div>
-                            <div class="col-12">
-                                <h1 class="display-1"><i class="bi bi-person-video3"></i></h1>
+        <div class="col-12 text-center row">
+            <div class="col-6">
+                <a href="registroPonente" class="btn">
+                    <div class="card text-center rounded-5 border-light shadow" style="color: #0178a0; background-color: #f2f2f2;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4>&emsp;&ensp;Ponente&ensp;&emsp;</h4>
+                                </div>
+                                <div class="col-12">
+                                    <h1 class="display-1"><i class="bi bi-person-video3"></i></h1>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-lg-4 col-sm-12 text-center">
-            <a class="btn" data-bs-toggle="collapse" href="#formulario" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="role(5)">
-                <div class="card text-center rounded-5 border-light" style="color: #0178a0; background-color: #f2f2f2;">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <h4>Invitado Especial</h4>
-                            </div>
-                            <div class="col-12">
-                                <h1 class="display-1"><i class="bi bi-person-heart"></i></h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="collapse" id="formulario">
-            <div class="col-lg-12 col-sm-12 my-5 card card-body">
-                <div class="alert alert-info" role="alert">
-                    Tenga en cuenta que los datos proporcionados en el siguiente formulario seran utilizados para la creación de la constancia de asistencia al evento y será enviada al correo que se especifique en el campo de "Correo Electrónico", favor de verificar los datos antes de enviar la información de registro.
-                </div>
-                    <div class="row">
-                        <div class="col-12 mx-5">
-                            <h4>Datos Personales</h4>
-                        </div>
-                        <form action="{{ route('users.store')}}" method="post" enctype="multipart/form-data">
-@csrf
-
-                        <div class="col-4">
-                            <div class="mb-3">
-                                <label for="nombre" class="form-label">Nombre:</label> <label for="nombre" class="text-danger">*</label>
-                                <input type="text" class="form-control" id="nombre" name="name" placeholder="Ingrese su nombre">
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="mb-3">
-                                <label for="app" class="form-label">Apellido Paterno:</label> <label for="app" class="text-danger">*</label>
-                                <input type="text" class="form-control" id="app" name="app" placeholder="Ingrese su Apellido Paterno">
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="mb-3">
-                                <label for="apm" class="form-label">Apellido Materno:</label>
-                                <input type="text" class="form-control" id="app" name="apm" placeholder="Ingrese su Apellido Materno">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Correo Electrónico:</label> <label for="email" class="text-danger">*</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="nombre@ejemplo.com">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="mb-3">
-                                <label for="tel" class="form-label">Teléfono:</label> <label for="tel" class="text-danger">*</label>
-                                <input type="text" class="form-control" id="tel" name="phone" placeholder="Ingrese su numero de teléfono">
-                            </div>
-                        </div>
-                        <div class="col-12 mx-5">
-                            <h4>Dirección</h4>
-                        </div>
-                        <div class="col-4">
-                            <div class="mb-3">
-                                <label for="tel" class="form-label">Pais/Country:</label> <label for="tel" class="text-danger">*</label>
-                                <input type="text" class="form-control"  id="tel" name="country" placeholder="Ingrese su numero de teléfono">
-                            </div>
-                            </div>
-
-                        <div class="col-4">
-
-                        </div>
-
-                        <div class="col-4">
-                            <div class="mb-3">
-                                <label for="tel" class="form-label">Estado/State:</label> <label for="tel" class="text-danger">*</label>
-                                <input type="text" class="form-control"  id="tel" name="state" placeholder="Ingrese su numero de teléfono">
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="mb-3">
-                                <label for="tel" class="form-label">Municipio/municipality:</label> <label for="tel" class="text-danger">*</label>
-                                <input type="text" class="form-control"  id="tel" name="municipality" placeholder="Ingrese su numero de teléfono">
-                            </div>
-                        </div>
-                        <input type="hidden" value="4" name="role_id" id="role_id">
-                        <div class="col-12 d-flex justify-content-center align-content-center my-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="p" name="assistance" id="confirm">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    He revisado los datos proporcionados y certifico que la información capturadas sean correctas y responsabilidad de quien la captura.
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-12 text-center mt-3">
-                            <button type="submit" class="btn btn-success disabled" id="btnRegistro">Enviar</button>
-                        </form>
-                        </div>
-                    </div>
+                </a>
             </div>
+            <div class="col-6">
+                <a class="btn" href="registroGeneral" role="button">
+                    <div class="card text-center rounded-5 border-light shadow" style="color: #0178a0; background-color: #f2f2f2;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4>Público General</h4>
+                                </div>
+                                <div class="col-12">
+                                    <h1 class="display-1"><i class="bi bi-people-fill"></i></h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-12 text-center mt-5">
+            <a href="{{ route('login') }}" type="button" class="btn btn-info" style="color: white;">Regresar</a>
         </div>
     </div>
 </div>
 
 <script>
-
-
-    var navbar = document.querySelector('#registro');
-    navbar.className = "mdl-layout__tab is-active";
-
     var checkBox = document.querySelector("#confirm");
     var btnEnviar = document.querySelector("#btnRegistro");
 
-    checkBox.addEventListener('click', ()=>{
-        if(checkBox.checked){
+    checkBox.addEventListener('click', () => {
+        if (checkBox.checked) {
             btnEnviar.className = "btn btn-success";
-        }else{
+        } else {
             btnEnviar.className = "btn btn-success disabled";
         }
     });
 </script>
-@endsection

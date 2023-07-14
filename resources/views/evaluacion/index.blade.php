@@ -13,16 +13,18 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nombre del Proyecto</th>
-                        <th scope="col">Estatus</th>
-                        <th scope="col">Fecha de la evaluación</th>
-                        <th scope="col" class="text-center">Acción</th>
+                        <th class="text-center" scope="col">Nombre del Proyecto</th>
+                        <th scope="col" class="text-center">Modalidad de participación</th>
+                        <th scope="col">Eje Tematico</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col" class="text-center">Estatus</th>
+                        <th scope="col" class="text-center" colspan="3">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="align-middle">
-                        <th class="text-center" scope="row" colspan="4">Proyectos evaluados</th>
-                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="addProyect" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
+                        <th class="text-center" scope="row" colspan="6">Proyectos por evaluar</th>
+                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
                     </tr>
                 </tbody>
             </table>
@@ -35,15 +37,17 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nombre del Proyecto</th>
-                        <th scope="col">Estatus</th>
-                        <th scope="col">Fecha de la evaluación</th>
-                        <th scope="col" class="text-center">Acción</th>
+                        <th class="text-center" scope="col">Nombre del Proyecto</th>
+                        <th scope="col" class="text-center">Modalidad de participación</th>
+                        <th scope="col">Eje Tematico</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col" class="text-center">Estatus</th>
+                        <th scope="col" class="text-center" colspan="3">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="align-middle">
-                        <th class="text-center" scope="row" colspan="4">Proyectos por evaluar</th>
+                        <th class="text-center" scope="row" colspan="6">Proyectos por evaluar</th>
                         <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
                     </tr>
                 </tbody>

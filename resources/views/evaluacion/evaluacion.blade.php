@@ -77,20 +77,22 @@
                         @endif
                     </p>
                 </div>
-                {{--@if($proyect->authors)--}}
+                @if(count($authors) > 0)
                 <div class="col-md-12 col-sm-12 my-3 text-center">
                     <p><strong>~ Autores ~</strong></p>
                 </div>
+                @foreach($authors as $author)
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Nombre:</strong><br> </p>
+                    <p><strong>Nombre:</strong><br> {{ $author->name }} </p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Apellido Paterno:</strong><br> </p>
+                    <p><strong>Apellido Paterno:</strong><br> {{ $author->app }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Apellido Materno:</strong><br> </p>
+                    <p><strong>Apellido Materno:</strong><br> {{ $author->apm }}</p>
                 </div>
-                {{-- @endif --}}
+                @endforeach
+                @endif
                 <div class="col-md-12 col-sm-12 my-3">
                     <p><strong>Institución de procedencia:</strong><br> {{ $proyect->projects->sending_institution }}</p>
                 </div>
@@ -98,13 +100,13 @@
         </div>
         <div class="col-md-12 col-sm-12 my-2">
             <div class="row">
-                <div class="col-md-12 col-sm-12 text-center">
+                <div class="col-md-12 col-sm-12 mx-5">
                     <h3>Documentos</h3>
                 </div>
                 @foreach($files as $file)
                 <div class="col-auto mb-3 text-center">
                     <!-- Button Chip -->
-                    <a href="" type="button" class="mdl-chip" style="background-color: #0178a0; color: white;">
+                    <a href="{{ route('proyectos.download', $file->id) }}" type="button" class="mdl-chip" style="background-color: #0178a0; color: white;">
                         <span class="mdl-chip__text">{{ $file->name }}</span>
                     </a>
                 </div>
@@ -414,8 +416,13 @@
         </div>
         @endif
         <script>
+            @if(Auth::user()->rol_id == 3)
+            var navbar = document.querySelector('#proyectos');
+            navbar.className = "mdl-layout__tab is-active";
+            @else
             var navbar = document.querySelector('#evaluaciones');
             navbar.className = "mdl-layout__tab is-active";
+            @endif
         </script>
         <div class="col-md-12 col-sm-12 my-2 text-center">
             <a href="{{ route('proyectos.index') }}" class="btn btn-secondary">Regresar</a>

@@ -22,6 +22,7 @@
             <div class="mdl-layout--large-screen-only mdl-layout__header-row">
             </div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect" style="background-color: #2e2e2e;">
+                <a href="{{ route('encuentro') }}" class="mdl-layout__tab" id="encuentro">Encuentro</a>
                 @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
                 <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent mdl-cell--hide-desktop" id="add" href="{{ route('proyectos.create') }}">
                     <i class="material-icons" role="presentation">add</i>
@@ -32,12 +33,11 @@
                 @if(Auth::user()->rol_id === 2 || Auth::user()->rol_id === 1)
                 <a href="{{ route('evaluacion.index') }}" class="mdl-layout__tab" id="evaluaciones">Evaluación</a>
                 @endif
-                <a href="{{ route('registro') }}" class="mdl-layout__tab" id="registro">Registrarse</a>
                 <a href="{{ route('perfil') }}" class="mdl-layout__tab" id="perfil">Perfíl</a>
                 <form action="{{route('logout')}}" method="POST">
-                @csrf
-                @method('POST')
-                <button type="submit" class="mdl-layout__tab" id="logout" style="background-color: transparent; border: none;">Salir</button>
+                    @csrf
+                    @method('POST')
+                    <button type="submit" class="mdl-layout__tab" id="logout" style="background-color: transparent; border: none;">Salir</button>
                 </form>
             </div>
         </header>
@@ -48,23 +48,26 @@
             <footer class="mdl-mega-footer mt-5">
                 <div class="container my-5">
                     <div class="row">
-                        <div class="col-4" style="text-align: end;">
-                            <img src="{{ asset('img/logo_estado.png') }}" class="img-fluid" alt="Encuentro" width="160px">
-                        </div>
-                        <div class="col-4 text-center">
+                        <div class="col-sm-12 col-md-12 my-3 text-center">
                             <img src="{{ asset('img/logo_negativo.png') }}" class="img-fluid" alt="Encuentro" width="150px">
                         </div>
-                        <div class="col-4">
-                            <img src="{{ asset('img/logotipoutvt.png') }}" class="img-fluid" alt="UTVT" width="250px">
+                        <hr>
+                        <div class="col-sm-12 col-md-4 mt-3 text-center">
+                            <img src="{{ asset('img/logo_estado.png') }}" class="img-fluid" alt="Encuentro" width="160px">
                         </div>
-                    </div>
-                    <div class="col-12 text-center my-5">
-                        Preguntas/Comentarios: correo@gmail.com
+                        <div class="col-sm-12 col-md-4 mt-3 text-center">
+                            <img src="{{ asset('img/LogoCinvestavBlancoLargo.png') }}" class="img-fluid" alt="UTVT" width="160px">
+                        </div>
+                        <div class="col-sm-12 col-md-4 mt-3 text-center">
+                            <img src="{{ asset('img/logotipoutvtBlanco.png') }}" class="img-fluid" alt="UTVT" width="250px">
+                        </div>
                     </div>
                 </div>
             </footer>
         </main>
     </div>
 </body>
+
+@yield('modales')
 
 </html>

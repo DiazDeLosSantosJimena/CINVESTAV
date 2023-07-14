@@ -5,7 +5,9 @@
 <link rel="stylesheet" href="{{ asset('css/material.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/navbar.css') }}">
 <link rel="shortcut icon" href="{{asset('/img/logo_negativo.png')}}" />
+<link rel="shortcut icon" href="{{asset('/img/logo_negativo.png')}}" />
 <style>
+    
     body {
         background-image: url("../img/cinestav_fondo.jpg");
         background-repeat: no-repeat;
@@ -16,7 +18,7 @@
 <div class="container d-flex justify-content-center align-items-center card">
     <form action="{{ route('registrar')}}" method="post" class="row card-body">
         @csrf
-        <h3 class="my-2">Registro Postulante</h3>
+        <h3 class="my-2">Registro Público General</h3>
         <div class="alert alert-info" role="alert">
             Tenga en cuenta que los datos proporcionados en el siguiente formulario seran utilizados para la creación de la constancia de asistencia al evento, así como el registro de la ponencia u otros elementos, toda información será enviada al correo que se especifique en el campo de "Correo Electrónico", favor de verificar los datos antes de enviar la información de registro.
         </div>

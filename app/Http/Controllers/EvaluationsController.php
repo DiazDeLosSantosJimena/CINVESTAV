@@ -46,6 +46,7 @@ class EvaluationsController extends Controller
     {
         //$proyect = ProjectsUsers::with('user','projects')->where('id', $id)->first();
         $proyect = ProjectsUsers::find($id);
+        $evaluacion = Evaluations::find($id);
 
         $id = Evaluations::join('projects_users', 'evaluations.project_id', '=', 'projects_users.project_id')
         ->where('projects_users.project_id', $proyect->id)
@@ -53,7 +54,7 @@ class EvaluationsController extends Controller
         ->first();
         $files = Files::where('project_id', $proyect->projects->id)->get();
         //  dd($files);
-        return view('evaluacion.evaluacion', compact('proyect', 'files', 'id'));
+        return view('evaluacion.edit', compact('proyect', 'files', 'id', 'evaluacion'));
     }
 
     public function reg(Request $request){
@@ -124,9 +125,7 @@ class EvaluationsController extends Controller
 
         $comentario = $request->input('comentario');
 
-        DB::Evaluations('tabla')->where('id', $id)->update([
-        'user_id' => $user,
-        'project_id' => $project,
+        DB::table('evaluations')->where('id', $id)->update([
         'title' => $c1,
         'extension' => $c2,
         'key_words' => $c3,
@@ -141,7 +140,6 @@ class EvaluationsController extends Controller
         'format' => $c12,
         'status' => $criterio,
         'comment' => $comentario,
-            // Actualiza otros campos según sea necesario
         ]);
 
         return redirect()->route('evaluacion.index');

@@ -122,9 +122,9 @@
                     <form action="{{ route('edit2') }}" method="POST">
                         @csrf
                         @method('put')
-                        <input type="hidden" value="{{ $proyect->user->id }}" name="user">
                         <input type="hidden" value="{{ $proyect->projects->id }}" name="project">
                         <input type="hidden" value="{{ $proyect->projects->title }}" name="nombre">
+                        <input type="hidden" value="{{ $proyect->user->id }}" name="user">
                         <input type="hidden" value="{{ $id }}" name="id">
                         <table class="table table-borderless">
                             <thead>

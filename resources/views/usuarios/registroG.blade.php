@@ -20,7 +20,7 @@
         @csrf
         <h3 class="my-2">Registro Público General</h3>
         <div class="alert alert-info" role="alert">
-            Tenga en cuenta que los datos proporcionados en el siguiente formulario seran utilizados para la creación de la constancia de asistencia al evento, así como el registro de la ponencia u otros elementos, toda información será enviada al correo que se especifique en el campo de "Correo Electrónico", favor de verificar los datos antes de enviar la información de registro.
+            Tenga en cuenta que los datos proporcionados en el siguiente formulario seran utilizados para la creación de la constancia u otros elementos de asistencia al evento, toda información será enviada al correo que se especifique en el campo de "Correo Electrónico", favor de verificar los datos antes de enviar la información de registro.
         </div>
         <div class="col-12 mx-5">
             <h4>~ Datos Personales ~</h4>

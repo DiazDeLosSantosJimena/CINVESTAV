@@ -132,5 +132,20 @@ class DatabaseSeeder extends Seeder
             'rol_id' => 3,
         ]);
 
+        User::create([
+            'academic_degree' => 'Mr',
+            'name' => 'Publico General',
+            'app' => '-',
+            'apm' => 'CINVESTAV',
+            'phone' => '0000000000',
+            'email' => 'publico@cinvestav.com',
+            'password' => Hash::make('publico'),
+            'country' => 'México',
+            'state' => 'México',
+            'municipality' => 'Toluca',
+            'assistance' => 'p',
+            'rol_id' => 4,
+        ]);
+
     }
 }

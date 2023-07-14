@@ -61,7 +61,7 @@ class ProjectsController extends Controller
         ];
         if ($request->modality === 'P') {
             $request->validate([
-                'titulo' => ['required', 'string', 'min:10', 'max:255'],
+                'titulo' => ['required', 'string', 'max:255'],
                 'eje' => ['required', 'string'],
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
@@ -85,7 +85,7 @@ class ProjectsController extends Controller
                 'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
             ];
             $request->validate([
-                'titulo' => ['required', 'string', 'min:10', 'max:255'],
+                'titulo' => ['required', 'string', 'max:255'],
                 'eje' => ['required', 'string'],
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
@@ -95,7 +95,7 @@ class ProjectsController extends Controller
             ], $messages);
         } else {
             $request->validate([
-                'titulo' => ['required', 'string', 'min:10', 'max:255'],
+                'titulo' => ['required', 'string', 'max:255'],
                 'eje' => ['required', 'string'],
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file'],

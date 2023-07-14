@@ -100,13 +100,13 @@
         </div>
         <div class="col-md-12 col-sm-12 my-2">
             <div class="row">
-                <div class="col-md-12 col-sm-12 mx-5">
+                <div class="col-md-12 col-sm-12 text-center">
                     <h3>Documentos</h3>
                 </div>
                 @foreach($files as $file)
                 <div class="col-auto mb-3 text-center">
                     <!-- Button Chip -->
-                    <a href="{{ route('proyectos.download', $file->id) }}" type="button" class="mdl-chip" style="background-color: #0178a0; color: white;">
+                    <a href="" type="button" class="mdl-chip" style="background-color: #0178a0; color: white;">
                         <span class="mdl-chip__text">{{ $file->name }}</span>
                     </a>
                 </div>
@@ -121,7 +121,7 @@
                     <h3>Calificación</h3>
                 </div>
                 <div class="table-responsive">
-                    <form action="{{ route('reg') }}" method="POST">
+                    <form action="{{ route('evaluacion.store') }}" method="POST">
                         @csrf
                         <input type="hidden" value="{{ $proyect->user->id }}" name="user">
                         <input type="hidden" value="{{ $proyect->projects->id }}" name="project">
@@ -420,13 +420,8 @@
         </div>
         @endif
         <script>
-            @if(Auth::user()->rol_id == 3)
-            var navbar = document.querySelector('#proyectos');
-            navbar.className = "mdl-layout__tab is-active";
-            @else
             var navbar = document.querySelector('#evaluaciones');
             navbar.className = "mdl-layout__tab is-active";
-            @endif
         </script>
         <div class="col-md-12 col-sm-12 my-2 text-center">
             <a href="{{ route('proyectos.index') }}" class="btn btn-secondary">Regresar</a>

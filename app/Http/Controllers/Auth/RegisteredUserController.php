@@ -32,7 +32,6 @@ class RegisteredUserController extends Controller
     {
         $messages = [
             'name.required' => 'Se requiere del nombre.',
-            'apm.required' => 'Se requiere del apellido paterno.',
             'app.required' => 'Se requiere del apellido paterno.',
             'country.required' => 'Se requiere colocar el país de procedencia.',
             'state.required' => 'Se requiere colocar el estado de procedencia.',
@@ -45,7 +44,6 @@ class RegisteredUserController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'apm' => ['required', 'string', 'max:255'],
             'app' => ['required', 'string', 'max:255'],
             'country' => ['required', 'string', 'max:255'],
             'state' => ['required', 'string', 'max:255'],

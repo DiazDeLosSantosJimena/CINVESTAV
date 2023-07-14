@@ -24,9 +24,9 @@
                         <th scope="col">#</th>
                         <th class="text-center" scope="col">Nombre del Proyecto</th>
                         <th scope="col" class="text-center">Modalidad de participación</th>
-                        <th scope="col">Eje Tematico</th>
+                        <th scope="col" class="text-center">Eje Tematico</th>
                         @if(Auth::user()->rol_id !== 3)
-                        <th>User</th>
+                        <th class="text-center">User</th>
                         @endif
                         <th scope="col" class="text-center">Estatus</th>
                         <th scope="col" class="text-center" colspan="3">Acciones</th>
@@ -47,20 +47,22 @@
                             @endif
                         </td>
                         <td>
-                            @if($prop->projects->thematic_area == 'U')
-                            Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
-                            @elseif( $prop->projects->thematic_area == 'P')
-                            Nivel Preuniversitario.(Bachillerato.)
-                            @elseif( $prop->projects->thematic_area == 'B')
-                            Nivel Básico.(Primaria o secundaria.)
-                            @elseif( $prop->projects->thematic_area == 'STEM')
-                            Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
-                            @else
-                            {{ $prop->projects->modality }}
-                            @endif
+                            <small>
+                                @if($prop->projects->thematic_area == 'U')
+                                Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
+                                @elseif( $prop->projects->thematic_area == 'P')
+                                Nivel Preuniversitario.(Bachillerato.)
+                                @elseif( $prop->projects->thematic_area == 'B')
+                                Nivel Básico.(Primaria o secundaria.)
+                                @elseif( $prop->projects->thematic_area == 'STEM')
+                                Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                                @else
+                                {{ $prop->projects->modality }}
+                                @endif
+                            </small>
                         </td>
                         @if(Auth::user()->rol_id !== 3)
-                        <td>{{ $prop->user->name .' '.$prop->user->email }}</td>
+                        <td class="text-center">{{ $prop->user->name .' '.$prop->user->email }}</td>
                         @endif
                         <td class="text-center">
                             @if($prop->projects->status === 0)

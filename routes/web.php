@@ -70,6 +70,8 @@ Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsContro
 Route::resource('evaluacion', EvaluationsController::class);
 Route::resource('usuario', UsersController::class);
 Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
+Route::resource('taller',WorkshopsController::class);
+Route::resource('attendance',WorkshopattendanceController::class);
 
 Route::get('encuentro', function () {
     return view('layout.encuentro');
@@ -93,7 +95,7 @@ Route::get('EditPerfil', function () {
 ////////////////////////////////////////EVALUACION///////////////////////////
 Route::post('reg', [EvaluationsController::class, 'reg'])->name('reg');
 Route::get('edit', [EvaluationsController::class, 'edit'])->name('edit');
-Route::post('edit2', [EvaluationsController::class, 'edit2'])->name('edit2');
+Route::put('edit2', [EvaluationsController::class, 'update'])->name('edit2');
 
 
 require __DIR__ . '/auth.php';

@@ -1,6 +1,12 @@
 @extends('layout.navbar')
 @section('content')
 <div class="container">
+    @if(session('status'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Excelente!</strong> {{ session('status') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
     <div class="row">
         <div class="col-12 mx-5">
             <h3>Evaluaciones</h4>
@@ -21,17 +27,41 @@
                         <th scope="col" class="text-center" colspan="3">Acciones</th>
                     </tr>
                 </thead>
-                <tbody>     
-                    @foreach ($evaluados as $p)
-                        <tr>
-                            <td>{{$p->projects->id}}</td>
-                            <td>{{$p->projects->title}}</td>
-                            <td>{{$p->projects->status}}</td>
-                            <td>{{$p->updated_at}}</td>
-                            <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('evaluacion.edit', $p->id) }}" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
-                        </tr>
+                <tbody class="align-middle">
+                    @foreach($evaluados as $p)
+                    <tr>
+                        <td>{{$p->projects->id}}</td>
+                        <td>{{$p->projects->title}}</td>
+                        <td class="text-center">
+                            @if($p->projects->modality == 'P')
+                            Ponencia
+                            @elseif($p->projects->modality == 'C')
+                            Cartel
+                            @else
+                            {{ $p->projects->modality }}
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            <small>
+                                @if($p->projects->thematic_area == 'U')
+                                Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
+                                @elseif( $p->projects->thematic_area == 'P')
+                                Nivel Preuniversitario.(Bachillerato.)
+                                @elseif( $p->projects->thematic_area == 'B')
+                                Nivel Básico.(Primaria o secundaria.)
+                                @elseif( $p->projects->thematic_area == 'STEM')
+                                Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                                @else
+                                {{ $p->projects->modality }}
+                                @endif
+                            </small>
+                        </td>
+                        <td>{{$p->user->email}}</td>
+                        <td class="text-center"><span class="badge text-white text-bg-success">Calificado</span></td>
+                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('evaluacion.edit', $p->id) }}" style="background-color: #0178a0;">Volver a calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
+                    </tr>
                     @endforeach
-            </tbody>
+                </tbody>
             </table>
         </div>
         <div class="col-12 mx-5 mt-5">
@@ -41,25 +71,47 @@
             <table class="table">
                 <thead>
                     <th scope="col">#</th>
-                        <th class="text-center" scope="col">Nombre del Proyecto</th>
-                        <th scope="col" class="text-center">Modalidad de participación</th>
-                        <th scope="col">Eje Tematico</th>
-                        <th>User</th>
-                        <th scope="col" class="text-center">Estatus</th>
-                        <th scope="col" class="text-center" colspan="3">Acciones</th>
+                    <th class="text-center" scope="col">Nombre del Proyecto</th>
+                    <th scope="col" class="text-center">Modalidad de participación</th>
+                    <th scope="col" class="text-center">Eje Tematico</th>
+                    <th>Usuario</th>
+                    <th scope="col" class="text-center">Estatus</th>
+                    <th scope="col" class="text-center" colspan="3">Acciones</th>
                 </thead>
-                <tbody>     
-                        @foreach ($proyectos as $p)
-                            <tr>
-                                <td>{{$p->projects->id}}</td>
-                                <td>{{$p->projects->title}}</td>
-                                <td>{{$p->projects->modality}}</td>
-                                <td>{{$p->projects->thematic_area}}</td>
-                                <td>{{$p->user->email}}</td>
-                                <td>{{$p->projects->status}}</td>
-                                <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('proyectos.show', $p->id) }}" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
-                            </tr>
-                        @endforeach
+                <tbody class="align-middle">
+                    @foreach ($proyectos as $p)
+                    <tr>
+                        <td>{{$p->projects->id}}</td>
+                        <td>{{$p->projects->title}}</td>
+                        <td class="text-center">
+                            @if($p->projects->modality == 'P')
+                            Ponencia
+                            @elseif($p->projects->modality == 'C')
+                            Cartel
+                            @else
+                            {{ $p->projects->modality }}
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            <small>
+                                @if($p->projects->thematic_area == 'U')
+                                Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
+                                @elseif( $p->projects->thematic_area == 'P')
+                                Nivel Preuniversitario.(Bachillerato.)
+                                @elseif( $p->projects->thematic_area == 'B')
+                                Nivel Básico.(Primaria o secundaria.)
+                                @elseif( $p->projects->thematic_area == 'STEM')
+                                Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                                @else
+                                {{ $p->projects->modality }}
+                                @endif
+                            </small>
+                        </td>
+                        <td>{{$p->user->email}}</td>
+                        <td class="text-center"><span class="badge text-white text-bg-danger">Sin Calificar</span></td>
+                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('evaluacion.show', $p->id) }}" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

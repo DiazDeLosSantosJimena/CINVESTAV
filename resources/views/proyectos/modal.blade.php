@@ -1,31 +1,22 @@
-{{-- @foreach($proposals as $prop) --}}
-<dialog class="mdl-dialog" id="dialog">
-    <h4 class="mdl-dialog__title">Eliminar</h4>
-    <form action="" id="deleteForm" method="POST">
-        @csrf
-        @method('delete')
-        <div class="mdl-dialog__content">
-            <p>
-                Está a punto de eliminar el proyecto: <br>  <br><br> Desea continuar??
-            </p>
+@foreach($modales as $prop)
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{ $prop->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar registro</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                Esta a punto de eliminar el registro: <br> <strong>{{ $prop->title }}</strong> <br> ¿Desea continuar?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <form action="{{ route('proyectos.destroy', $prop->id) }}" method="post">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
         </div>
-        <div class="mdl-dialog__actions">
-            <button type="submit" class="btn btn-danger">Continuar</button>
-            <button type="button" class="btn btn-secondary close">Cancelar</button>
-        </div>
-    </form>
-</dialog>
-<script>
-    var dialog = document.querySelector('#dialog');
-    var showDialogButton = document.querySelector('#show-dialog');
-    if (!dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
-    }
-    showDialogButton.addEventListener('click', function() {
-        dialog.showModal();
-    });
-    dialog.querySelector('.close').addEventListener('click', function() {
-        dialog.close();
-    });
-</script>
-{{-- @endforeach --}}
+    </div>
+</div>
+@endforeach

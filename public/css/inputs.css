@@ -1,0 +1,37 @@
+.indicador{
+    border-radius: 0;
+    border-left: solid 5px;
+    border-left-color: #0178a0;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    padding-left: 5px;
+}
+
+.criterios{
+    border-radius: 0;
+    border-left: solid 5px;
+    border-left-color: #0a9ecf;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    padding-left: 5px;
+}
+
+.criterios2{
+    border-radius: 0;
+    border-left: solid 5px;
+    border-color: #616b6e;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    padding-left: 15px;
+}
+
+.calif{
+    border-radius: 0;
+    border-left: solid 5px;
+    border-left-color: #0178a0;
+    padding: 5px;
+    padding-left: 15px;
+}

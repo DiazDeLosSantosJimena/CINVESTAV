@@ -4,7 +4,9 @@
 <style>
         .image-right {
             float: right;
+            margin-right: 10px; 
         }
+
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,9 +16,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="css/navbar.css">
-    <img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('/img/encabezado.png'))) }}" height="40px">
-    <img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('/img/logos.png'))) }}" height="40px" class="image-right">
+    <div class="container">
+        <br>
+    <img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('/img/gobierno.png'))) }}" height="40px">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('/img/eical.png'))) }}" height="40px" class="image-center">
+    <img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('/img/utvt.png'))) }}" height="40px" class="image-right">
+    <img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('/img/EdoMex.png'))) }}" height="30px" class="image-right">
 
+
+    </div>
 
 </head>
 <body>
@@ -61,8 +70,9 @@
 </center>
 
 <footer class="pie-pagina">
-<div>
-    <img src="img/pie_pagina.png" alt="Logos de los participantes" width="700">
+<div class="container">
+    <img src="img/derecha.png" alt="Logos de los participantes" width="300">
+    <img src="data:image/png;base64,{{base64_encode(file_get_contents(public_path('/img/izquierda.png'))) }}" height="85px">
 </div>
 </footer>
 

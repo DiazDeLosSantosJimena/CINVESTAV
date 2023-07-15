@@ -88,7 +88,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);
+    Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);
 
 require __DIR__.'/auth.php';
 

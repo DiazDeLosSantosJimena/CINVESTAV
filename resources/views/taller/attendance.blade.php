@@ -1,11 +1,11 @@
 @extends('layout.navbar')
-@section('title','Talleres')
+@section('title','Actividades')
 @section('content')
 
 <div class="container">
     <div class="row">
         <div class="col-12 mx-5">
-            <h3>Talleres</h4>
+            <h3>Actividades</h4>
         </div>
         <div class="col-12 table-responsive">
             <table class="table">
@@ -35,7 +35,7 @@
                     </tr>
                     @endforeach
 
-                    <div class="text-end my-2">
+                    <div class="text-end mb-5">
                         <button type="submit" class="btn btn-primary disabled m-3" value="save" id="guardarTaller">Guadar</button>
                     </div>
                     </form>

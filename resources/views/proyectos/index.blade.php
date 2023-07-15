@@ -29,7 +29,7 @@
                         <th class="text-center">User</th>
                         @endif
                         <th scope="col" class="text-center">Estatus</th>
-                        <th scope="col" class="text-center" colspan="3">Acciones</th>
+                        <th scope="col" class="text-center" colspan="4" id="acciones">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +46,7 @@
                             {{ $prop->projects->modality }}
                             @endif
                         </td>
-                        <td>
+                        <td class="text-center">
                             <small>
                                 @if($prop->projects->thematic_area == 'U')
                                 Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
@@ -88,6 +88,14 @@
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
                                 <i class="bi bi-trash3-fill"></i>
                             </button>
+                        </td>
+                        <td id="pago{{ $prop->projects->id }}">
+                            <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning">Pago <i class="bi bi-card-heading"></i></a>
+                        </td>
+                        @endif
+                        @if(Auth::user()->rol_id == 1)
+                        <td class="text-center" id="pago{{ $prop->projects->id }}">
+                            <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-check-square-fill text-white"></i></a>
                         </td>
                         @endif
                     </tr>
@@ -132,6 +140,18 @@
     navbar.className = "mdl-layout__tab is-active";
     var add = document.querySelector('#add');
     add.className = "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent";
+
+    @foreach($proyectos2 as $prop)
+    var btnPago = document.querySelector('#pago{{ $prop->id }}');
+    var accion = document.querySelector('#acciones');
+
+    @if($prop->archive == 3)
+        btnPago.style.display = "none";
+        accion.colspan = "3";
+    @endif
+
+    @endforeach
+
 </script>
 
 @endsection

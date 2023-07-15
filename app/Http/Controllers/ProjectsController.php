@@ -23,12 +23,25 @@ class ProjectsController extends Controller
         if (Auth::user()->rol_id !== 3) {
             $proyectos = ProjectsUsers::with('projects', 'user')->get();
             $modales = Projects::get();
-            //dd($proyectos);
-            return view('proyectos.index', compact('proyectos', 'modales'));
+            $proyectos2 = Projects::select('files.archive', 'projects.id')
+                ->join('files', 'files.project_id', 'projects.id')
+                ->join('projects_users', 'projects_users.project_id', 'projects.id')
+                ->join('users', 'users.id', 'projects_users.user_id')
+                ->where('projects_users.user_id', Auth::user()->id)
+                ->get();
+            return view('proyectos.index', compact('proyectos', 'modales', 'proyectos2'));
         }
         $proyectos = ProjectsUsers::where('user_id', Auth::user()->id)->with('projects')->get();
+
+        $proyectos2 = Projects::select('files.archive', 'projects.id')
+            ->join('files', 'files.project_id', 'projects.id')
+            ->join('projects_users', 'projects_users.project_id', 'projects.id')
+            ->join('users', 'users.id', 'projects_users.user_id')
+            ->where('projects_users.user_id', Auth::user()->id)
+            ->get();
+
         $modales = Projects::get();
-        return view('proyectos.index', compact('proyectos', 'modales'));
+        return view('proyectos.index', compact('proyectos', 'modales', 'proyectos2'));
     }
 
     /**
@@ -37,6 +50,34 @@ class ProjectsController extends Controller
     public function create()
     {
         return view('proyectos.addProyect');
+    }
+ 
+    public function pagoView($id) {
+        $project = Projects::find($id);
+        return view('proyectos.pago', compact('project'));
+    }
+
+    public function pagoCreate(Request $request, $id) {
+
+        $messages = [
+            'pago.required' => 'Suba el archivo requerido.',
+            'pago.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
+        ];
+        $request->validate([
+            'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
+        ], $messages);
+
+        $archive3 = Files::create([
+            'project_id' => $id,
+            'name' => 'proposals/' . $id . '_' . date('Y-m-d') . '_' . $request->file('pago')->getClientOriginalName(),
+            'type' => $request->file('pago')->extension(),
+            'archive' => 3,
+        ]);
+        $request->file('pago')->storeAs('public', $archive3->name);
+        $archive3->save();
+        
+
+        return redirect()->route('proyectos.index')->with('status', 'Formato de Pago subido con exito!');
     }
 
     /**
@@ -54,8 +95,6 @@ class ProjectsController extends Controller
             'extenso.required' => 'Suba el archivo requerido.',
             'extenso.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
             'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
-            'pago.required' => 'Suba el archivo requerido.',
-            'pago.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
             'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
             'inst_pro.required' => 'Ingrese el instituto de procedencia.',
         ];
@@ -66,7 +105,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:docx', 'max:1024'],
-                'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
+                //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
                 'inst_pro' => ['required', 'string', 'max:255'],
             ], $messages);
         } else if ($request->modality === 'C') {
@@ -80,8 +119,8 @@ class ProjectsController extends Controller
                 'extenso.required' => 'Suba el archivo requerido.',
                 'inst_pro.required' => 'Ingrese el instituto de procedencia.',
                 'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato (.jpg) indicado.',
-                'pago.required' => 'Suba el archivo requerido.',
-                'pago.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
+                // 'pago.required' => 'Suba el archivo requerido.',
+                // 'pago.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
                 'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
             ];
             $request->validate([
@@ -90,7 +129,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:jpg', 'max:2048'],
-                'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
+                //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
                 'inst_pro' => ['required', 'string', 'max:255'],
             ], $messages);
         } else {
@@ -100,7 +139,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file'],
                 'extenso' => ['required', 'file'],
-                'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
+                //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
                 'inst_pro' => ['required', 'string', 'max:255'],
             ], $messages);
         }
@@ -153,15 +192,6 @@ class ProjectsController extends Controller
             'archive' => 2,
         ]);
         $request->file('extenso')->storeAs('public', $archive2->name);
-        $archive2->save();
-
-        $archive3 = Files::create([
-            'project_id' => $proyect->id,
-            'name' => 'proposals/' . $proyect->id . '_' . date('Y-m-d') . '_' . $request->file('pago')->getClientOriginalName(),
-            'type' => $request->file('extenso')->extension(),
-            'archive' => 3,
-        ]);
-        $request->file('pago')->storeAs('public', $archive3->name);
         $archive2->save();
 
         $proyectUser = ProjectsUsers::create([
@@ -225,7 +255,7 @@ class ProjectsController extends Controller
 
             $authors = Authors::find($idAuthor);
 
-            if($authors != null){
+            if ($authors != null) {
                 $authors = Authors::find($idAuthor)->where('project_id', $id->id)->first();
 
                 $authors->academic_degree = $title;
@@ -234,8 +264,7 @@ class ProjectsController extends Controller
                 $authors->apm = $apm;
 
                 $authors->save();
-
-            }else{
+            } else {
                 $author = new Authors();
 
                 $author->project_id = $id->id;
@@ -243,7 +272,7 @@ class ProjectsController extends Controller
                 $author->app = $app;
                 $author->apm = $apm;
                 $author->academic_degree = $title;
-    
+
                 $author->save();
             }
         }

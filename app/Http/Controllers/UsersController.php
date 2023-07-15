@@ -15,6 +15,10 @@ class UsersController extends Controller
         return view('auth/register');
     }
 
+    public function indexView() {
+        return view('layout.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -28,39 +32,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-
-        if ($request->input('academic_degree') != ''){
-            $academic_degree =  $request->input('academic_degree');
-        }else{
-            $academic_degree = "Mr";
-        }
-        if ($request->input('password') != ''){
-            $password =  $request->input('password');
-        }else{
-            $password = "123456";
-        }
-        User::create(array(
-            'name' => $request->input('name'),
-            'app' => $request->input('app'),
-            'apm' => $request->input('apm'),
-            'email' => $request->input('email'),
-            'password' => $password,
-            'phone' => $request->input('phone'),
-            'academic_degree' =>  $academic_degree,
-            'country' => $request->input('country'),
-            'state' => $request->input('state'),
-            'municipality' => $request->input('municipality'),
-            'assistance' => $request->input('assistance'),
-            'rol_id' => $request->input('rol_id'),
-        ));
-
-//         $usuario = User::create($request->all());
-// dd($request->all());
-
-        return view('usuarios.perfil');
-
-
-
+        //
     }
 
     /**

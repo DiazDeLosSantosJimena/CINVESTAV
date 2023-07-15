@@ -22,7 +22,7 @@
             <div class="mdl-layout--large-screen-only mdl-layout__header-row">
             </div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect" style="background-color: #2e2e2e;">
-                <a href="{{ route('encuentro') }}" class="mdl-layout__tab" id="encuentro">Acerca De</a>
+                <a href="{{ route('inicio') }}" class="mdl-layout__tab" id="inicio">Inicio</a>
                 @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
                 <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent mdl-cell--hide-desktop" id="add" href="{{ route('proyectos.create') }}">
                     <i class="material-icons" role="presentation">add</i>
@@ -30,16 +30,17 @@
                 </a>
                 <a href="{{ route('proyectos.index') }}" class="mdl-layout__tab" id="proyectos">Proyectos</a>
                 @endif
-                @if(Auth::user()->rol_id === 1)
-                <a href="{{ route('taller.index') }}" class="mdl-layout__tab" id="taller">Taller</a>
-                @endif
-                @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 4 || Auth::user()->rol_id === 1)
-                <a href="{{ route('attendance.index') }}" class="mdl-layout__tab" id="attendance">Talleres</a>
-                @endif
                 @if(Auth::user()->rol_id === 2 || Auth::user()->rol_id === 1)
                 <a href="{{ route('evaluacion.index') }}" class="mdl-layout__tab" id="evaluaciones">Evaluación</a>
                 @endif
+                @if(Auth::user()->rol_id === 1)
+                <a href="{{ route('taller.index') }}" class="mdl-layout__tab" id="taller">Talleres</a>
+                @endif
+                @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 4 || Auth::user()->rol_id === 1)
+                <a href="{{ route('attendance.index') }}" class="mdl-layout__tab" id="attendance">Actividades</a>
+                @endif
                 <a href="{{ route('perfil') }}" class="mdl-layout__tab" id="perfil">Perfíl</a>
+                <a href="{{ route('encuentro') }}" class="mdl-layout__tab" id="encuentro">Acerca De</a>
                 <form action="{{route('logout')}}" method="POST">
                     @csrf
                     @method('POST')

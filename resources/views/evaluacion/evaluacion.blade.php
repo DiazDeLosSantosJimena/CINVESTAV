@@ -106,7 +106,7 @@
                 @foreach($files as $file)
                 <div class="col-auto mb-3 text-center">
                     <!-- Button Chip -->
-                    <a href="" type="button" class="mdl-chip" style="background-color: #0178a0; color: white;">
+                    <a href="{{ route('proyectos.download', $file->id) }}" type="button" class="mdl-chip" style="background-color: #0178a0; color: white;">
                         <span class="mdl-chip__text">{{ $file->name }}</span>
                     </a>
                 </div>

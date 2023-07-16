@@ -143,7 +143,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="c1">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c1', $i) == $evaluacion->title ? 'selected' : '' }}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>

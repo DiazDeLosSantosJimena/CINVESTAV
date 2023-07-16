@@ -29,7 +29,11 @@
                         <th class="text-center">User</th>
                         @endif
                         <th scope="col" class="text-center">Estatus</th>
+<<<<<<< HEAD
+                        <th scope="col" class="text-center" colspan="4 ">Acciones</th>
+=======
                         <th scope="col" class="text-center" colspan="4" id="acciones">Acciones</th>
+>>>>>>> ebba7e5cd21259431e905bb537c3b983432eddc5
                     </tr>
                 </thead>
                 <tbody>
@@ -85,7 +89,16 @@
                             </a>
                         </td>
                         <td class="text-center">
+<<<<<<< HEAD
+                            <a href="{{ route('pdf')}}" class="btn btn-danger text-white">
+                            <i class="bi bi-filetype-pdf"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-danger" id="show-dialog" type="button">
+=======
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
+>>>>>>> ebba7e5cd21259431e905bb537c3b983432eddc5
                                 <i class="bi bi-trash3-fill"></i>
                             </button>
                         </td>

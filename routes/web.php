@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+// <<<<<<< HEAD
+use App\Http\Controllers\ProjectsController;
+// =======
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Models\Projects;
 use App\Http\Controllers\EvaluationsController;
 use App\Models\ProjectsUsers;
+// >>>>>>> ebba7e5cd21259431e905bb537c3b983432eddc5
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -80,9 +84,11 @@ Route::middleware('auth')->group(function () {
         return view('layout.encuentro');
     })->name('encuentro');
 
-    Route::get('usuarios', function () {
-        return view('usuarios.index');
-    })->name('usuarios');
+    //----------------------------------JUEZ-------------------------------
+    Route::name('usuarios')->get('usuarios',  [UsersController::class, 'usuarios']);
+    Route::name('agregarjuez')->post('agregarjuez',[UsersController::class, 'agregarjuez']);
+    Route::name('salvarjuez')->put('salvarjuez/{id}',[UsersController::class, 'salvarjuez']);
+
 
     Route::get('perfil', function () {
         return view('usuarios.perfil');
@@ -93,5 +99,6 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+    Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);
 
 require __DIR__ . '/auth.php';

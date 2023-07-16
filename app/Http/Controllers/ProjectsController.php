@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\Projects;
+use Illuminate\Http\Request;
+use PDF;
 use App\Models\Authors;
 use App\Models\Files;
-use App\Models\Projects;
 use App\Models\ProjectsUsers;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Return_;
@@ -153,7 +155,6 @@ class ProjectsController extends Controller
         ]);
         $proyect->save();
 
-        // ============= Authors =============
         $registro = $request->input('registroA');
         $datos = json_decode($registro, true);
         if ($datos !== null) {
@@ -174,7 +175,6 @@ class ProjectsController extends Controller
                 $author->save();
             }
         }
-        // ===================================
 
         $archive = Files::create([
             'project_id' => $proyect->id,
@@ -439,5 +439,20 @@ class ProjectsController extends Controller
         $query->delete();
 
         return redirect()->route('proyectos.index')->with('status', 'El registro se ha eliminado correctamente.');
+    }
+    public function pdf()
+    {
+
+
+        $Projects= Projects::all();
+
+        $pdf = PDF::loadView('Documentos.pdf',['Projects'=>$Projects]);
+        // return view ('Documentos.pdf', compact('Projects'));
+        //----------Visualizar el PDF ------------------
+       return $pdf->stream();
+       // ------Descargar el PDF------
+       //return $pdf->download('___libros.pdf');
+
+
     }
 }

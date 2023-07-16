@@ -99,10 +99,3 @@ Route::put('edit2', [EvaluationsController::class, 'edit2'])->name('edit2');
 
 
 require __DIR__.'/auth.php';
-
-
-
-
-
-
-require __DIR__ . '/auth.php';

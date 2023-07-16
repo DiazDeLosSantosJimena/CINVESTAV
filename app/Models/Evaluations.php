@@ -28,10 +28,10 @@ class Evaluations extends Model
     ];
 
     public function Projects() {
-        return $this->belongsTo(Projects::class,'project_id', 'id');
+        return $this->belongsTo(Projects::class,'project_id');
     }
 
     public function User() {
-        return $this->hasOne(User::class,'user_id', 'id');
+        return $this->belongsTo(User::class,'user_id');
     }
 }

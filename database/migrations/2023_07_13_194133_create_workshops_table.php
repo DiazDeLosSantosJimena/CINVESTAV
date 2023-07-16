@@ -8,28 +8,26 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('workshops', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('project_id')->constrained('projects');
             $table->string('name');
-            $table->string('type');
-            $table->integer('archive');
+            $table->string('activity');
+            $table->date('date');
+            $table->time('hour');
+            $table->string('site');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('workshops');
     }
 };

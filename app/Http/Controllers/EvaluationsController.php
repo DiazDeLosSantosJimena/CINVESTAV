@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Authors;
+use App\Models\Evaluations;
 use App\Models\Files;
 use App\Models\Projects;
-use App\Models\Evaluations;
 use App\Models\ProjectsUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,15 +39,15 @@ class EvaluationsController extends Controller
         //$proyect = ProjectsUsers::with('user','projects')->where('id', $id)->first();
         $proyect = ProjectsUsers::find($id);
         $files = Files::where('project_id', $proyect->projects->id)->get();
+        $authors = Authors::where('project_id', $proyect->projects->id)->get();
         //  dd($files);
-        return view('evaluacion.evaluacion', compact('proyect', 'files'));
+        return view('evaluacion.evaluacion', compact('proyect', 'files', 'authors'));
     }
 
     public function edit($id)
     {
         //$proyect = ProjectsUsers::with('user','projects')->where('id', $id)->first();
         $proyect = ProjectsUsers::find($id);
-        $evaluacion = Evaluations::find($id);
 
         $id = Evaluations::join('projects_users', 'evaluations.project_id', '=', 'projects_users.project_id')
         ->where('projects_users.project_id', $proyect->id)
@@ -54,10 +55,11 @@ class EvaluationsController extends Controller
         ->first();
         $files = Files::where('project_id', $proyect->projects->id)->get();
         //  dd($files);
-        return view('evaluacion.edit', compact('proyect', 'files', 'id', 'evaluacion'));
+        return view('evaluacion.evaluacion', compact('proyect', 'files', 'id'));
     }
 
-    public function reg(Request $request){
+    public function store(Request $request)
+    {
         $user = Auth::user()->id;
         $project = $request->input('project');
         $nombre = $request->input('nombre');
@@ -125,7 +127,9 @@ class EvaluationsController extends Controller
 
         $comentario = $request->input('comentario');
 
-        DB::table('evaluations')->where('id', $id)->update([
+        DB::Evaluations('tabla')->where('id', $id)->update([
+        'user_id' => $user,
+        'project_id' => $project,
         'title' => $c1,
         'extension' => $c2,
         'key_words' => $c3,
@@ -140,9 +144,9 @@ class EvaluationsController extends Controller
         'format' => $c12,
         'status' => $criterio,
         'comment' => $comentario,
+            // Actualiza otros campos según sea necesario
         ]);
 
         return redirect()->route('evaluacion.index');
     }
-
 }

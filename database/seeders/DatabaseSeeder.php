@@ -89,6 +89,36 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'academic_degree' => 'Mr',
+            'name' => 'Juez 2',
+            'app' => '-',
+            'apm' => 'CINVESTAV',
+            'phone' => '0000000000',
+            'email' => 'juez2@cinvestav.com',
+            'password' => Hash::make('juez'),
+            'country' => 'México',
+            'state' => 'México',
+            'municipality' => 'Toluca',
+            'assistance' => 'p',
+            'rol_id' => 2,
+        ]);
+
+        User::create([
+            'academic_degree' => 'Mr',
+            'name' => 'Juez 3',
+            'app' => '-',
+            'apm' => 'CINVESTAV',
+            'phone' => '0000000000',
+            'email' => 'juez3@cinvestav.com',
+            'password' => Hash::make('juez'),
+            'country' => 'México',
+            'state' => 'México',
+            'municipality' => 'Toluca',
+            'assistance' => 'p',
+            'rol_id' => 2,
+        ]);
+
+        User::create([
+            'academic_degree' => 'Mr',
             'name' => 'Ponente',
             'app' => '-',
             'apm' => 'CINVESTAV',
@@ -100,6 +130,21 @@ class DatabaseSeeder extends Seeder
             'municipality' => 'Toluca',
             'assistance' => 'p',
             'rol_id' => 3,
+        ]);
+
+        User::create([
+            'academic_degree' => 'Mr',
+            'name' => 'Publico General',
+            'app' => '-',
+            'apm' => 'CINVESTAV',
+            'phone' => '0000000000',
+            'email' => 'publico@cinvestav.com',
+            'password' => Hash::make('publico'),
+            'country' => 'México',
+            'state' => 'México',
+            'municipality' => 'Toluca',
+            'assistance' => 'p',
+            'rol_id' => 4,
         ]);
 
     }

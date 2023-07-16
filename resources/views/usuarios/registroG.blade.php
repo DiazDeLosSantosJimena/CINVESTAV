@@ -5,7 +5,9 @@
 <link rel="stylesheet" href="{{ asset('css/material.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/navbar.css') }}">
 <link rel="shortcut icon" href="{{asset('/img/logo_negativo.png')}}" />
+<link rel="shortcut icon" href="{{asset('/img/logo_negativo.png')}}" />
 <style>
+    
     body {
         background-image: url("../img/cinestav_fondo.jpg");
         background-repeat: no-repeat;
@@ -16,9 +18,9 @@
 <div class="container d-flex justify-content-center align-items-center card">
     <form action="{{ route('registrar')}}" method="post" class="row card-body">
         @csrf
-        <h3 class="my-2">Registro Postulante</h3>
+        <h3 class="my-2">Registro Público General</h3>
         <div class="alert alert-info" role="alert">
-            Tenga en cuenta que los datos proporcionados en el siguiente formulario seran utilizados para la creación de la constancia u otros elementos de asistencia al evento, de igual forma, los datos proporcionados seran subrayados como el <strong>ponente</strong>. Al correo que se especifique en el campo de "Correo Electrónico" sera el <strong>autor de contacto</strong>, favor de verificar los datos antes de enviar la información de registro.
+            Tenga en cuenta que los datos proporcionados en el siguiente formulario seran utilizados para la creación de la constancia u otros elementos de asistencia al evento, toda información será enviada al correo que se especifique en el campo de "Correo Electrónico", favor de verificar los datos antes de enviar la información de registro.
         </div>
         <div class="col-12 mx-5">
             <h4>~ Datos Personales ~</h4>
@@ -38,7 +40,7 @@
         <div class="col-4">
             <div class="mb-3">
                 <label for="app" class="form-label">Apellido Paterno:</label> <label for="app" class="text-danger">*</label>
-                <input type="text" class="form-control" name="app" id="app" placeholder="Ingrese su Apellido Paterno" value="{{ old('app') }}">
+                <input type="text" class="form-control" name="apm" id="app" placeholder="Ingrese su Apellido Paterno" value="{{ old('app') }}">
             </div>
             @error('app')
             <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -50,7 +52,7 @@
         <div class="col-4">
             <div class="mb-3">
                 <label for="apm" class="form-label">Apellido Materno:</label>
-                <input type="text" class="form-control" name="apm" id="apm" placeholder="Ingrese su Apellido Materno" value="{{ old('apm') }}">
+                <input type="text" class="form-control" name="app" id="app" placeholder="Ingrese su Apellido Materno" value="{{ old('apm') }}">
             </div>
             @error('apm')
             <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -151,7 +153,7 @@
                     @enderror
                 </div>
             </div>
-            <input type="hidden" value="3" name="role_id" id="role_id">
+            <input type="hidden" value="4" name="role_id" id="role_id">
             <div class="col-12 d-flex justify-content-center align-content-center my-3">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="p" name="assistance" id="confirm">

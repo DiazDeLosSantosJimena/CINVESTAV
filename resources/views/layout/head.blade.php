@@ -33,7 +33,7 @@
         }
     </style>
 
-<!-- SCRIPT -->
+    <!-- SCRIPT -->
 
     <script src="{{ asset('js/material.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>

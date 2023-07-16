@@ -9,25 +9,27 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-        <div class="col col-sm-4 mx-5">
+        <div class="col-xs-6 col-sm-4 col-md-6 mx-5">
             <h2>Proyectos</h2>
         </div>
-        <div class="col col-sm-6 p-4 d-flex justify-content-end mdl-cell--hide-desktop">
-            <a class="btn btn-success" href="addProyect"><i class="bi bi-plus-circle-fill"></i></a>
+        @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
+        <div class="col-xs-6 col-sm-4 col-md-6 p-4 d-flex justify-content-end mdl-cell--hide-desktop text-end">
+            <a class="btn btn-info rounded-5" href="{{ route('proyectos.create') }}" style="color: white;"><i class="material-icons mt-1" role="presentation">add</i></a>
         </div>
-        <div class="col-12">
+        @endif
+        <div class="col-12 table-responsive">
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th class="text-center" scope="col">Nombre del Proyecto</th>
                         <th scope="col" class="text-center">Modalidad de participación</th>
-                        <th scope="col">Eje Tematico</th>
+                        <th scope="col" class="text-center">Eje Tematico</th>
                         @if(Auth::user()->rol_id !== 3)
-                        <th>User</th>
+                        <th class="text-center">User</th>
                         @endif
                         <th scope="col" class="text-center">Estatus</th>
-                        <th scope="col" class="text-center" colspan="3">Acciones</th>
+                        <th scope="col" class="text-center" colspan="4" id="acciones">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,21 +46,23 @@
                             {{ $prop->projects->modality }}
                             @endif
                         </td>
-                        <td>
-                            @if($prop->projects->thematic_area == 'U')
-                            Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
-                            @elseif( $prop->projects->thematic_area == 'P')
-                            Nivel Preuniversitario.(Bachillerato.)
-                            @elseif( $prop->projects->thematic_area == 'B')
-                            Nivel Básico.(Primaria o secundaria.)
-                            @elseif( $prop->projects->thematic_area == 'STEM')
-                            Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
-                            @else
-                            {{ $prop->projects->modality }}
-                            @endif
+                        <td class="text-center">
+                            <small>
+                                @if($prop->projects->thematic_area == 'U')
+                                Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
+                                @elseif( $prop->projects->thematic_area == 'P')
+                                Nivel Preuniversitario.(Bachillerato.)
+                                @elseif( $prop->projects->thematic_area == 'B')
+                                Nivel Básico.(Primaria o secundaria.)
+                                @elseif( $prop->projects->thematic_area == 'STEM')
+                                Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                                @else
+                                {{ $prop->projects->modality }}
+                                @endif
+                            </small>
                         </td>
                         @if(Auth::user()->rol_id !== 3)
-                        <td>{{ $prop->user->name .' '.$prop->user->email }}</td>
+                        <td class="text-center">{{ $prop->user->name .' '.$prop->user->email }}</td>
                         @endif
                         <td class="text-center">
                             @if($prop->projects->status === 0)
@@ -74,16 +78,26 @@
                                 <i class="bi bi-info-circle-fill"></i>
                             </a>
                         </td>
+                        @if(Auth::user()->id === $prop->user_id)
                         <td class="text-center">
                             <a href="{{ route('proyectos.edit', $prop->id) }}" class="btn btn-info text-white">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </td>
                         <td class="text-center">
-                            <button class="btn btn-danger" id="show-dialog{{ $prop->id }}" type="button">
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
                                 <i class="bi bi-trash3-fill"></i>
                             </button>
                         </td>
+                        <td id="pago{{ $prop->projects->id }}">
+                            <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning">Pago <i class="bi bi-card-heading"></i></a>
+                        </td>
+                        @endif
+                        @if(Auth::user()->rol_id == 1)
+                        <td class="text-center" id="pago{{ $prop->projects->id }}">
+                            <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-check-square-fill text-white"></i></a>
+                        </td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
@@ -92,13 +106,52 @@
     </div>
 </div>
 
-@include('proyectos.modal')
+
+@section('modales')
+@foreach($modales as $prop)
+<!-- Modal -->
+<div class="modal fade" id="exampleModal{{ $prop->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar registro</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                Esta a punto de eliminar el registro: <br> <strong>{{ $prop->title }}</strong> <br> ¿Desea continuar?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <form action="{{ route('proyectos.delete', $prop->id) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+@endsection
+
 
 <script>
     var navbar = document.querySelector('#proyectos');
     navbar.className = "mdl-layout__tab is-active";
     var add = document.querySelector('#add');
     add.className = "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent";
+
+    @foreach($proyectos2 as $prop)
+    var btnPago = document.querySelector('#pago{{ $prop->id }}');
+    var accion = document.querySelector('#acciones');
+
+    @if($prop->archive == 3)
+        btnPago.style.display = "none";
+        accion.colspan = "3";
+    @endif
+
+    @endforeach
+
 </script>
 
 @endsection

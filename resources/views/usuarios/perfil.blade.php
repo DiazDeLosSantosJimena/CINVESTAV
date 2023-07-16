@@ -8,6 +8,11 @@
         </div>
         <div class="col-md-12 col-sm-auto mb-5">
             <div class="row">
+                @if(Auth::user()->photo != "")
+                <div class="col-12">
+                    <img src="{{ asset('img/perfil/'.Auth::user()->photo ) }}" alt="Photo" class="img-fluid" style="width: 220px;">
+                </div>
+                @endif
                 <div class="col-md-4 col-sm-4">
                     <h5>Nombre(s):</h5>
                     <p>{{Auth::User()->name}}</p>

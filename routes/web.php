@@ -41,6 +41,8 @@ Route::get('activacion', function () {
     return view('mail/activacion');
 });
 
+Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
+
 ////////////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/', function () {
@@ -65,7 +67,6 @@ Route::middleware('auth')->group(function () {
     Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsController::class, 'destroy']);
     Route::resource('evaluacion', EvaluationsController::class);
     Route::resource('usuario', UsersController::class);
-    Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
     Route::resource('taller', WorkshopsController::class);
     Route::resource('attendance', WorkshopattendanceController::class);
     Route::get('pago', function () {

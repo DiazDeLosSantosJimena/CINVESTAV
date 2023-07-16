@@ -47,13 +47,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
             'email' => 'admin@cinvestav.com',
             'password' => Hash::make('admin'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 1,
         ]);
 
@@ -62,13 +62,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin2',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
             'email' => 'edu@cinvestav.com',
             'password' => Hash::make('admin'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 1,
         ]);
 
@@ -77,13 +77,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Juez 1',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
             'email' => 'juez1@cinvestav.com',
             'password' => Hash::make('juez'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 2,
         ]);
 
@@ -92,13 +92,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Juez 2',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
             'email' => 'juez2@cinvestav.com',
             'password' => Hash::make('juez'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 2,
         ]);
 
@@ -107,13 +107,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Juez 3',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
             'email' => 'juez3@cinvestav.com',
             'password' => Hash::make('juez'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 2,
         ]);
 
@@ -122,13 +122,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Ponente',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
             'email' => 'user@cinvestav.com',
             'password' => Hash::make('user'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 3,
         ]);
 
@@ -137,13 +137,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'Publico General',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
             'email' => 'publico@cinvestav.com',
             'password' => Hash::make('publico'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 4,
         ]);
 

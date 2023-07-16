@@ -9,6 +9,7 @@
             <h3>Usuarios</h4>
         </div>
         <div class="col d-flex justify-content-end my-5">
+            <a href="#" class="btn btn-primary mx-2">Asignar Proyectos a Evaluadores</a>
             <a class="btn btn-success" href="#"><i class="bi bi-plus-lg"></i></a>
         </div>
         <div class="col-12 table-responsive">

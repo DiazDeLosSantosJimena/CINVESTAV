@@ -83,9 +83,11 @@ Route::middleware('auth')->group(function () {
         return view('layout.encuentro');
     })->name('encuentro');
 
-    Route::get('usuarios', function () {
-        return view('usuarios.index');
-    })->name('usuarios');
+    //----------------------------------JUEZ-------------------------------
+    Route::name('usuarios')->get('usuarios',  [UsersController::class, 'usuarios']);
+    Route::name('agregarjuez')->post('agregarjuez',[UsersController::class, 'agregarjuez']);
+    Route::name('salvarjuez')->put('salvarjuez/{id}',[UsersController::class, 'salvarjuez']);
+
 
     Route::get('perfil', function () {
         return view('usuarios.perfil');

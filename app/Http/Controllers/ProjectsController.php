@@ -2,23 +2,19 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
+
 use App\Models\Projects;
 use Illuminate\Http\Request;
 use PDF;
-=======
 use App\Models\Authors;
 use App\Models\Files;
-use App\Models\Projects;
 use App\Models\ProjectsUsers;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Return_;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
->>>>>>> ebba7e5cd21259431e905bb537c3b983432eddc5
 class ProjectsController extends Controller
 {
     /**
@@ -159,7 +155,6 @@ class ProjectsController extends Controller
         ]);
         $proyect->save();
 
-        // ============= Authors =============
         $registro = $request->input('registroA');
         $datos = json_decode($registro, true);
         if ($datos !== null) {
@@ -180,7 +175,6 @@ class ProjectsController extends Controller
                 $author->save();
             }
         }
-        // ===================================
 
         $archive = Files::create([
             'project_id' => $proyect->id,

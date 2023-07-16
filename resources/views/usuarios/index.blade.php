@@ -1,3 +1,4 @@
+@include('usuarios.modalesjuez')
 @extends('layout.navbar')
 @section('title', 'Usuarios')
 
@@ -9,38 +10,55 @@
             <h3>Usuarios</h4>
         </div>
         <div class="col d-flex justify-content-end my-5">
-            <a class="btn btn-success" href="#"><i class="bi bi-plus-lg"></i></a>
+            <button type="button" class="btn btn-success mx-1 my-1" id="btn_alta" data-bs-toggle="modal" data-bs-target="#modalalta"><i class="bi bi-plus-lg"></i></button>
         </div>
         <div class="col-12 table-responsive">
             <table class="table">
                 <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                </thead>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Institucion</th>
+                            <th>Titulo academico</th>
+                            <th>Email</th>
+                            <th>Telefono</th>
+                            <th>Pais</th>
+                            <th>Estado</th>
+                            <th>Municipio</th>
+                            <th class="text-center">Acciones</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
                 <tbody>
+                    <?php
+                    $a = 1;
+                    ?>
+                    @foreach($usuarios as $usuario)
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
+                        <td><?php echo $a++?></td>
+                        <td>{{ $usuario->name}}</td>
+                        <td>{{ $usuario->apm}}</td>
+                        <td>{{ $usuario->academic_degree}}</td>
+                        <td>{{ $usuario->email}}</td>
+                        <td>{{ $usuario->phone}}</td>
+                        <td>{{ $usuario->country}}</td>
+                        <td>{{ $usuario->state}}</td>
+                        <td>{{ $usuario->municipality}}</td>
+                        <td class="text-center">
+                            <!-- Button show modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalshow{{ $usuario->id }}"><i class="bi bi-eye-fill"></i></button>
+                        </td>
+                        <td class="text-center">
+                            <!-- Button edit modal -->
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $usuario->id }}"><i class="bi bi-pencil-square"></i></button>
+                        </td>
+                        @endforeach
                     </tr>
                 </tbody>
             </table>
+          
         </div>
     </div>
 </div>

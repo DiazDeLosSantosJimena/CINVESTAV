@@ -32,7 +32,6 @@ class RegisteredUserController extends Controller
     {
         $messages = [
             'name.required' => 'Se requiere del nombre.',
-            'apm.required' => 'Se requiere del apellido paterno.',
             'app.required' => 'Se requiere del apellido paterno.',
             'country.required' => 'Se requiere colocar el país de procedencia.',
             'state.required' => 'Se requiere colocar el estado de procedencia.',
@@ -41,20 +40,59 @@ class RegisteredUserController extends Controller
             'academic_degree.required' => 'Se requiere colocar el grado academico.',
             'email.required' => 'Se requiere un correo de contacto.',
             'email.unique' => 'Correo ya registrado, intente nuevamente o ingrese un correo diferente.',
+            'foto.required' => 'Es necesario ingresar una foto para el ponente.',
+            'foto.mimes' => 'Ingrese el formato solicitado.',
+            'foto.image' => 'Porfavor suba una imagen.'
         ];
 
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'apm' => ['required', 'string', 'max:255'],
-            'app' => ['required', 'string', 'max:255'],
-            'country' => ['required', 'string', 'max:255'],
-            'state' => ['required', 'string', 'max:255'],
-            'municipality' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:255'],
-            'academic_degree' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', Rules\Password::defaults()],
-        ], $messages);
+        if($request->input('role_id') == "3"){
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'app' => ['required', 'string', 'max:255'],
+                'country' => ['required', 'string', 'max:255'],
+                'state' => ['required', 'string', 'max:255'],
+                'municipality' => ['required', 'string', 'max:255'],
+                'phone' => ['required', 'string', 'max:255'],
+                'academic_degree' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+                'foto' => ['required', 'mimes:jpeg,png,jpg'],
+                'password' => ['required', Rules\Password::defaults()],
+            ], $messages);
+        }else if($request->input('role_id') == "4"){
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'app' => ['required', 'string', 'max:255'],
+                'country' => ['required', 'string', 'max:255'],
+                'state' => ['required', 'string', 'max:255'],
+                'municipality' => ['required', 'string', 'max:255'],
+                'phone' => ['required', 'string', 'max:255'],
+                'academic_degree' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+                'password' => ['required', Rules\Password::defaults()],
+            ], $messages);
+        }else{
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'app' => ['required', 'string', 'max:255'],
+                'country' => ['required', 'string', 'max:255'],
+                'state' => ['required', 'string', 'max:255'],
+                'municipality' => ['required', 'string', 'max:255'],
+                'phone' => ['required', 'string', 'max:255'],
+                'academic_degree' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+                'password' => ['required', Rules\Password::defaults()],
+            ], $messages);
+        }
+
+        if ($request->file('foto')  !=  '') {
+            $file = $request->file('foto');
+            $name = $request->file('foto')->getClientOriginalName();
+            $dates = date('YmdHis');
+            $foto2 = $dates . $name;
+            \Storage::disk('img_Perfil')->put($foto2, \File::get($file));
+        } else {
+            $foto2 = 'default.jpg';
+        }
 
         $user = User::create([
             'name' => $request->input('name'),
@@ -63,11 +101,11 @@ class RegisteredUserController extends Controller
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'phone' => $request->input('phone'),
+            'photo' => $foto2,
             'academic_degree' =>  $request->input('academic_degree'),
             'country' => $request->input('country'),
             'state' => $request->input('state'),
             'municipality' => $request->input('municipality'),
-            'assistance' => $request->input('assistance'),
             'rol_id' => $request->input('role_id'),
         ]);
 

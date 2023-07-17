@@ -24,7 +24,7 @@ class CheckAdminRole
             }
         }
 
-        // Si no es un usuario administrador, redirigir al dashboard
-        return redirect('/dashboard');
+        // Si no es un usuario administrador, redirigir al inicio
+        return redirect('/');
     }
 }

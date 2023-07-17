@@ -29,7 +29,7 @@
         <div class="col-12">
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título del proyecto.</label> <label for="nombre" class="text-danger">*</label>
-                <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" aria-describedby="titulo" value="{{ old('title') }}">
+                <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" aria-describedby="titulo" value="{{ old('titulo') }}">
                 @error('titulo')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">
                     {{ $message }}
@@ -131,20 +131,6 @@
                 </label>
                 @enderror
             </div>
-            <div class="col-sm-12 col-md-3 text-center mt-4">
-                <p>Formato de pago: <strong class="text-danger">*</strong></p>
-            </div>
-            <div class="col-sm-12 col-md-9">
-                <div class="mb-3 mt-3">
-                    <input class="form-control @error('pago') is-invalid @enderror" type="file" id="pago" name="pago">
-                    <div class="form-text" id="pago-addon4">(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .pdf, pdf no mayor a 2MB)</div>
-                </div>
-                @error('pago')
-                <label class="form-check-label text-danger" for="flexRadioDefault1">
-                    {{ $message }}
-                </label>
-                @enderror
-            </div>
         </div>
         <div class="col-12 row">
             <div class="col-sm-12 col-md-3">
@@ -235,6 +221,7 @@
         <div class="col-6 text-center mt-3">
             <button type="submit" class="btn btn-success disabled" id="btnRegistro">Enviar</button>
         </div>
+            
     </form>
 </div>
 <script>

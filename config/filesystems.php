@@ -56,6 +56,12 @@ return [
             'throw' => false,
         ],
 
+        'img_Perfil' => [
+            'driver' => 'local',
+            'root' => public_path('img/perfil'),
+            'throw' => false,
+        ],
+
     ],
 
     /*

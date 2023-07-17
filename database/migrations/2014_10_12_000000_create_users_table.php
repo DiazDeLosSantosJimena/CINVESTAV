@@ -15,7 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name', 50);
             $table->string('app', 50);
-            $table->string('apm', 50);
+            $table->string('apm', 50)->nullable();
+            $table->text('photo')->nullable();
             $table->string('academic_degree');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -24,7 +25,6 @@ return new class extends Migration
             $table->string('country');
             $table->string('state');
             $table->string('municipality');
-            $table->string('assistance');
             $table->foreignId('rol_id')->constrained('roles');
             $table->softDeletes();
             $table->rememberToken();

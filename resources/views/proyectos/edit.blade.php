@@ -40,7 +40,7 @@
         <div class="col-12">
             <div class="mb-3">
                 <label for="titulo" class="form-label">Título del proyecto.</label> <label for="nombre" class="text-danger">*</label>
-                <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" aria-describedby="titulo" value="{{ old('title', $proyect->projects->title) }}">
+                <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" aria-describedby="titulo" value="{{ old('titulo', $proyect->projects->title) }}">
                 @error('titulo')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">
                     {{ $message }}

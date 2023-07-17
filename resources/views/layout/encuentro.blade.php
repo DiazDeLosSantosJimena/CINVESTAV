@@ -24,6 +24,11 @@
                 Encuentro Internacional sobre la Enseñanza del Cálculo, Ciencias y Matemáticas.
             </p>
         </div>
+        <div class="col-12 text-center my-4">
+            <a href="{{ Storage::url('proposals/encuentroInternacional.pdf') }}" type="button" class="mdl-chip" style="background-color: #0178a0; color: white;">
+                <span class="mdl-chip__text">ENCUENTRO INTERNACIONAL</span>
+            </a>
+        </div>
         <div class="col-sm-12 col-md-6 text-center mt-4">
             <p class="h3" style="color: #0078a0;">Comité Ejecutivo</p>
             <hr>

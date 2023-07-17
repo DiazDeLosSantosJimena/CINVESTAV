@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\Projects;
+use Illuminate\Http\Request;
+use PDF;
 use App\Models\Authors;
 use App\Models\Files;
-use App\Models\Projects;
 use App\Models\ProjectsUsers;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Return_;
@@ -55,6 +57,22 @@ class ProjectsController extends Controller
     public function pagoView($id) {
         $project = Projects::find($id);
         return view('proyectos.pago', compact('project'));
+    }
+
+    public function verifyProject($id) {
+        $proyect = ProjectsUsers::find($id);
+        $files = Files::where('project_id', $proyect->projects->id)->get();
+        $authors = Authors::where('project_id', $proyect->projects->id)->get();
+        return view('proyectos.verifyProject', compact('proyect', 'files', 'authors'));
+    }
+
+    public function accept(Request $request,$id) {
+
+        $users = Projects::find($id);
+        $users->status = $request->status;
+        $users->save();
+
+        return redirect('proyectos')->with('status', 'Estatus del proyecto actualizado, notificación enviada al ponente!');
     }
 
     public function pagoCreate(Request $request, $id) {
@@ -149,11 +167,10 @@ class ProjectsController extends Controller
             'title' => $request->titulo,
             'thematic_area' => $request->eje,
             'sending_institution' => $request->inst_pro,
-            'status' => 0
+            'status' => 1
         ]);
         $proyect->save();
 
-        // ============= Authors =============
         $registro = $request->input('registroA');
         $datos = json_decode($registro, true);
         if ($datos !== null) {
@@ -174,7 +191,6 @@ class ProjectsController extends Controller
                 $author->save();
             }
         }
-        // ===================================
 
         $archive = Files::create([
             'project_id' => $proyect->id,
@@ -439,5 +455,17 @@ class ProjectsController extends Controller
         $query->delete();
 
         return redirect()->route('proyectos.index')->with('status', 'El registro se ha eliminado correctamente.');
+    }
+    public function pdf()
+    {
+        $Projects= Projects::all();
+        $pdf = PDF::loadView('Documentos.pdf',['Projects'=>$Projects]);
+        // return view ('Documentos.pdf', compact('Projects'));
+        //----------Visualizar el PDF ------------------
+       return $pdf->stream();
+       // ------Descargar el PDF------
+       //return $pdf->download('___libros.pdf');
+
+
     }
 }

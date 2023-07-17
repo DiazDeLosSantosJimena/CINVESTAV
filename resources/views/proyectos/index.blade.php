@@ -29,7 +29,7 @@
                         <th class="text-center">User</th>
                         @endif
                         <th scope="col" class="text-center">Estatus</th>
-                        <th scope="col" class="text-center" colspan="4" id="acciones">Acciones</th>
+                        <th scope="col" class="text-center" colspan="4 ">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,12 +65,12 @@
                         <td class="text-center">{{ $prop->user->name .' '.$prop->user->email }}</td>
                         @endif
                         <td class="text-center">
-                            @if($prop->projects->status === 0)
+                            @if($prop->projects->status === 1)
                             <span class="badge text-white text-bg-warning">Pendiente</span>
-                            @elseif($prop->projects->status === 1)
-                            <span class="badge text-white text-bg-success">Success</span>
+                            @elseif($prop->projects->status === 2)
+                            <span class="badge text-white text-bg-success">Aceptado</span>
                             @else
-                            <span class="badge text-white text-bg-danger">Danger</span>
+                            <span class="badge text-white text-bg-danger">Rechazado</span>
                             @endif
                         </td>
                         <td class="text-center">
@@ -85,6 +85,11 @@
                             </a>
                         </td>
                         <td class="text-center">
+                            <a href="{{ route('pdf')}}" class="btn btn-danger text-white">
+                                <i class="bi bi-filetype-pdf"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
                                 <i class="bi bi-trash3-fill"></i>
                             </button>
@@ -95,7 +100,7 @@
                         @endif
                         @if(Auth::user()->rol_id == 1)
                         <td class="text-center" id="pago{{ $prop->projects->id }}">
-                            <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-check-square-fill text-white"></i></a>
+                            <a href="{{ route('proyectos.verifyProject', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-check-square-fill text-white"></i></a>
                         </td>
                         @endif
                     </tr>
@@ -142,16 +147,14 @@
     add.className = "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent";
 
     @foreach($proyectos2 as $prop)
+    @if($prop -> archive == 3)
+    
     var btnPago = document.querySelector('#pago{{ $prop->id }}');
     var accion = document.querySelector('#acciones');
+    btnPago.style.display = "none";
 
-    @if($prop->archive == 3)
-        btnPago.style.display = "none";
-        accion.colspan = "3";
     @endif
-
     @endforeach
-
 </script>
 
 @endsection

@@ -14,7 +14,7 @@
     }
 </style>
 <div class="container d-flex justify-content-center align-items-center card">
-    <form action="{{ route('registrar')}}" method="post" class="row card-body">
+    <form action="{{ route('registrar')}}" method="post" enctype="multipart/form-data" class="row card-body">
         @csrf
         <h3 class="my-2">Registro Postulante</h3>
         <div class="alert alert-info" role="alert">
@@ -26,7 +26,7 @@
         <div class="col-4">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre:</label> <label for="nombre" class="text-danger">*</label>
-                <input type="text" class="form-control" name="name" id="nombre" placeholder="Ingrese su nombre" value="{{ old('name') }}">
+                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="nombre" placeholder="Ingrese su nombre" value="{{ old('name') }}">
             </div>
             @error('name')
             <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -38,7 +38,7 @@
         <div class="col-4">
             <div class="mb-3">
                 <label for="app" class="form-label">Apellido Paterno:</label> <label for="app" class="text-danger">*</label>
-                <input type="text" class="form-control" name="app" id="app" placeholder="Ingrese su Apellido Paterno" value="{{ old('app') }}">
+                <input type="text" class="form-control @error('app') is-invalid @enderror" name="app" id="app" placeholder="Ingrese su Apellido Paterno" value="{{ old('app') }}">
             </div>
             @error('app')
             <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -50,7 +50,7 @@
         <div class="col-4">
             <div class="mb-3">
                 <label for="apm" class="form-label">Apellido Materno:</label>
-                <input type="text" class="form-control" name="apm" id="apm" placeholder="Ingrese su Apellido Materno" value="{{ old('apm') }}">
+                <input type="text" class="form-control @error('apm') is-invalid @enderror" name="apm" id="apm" placeholder="Ingrese su Apellido Materno" value="{{ old('apm') }}">
             </div>
             @error('apm')
             <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -62,7 +62,7 @@
         <div class="col-6">
             <div class="mb-3">
                 <label for="tel" class="form-label">Teléfono:</label> <label for="tel" class="text-danger">*</label>
-                <input type="text" class="form-control" name="phone" id="tel" placeholder="Ingrese su número de teléfono" value="{{ old('phone') }}">
+                <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" id="tel" placeholder="Ingrese su número de teléfono" value="{{ old('phone') }}">
             </div>
             @error('phone')
             <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -74,7 +74,7 @@
         <div class="col-6">
             <div class="mb-3">
                 <label for="tel" class="form-label">Grado Academico:</label> <label for="tel" class="text-danger">*</label>
-                <input type="text" class="form-control" name="academic_degree" id="academic_degree" placeholder="Ingrese su grado academico" value="{{ old('academic_degree') }}">
+                <input type="text" class="form-control @error('academic_degree') is-invalid @enderror" name="academic_degree" id="academic_degree" placeholder="Ingrese su grado academico" value="{{ old('academic_degree') }}">
             </div>
             @error('academic_degree')
             <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -84,9 +84,22 @@
             @enderror
         </div>
         <div class="col-12">
+            <div class="mb-3 my-2">
+            <label for="tel" class="form-label">Foto del ponente:</label> <label for="tel" class="text-danger">*</label>
+                <input class="form-control @error('foto') is-invalid @enderror" type="file" name="foto" id="foto">
+                <div class="form-text" id="foto-addon">(Favor de seleccionar el archivo que desea cargar. Tipo de archivo jpeg | jpg | png, no mayor a 2MB)</div>
+            </div>
+            @error('foto')
+            <label class="form-check-label text-danger" for="flexRadioDefault1">
+                {{ $message }}
+            </label>
+            <br>
+            @enderror
+        </div>
+        <div class="col-12">
             <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico:</label> <label for="email" class="text-danger">*</label>
-                <input type="text" class="form-control" name="email" id="email" placeholder="nombre@ejemplo.com" value="{{ old('email') }}">
+                <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="nombre@ejemplo.com" value="{{ old('email') }}">
             </div>
             @error('email')
             <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -98,7 +111,7 @@
         <div class="col-6">
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña:</label> <label for="nombre" class="text-danger">*</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese una contraseña">
+                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Ingrese una contraseña">
             </div>
             @error('password')
             <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -119,7 +132,7 @@
         <div class="col-12 row">
             <div class="col-4 mb-3">
                 <label for="tel" class="form-label">Pais/Country:</label> <label for="tel" class="text-danger">*</label>
-                <input type="text" class="form-control" id="country" name="country" placeholder="Ingrese su país/country" value="{{ old('country') }}">
+                <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" name="country" placeholder="Ingrese su país/country" value="{{ old('country') }}">
                 @error('country')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">
                     {{ $message }}
@@ -130,7 +143,7 @@
             <div class="col-4">
                 <div class="mb-3">
                     <label for="tel" class="form-label">Estado/State:</label> <label for="tel" class="text-danger">*</label>
-                    <input type="text" class="form-control" id="state" name="state" placeholder="Ingrese su Estado/Estate" value="{{ old('state') }}">
+                    <input type="text" class="form-control @error('state') is-invalid @enderror" id="state" name="state" placeholder="Ingrese su Estado/Estate" value="{{ old('state') }}">
                     @error('state')
                     <label class="form-check-label text-danger" for="flexRadioDefault1">
                         {{ $message }}
@@ -142,7 +155,7 @@
             <div class="col-4">
                 <div class="mb-3">
                     <label for="tel" class="form-label">Municipio/municipality:</label> <label for="tel" class="text-danger">*</label>
-                    <input type="text" class="form-control" id="municipality" name="municipality" placeholder="Ingrese su Municipio/municipality" value="{{ old('municipality') }}">
+                    <input type="text" class="form-control @error('municipality') is-invalid @enderror" id="municipality" name="municipality" placeholder="Ingrese su Municipio/municipality" value="{{ old('municipality') }}">
                     @error('municipality')
                     <label class="form-check-label text-danger" for="flexRadioDefault1">
                         {{ $message }}
@@ -153,8 +166,8 @@
             </div>
             <input type="hidden" value="3" name="role_id" id="role_id">
             <div class="col-12 d-flex justify-content-center align-content-center my-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="p" name="assistance" id="confirm">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" name="verify" id="confirm">
                     <label class="form-check-label" for="flexCheckDefault">
                         He revisado los datos proporcionados y certifico que la información capturadas sean correctas y responsabilidad de quien la captura.
                     </label>

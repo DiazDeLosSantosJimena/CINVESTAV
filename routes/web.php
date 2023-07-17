@@ -75,7 +75,7 @@ Route::middleware('auth')->group(function () {
     Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
     Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsController::class, 'destroy']);
 
-    Route::name('evaluacion.delete')->delete('proyectos.delete/{id}', [EvaluationsController::class, 'destroy']);
+    Route::name('evaluacion.delete')->delete('evaluacion.delete/{id}', [EvaluationsController::class, 'destroy']);
     Route::name('evaluacion.asignEvaluator')->post('evaluacion.asignEvaluator', [EvaluationsController::class, 'asignEvaluator']);
 
     Route::name('subirPago')->post('proyectos/{id}', [ProjectsController::class, 'pagoCreate']);

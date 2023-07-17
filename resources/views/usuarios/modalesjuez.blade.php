@@ -261,15 +261,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        <!-- <div class="col-12 mt-2 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Evaluador:</label>
-                            <select class="form-select" name="id_juez" id="juez" data-search="true" data-silent-initial-value-set="true">
-                                <option value="null" selected>Seleccione el evaluador:</option>
-                                @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name .' | '. $user->email }}</option>
-                                @endforeach
-                            </select>
-                        </div> -->
                         <div class="col-12 mt-2 my-2">
                             <label for="floatingInput">Selecciona un juez:</label>
                             <select class="form-select" name="id_juez" id="juez" data-search="true" data-silent-initial-value-set="true">

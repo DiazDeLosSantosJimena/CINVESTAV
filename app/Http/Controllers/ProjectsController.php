@@ -72,7 +72,7 @@ class ProjectsController extends Controller
         $users->status = $request->status;
         $users->save();
 
-        return redirect('proyectos')->with('status', 'Estatus del proyecto actualizado, notificación enviada al ponente!');
+        return redirect('proyectos')->with('status', 'Estatus del proyecto actualizado, notificación al ponente!');
     }
 
     public function pagoCreate(Request $request, $id) {

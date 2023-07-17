@@ -104,6 +104,18 @@ class EvaluationsController extends Controller
         return redirect()->route('evaluacion.index');
     }
 
+    public function asignEvaluator(Request $request) {
+        
+        $project_user = ProjectsUsers::where('project_id', $request->id_proyecto)->first();
+
+        $asign = new Evaluations;
+        $asign->user_id = $request->id_evaluador;
+        $asign->project_user = $project_user->id;
+        $asign->save();
+        
+        return redirect('usuarios')->with('status', 'Evaluador asignado al proyecto con exito!');
+    }
+
 
     public function update(Request $request, $id)
     {
@@ -111,5 +123,10 @@ class EvaluationsController extends Controller
         $input=$request->all();
         $evaluacion->update($input);
         return redirect()->route('evaluacion.index')->with('status', 'Se actualizó la calificación con exito!');
+    }
+
+    public function destroy($id) {
+        Evaluations::findOrFail($id)->delete();
+        return redirect('usuarios')->with('status', 'Registro Eliminado!');
     }
 }

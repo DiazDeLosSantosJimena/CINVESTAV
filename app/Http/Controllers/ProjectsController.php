@@ -59,6 +59,22 @@ class ProjectsController extends Controller
         return view('proyectos.pago', compact('project'));
     }
 
+    public function verifyProject($id) {
+        $proyect = ProjectsUsers::find($id);
+        $files = Files::where('project_id', $proyect->projects->id)->get();
+        $authors = Authors::where('project_id', $proyect->projects->id)->get();
+        return view('proyectos.verifyProject', compact('proyect', 'files', 'authors'));
+    }
+
+    public function accept(Request $request,$id) {
+
+        $users = Projects::find($id);
+        $users->status = $request->status;
+        $users->save();
+
+        return redirect('proyectos')->with('status', 'Estatus del proyecto actualizado, notificación enviada al ponente!');
+    }
+
     public function pagoCreate(Request $request, $id) {
 
         $messages = [
@@ -151,7 +167,7 @@ class ProjectsController extends Controller
             'title' => $request->titulo,
             'thematic_area' => $request->eje,
             'sending_institution' => $request->inst_pro,
-            'status' => 0
+            'status' => 1
         ]);
         $proyect->save();
 
@@ -442,10 +458,7 @@ class ProjectsController extends Controller
     }
     public function pdf()
     {
-
-
         $Projects= Projects::all();
-
         $pdf = PDF::loadView('Documentos.pdf',['Projects'=>$Projects]);
         // return view ('Documentos.pdf', compact('Projects'));
         //----------Visualizar el PDF ------------------

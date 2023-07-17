@@ -24,7 +24,7 @@ class ProjectsUsers extends Model
 
     public function Evaluations()
     {
-        return $this->hasMany(Evaluations::class, 'project_id');
+        return $this->hasMany(Evaluations::class, 'project_user');
     }
 }
 

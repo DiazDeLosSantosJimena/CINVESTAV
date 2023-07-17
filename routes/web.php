@@ -47,8 +47,6 @@ Route::get('activacion', function () {
 
 Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
 
-////////////////////////////////////////////////////////////////////////////////////////
-
 Route::get('/', function () {
     if (auth()->check()) {
         return redirect()->route('inicio');
@@ -60,35 +58,39 @@ Route::get('tablas', function () {
     return view('layout.cruds.tables');
 })->name('tablas');
 
-Route::name('inicio')->get('inicio', [UsersController::class, 'indexView']);
-
 Route::middleware('auth')->group(function () {
-    Route::resource('users', UsersController::class);
+    // --------------------- Resource --------------------- 
+    Route::resource('usuario', UsersController::class);
     Route::resource('proyectos', ProjectsController::class);
     Route::resource('authors', AuthorsController::class);
+    Route::resource('evaluacion', EvaluationsController::class);
+    Route::resource('taller', WorkshopsController::class);
+    Route::resource('attendance', WorkshopattendanceController::class);
+    //----------------------------------JUEZ-------------------------------
+    Route::name('usuarios')->get('usuarios', [UsersController::class, 'usuarios']);
+    Route::name('agregarjuez')->post('agregarjuez',[UsersController::class, 'agregarjuez']);
+    Route::name('salvarjuez')->put('salvarjuez/{id}',[UsersController::class, 'salvarjuez']);
+    //---------------------------------------------------------------------
     Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
     Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
     Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsController::class, 'destroy']);
-    Route::resource('evaluacion', EvaluationsController::class);
-    Route::resource('usuario', UsersController::class);
-    Route::resource('taller', WorkshopsController::class);
-    Route::resource('attendance', WorkshopattendanceController::class);
+
+    Route::name('evaluacion.delete')->delete('proyectos.delete/{id}', [EvaluationsController::class, 'destroy']);
+    Route::name('evaluacion.asignEvaluator')->post('evaluacion.asignEvaluator', [EvaluationsController::class, 'asignEvaluator']);
+
+    Route::name('subirPago')->post('proyectos/{id}', [ProjectsController::class, 'pagoCreate']);
+    Route::get('/proyectos/{proposal}/pago', [ProjectsController::class, 'pagoView'])->name('proyectos.pagoView');
+    Route::get('/proyectos/{proposal}/verifyProject', [ProjectsController::class, 'verifyProject'])->name('proyectos.verifyProject');
+    Route::name('proyectos.accept')->put('proyectos.accept/{id}', [ProjectsController::class, 'accept']);
     Route::get('pago', function () {
         return view('proyectos.pago');
     })->name('pago');
 
-    Route::get('/proyectos/{proposal}/pago', [ProjectsController::class, 'pagoView'])->name('proyectos.pagoView');
-    Route::name('subirPago')->post('proyectos/{id}', [ProjectsController::class, 'pagoCreate']);
+    Route::name('inicio')->get('inicio', [UsersController::class, 'indexView']);
 
     Route::get('encuentro', function () {
         return view('layout.encuentro');
     })->name('encuentro');
-
-    //----------------------------------JUEZ-------------------------------
-    Route::name('usuarios')->get('usuarios',  [UsersController::class, 'usuarios']);
-    Route::name('agregarjuez')->post('agregarjuez',[UsersController::class, 'agregarjuez']);
-    Route::name('salvarjuez')->put('salvarjuez/{id}',[UsersController::class, 'salvarjuez']);
-
 
     Route::get('perfil', function () {
         return view('usuarios.perfil');
@@ -97,6 +99,8 @@ Route::middleware('auth')->group(function () {
     Route::get('EditPerfil', function () {
         return view('usuarios.EditPerfil');
     });
+
+    Route::name('js_proyectos')->get('js_proyectos', [AreasMetasController::class, 'js_proyectos']);
 });
 
     Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);

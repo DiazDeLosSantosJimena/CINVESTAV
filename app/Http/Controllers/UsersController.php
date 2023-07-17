@@ -77,7 +77,13 @@ class UsersController extends Controller
         users.state, users.municipality, users.rol_id, users.deleted_at FROM users, roles WHERE users.rol_id = roles.id AND
         roles.id = "2"');
         //$proyects = Projects::where('status', '>', '1')->get();
-        $proyects = Projects::all();
+        $proyects = \DB::SELECT('SELECT proUser.id, pro.title
+        FROM projects AS pro 
+            JOIN projects_users AS proUser ON pro.id = proUser.project_id
+        WHERE pro.status > 1 AND proUser.id NOT IN (SELECT project_user
+            FROM evaluations
+            GROUP BY project_user
+            HAVING COUNT(*) >= 3)');
         $proyectsEvaluators = \DB::SELECT('SELECT eva.id AS evaluationId, us.name, us.app, us.apm, us.academic_degree, us.email, pro.title
         FROM evaluations AS eva
             JOIN users AS us ON eva.user_id = us.id
@@ -87,18 +93,19 @@ class UsersController extends Controller
         return view('usuarios.index', compact('usuarios', 'proyects', 'users', 'proyectsEvaluators'));
     }
 
-    public function js_proyectos(Request $request) {
+    public function js_juez(Request $request) {
 
-        $evaluador = $request->get('id_evaluador');
-        $evaluador = intval($evaluador);
-        $projects = \DB::SELECT('SELECT pro.id, pro.title
-        FROM projects AS pro 
-            JOIN projects_users AS proUser ON pro.id = proUser.project_id
-        WHERE proUser.id NOT IN (SELECT COUNT(project_user) AS cProjectUser
-        FROM evaluations WHERE user_id = '.$evaluador.'
-        HAVING cProjectUser < 3)');
+        $projects = $request->get('id_proyecto');
+        $projects = intval($projects);
+        $evaluador = \DB::SELECT('SELECT id, NAME, app, apm, email,deleted_at
+        FROM users
+        WHERE rol_id = 2 AND id NOT IN (
+        SELECT us.id
+        FROM evaluations AS eva
+            JOIN users AS us ON us.id = eva.user_id
+        WHERE eva.project_user = '.$projects.')');
 
-        return view('usuarios.js_proyecto', compact('projects'));
+        return view('usuarios.js_proyecto', compact('evaluador'));
     }
 
     public function agregarjuez(Request $request)

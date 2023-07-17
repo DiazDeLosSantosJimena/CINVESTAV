@@ -252,31 +252,31 @@
                 <form action="{{route('evaluacion.asignEvaluator') }}" method="POST" enctype="multipart/form-data">
                     {!! csrf_field() !!}
                     <div class="row py-2">
-                        <div class="col-12 mt-2 my-2">
+                        <div class="col-12">
+                            <label for="exampleFormControlInput1" class="form-label">Proyecto:</label>
+                            <select class="form-select" name="id_proyecto" id="proyecto" data-search="true" data-silent-initial-value-set="true">
+                                <option value="null" selected>Seleccione el proyecto:</option>
+                                @foreach($proyects as $proyect)
+                                <option value="{{ $proyect->id }}">{{ $proyect->id .' | '. $proyect->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <!-- <div class="col-12 mt-2 my-2">
                             <label for="exampleFormControlInput1" class="form-label">Evaluador:</label>
-                            <select class="form-select" name="id_evaluador" id="evaluador" data-search="true" data-silent-initial-value-set="true">
+                            <select class="form-select" name="id_juez" id="juez" data-search="true" data-silent-initial-value-set="true">
                                 <option value="null" selected>Seleccione el evaluador:</option>
                                 @foreach($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name .' | '. $user->email }}</option>
                                 @endforeach
                             </select>
+                        </div> -->
+                        <div class="col-12 mt-2 my-2">
+                            <label for="floatingInput">Selecciona un juez:</label>
+                            <select class="form-select" name="id_juez" id="juez" data-search="true" data-silent-initial-value-set="true">
+                                <option value="null" selected>--- Selecciona un Juez antes ---</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <label for="exampleFormControlInput1" class="form-label">Proyecto:</label>
-                        <select class="form-select" name="id_proyecto" id="evaluador" data-search="true" data-silent-initial-value-set="true">
-                            <option value="null" selected>Seleccione el proyecto:</option>
-                            @foreach($proyects as $proyect)
-                            <option value="{{ $proyect->id }}">{{ $proyect->id .' | '. $proyect->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <!-- <div class="col-12 mt-1">
-                        <label for="exampleFormControlInput1" class="form-label">Proyecto:</label>
-                        <select class="form-select" name="proyecto" id="proyecto" data-search="true" data-silent-initial-value-set="true">
-                            <option value="null" selected>--- Selecciona un evaluador antes ---</option>
-                        </select>
-                    </div> -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                         <input type="submit" href="{{ route('agregarjuez') }}" class="btn btn-success" value="Enviar" />

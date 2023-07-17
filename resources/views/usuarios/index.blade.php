@@ -2,20 +2,20 @@
 @section('title', 'Usuarios')
 
 <script src="{{ asset('js\jquery-3.6.4.min.js') }}"></script>
-<!-- <script>
+<script>
     $(document).ready(function() {
         // --------Programas =-> Metas---------------------------------------------------
-        $("#evaluador").on('change', function() {
-            var id_evaluador = $(this).find(":selected").val();
-            console.log(id_evaluador);
-            if (id_evaluador == 0) {
-                $("#proyecto").html('<option value="0">-- Seleccione un evaluador antes --</option>');
+        $("#proyecto").on('change', function() {
+            var id_proyecto = $(this).find(":selected").val();
+            console.log(id_proyecto);
+            if (id_proyecto == 0) {
+                $("#juez").html('<option value="0">-- Seleccione un Proyecto antes --</option>');
             } else {
-                $("#proyecto").load('js_proyectos?id_evaluador=' + id_evaluador);
+                $("#juez").load('js_juez?id_proyecto=' + id_proyecto);
             }
         });
     });
-</script> -->
+</script>
 
 @section('content')
 <div class="container">
@@ -103,10 +103,6 @@
                         <td>{{ $usuario->country}}</td>
                         <td>{{ $usuario->state}}</td>
                         <td>{{ $usuario->municipality}}</td>
-                        <td class="text-center">
-                            <!-- Button show modal -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalshow{{ $usuario->id }}"><i class="bi bi-eye-fill"></i></button>
-                        </td>
                         <td class="text-center">
                             <!-- Button edit modal -->
                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $usuario->id }}"><i class="bi bi-pencil-square"></i></button>

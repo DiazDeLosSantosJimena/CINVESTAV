@@ -100,9 +100,9 @@ Route::middleware('auth')->group(function () {
         return view('usuarios.EditPerfil');
     });
 
-    Route::name('js_proyectos')->get('js_proyectos', [AreasMetasController::class, 'js_proyectos']);
 });
 
+    Route::name('js_juez')->get('js_juez', [AreasMetasController::class, 'js_juez']);
     Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);
 
 require __DIR__ . '/auth.php';

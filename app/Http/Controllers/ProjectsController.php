@@ -9,7 +9,10 @@ use PDF;
 use App\Models\Authors;
 use App\Models\Files;
 use App\Models\ProjectsUsers;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Return_;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
@@ -93,6 +96,24 @@ class ProjectsController extends Controller
         ]);
         $request->file('pago')->storeAs('public', $archive3->name);
         $archive3->save();
+
+        /* CORREO */
+        $user = Auth::user()->id;
+        $email = User::where('id', $user)->value('email');
+        $title = Projects::where('id', $id)->value('title');
+        
+
+        $data = array(
+            'destinatario'=> $email,
+            'asunto'=> 'Comprobante de Pago',
+            'nombre'=> $title,
+        );
+
+        Mail::send('mail.comprobante', compact('data'), function($message) use ($data){
+            $message->to($data['destinatario'],'Admin Uippe')
+                ->subject($data['asunto']);
+            $message->from('hello@example.com', 'Soporte UIPPE');
+        });
         
 
         return redirect()->route('proyectos.index')->with('status', 'Formato de Pago subido con exito!');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Models\Projects;
 use App\Http\Controllers\EvaluationsController;
+use App\Http\Controllers\EmailController;
 use App\Models\ProjectsUsers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -96,6 +97,11 @@ Route::middleware('auth')->group(function () {
 Route::post('reg', [EvaluationsController::class, 'reg'])->name('reg');
 Route::get('edit', [EvaluationsController::class, 'edit'])->name('edit');
 Route::put('edit2', [EvaluationsController::class, 'edit2'])->name('edit2');
+
+///////////////////////////////////////CORREOS//////////////////////////////////
+Route::get('forgotpass', [EmailController::class, 'forgotpass'])->name('forgotpass');
+Route::name('recuperar')->get('recuperar', [EmailController::class, 'recuperar']);
+Route::name('reset')->get('reset', [EmailController::class, 'reset'])->middleware('signed');
 
 
 require __DIR__.'/auth.php';

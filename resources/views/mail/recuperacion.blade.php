@@ -184,6 +184,7 @@
 															</td>
 														</tr>
 													</table>
+													<a href="{{$url}}">
 													<table class="button_block block-5" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" style="padding-left:10px;padding-right:10px;padding-top:15px;text-align:center;">
@@ -193,6 +194,7 @@
 															</td>
 														</tr>
 													</table>
+												</a>
 												</td>
 											</tr>
 										</tbody>

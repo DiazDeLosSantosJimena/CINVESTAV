@@ -178,7 +178,7 @@
 															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
 																<div style="font-family: Arial, sans-serif">
 																	<div class style="font-size: 12px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; mso-line-height-alt: 18px; color: #555555; line-height: 1.5;">
-																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Nos complace informarle que hemos recibido su comprobante de pago correspondiente a {{$data['title']}}. Queremos agradecerle y su compromiso en el proceso.</span></p>
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Nos complace informarle que hemos recibido su comprobante de pago correspondiente a {{-- {{$data['title']}} --}}. Queremos agradecerle su compromiso en el proceso.</span></p>
 																	</div>
 																</div>
 															</td>
@@ -205,7 +205,7 @@
 															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
 																<div style="font-family: Arial, sans-serif">
 																	<div class style="font-size: 12px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; mso-line-height-alt: 18px; color: #555555; line-height: 1.5;">
-																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Ahora, le solicitamos su paciencia mientras llevamos a cabo la evaluación de su proyecto. Nuestro equipo de expertos se encuentra trabajando diligentemente para revisar todos los aspectos pertinentes y asegurar una evaluación exhaustiva y precisa.</span></p>
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Ahora, le solicitamos su paciencia mientras llevamos a cabo la evaluación de su proyecto. Nuestro equipo de expertos se encuentra trabajando para revisar que todos los aspectos sean pertinentes y asegurar una evaluación exhaustiva y precisa.</span></p>
 																	</div>
 																</div>
 															</td>

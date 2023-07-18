@@ -109,7 +109,7 @@ class EvaluationsController extends Controller
         $project_user = ProjectsUsers::where('project_id', $request->id_proyecto)->first();
 
         $asign = new Evaluations;
-        $asign->user_id = $request->id_evaluador;
+        $asign->user_id = $request->id_juez;
         $asign->project_user = $project_user->id;
         $asign->save();
         

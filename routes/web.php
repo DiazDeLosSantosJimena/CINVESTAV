@@ -103,8 +103,8 @@ Route::middleware('auth')->group(function () {
 
 });
 
-    Route::name('js_juez')->get('js_juez', [AreasMetasController::class, 'js_juez']);
-    Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);
+    Route::name('js_juez')->get('js_juez', [UsersController::class, 'js_juez']);
+    Route::name('pdf')->get('pdf/{id}',[ProjectsController::class, 'pdf']);
 
 ///////////////////////////////////////CORREOS//////////////////////////////////
 Route::get('forgotpass', [EmailController::class, 'forgotpass'])->name('forgotpass');

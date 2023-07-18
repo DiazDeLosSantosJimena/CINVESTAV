@@ -96,8 +96,7 @@ class UsersController extends Controller
     public function js_juez(Request $request) {
 
         $projects = $request->get('id_proyecto');
-        $projects = intval($projects);
-        $evaluador = \DB::SELECT('SELECT id, NAME, app, apm, email,deleted_at
+        $evaluador = \DB::SELECT('SELECT id, name, app, apm, email,deleted_at
         FROM users
         WHERE rol_id = 2 AND id NOT IN (
         SELECT us.id

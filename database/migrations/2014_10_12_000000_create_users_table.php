@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('app', 50);
             $table->string('apm', 50)->nullable();
-            $table->text('photo')->nullable();
+            $table->text('photo', 255)->nullable();
             $table->string('academic_degree');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

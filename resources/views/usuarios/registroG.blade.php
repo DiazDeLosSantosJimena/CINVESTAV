@@ -163,7 +163,7 @@
                 </div>
             </div>
             <div class="col-6 text-center mt-3">
-                <a href="{{ route('usuario.index') }}" type="button" class="btn btn-secondary">Regresar</a>
+                <a href="{{ route('register') }}" type="button" class="btn btn-secondary">Regresar</a>
             </div>
             <div class="col-6 text-center mt-3">
                 <button type="submit" class="btn btn-success disabled" id="btnRegistro">Enviar</button>

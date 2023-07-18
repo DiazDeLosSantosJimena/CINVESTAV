@@ -278,6 +278,13 @@ class ProjectsController extends Controller
     public function update(Request $request, Projects $id)
     {
 
+        $authors = Authors::where('project_id', $id->id)->get();
+
+        foreach($authors as $author){
+            $auth = Authors::find($author->id);
+            $auth->delete();
+        }
+
         // ============= Authors =============
         $registro = $request->input('registroA');
         $datos = json_decode($registro, true);
@@ -313,8 +320,6 @@ class ProjectsController extends Controller
                 $author->save();
             }
         }
-
-        dd($request->all());
 
         // ===================================
         if ($request->file('resumen')) {
@@ -358,7 +363,7 @@ class ProjectsController extends Controller
         ];
 
         $request->validate([
-            'titulo' => ['required', 'string', 'min:10', 'max:255'],
+            'titulo' => ['required', 'string', 'max:255'],
             'eje' => ['required', 'string'],
             'modality' => ['required', 'string'],
             'inst_pro' => ['required', 'string', 'max:255'],
@@ -477,10 +482,12 @@ class ProjectsController extends Controller
 
         return redirect()->route('proyectos.index')->with('status', 'El registro se ha eliminado correctamente.');
     }
-    public function pdf()
+    public function pdf($id)
     {
-        $Projects= Projects::all();
-        $pdf = PDF::loadView('Documentos.pdf',['Projects'=>$Projects]);
+        $proyect = ProjectsUsers::with('user', 'projects')->where('id', $id)->first();
+        $authors = Authors::where('project_id', $id)->get();
+
+        $pdf = PDF::loadView('Documentos.pdf',['proyect'=>$proyect]);
         // return view ('Documentos.pdf', compact('Projects'));
         //----------Visualizar el PDF ------------------
        return $pdf->stream();

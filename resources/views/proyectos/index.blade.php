@@ -88,7 +88,7 @@
                             </a>
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('pdf')}}" class="btn btn-danger text-white">
+                            <a href="{{ route('pdf', $prop->projects->id )}}" class="btn btn-danger text-white">
                                 <i class="bi bi-filetype-pdf"></i>
                             </a>
                         </td>

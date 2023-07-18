@@ -16,7 +16,7 @@
         crossorigin="anonymous"></script>
 
     <!-- Enlace a hojas de estilo CSS locales -->
-    <link rel="stylesheet" href="{{ asset('css/Sesiones.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sesiones.css') }}">
 
     <!-- Enlace a hojas de estilos CSS de Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
@@ -54,7 +54,7 @@
 
         <div class="in">
             <!-- Formulario de recuperación de contraseña -->
-            <form id="recuperar" action="" method="GET">
+            <form id="recuperar" action="{{route('passchange')}}" method="GET">
                 @csrf <!-- Protección CSRF -->
                 
                 <input type="hidden" value="{{$id}}" name="id" id="">
@@ -72,7 +72,7 @@
                     <li>Verifica la contraseña.</li>
                     <div class="input-group mb-3">
                         <input type="password" name="pass2" id="password2" class="form-control" placeholder="Nueva Contraseña" pattern="(?=.*\d)(?=.*[!@#$%^&*]).{8,}" title="La contraseña debe tener al menos 8 caracteres, 1 número y 1 carácter especial">
-                        <button class="btn btn-secondary" onclick="mostrarContrasena2()" type="button" id="button-addon2">
+                        <button class="btn btn-outline-primary" onclick="mostrarContrasena2()" type="button" id="button-addon2">
                             <i class="fa-solid fa-eye"></i>
                         </button>
                     </div>

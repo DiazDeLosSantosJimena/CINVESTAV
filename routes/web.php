@@ -93,10 +93,6 @@ Route::middleware('auth')->group(function () {
         return view('layout.encuentro');
     })->name('encuentro');
 
-    Route::get('perfil', function () {
-        return view('usuarios.perfil');
-    })->name('perfil');
-
     Route::get('EditPerfil', function () {
         return view('usuarios.EditPerfil');
     });
@@ -106,10 +102,20 @@ Route::middleware('auth')->group(function () {
     Route::name('js_juez')->get('js_juez', [AreasMetasController::class, 'js_juez']);
     Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);
 
-///////////////////////////////////////CORREOS//////////////////////////////////
+///////////////////////////////////////CORREOS////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('forgotpass', [EmailController::class, 'forgotpass'])->name('forgotpass');
 Route::name('recuperar')->get('recuperar', [EmailController::class, 'recuperar']);
 Route::name('reset')->get('reset', [EmailController::class, 'reset'])->middleware('signed');
+Route::name('passchange')->get('passchange', [EmailController::class, 'passchange']);
+
+//////Cambios en el perfil
+Route::get('perfil', function () {
+        return view('usuarios.perfil');
+    })->name('perfil');
+
+Route::name('soportemail')->get('soportemail', [EmailController::class, 'soportemail']);
+
+
 
 
 require __DIR__.'/auth.php';

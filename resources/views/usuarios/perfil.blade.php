@@ -52,17 +52,17 @@
                     <p class="display-4">Contacto:</p>
                 </div>
                 <div class="col-6">
-                    <form action="">
+                    <form action="{{route('soportemail')}}" method="GET">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <input type="text" name="asunto" class="form-control" id="floatingInput" placeholder="name@example.com">
                             <label for="floatingInput">Asunto:</label>
                         </div>
                         <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <textarea class="form-control" name="comentario" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                             <label for="floatingTextarea2">Motivo del Correo</label>
                         </div>
                         <div class="text-start my-3">
-                            <button type="button" class="btn btn-success">Enviar</button>
+                            <button type="submit" class="btn btn-success">Enviar</button>
                         </div>
                     </form>
                 </div>

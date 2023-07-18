@@ -98,22 +98,22 @@ class ProjectsController extends Controller
         $archive3->save();
 
         /* CORREO */
-        $user = Auth::user()->id;
+        $user = Auth::id();
         $email = User::where('id', $user)->value('email');
         $title = Projects::where('id', $id)->value('title');
-        
 
-        $data = array(
-            'destinatario'=> $email,
-            'asunto'=> 'Comprobante de Pago',
-            'nombre'=> $title,
-        );
+        $data = [
+            'destinatario' => $email,
+            'asunto' => 'Comprobante de Pago',
+            'nombre' => $title,
+        ];
 
-        Mail::send('mail.comprobante', compact('data'), function($message) use ($data){
-            $message->to($data['destinatario'],'Admin Uippe')
-                ->subject($data['asunto']);
-            $message->from('hello@example.com', 'Soporte UIPPE');
+        Mail::send('mail.comprobante', compact('data'), function ($message) use ($data) {
+            $message->to($data['destinatario'], 'Admin Uippe')
+                ->subject($data['asunto'])
+                ->from('hello@example.com', 'Soporte UIPPE');
         });
+
         
 
         return redirect()->route('proyectos.index')->with('status', 'Formato de Pago subido con exito!');

@@ -56,7 +56,7 @@
                 <div class="container my-5">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 my-3 text-center">
-                            <img src="{{ asset('img/logo_negativo.png') }}" class="img-fluid" alt="Encuentro" width="150px">
+                            <a href="{{ route('encuentro') }}"><img src="{{ asset('img/logo_negativo.png') }}" class="img-fluid" alt="Encuentro" width="150px"></a>
                         </div>
                         <hr>
                         <div class="col-sm-12 col-md-4 mt-3 text-center">

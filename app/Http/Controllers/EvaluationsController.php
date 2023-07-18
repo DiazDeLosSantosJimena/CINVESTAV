@@ -48,14 +48,14 @@ class EvaluationsController extends Controller
     {
         //$proyect = ProjectsUsers::with('user','projects')->where('id', $id)->first();
         $proyect = ProjectsUsers::find($id);
-        $evaluacion = Evaluations::find($id);
+
         $id = Evaluations::join('projects_users', 'evaluations.project_id', '=', 'projects_users.project_id')
         ->where('projects_users.project_id', $proyect->id)
         ->pluck('evaluations.id')
         ->first();
         $files = Files::where('project_id', $proyect->projects->id)->get();
-        $authors = Authors::where('project_id', $proyect->id)->get();
-        return view('evaluacion.edit', compact('proyect', 'files', 'id', 'evaluacion', 'authors'));
+        //  dd($files);
+        return view('evaluacion.evaluacion', compact('proyect', 'files', 'id'));
     }
 
     public function store(Request $request)
@@ -104,12 +104,66 @@ class EvaluationsController extends Controller
         return redirect()->route('evaluacion.index');
     }
 
+    public function asignEvaluator(Request $request) {
+        
+        $project_user = ProjectsUsers::where('project_id', $request->id_proyecto)->first();
 
-    public function update(Request $request, $id)
-    {
-        $evaluacion = Evaluations::findOrFail($id);
-        $input=$request->all();
-        $evaluacion->update($input);
-        return redirect()->route('evaluacion.index')->with('status', 'Se actualizó la calificación con exito!');
+        $asign = new Evaluations;
+        $asign->user_id = $request->id_juez;
+        $asign->project_user = $project_user->id;
+        $asign->save();
+        
+        return redirect('usuarios')->with('status', 'Evaluador asignado al proyecto con exito!');
+    }
+
+
+    public function edit2(Request $request, Evaluations $id){
+        $user = Auth::user()->id;
+        $project = $request->input('project');
+        $id = $request->input('id');
+
+        $c1 = $request->input('c1');
+        $c2 = $request->input('c2');
+        $c3 = $request->input('c3');
+        $c4 = $request->input('c4');
+        $c5 = $request->input('c5');
+        $c6 = $request->input('c6');
+        $c7 = $request->input('c7');
+        $c8 = $request->input('c8');
+        $c9 = $request->input('c9');
+        $c10 = $request->input('c10');
+        $c11 = $request->input('c11');
+        $c12 = $request->input('c12');
+
+        $criterio = $request->input('criterio');
+
+        $comentario = $request->input('comentario');
+
+        DB::Evaluations('tabla')->where('id', $id)->update([
+        'user_id' => $user,
+        'project_id' => $project,
+        'title' => $c1,
+        'extension' => $c2,
+        'key_words' => $c3,
+        'abstract_keywords' => $c4,
+        'problematic' => $c5,
+        'theoretical' => $c6,
+        'methodology' => $c7,
+        'proposal' => $c8,
+        'results' => $c9,
+        'APA_table' => $c10,
+        'APA_references' => $c11,
+        'format' => $c12,
+        'status' => $criterio,
+        'comment' => $comentario,
+            // Actualiza otros campos según sea necesario
+        ]);
+
+        return redirect()->route('evaluacion.index');
+    }
+
+    public function destroy($id) {
+        Evaluations::findOrFail($id)->delete();
+        return redirect('usuarios')->with('status', 'Registro Eliminado!');
     }
 }

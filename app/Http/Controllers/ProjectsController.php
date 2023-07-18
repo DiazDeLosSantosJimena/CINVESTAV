@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\Projects;
+use Illuminate\Http\Request;
+use PDF;
 use App\Models\Authors;
 use App\Models\Files;
-use App\Models\Projects;
 use App\Models\ProjectsUsers;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Return_;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
@@ -57,6 +62,22 @@ class ProjectsController extends Controller
         return view('proyectos.pago', compact('project'));
     }
 
+    public function verifyProject($id) {
+        $proyect = ProjectsUsers::find($id);
+        $files = Files::where('project_id', $proyect->projects->id)->get();
+        $authors = Authors::where('project_id', $proyect->projects->id)->get();
+        return view('proyectos.verifyProject', compact('proyect', 'files', 'authors'));
+    }
+
+    public function accept(Request $request,$id) {
+
+        $users = Projects::find($id);
+        $users->status = $request->status;
+        $users->save();
+
+        return redirect('proyectos')->with('status', 'Estatus del proyecto actualizado, notificación al ponente!');
+    }
+
     public function pagoCreate(Request $request, $id) {
 
         $messages = [
@@ -75,6 +96,24 @@ class ProjectsController extends Controller
         ]);
         $request->file('pago')->storeAs('public', $archive3->name);
         $archive3->save();
+
+        /* CORREO */
+        $user = Auth::user()->id;
+        $email = User::where('id', $user)->value('email');
+        $title = Projects::where('id', $id)->value('title');
+        
+
+        $data = array(
+            'destinatario'=> $email,
+            'asunto'=> 'Comprobante de Pago',
+            'nombre'=> $title,
+        );
+
+        Mail::send('mail.comprobante', compact('data'), function($message) use ($data){
+            $message->to($data['destinatario'],'Admin Uippe')
+                ->subject($data['asunto']);
+            $message->from('hello@example.com', 'Soporte UIPPE');
+        });
         
 
         return redirect()->route('proyectos.index')->with('status', 'Formato de Pago subido con exito!');
@@ -149,11 +188,10 @@ class ProjectsController extends Controller
             'title' => $request->titulo,
             'thematic_area' => $request->eje,
             'sending_institution' => $request->inst_pro,
-            'status' => 0
+            'status' => 1
         ]);
         $proyect->save();
 
-        // ============= Authors =============
         $registro = $request->input('registroA');
         $datos = json_decode($registro, true);
         if ($datos !== null) {
@@ -174,7 +212,6 @@ class ProjectsController extends Controller
                 $author->save();
             }
         }
-        // ===================================
 
         $archive = Files::create([
             'project_id' => $proyect->id,
@@ -241,6 +278,13 @@ class ProjectsController extends Controller
     public function update(Request $request, Projects $id)
     {
 
+        $authors = Authors::where('project_id', $id->id)->get();
+
+        foreach($authors as $author){
+            $auth = Authors::find($author->id);
+            $auth->delete();
+        }
+
         // ============= Authors =============
         $registro = $request->input('registroA');
         $datos = json_decode($registro, true);
@@ -276,8 +320,6 @@ class ProjectsController extends Controller
                 $author->save();
             }
         }
-
-        dd($request->all());
 
         // ===================================
         if ($request->file('resumen')) {
@@ -321,7 +363,7 @@ class ProjectsController extends Controller
         ];
 
         $request->validate([
-            'titulo' => ['required', 'string', 'min:10', 'max:255'],
+            'titulo' => ['required', 'string', 'max:255'],
             'eje' => ['required', 'string'],
             'modality' => ['required', 'string'],
             'inst_pro' => ['required', 'string', 'max:255'],
@@ -439,5 +481,19 @@ class ProjectsController extends Controller
         $query->delete();
 
         return redirect()->route('proyectos.index')->with('status', 'El registro se ha eliminado correctamente.');
+    }
+    public function pdf($id)
+    {
+        $proyect = ProjectsUsers::with('user', 'projects')->where('id', $id)->first();
+        $authors = Authors::where('project_id', $id)->get();
+
+        $pdf = PDF::loadView('Documentos.pdf',['proyect'=>$proyect]);
+        // return view ('Documentos.pdf', compact('Projects'));
+        //----------Visualizar el PDF ------------------
+       return $pdf->stream();
+       // ------Descargar el PDF------
+       //return $pdf->download('___libros.pdf');
+
+
     }
 }

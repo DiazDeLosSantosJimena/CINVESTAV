@@ -15,21 +15,21 @@ return new class extends Migration
     {
         Schema::create('evaluations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('project_id')->constrained('projects');
-            $table->integer('title');
-            $table->integer('extension');
-            $table->integer('key_words');
-            $table->integer('abstract_keywords');
-            $table->integer('problematic');
-            $table->integer('theoretical');
-            $table->integer('methodology');
-            $table->integer('proposal');
-            $table->integer('results');
-            $table->integer('APA_table');
-            $table->integer('APA_references');
-            $table->integer('format'); //Fuente,Margen y Extensión
-            $table->string('status');
+            $table->foreignId('user_id')->constrained('users'); // Evaluador
+            $table->foreignId('project_user')->constrained('projects_users'); //Proyecto que le pertenece a un ponente
+            $table->integer('title')->nullable();
+            $table->integer('extension')->nullable();
+            $table->integer('key_words')->nullable();
+            $table->integer('abstract_keywords')->nullable();
+            $table->integer('problematic')->nullable();
+            $table->integer('theoretical')->nullable();
+            $table->integer('methodology')->nullable();
+            $table->integer('proposal')->nullable();
+            $table->integer('results')->nullable();
+            $table->integer('APA_table')->nullable();
+            $table->integer('APA_references')->nullable();
+            $table->integer('format')->nullable(); //Fuente,Margen y Extensión
+            $table->string('status')->nullable();
             $table->string('comment')->nullable();
             $table->timestamps();
         });

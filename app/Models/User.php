@@ -26,6 +26,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
+        'photo',
         'country',
         'state',
         'municipality',
@@ -62,6 +63,6 @@ class User extends Authenticatable
     }
 
     public function Evaluations() {
-        return $this->hasMany(Evaluations::class,'rol_id');
+        return $this->hasMany(Evaluations::class,'user_id', 'id');
     }
 }

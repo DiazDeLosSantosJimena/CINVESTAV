@@ -76,11 +76,11 @@
                     <a href="{{ route('usuarios') }}">
                         <div class="row no-gutters align-items-center" style="color: #0078a1;">
                             <div class="col-12 text-center my-5">
-                                <i class='bi bi-person-fill-add' style="font-size: 5rem; color: #7f7f7f;"></i>
+                                <i class='bi bi-person-fill' style="font-size: 5rem; color: #7f7f7f;"></i>
                             </div>
                             <div class="col-12 text-center">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                    <h4>Registro Evaluadores</h4>
+                                    <h4>Usuarios</h4>
                                 </div>
                             </div>
                         </div>

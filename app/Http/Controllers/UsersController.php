@@ -68,11 +68,12 @@ class UsersController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('usuarios')->with('status', 'Evaluador eliminado con exito!');
+        return redirect()->route('usuarios')->with('status', 'Registro eliminado con exito!');
     }
 
     public function usuarios()
     {
+        $usuariosG = User::where('rol_id', 3)->get();
         $usuarios = \DB::select('SELECT users.id, users.name, users.apm, users.app,users.academic_degree, users.email, users.phone, users.country,
         users.state, users.municipality, users.rol_id, users.deleted_at FROM users, roles WHERE users.rol_id = roles.id AND
         roles.id = "2"');
@@ -90,7 +91,7 @@ class UsersController extends Controller
             JOIN projects_users AS proUs ON proUs.id = eva.project_user
             JOIN projects AS pro ON pro.id = proUs.project_id');
         $users = User::where('rol_id', '2')->get();
-        return view('usuarios.index', compact('usuarios', 'proyects', 'users', 'proyectsEvaluators'));
+        return view('usuarios.index', compact('usuarios', 'proyects', 'users', 'proyectsEvaluators', 'usuariosG'));
     }
 
     public function js_juez(Request $request) {

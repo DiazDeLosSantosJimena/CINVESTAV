@@ -71,7 +71,7 @@
                             @if($prop->projects->status === 1)
                             <span class="badge text-white text-bg-warning">Pendiente</span>
                             @elseif($prop->projects->status === 2)
-                            <span class="badge text-white text-bg-success">Aceptado</span>
+                            <span class="badge text-white text-bg-success">Registro Aceptado</span>
                             @else
                             <span class="badge text-white text-bg-danger">Rechazado</span>
                             @endif

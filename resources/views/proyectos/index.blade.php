@@ -87,11 +87,13 @@
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </td>
+                        @if($prop->projects->status > 1)
                         <td class="text-center">
                             <a href="{{ route('pdf', $prop->projects->id )}}" class="btn btn-danger text-white">
                                 <i class="bi bi-filetype-pdf"></i>
                             </a>
                         </td>
+                        @endif
                         <td class="text-center">
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
                                 <i class="bi bi-trash3-fill"></i>

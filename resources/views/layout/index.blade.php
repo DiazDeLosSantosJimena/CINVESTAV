@@ -15,12 +15,12 @@
                 <div class="card-body">
                     <a href="{{ route('proyectos.index') }}">
                         <div class="row no-gutters align-items-center" style="color: #0078a1;">
-                            <div class="col-12 text-center my-3">
-                                <i class="bi bi-award-fill" style="font-size: 7rem; color: #7f7f7f;"></i>
+                            <div class="col-12 text-center my-5">
+                                <i class="bi bi-award-fill" style="font-size: 5rem; color: #7f7f7f;"></i>
                             </div>
                             <div class="col-12 text-center">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                    <h3>Proyectos</h3>
+                                    <h4>Proyectos</h4>
                                 </div>
                             </div>
                         </div>
@@ -35,12 +35,12 @@
                 <div class="card-body">
                     <a href="{{ route('evaluacion.index') }}">
                         <div class="row no-gutters align-items-center" style="color: #0078a1;">
-                            <div class="col-12 text-center my-3">
-                                <i class="bi bi-clipboard-check-fill" style="font-size: 7rem; color: #7f7f7f;"></i>
+                            <div class="col-12 text-center my-5">
+                                <i class="bi bi-clipboard-check-fill" style="font-size: 5rem; color: #7f7f7f;"></i>
                             </div>
                             <div class="col-12 text-center">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                    <h3>Evaluación</h3>
+                                    <h4>Evaluación</h4>
                                 </div>
                             </div>
                         </div>
@@ -55,12 +55,12 @@
                 <div class="card-body">
                     <a href="{{ route('taller.index') }}" class="">
                         <div class="row no-gutters align-items-center" style="color: #0078a1;">
-                            <div class="col-12 text-center my-3">
-                                <i class='bi bi-clipboard-data-fill' style="font-size: 7rem; color: #7f7f7f;"></i>
+                            <div class="col-12 text-center my-5">
+                                <i class='bi bi-clipboard-data-fill' style="font-size: 5rem; color: #7f7f7f;"></i>
                             </div>
                             <div class="col-12 text-center">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                    <h3>Registro Talleres</h3>
+                                    <h4>Registro Talleres</h4>
                                 </div>
                             </div>
                         </div>
@@ -75,12 +75,12 @@
                 <div class="card-body">
                     <a href="{{ route('usuarios') }}">
                         <div class="row no-gutters align-items-center" style="color: #0078a1;">
-                            <div class="col-12 text-center my-3">
-                                <i class='bi bi-person-fill-add' style="font-size: 7rem; color: #7f7f7f;"></i>
+                            <div class="col-12 text-center my-5">
+                                <i class='bi bi-person-fill-add' style="font-size: 5rem; color: #7f7f7f;"></i>
                             </div>
                             <div class="col-12 text-center">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                    <h3>Registro Evaluadores</h3>
+                                    <h4>Registro Evaluadores</h4>
                                 </div>
                             </div>
                         </div>
@@ -95,12 +95,12 @@
                 <div class="card-body">
                     <a href="{{ route('attendance.index') }}">
                         <div class="row no-gutters align-items-center" style="color: #0078a1;">
-                            <div class="col-12 text-center my-3">
-                                <i class='bi bi-boxes' style="font-size: 7rem; color: #7f7f7f;"></i>
+                            <div class="col-12 text-center my-5">
+                                <i class='bi bi-boxes' style="font-size: 5rem; color: #7f7f7f;"></i>
                             </div>
                             <div class="col-12 text-center">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                    <h3>Actividades</h3>
+                                    <h4>Actividades</h4>
                                 </div>
                             </div>
                         </div>
@@ -114,15 +114,15 @@
             <div class="card text-bg-light border-left-primary shadow h-100 rounded-4">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center" style="color: #0078a1;">
-                        <div class="col-12 text-center my-3">
+                        <div class="col-12 text-center my-5">
                             <a href="{{ route('perfil') }}">
-                                <i class='bi bi-person-circle' style="font-size: 7rem; color: #7f7f7f;"></i>
+                                <i class='bi bi-person-circle' style="font-size: 5rem; color: #7f7f7f;"></i>
                             </a>
                         </div>
                         <div class="col-12 text-center">
                             <div class="text-xs font-weight-bold text-uppercase mb-1">
                                 <a href="{{ route('perfil') }}" style="color: #0078a1;">
-                                    <h3>Perfíl</h3>
+                                    <h4>Perfíl</h4>
                                 </a>
                             </div>
                         </div>

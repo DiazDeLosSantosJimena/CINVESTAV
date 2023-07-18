@@ -147,7 +147,7 @@
 															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
 																<div style="font-family: sans-serif">
 																	<div class style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
-																		<p style="margin: 0; font-size: 16px; text-align: center; mso-line-height-alt: 19.2px;"><span style="font-size:30px;color:#2b303a;"><strong>Comprobante Recibido<br></strong></span></p>
+																		<p style="margin: 0; font-size: 16px; text-align: center; mso-line-height-alt: 19.2px;"><span style="font-size:30px;color:#2b303a;"><strong>Información de Registro<br></strong></span></p>
 																	</div>
 																</div>
 															</td>
@@ -173,12 +173,12 @@
 															</td>
 														</tr>
 													</table>
-													<table class="text_block block-4" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+													<table class="text_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 														<tr>
 															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
 																<div style="font-family: Arial, sans-serif">
 																	<div class style="font-size: 12px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; mso-line-height-alt: 18px; color: #555555; line-height: 1.5;">
-																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Nos complace informarle que hemos recibido su comprobante de pago correspondiente a {{-- {{$data['title']}} --}}. Queremos agradecerle su compromiso en el proceso.</span></p>
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">{{ $data['comentario'] }}</span></p>
 																	</div>
 																</div>
 															</td>
@@ -200,12 +200,12 @@
 										<tbody>
 											<tr>
 												<td class="column column-1" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; text-align: left; font-weight: 400; padding-bottom: 5px; padding-top: 5px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
-													<table class="text_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+													<table class="text_block block-4" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 														<tr>
 															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
 																<div style="font-family: Arial, sans-serif">
 																	<div class style="font-size: 12px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; mso-line-height-alt: 18px; color: #555555; line-height: 1.5;">
-																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Ahora, le solicitamos su paciencia mientras llevamos a cabo la evaluación de su proyecto. Nuestro equipo de expertos se encuentra trabajando para revisar que todos los aspectos sean pertinentes y asegurar una evaluación exhaustiva y precisa.</span></p>
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">{{ $data['comentario2'] }}{{ $data['nombre'] }}.</span></p>
 																	</div>
 																</div>
 															</td>

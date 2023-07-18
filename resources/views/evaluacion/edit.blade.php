@@ -142,8 +142,8 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="title">
-                                                @for ($i = 1; $i <= 10; $i++) 
-                                                    <option value="{{$i}}" {{ old('title', $i) == $evaluacion->title ? 'selected' : '' }}>{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++)
+                                                    <option onchange="suma{{ $i }} value="{{$i}}" {{ old('title', $i) == $evaluacion->title ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -159,8 +159,8 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="extension">
-                                                @for ($i = 1; $i <= 10; $i++) 
-                                                    <option value="{{$i}}" {{ old('extension', $i) == $evaluacion->extension ? 'selected' : '' }}>{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++)
+                                                    <option onchange="suma{{ $i }} value="{{$i}}" {{ old('extension', $i) == $evaluacion->extension ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -177,7 +177,7 @@
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="key_words">
                                                 @for ($i = 1; $i <= 10; $i++)
-                                                    <option value="{{$i}}" {{ old('key_words', $i) == $evaluacion->key_words ? 'selected' : '' }}>{{$i}}</option>
+                                                    <option onchange="suma{{ $i }} value="{{$i}}" {{ old('key_words', $i) == $evaluacion->key_words ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -194,7 +194,7 @@
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="abstract_keywords">
                                                 @for ($i = 1; $i <= 10; $i++)
-                                                    <option value="{{$i}}" {{ old('abstract_keywords', $i) == $evaluacion->abstract_keywords ? 'selected' : '' }}>{{$i}}</option>
+                                                    <option onchange="suma{{ $i }} value="{{$i}}" {{ old('abstract_keywords', $i) == $evaluacion->abstract_keywords ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -211,7 +211,7 @@
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="problematic">
                                                 @for ($i = 1; $i <= 10; $i++)
-                                                    <option value="{{$i}}" {{ old('problematic', $i) == $evaluacion->problematic ? 'selected' : '' }}>{{$i}}</option>
+                                                    <option onchange="suma{{ $i }} value="{{$i}}" {{ old('problematic', $i) == $evaluacion->problematic ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -228,7 +228,7 @@
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="theoretical">
                                                 @for ($i = 1; $i <= 10; $i++)
-                                                    <option value="{{$i}}" {{ old('theoretical', $i) == $evaluacion->theoretical ? 'selected' : '' }}>{{$i}}</option>
+                                                    <option onchange="suma{{ $i }} value="{{$i}}" {{ old('theoretical', $i) == $evaluacion->theoretical ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -245,7 +245,7 @@
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="methodology">
                                                 @for ($i = 1; $i <= 10; $i++)
-                                                    <option value="{{$i}}" {{ old('methodology', $i) == $evaluacion->methodology ? 'selected' : '' }}>{{$i}}</option>
+                                                    <option onchange="suma{{ $i }} value="{{$i}}" {{ old('methodology', $i) == $evaluacion->methodology ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -262,7 +262,7 @@
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="proposal">
                                                 @for ($i = 1; $i <= 10; $i++)
-                                                    <option value="{{$i}}" {{ old('proposal', $i) == $evaluacion->proposal ? 'selected' : '' }}>{{$i}}</option>
+                                                    <option onchange="suma{{ $i }} value="{{$i}}" {{ old('proposal', $i) == $evaluacion->proposal ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -279,7 +279,7 @@
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="results">
                                                 @for ($i = 1; $i <= 10; $i++)
-                                                    <option value="{{$i}}" {{ old('results', $i) == $evaluacion->results ? 'selected' : '' }}>{{$i}}</option>
+                                                    <option onchange="suma{{ $i }} value="{{$i}}" {{ old('results', $i) == $evaluacion->results ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -296,7 +296,7 @@
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="APA_table">
                                                 @for ($i = 1; $i <= 10; $i++)
-                                                    <option value="{{$i}}" {{ old('APA_table', $i) == $evaluacion->APA_table ? 'selected' : '' }}>{{$i}}</option>
+                                                    <option onchange="suma{{ $i }} value="{{$i}}" {{ old('APA_table', $i) == $evaluacion->APA_table ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -313,7 +313,7 @@
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="APA_references">
                                                 @for ($i = 1; $i <= 10; $i++)
-                                                    <option value="{{$i}}" {{ old('APA_references', $i) == $evaluacion->APA_references ? 'selected' : '' }}>{{$i}}</option>
+                                                    <option onchange="suma{{ $i }} value="{{$i}}" {{ old('APA_references', $i) == $evaluacion->APA_references ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -329,8 +329,8 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select" aria-label="Default select example" name="format">
-                                                @for ($i = 1; $i <= 10; $i++) 
-                                                    <option value="{{$i}}" {{ old('format', $i) == $evaluacion->format ? 'selected' : '' }}>{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++)
+                                                    <option onchange="suma{{ $i }} value="{{$i}}" {{ old('format', $i) == $evaluacion->format ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -338,8 +338,8 @@
                                 </tr>
                                 <tr class="align-middle table-group-divider">
                                     <th style="text-align: end;">Total:</th>
-                                    <th class="text-center">
-                                        <p id="totalCriterios">0</p>
+                                    <th class="text-center" id="total">
+                                        <p>0</p>
                                     </th>
                                 </tr>
                             </tbody>
@@ -432,6 +432,44 @@
         <script>
             var navbar = document.querySelector('#evaluaciones');
             navbar.className = "mdl-layout__tab is-active";
+
+            window.addEventListener('load', () => {
+                // Llama a la función para realizar la suma inicial
+                calcularSuma();
+            });
+
+            // Función para realizar la suma de las puntuaciones evaluadas
+            function calcularSuma() {
+                var totalSuma = 0;
+                var criterios = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11', 'c12'];
+
+                criterios.forEach((criterio) => {
+                    var valor = parseInt(document.querySelector(`select[name="${criterio}"]`).value);
+                    totalSuma += isNaN(valor) ? 0 : valor;
+                });
+
+                // Muestra el resultado de la suma en el elemento con id "total"
+                document.getElementById("total").innerHTML = `<p>${totalSuma}</p>`;
+            }
+
+            // Agrega eventos change a los select para recalcular la suma cuando cambian
+            var criterios = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11', 'c12'];
+            criterios.forEach((criterio) => {
+                document.querySelector(`select[name="${criterio}"]`).addEventListener('change', calcularSuma);
+            });
+
+            function calcularSumaTotal() {
+                var total = 0;
+                for (var i = 1; i <= 12; i++) {
+                    total += parseInt(document.querySelector("#calif" + i).value || 0);
+                }
+                document.getElementById("total").innerHTML = "<p>" + total + "</p>";
+                document.getElementById("sumaTotal").value = total; // Actualizar el campo oculto con la suma total
+            }
+
+            for (var i = 1; i <= 12; i++) {
+                document.querySelector("#calif" + i).addEventListener("change", calcularSumaTotal);
+            }
         </script>
         <div class="col-md-12 col-sm-12 my-2 text-center">
             <a href="{{ route('evaluacion.index') }}" class="btn btn-secondary">Regresar</a>

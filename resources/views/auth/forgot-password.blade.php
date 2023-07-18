@@ -46,7 +46,7 @@
                         <li>Reestablece tu contraseña.</li>
                     </ol>
                 </div>
-                <div class="boton mb-5"><button class="btn btn-success"> Enviar Correo de Recuperación</button></div>
+                <div class="boton mb-5"><button class="btn btn-outline-primary"> Enviar Correo de Recuperación</button></div>
             </form>
         </div>
     </div>

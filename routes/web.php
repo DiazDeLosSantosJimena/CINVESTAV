@@ -77,6 +77,7 @@ Route::middleware('auth')->group(function () {
 
     Route::name('evaluacion.delete')->delete('proyectos.delete/{id}', [EvaluationsController::class, 'destroy']);
     Route::name('evaluacion.asignEvaluator')->post('evaluacion.asignEvaluator', [EvaluationsController::class, 'asignEvaluator']);
+    Route::name('evaluacion.calificacion')->put('evaluacion.calificacion/{id}', [EvaluationsController::class, 'calificacion']);
 
     Route::name('subirPago')->post('proyectos/{id}', [ProjectsController::class, 'pagoCreate']);
     Route::get('/proyectos/{proposal}/pago', [ProjectsController::class, 'pagoView'])->name('proyectos.pagoView');
@@ -100,7 +101,7 @@ Route::middleware('auth')->group(function () {
         return view('usuarios.EditPerfil');
     });
 
-    Route::name('js_proyectos')->get('js_proyectos', [AreasMetasController::class, 'js_proyectos']);
+    Route::name('js_proyectos')->get('js_proyectos', [ProjectsController::class, 'js_proyectos']);
 });
 
     Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);

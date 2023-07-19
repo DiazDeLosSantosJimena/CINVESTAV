@@ -8,38 +8,34 @@
                 <div class="col-md-12 col-sm-12 text-center">
                     <h3>Datos del Ponente</h3>
                 </div>
+                @foreach ($user as $uni)
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Nombre del postulante:</strong><br> {{ $proyect->user->name .' '. $proyect->user->app .' '. $proyect->user->apm }}</p>
+                    <p><strong>Nombre del postulante:</strong><br> {{ $uni->name .' '. $uni->app .' '. $uni->apm }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Correo:</strong><br> {{ $proyect->user->email }}</p>
+                    <p><strong>Correo:</strong><br> {{ $uni->email }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Teléfono:</strong><br> {{ $proyect->user->phone }}</p>
+                    <p><strong>Teléfono:</strong><br> {{ $uni->phone }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Grado Academico:</strong><br> {{ $proyect->user->academic_degree }}</p>
+                    <p><strong>Grado Academico:</strong><br> {{ $uni->academic_degree }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>País:</strong><br> {{ $proyect->user->country }}</p>
+                    <p><strong>País:</strong><br> {{ $uni->country }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Estado:</strong><br> {{ $proyect->user->state }}</p>
+                    <p><strong>Estado:</strong><br> {{ $uni->state }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Ciudad:</strong><br> {{ $proyect->user->municipality }}</p>
+                    <p><strong>Ciudad:</strong><br> {{ $uni->municipality }}</p>
                 </div>
                 <div class="col-md-12 col-sm-12 my-3">
                     <p><strong>Asistencia:</strong>
                         <br>
-                        @if($proyect->user->assistance == 'p')
-                        Presencial
-                        @elseif($proyect->user->assistance == 'v')
-                        Virtual
-                        @endif
-                    </p>
+                    </p> 
                 </div>
-            </div>
+            </div>     
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="row">
@@ -47,41 +43,41 @@
                     <h3>Datos del Proyecto</h3>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Título del proyecto:</strong><br> {{ $proyect->projects->title }}</p>
+                    <p><strong>Título del proyecto:</strong><br> {{ $uni->title }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
                     <p><strong>Modalidad de participación:</strong>
                         <br>
-                        @if($proyect->projects->modality == 'P')
+                        @if($uni->modality == 'P')
                         Ponencia
-                        @elseif( $proyect->projects->modality == 'C')
+                        @elseif( $uni->modality == 'C')
                         Cartel
                         @else
-                        {{ $proyect->projects->modality }}
+                        {{ $uni->modality }}
                         @endif
                     </p>
                 </div>
                 <div class="col-md-12 col-sm-12 my-3">
                     <p><strong>Eje tematico:</strong>
                         <br>
-                        @if($proyect->projects->thematic_area == 'U')
+                        @if($uni->thematic_area == 'U')
                         Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
-                        @elseif( $proyect->projects->thematic_area == 'P')
+                        @elseif( $uni->thematic_area == 'P')
                         Nivel Preuniversitario.(Bachillerato.)
-                        @elseif( $proyect->projects->thematic_area == 'B')
+                        @elseif( $uni->thematic_area == 'B')
                         Nivel Básico.(Primaria o secundaria.)
-                        @elseif( $proyect->projects->thematic_area == 'STEM')
+                        @elseif( $uni->thematic_area == 'STEM')
                         Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
                         @else
-                        {{ $proyect->projects->modality }}
+                        {{ $uni->modality }}
                         @endif
                     </p>
                 </div>
-                @if(count($authors) > 0)
+            @if(count($autores) > 0)
                 <div class="col-md-12 col-sm-12 my-3 text-center">
                     <p><strong>~ Autores ~</strong></p>
                 </div>
-                @foreach($authors as $author)
+                @foreach($autores as $author)
                 <div class="col-md-4 col-sm-12 my-3">
                     <p><strong>Nombre:</strong><br> {{ $author->name }} </p>
                 </div>
@@ -94,8 +90,9 @@
                 @endforeach
                 @endif
                 <div class="col-md-12 col-sm-12 my-3">
-                    <p><strong>Institución de procedencia:</strong><br> {{ $proyect->projects->sending_institution }}</p>
+                    <p><strong>Institución de procedencia:</strong><br> {{ $uni->sending_institution }}</p>
                 </div>
+                @endforeach
             </div>
         </div>
         <div class="col-md-12 col-sm-12 my-2">
@@ -106,7 +103,7 @@
                 @foreach($files as $file)
                 <div class="col-auto mb-3 text-center">
                     <!-- Button Chip -->
-                    <a href="" type="button" class="mdl-chip" style="background-color: #0178a0; color: white;">
+                    <a href="{{ route('proyectos.download', $file->id) }}" type="button" class="mdl-chip" style="background-color: #0178a0; color: white;">
                         <span class="mdl-chip__text">{{ $file->name }}</span>
                     </a>
                 </div>
@@ -121,10 +118,9 @@
                     <h3>Calificación</h3>
                 </div>
                 <div class="table-responsive">
-                    <form action="{{ route('evaluacion.update', $proyect-> id) }}" method="POST">
+                    <form action="{{ route('evaluacion.update', $evaluacion-> id) }}" method="POST">
                         @csrf
                         @method('put')
-                        <input type="hidden" value="{{ $proyect->projects->title }}" name="nombre">
                         <table class="table table-borderless">
                             <thead>
                                 <tr class="text-center">

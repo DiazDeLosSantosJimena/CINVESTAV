@@ -32,9 +32,6 @@ class Projects extends Model
         return $this->hasMany(Authors::class,'project_id','id');
     }
 
-    public function Evaluations() {
-        return $this->hasMany(Evaluations::class,'project_id','id');
-
-    }
+    
 
 }

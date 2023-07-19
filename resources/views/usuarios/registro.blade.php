@@ -85,8 +85,9 @@
         </div>
         <div class="col-12">
             <div class="mb-3 my-2">
-            <label for="tel" class="form-label">Foto del ponente:</label> <label for="tel" class="text-danger">*</label>
-                <input class="form-control @error('foto') is-invalid @enderror" type="file" name="foto" id="foto">
+                <label for="tel" class="form-label">Foto del ponente:</label> <label for="tel" class="text-danger">*</label>
+                <input class="form-control @error('foto') is-invalid @enderror" type="file" name="foto" oninput="autoFill()" id="input1">
+                <input type="hidden" class="form-control" aria-label="First name" name="foto_name" id="input2" readonly>
                 <div class="form-text" id="foto-addon">(Favor de seleccionar el archivo que desea cargar. Tipo de archivo jpeg | jpg | png, no mayor a 2MB)</div>
             </div>
             @error('foto')
@@ -166,7 +167,7 @@
             </div>
             <input type="hidden" value="3" name="role_id" id="role_id">
             <div class="col-12 d-flex justify-content-center align-content-center my-3">
-                    <div class="form-check">
+                <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="1" name="verify" id="confirm">
                     <label class="form-check-label" for="flexCheckDefault">
                         He revisado los datos proporcionados y certifico que la información capturadas sean correctas y responsabilidad de quien la captura.
@@ -174,7 +175,7 @@
                 </div>
             </div>
             <div class="col-6 text-center mt-3">
-                <a href="{{ route('usuario.index') }}" type="button" class="btn btn-secondary">Regresar</a>
+                <a href="{{ route('register') }}" type="button" class="btn btn-secondary">Regresar</a>
             </div>
             <div class="col-6 text-center mt-3">
                 <button type="submit" class="btn btn-success disabled" id="btnRegistro">Enviar</button>
@@ -194,4 +195,61 @@
             btnEnviar.className = "btn btn-success disabled";
         }
     });
+</script>
+
+<script>
+function autoFill() {
+  var input1Value = document.getElementById('input1').value;
+
+  // Obtener solo el nombre del archivo de la ruta completa
+  var nombreImagen = obtenerNombreImagen(input1Value);
+    // Obtener la fecha actual
+    var fechaActual = obtenerFechaActual();
+
+// Concatenar la fecha actual con el nombre de la imagen
+var nombreConFecha = fechaActual + '' + nombreImagen;
+
+
+  // Llenar el campo de entrada 2 con el nombre de la imagen
+  document.getElementById('input2').value = nombreConFecha;
+}
+
+function obtenerNombreImagen(rutaCompleta) {
+  var indiceUltimaBarra = rutaCompleta.lastIndexOf('\\');
+  var nombreImagen = rutaCompleta.substring(indiceUltimaBarra + 1);
+  return nombreImagen;
+}
+function obtenerFechaActual() {
+  var fecha = new Date();
+
+  var dia = fecha.getDate();
+  if (dia < 10) {
+    dia = '0' + dia;
+  }
+
+  var mes = fecha.getMonth() + 1;
+  if (mes < 10) {
+    mes = '0' + mes;
+  }
+
+  var anio = fecha.getFullYear();
+  
+  var horas = fecha.getHours();
+  if (horas < 10) {
+    horas = '0' + horas;
+  }
+
+  var minutos = fecha.getMinutes();
+  if (minutos < 10) {
+    minutos = '0' + minutos;
+  }
+
+  var segundos = fecha.getSeconds();
+  if (segundos < 10) {
+    segundos = '0' + segundos;
+  }
+
+  var fechaActual = anio + '' + mes + '' + dia + '' + horas + '' + minutos + '' + segundos;
+  return fechaActual;
+}
 </script>

@@ -48,21 +48,21 @@
                 <div class="indicador my-3" role="alert">
                     Para preguntas, aclaraciones o correcciones en los datos de la cuenta, por favor llenar el siguiente formulario.
                 </div>
-                <div class="col-6 d-flex justify-content-center align-items-center">
+                <div class="col-sm-12 col-md-6  d-flex justify-content-center align-items-center">
                     <p class="display-4">Contacto:</p>
                 </div>
-                <div class="col-6">
-                    <form action="">
+                <div class="col-sm-12 col-md-6">
+                    <form action="{{route('soportemail')}}" method="GET">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <input type="text" name="asunto" class="form-control" id="floatingInput" placeholder="name@example.com">
                             <label for="floatingInput">Asunto:</label>
                         </div>
                         <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <textarea class="form-control" name="comentario" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                             <label for="floatingTextarea2">Motivo del Correo</label>
                         </div>
                         <div class="text-start my-3">
-                            <button type="button" class="btn btn-success">Enviar</button>
+                            <button type="submit" class="btn btn-success">Enviar</button>
                         </div>
                     </form>
                 </div>

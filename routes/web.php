@@ -8,6 +8,7 @@ use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Models\Projects;
 use App\Http\Controllers\EvaluationsController;
+use App\Http\Controllers\EmailController;
 use App\Models\ProjectsUsers;
 // >>>>>>> ebba7e5cd21259431e905bb537c3b983432eddc5
 use Illuminate\Support\Facades\Route;
@@ -75,7 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
     Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsController::class, 'destroy']);
 
-    Route::name('evaluacion.delete')->delete('proyectos.delete/{id}', [EvaluationsController::class, 'destroy']);
+    Route::name('evaluacion.delete')->delete('evaluacion.delete/{id}', [EvaluationsController::class, 'destroy']);
     Route::name('evaluacion.asignEvaluator')->post('evaluacion.asignEvaluator', [EvaluationsController::class, 'asignEvaluator']);
     Route::name('evaluacion.calificacion')->put('evaluacion.calificacion/{id}', [EvaluationsController::class, 'calificacion']);
 
@@ -93,10 +94,6 @@ Route::middleware('auth')->group(function () {
         return view('layout.encuentro');
     })->name('encuentro');
 
-    Route::get('perfil', function () {
-        return view('usuarios.perfil');
-    })->name('perfil');
-
     Route::get('EditPerfil', function () {
         return view('usuarios.EditPerfil');
     });
@@ -104,6 +101,23 @@ Route::middleware('auth')->group(function () {
     Route::name('js_proyectos')->get('js_proyectos', [ProjectsController::class, 'js_proyectos']);
 });
 
-    Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);
+    Route::name('js_juez')->get('js_juez', [UsersController::class, 'js_juez']);
+    Route::name('pdf')->get('pdf/{id}',[ProjectsController::class, 'pdf']);
 
-require __DIR__ . '/auth.php';
+///////////////////////////////////////CORREOS////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Route::get('forgotpass', [EmailController::class, 'forgotpass'])->name('forgotpass');
+Route::name('recuperar')->get('recuperar', [EmailController::class, 'recuperar']);
+Route::name('reset')->get('reset', [EmailController::class, 'reset'])->middleware('signed');
+Route::name('passchange')->get('passchange', [EmailController::class, 'passchange']);
+
+//////Cambios en el perfil
+Route::get('perfil', function () {
+        return view('usuarios.perfil');
+    })->name('perfil');
+
+Route::name('soportemail')->get('soportemail', [EmailController::class, 'soportemail']);
+
+
+
+
+require __DIR__.'/auth.php';

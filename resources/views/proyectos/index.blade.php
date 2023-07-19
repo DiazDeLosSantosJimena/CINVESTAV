@@ -9,11 +9,14 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-        <div class="col-xs-6 col-sm-4 col-md-6 mx-5">
+        <div class="col mdl-cell--hide-tablet mx-5">
             <h2>Proyectos</h2>
         </div>
-        @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
-        <div class="col-xs-6 col-sm-4 col-md-6 p-4 d-flex justify-content-end mdl-cell--hide-desktop text-end">
+        <div class="col mdl-cell--hide-desktop mdl-cell--hide-phone mx-5">
+            <h2>Proyectos</h2>
+        </div>
+        @if(Auth::user()->rol_id === 3)
+        <div class="col mdl-cell--hide-desktop text-end mt-4">
             <a class="btn btn-info rounded-5" href="{{ route('proyectos.create') }}" style="color: white;"><i class="material-icons mt-1" role="presentation">add</i></a>
         </div>
         @endif
@@ -29,7 +32,7 @@
                         <th class="text-center">User</th>
                         @endif
                         <th scope="col" class="text-center">Estatus</th>
-                        <th scope="col" class="text-center" colspan="4 ">Acciones</th>
+                        <th scope="col" class="text-center" colspan="5">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,7 +71,7 @@
                             @if($prop->projects->status === 1)
                             <span class="badge text-white text-bg-warning">Pendiente</span>
                             @elseif($prop->projects->status === 2)
-                            <span class="badge text-white text-bg-success">Aceptado</span>
+                            <span class="badge text-white text-bg-success">Registro Aceptado</span>
                             @else
                             <span class="badge text-white text-bg-danger">Rechazado</span>
                             @endif
@@ -84,11 +87,13 @@
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </td>
+                        @if($prop->projects->status > 1)
                         <td class="text-center">
-                            <a href="{{ route('pdf')}}" class="btn btn-danger text-white">
+                            <a href="{{ route('pdf', $prop->projects->id )}}" class="btn btn-danger text-white">
                                 <i class="bi bi-filetype-pdf"></i>
                             </a>
                         </td>
+                        @endif
                         <td class="text-center">
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
                                 <i class="bi bi-trash3-fill"></i>

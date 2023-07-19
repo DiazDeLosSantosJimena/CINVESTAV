@@ -9,7 +9,10 @@ use PDF;
 use App\Models\Authors;
 use App\Models\Files;
 use App\Models\ProjectsUsers;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Return_;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
@@ -68,11 +71,40 @@ class ProjectsController extends Controller
 
     public function accept(Request $request,$id) {
 
-        $users = Projects::find($id);
-        $users->status = $request->status;
-        $users->save();
+        $project = Projects::find($id);
+        $project->status = $request->status;
+        $project->save();
+        
+        /* CORREO */
+        
+        $project_user = ProjectsUsers::where('project_id', $project->id)->get('user_id');
+        $user = User::find($project_user)->value('email', 'id');
 
-        return redirect('proyectos')->with('status', 'Estatus del proyecto actualizado, notificación enviada al ponente!');
+        if($request->input('status') == 0){
+            $data = array(
+                'destinatario'=> $user,
+                'asunto'=> 'Información acerca del registro del proyecto.',
+                'nombre'=> $project->title,
+                'comentario' => $request->comentario,
+                'comentario2' => 'Le pedímos revise nuevamente su registro correspondiente al proyecto de '
+            );
+        }else{
+            $data = array(
+                'destinatario'=> $user,
+                'asunto'=> 'Información acerca del registro del proyecto.',
+                'nombre'=> $project->title,
+                'comentario' => $request->comentario,
+                'comentario2' => 'Nos complace informarle que hemos recibido su registro correspondiente a '
+            );
+        }
+
+        Mail::send('mail.comprobante', compact('data'), function($message) use ($data){
+            $message->to($data['destinatario'],'Admin Uippe')
+                ->subject($data['asunto']);
+            $message->from('hello@example.com', 'Soporte UIPPE');
+        });
+
+        return redirect('proyectos')->with('status', 'Estatus del proyecto actualizado, notificación al ponente!');
     }
 
     public function pagoCreate(Request $request, $id) {
@@ -94,7 +126,6 @@ class ProjectsController extends Controller
         $request->file('pago')->storeAs('public', $archive3->name);
         $archive3->save();
         
-
         return redirect()->route('proyectos.index')->with('status', 'Formato de Pago subido con exito!');
     }
 
@@ -257,6 +288,13 @@ class ProjectsController extends Controller
     public function update(Request $request, Projects $id)
     {
 
+        $authors = Authors::where('project_id', $id->id)->get();
+
+        foreach($authors as $author){
+            $auth = Authors::find($author->id);
+            $auth->delete();
+        }
+
         // ============= Authors =============
         $registro = $request->input('registroA');
         $datos = json_decode($registro, true);
@@ -292,8 +330,6 @@ class ProjectsController extends Controller
                 $author->save();
             }
         }
-
-        dd($request->all());
 
         // ===================================
         if ($request->file('resumen')) {
@@ -337,7 +373,7 @@ class ProjectsController extends Controller
         ];
 
         $request->validate([
-            'titulo' => ['required', 'string', 'min:10', 'max:255'],
+            'titulo' => ['required', 'string', 'max:255'],
             'eje' => ['required', 'string'],
             'modality' => ['required', 'string'],
             'inst_pro' => ['required', 'string', 'max:255'],
@@ -456,10 +492,18 @@ class ProjectsController extends Controller
 
         return redirect()->route('proyectos.index')->with('status', 'El registro se ha eliminado correctamente.');
     }
-    public function pdf()
+    public function pdf($id)
     {
-        $Projects= Projects::all();
-        $pdf = PDF::loadView('Documentos.pdf',['Projects'=>$Projects]);
+        //$proyect = ProjectsUsers::with('user', 'projects')->where('project_id', $id)->first();
+        //$proyect = Projects::all();
+        $proyect = \DB::SELECT('SELECT users.name, users.app, users.apm, users.academic_degree, users.photo, users.phone, users.email, users.country, users.state, users.municipality, pro.title, pro.modality, pro.thematic_area
+        FROM projects_users AS proUser
+            JOIN users ON users.id = proUser.user_id
+            JOIN projects AS pro ON pro.id = proUser.project_id
+        WHERE pro.id = '.$id);
+        $authors = Authors::where('project_id', $id)->get();
+
+        $pdf = PDF::loadView('Documentos.pdf',['proyect'=>$proyect]);
         // return view ('Documentos.pdf', compact('Projects'));
         //----------Visualizar el PDF ------------------
        return $pdf->stream();

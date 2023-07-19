@@ -370,8 +370,27 @@
 
     @endforeach
 </script>
-
 <script>
+    function actualizarIndices() {
+        var botonesBorrar = document.getElementsByClassName('borrar-btn');
+        for (var i = 0; i < botonesBorrar.length; i++) {
+            botonesBorrar[i].dataset.index = i;
+        }
+    }
+
+    document.getElementById('registrosTableBody').addEventListener('click', function(event) {
+        if (event.target.classList.contains('borrar-btn')) {
+            event.preventDefault();
+            var rowIndex = event.target.dataset.index;
+            var registro = registros[rowIndex];
+            registros.splice(rowIndex, 1);
+            event.target.parentNode.parentNode.remove();
+            document.getElementById("registroarray").value = JSON.stringify(registros);
+            console.log(registros);
+            actualizarIndices();
+        }
+    });
+
     document.getElementById('registrarBtn').addEventListener('click', function(event) {
         event.preventDefault();
 
@@ -420,20 +439,12 @@
                 fila.appendChild(celdaTitulo);
 
                 var celdaAcciones = document.createElement('td');
-                var botonEditar = document.createElement('button');
-                botonEditar.textContent = 'Borrar';
-                botonEditar.classList.add('btn', 'btn-sm', 'btn-danger', 'borrar-btn');
-                botonEditar.dataset.index = registros.length - 1;
-                celdaAcciones.appendChild(botonEditar);
+                var botonBorrar = document.createElement('button');
+                botonBorrar.textContent = 'Borrar';
+                botonBorrar.classList.add('btn', 'btn-sm', 'btn-danger', 'borrar-btn');
+                botonBorrar.dataset.index = registros.length - 1;
+                celdaAcciones.appendChild(botonBorrar);
                 fila.appendChild(celdaAcciones);
-
-                botonEditar.addEventListener('click', function() {
-                    registrosB.push(registro);
-                    var rowIndex = this.dataset.index;
-                    registros.splice(rowIndex, 1);
-                    tableBody.removeChild(this.parentNode.parentNode);
-                    console.log(registrosB);
-                });
 
                 tableBody.appendChild(fila);
 

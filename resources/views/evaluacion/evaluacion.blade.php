@@ -97,7 +97,7 @@
         </div>
         <div class="col-md-12 col-sm-12 my-2">
             <div class="row">
-                <div class="col-md-12 col-sm-12 text-center">
+                <div class="col-md-12 col-sm-12 text-center mb-3">
                     <h3>Documentos</h3>
                 </div>
                 @foreach($files as $file)
@@ -110,7 +110,7 @@
                 @endforeach
             </div>
         </div>
-        @if(Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2)
+        @if(Auth::user()->rol_id == 2)
         <hr>
         <div class="col-md-12 col-sm-12">
             <div class="row">

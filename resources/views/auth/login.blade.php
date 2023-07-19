@@ -47,7 +47,7 @@
 
                     <div class="form-group d-flex align-items-center justify-content-between">
                         <div class="form-check">
-                            <a href="{{route('password.request')}}" class="forgot-pass">Olvide mi contraseña</a>
+                            <a href="{{route('forgotpass')}}" class="forgot-pass">Olvide mi contraseña</a>
                         </div>
                     </div>
                     <div class="d-grid mt-2">

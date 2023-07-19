@@ -42,7 +42,6 @@ class RegisteredUserController extends Controller
             'email.unique' => 'Correo ya registrado, intente nuevamente o ingrese un correo diferente.',
             'foto.required' => 'Es necesario ingresar una foto para el ponente.',
             'foto.mimes' => 'Ingrese el formato solicitado.',
-            'foto.image' => 'Porfavor suba una imagen.'
         ];
 
         if($request->input('role_id') == "3"){
@@ -101,7 +100,7 @@ class RegisteredUserController extends Controller
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
             'phone' => $request->input('phone'),
-            'photo' => $foto2,
+            'photo' =>  $foto2,
             'academic_degree' =>  $request->input('academic_degree'),
             'country' => $request->input('country'),
             'state' => $request->input('state'),

@@ -24,6 +24,15 @@ body{
 }
 
 
+/*FORGOT PASSWORD*/
+.boton{
+    text-align: right;
+}
+.in{
+    padding-inline: 15%;
+}
+
+
 
 
 /*Recuperacion.blade.php*/

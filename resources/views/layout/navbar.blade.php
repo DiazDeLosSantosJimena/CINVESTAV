@@ -23,11 +23,14 @@
             </div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect" style="background-color: #2e2e2e;">
                 <a href="{{ route('inicio') }}" class="mdl-layout__tab" id="inicio">Inicio</a>
-                @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
+                {{-- @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1) --}}
+                @if(Auth::user()->rol_id === 3)
                 <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent mdl-cell--hide-desktop" id="add" href="{{ route('proyectos.create') }}">
                     <i class="material-icons" role="presentation">add</i>
                    <span class="visuallyhidden">Add</span>
                 </a>
+                @endif
+                @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
                 <a href="{{ route('proyectos.index') }}" class="mdl-layout__tab" id="proyectos">Proyectos</a>
                 @endif
                 @if(Auth::user()->rol_id === 2 || Auth::user()->rol_id === 1)
@@ -56,7 +59,7 @@
                 <div class="container my-5">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 my-3 text-center">
-                            <img src="{{ asset('img/logo_negativo.png') }}" class="img-fluid" alt="Encuentro" width="150px">
+                            <a href="{{ route('encuentro') }}"><img src="{{ asset('img/logo_negativo.png') }}" class="img-fluid" alt="Encuentro" width="150px"></a>
                         </div>
                         <hr>
                         <div class="col-sm-12 col-md-4 mt-3 text-center">

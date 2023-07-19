@@ -30,8 +30,16 @@ class EvaluationsController extends Controller
             $query->where('user_id', $user);
         })
         ->get();
+        $proyectosE = ProjectsUsers::with('projects', 'user')
+        ->whereDoesntHave('evaluations')
+        ->where('user_id', $user)
+        ->get();
+        $evaluadosE = ProjectsUsers::with('projects', 'user')
+        ->wherehas('evaluations')
+        ->where('user_id', $user)
+        ->get();
 
-        return view('evaluacion.index', compact('proyectos', 'evaluados', 'user'));
+        return view('evaluacion.index', compact('proyectos', 'evaluados','proyectosE', 'evaluadosE', 'user'));
     }
 
     public function show($id)
@@ -105,14 +113,14 @@ class EvaluationsController extends Controller
     }
 
     public function asignEvaluator(Request $request) {
-        
+
         $project_user = ProjectsUsers::where('project_id', $request->id_proyecto)->first();
 
         $asign = new Evaluations;
         $asign->user_id = $request->id_juez;
         $asign->project_user = $project_user->id;
         $asign->save();
-        
+
         return redirect('usuarios')->with('status', 'Evaluador asignado al proyecto con exito!');
     }
 

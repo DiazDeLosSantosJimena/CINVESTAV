@@ -85,7 +85,7 @@ class UsersController extends Controller
             FROM evaluations
             GROUP BY project_user
             HAVING COUNT(*) >= 3)');
-        $proyectsEvaluators = \DB::SELECT('SELECT eva.id AS evaluationId, us.name, us.app, us.apm, us.academic_degree, us.email, pro.title
+        $proyectsEvaluators = \DB::SELECT('SELECT eva.id AS evaluationId, us.name, us.app, us.apm, us.academic_degree, us.email, us.deleted_at, pro.title
         FROM evaluations AS eva
             JOIN users AS us ON eva.user_id = us.id
             JOIN projects_users AS proUs ON proUs.id = eva.project_user
@@ -97,13 +97,13 @@ class UsersController extends Controller
     public function js_juez(Request $request) {
 
         $projects = $request->get('id_proyecto');
-        $evaluador = \DB::SELECT('SELECT id, name, app, apm, email,deleted_at
+        $evaluador = \DB::SELECT('SELECT id, name, app, apm, email, deleted_at
         FROM users
         WHERE rol_id = 2 AND id NOT IN (
-        SELECT us.id
-        FROM evaluations AS eva
-            JOIN users AS us ON us.id = eva.user_id
-        WHERE eva.project_user = '.$projects.')');
+            SELECT us.id
+            FROM evaluations AS eva
+                JOIN users AS us ON us.id = eva.user_id
+            WHERE eva.project_user = '.$projects.')');
 
         return view('usuarios.js_proyecto', compact('evaluador'));
     }

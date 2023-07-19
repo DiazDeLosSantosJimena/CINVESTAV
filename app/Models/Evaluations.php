@@ -11,7 +11,7 @@ class Evaluations extends Model
 
     protected $fillable = [
         'user_id',
-        'project_id',
+        'project_user',
         'title',
         'extension',
         'key_words',
@@ -27,8 +27,8 @@ class Evaluations extends Model
         'comment'
     ];
 
-    public function Projects() {
-        return $this->belongsTo(Projects::class,'project_id');
+    public function ProjectsUsers() {
+        return $this->belongsTo(ProjectsUsers::class,'project_user');
     }
 
     public function User() {

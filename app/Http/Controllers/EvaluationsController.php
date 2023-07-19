@@ -48,7 +48,7 @@ class EvaluationsController extends Controller
         $proyect = ProjectsUsers::find($id);
         $files = Files::where('project_id', $proyect->projects->id)->get();
         $authors = Authors::where('project_id', $proyect->projects->id)->get();
-        //  dd($files);
+         dd($authors);
         return view('evaluacion.evaluacion', compact('proyect', 'files', 'authors'));
     }
 
@@ -56,14 +56,15 @@ class EvaluationsController extends Controller
     {
         //$proyect = ProjectsUsers::with('user','projects')->where('id', $id)->first();
         $proyect = ProjectsUsers::find($id);
+        $authors = Authors::where('project_id', $proyect->projects->id)->get();
 
-        $id = Evaluations::join('projects_users', 'evaluations.project_id', '=', 'projects_users.project_id')
+        $id = Evaluations::join('projects_users', 'evaluations.project_user', '=', 'projects_users.project_id')
         ->where('projects_users.project_id', $proyect->id)
         ->pluck('evaluations.id')
         ->first();
         $files = Files::where('project_id', $proyect->projects->id)->get();
         //  dd($files);
-        return view('evaluacion.evaluacion', compact('proyect', 'files', 'id'));
+        return view('evaluacion.evaluacion', compact('proyect', 'files', 'id', 'authors'));
     }
 
     public function store(Request $request)
@@ -91,7 +92,7 @@ class EvaluationsController extends Controller
 
         $calificacion = new Evaluations;
         $calificacion->user_id = $user;
-        $calificacion->project_id = $project;
+        $calificacion->project_user = $project;
         $calificacion->title = $c1;
         $calificacion->extension = $c2;
         $calificacion->key_words = $c3;
@@ -149,7 +150,7 @@ class EvaluationsController extends Controller
 
         DB::Evaluations('tabla')->where('id', $id)->update([
         'user_id' => $user,
-        'project_id' => $project,
+        'project_user' => $project,
         'title' => $c1,
         'extension' => $c2,
         'key_words' => $c3,

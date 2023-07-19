@@ -71,9 +71,38 @@ class ProjectsController extends Controller
 
     public function accept(Request $request,$id) {
 
-        $users = Projects::find($id);
-        $users->status = $request->status;
-        $users->save();
+        $project = Projects::find($id);
+        $project->status = $request->status;
+        $project->save();
+        
+        /* CORREO */
+        
+        $project_user = ProjectsUsers::where('project_id', $project->id)->get('user_id');
+        $user = User::find($project_user)->value('email', 'id');
+
+        if($request->input('status') == 0){
+            $data = array(
+                'destinatario'=> $user,
+                'asunto'=> 'Información acerca del registro del proyecto.',
+                'nombre'=> $project->title,
+                'comentario' => $request->comentario,
+                'comentario2' => 'Le pedímos revise nuevamente su registro correspondiente al proyecto de '
+            );
+        }else{
+            $data = array(
+                'destinatario'=> $user,
+                'asunto'=> 'Información acerca del registro del proyecto.',
+                'nombre'=> $project->title,
+                'comentario' => $request->comentario,
+                'comentario2' => 'Nos complace informarle que hemos recibido su registro correspondiente a '
+            );
+        }
+
+        Mail::send('mail.comprobante', compact('data'), function($message) use ($data){
+            $message->to($data['destinatario'],'Admin Uippe')
+                ->subject($data['asunto']);
+            $message->from('hello@example.com', 'Soporte UIPPE');
+        });
 
         return redirect('proyectos')->with('status', 'Estatus del proyecto actualizado, notificación al ponente!');
     }
@@ -96,26 +125,7 @@ class ProjectsController extends Controller
         ]);
         $request->file('pago')->storeAs('public', $archive3->name);
         $archive3->save();
-
-        /* CORREO */
-        $user = Auth::user()->id;
-        $email = User::where('id', $user)->value('email');
-        $title = Projects::where('id', $id)->value('title');
         
-
-        $data = array(
-            'destinatario'=> $email,
-            'asunto'=> 'Comprobante de Pago',
-            'nombre'=> $title,
-        );
-
-        Mail::send('mail.comprobante', compact('data'), function($message) use ($data){
-            $message->to($data['destinatario'],'Admin Uippe')
-                ->subject($data['asunto']);
-            $message->from('hello@example.com', 'Soporte UIPPE');
-        });
-        
-
         return redirect()->route('proyectos.index')->with('status', 'Formato de Pago subido con exito!');
     }
 
@@ -484,7 +494,13 @@ class ProjectsController extends Controller
     }
     public function pdf($id)
     {
-        $proyect = ProjectsUsers::with('user', 'projects')->where('id', $id)->first();
+        //$proyect = ProjectsUsers::with('user', 'projects')->where('project_id', $id)->first();
+        //$proyect = Projects::all();
+        $proyect = \DB::SELECT('SELECT users.name, users.app, users.apm, users.academic_degree, users.photo, users.phone, users.email, users.country, users.state, users.municipality, pro.title, pro.modality, pro.thematic_area
+        FROM projects_users AS proUser
+            JOIN users ON users.id = proUser.user_id
+            JOIN projects AS pro ON pro.id = proUser.project_id
+        WHERE pro.id = '.$id);
         $authors = Authors::where('project_id', $id)->get();
 
         $pdf = PDF::loadView('Documentos.pdf',['proyect'=>$proyect]);

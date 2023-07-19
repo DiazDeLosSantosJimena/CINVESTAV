@@ -23,11 +23,14 @@
             </div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect" style="background-color: #2e2e2e;">
                 <a href="{{ route('inicio') }}" class="mdl-layout__tab" id="inicio">Inicio</a>
-                @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
+                {{-- @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1) --}}
+                @if(Auth::user()->rol_id === 3)
                 <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent mdl-cell--hide-desktop" id="add" href="{{ route('proyectos.create') }}">
                     <i class="material-icons" role="presentation">add</i>
                    <span class="visuallyhidden">Add</span>
                 </a>
+                @endif
+                @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
                 <a href="{{ route('proyectos.index') }}" class="mdl-layout__tab" id="proyectos">Proyectos</a>
                 @endif
                 @if(Auth::user()->rol_id === 2 || Auth::user()->rol_id === 1)

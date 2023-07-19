@@ -120,20 +120,39 @@
             <a href="{{ route('proyectos.index') }}" class="btn btn-secondary">Regresar</a>
         </div>
         <div class="col-md-4 col-sm-4 my-2 text-center">
-            <form action="{{ route('proyectos.accept', $proyect->projects->id) }}" method="post">
-                @csrf
-                @method('put')
-                <input type="hidden" value="2" name="status">
-                <button type="submit" class="btn btn-success">Aceptar Proyecto</button>
-            </form>
+            <a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="aceptar(2);">
+                Aceptar Proyecto
+            </a>
         </div>
         <div class="col-md-4 col-sm-4 my-2 text-center">
-            <form action="{{ route('proyectos.accept', $proyect->projects->id) }}" method="post">
-                @csrf
-                @method('put')
-                <input type="hidden" value="0" name="status">
-                <button type="submit" class="btn btn-danger">Rechazar Proyecto</button>
-            </form>
+            <!-- <form action="{{ route('proyectos.accept', $proyect->projects->id) }}" method="post"> -->
+            <a class="btn btn-danger" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="rechazar(0);">
+                Rechazar Proyecto
+            </a>
+        </div>
+        <div class="col-12 my-5">
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <form class="row" action="{{ route('proyectos.accept', $proyect->projects->id) }}" method="post">
+                        @csrf
+                        @method('put')
+                        <div class="col my-2">
+                            <h4>Comentario del Veredicto</h4>
+                            <label class="form-check-label" id="ejemplo">Ejemplo:</label>
+                        </div>
+                        <div class="col-12 my-2">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="comentario" name="comentario" style="height: 100px"></textarea>
+                                <label for="floatingTextarea2">Comentario:</label>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3 text-end">
+                            <input type="hidden" value="" name="status" id="inStatus">
+                            <button type="submit" class="btn btn-success">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -142,5 +161,22 @@
 <script>
     var navbar = document.querySelector('#proyectos');
     navbar.className = "mdl-layout__tab is-active";
+
+    aceptar = (value) => {
+        console.log(value);
+        var inStatus = document.querySelector('#inStatus');
+        var labelEjemplo = document.querySelector('#ejemplo');
+        labelEjemplo.textContent = "Ejemplo: Felicitaciones tu proyecto está en la lista de evaluaciones, pronto se te dara a conocer el veredicto final.";
+        inStatus.value = value;
+    }
+
+    rechazar = (value) => {
+        console.log(value);
+        var inStatus = document.querySelector('#inStatus');
+        var labelEjemplo = document.querySelector('#ejemplo');
+        var labelEjemplo = document.querySelector('#ejemplo');
+        labelEjemplo.textContent = "Ejemplo: Lamentamos informarle que el documento de su pago no es el correcto, por lo que le pedimos que se ponga en contacto.";
+        inStatus.value = value;
+    }
 </script>
 @endsection

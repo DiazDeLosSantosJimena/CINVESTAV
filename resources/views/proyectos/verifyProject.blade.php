@@ -138,7 +138,7 @@
                         @method('put')
                         <div class="col my-2">
                             <h4>Comentario del Veredicto</h4>
-                            <label class="form-check-label" id="ejemplo">Ejemplo:</label>
+                            <small><label class="form-check-label" id="ejemplo">Ejemplo:</label></small>
                         </div>
                         <div class="col-12 my-2">
                             <div class="form-floating">
@@ -166,7 +166,7 @@
         console.log(value);
         var inStatus = document.querySelector('#inStatus');
         var labelEjemplo = document.querySelector('#ejemplo');
-        labelEjemplo.textContent = "Ejemplo: Felicitaciones tu proyecto está en la lista de evaluaciones, pronto se te dara a conocer el veredicto final.";
+        labelEjemplo.textContent = "Ejemplo: Felicitaciones tu proyecto está en la lista de evaluaciones, pronto se te dará a conocer el veredicto final.";
         inStatus.value = value;
     }
 
@@ -175,7 +175,7 @@
         var inStatus = document.querySelector('#inStatus');
         var labelEjemplo = document.querySelector('#ejemplo');
         var labelEjemplo = document.querySelector('#ejemplo');
-        labelEjemplo.textContent = "Ejemplo: Lamentamos informarle que el documento de su pago no es el correcto, por lo que le pedimos que se ponga en contacto.";
+        labelEjemplo.textContent = "Ejemplo: Lamentamos informarle que el registro de su proyecto no es el correcto por lo que le pedimos que ingrese a la plataforma y verifique los datos de su registro.";
         inStatus.value = value;
     }
 </script>

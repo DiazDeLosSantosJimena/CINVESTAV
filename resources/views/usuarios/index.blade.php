@@ -196,4 +196,8 @@
 @include('usuarios.modalesjuez')
 @endsection
 
+<script>
+    var navbar = document.querySelector('#usuarios');
+    navbar.className = "mdl-layout__tab is-active";
+</script>
 @endsection

@@ -97,7 +97,7 @@
         </div>
         <div class="col-md-12 col-sm-12 my-2">
             <div class="row">
-                <div class="col-md-12 col-sm-12 text-center">
+                <div class="col-md-12 col-sm-12 mb-4 text-center">
                     <h3>Documentos</h3>
                 </div>
                 @foreach($files as $file)
@@ -137,7 +137,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="title">
+                                            <select class="form-select" aria-label="Default select example" name="title" @if(Auth::user()->rol_id == 1) disabled @endif>
                                                 @for ($i = 1; $i <= 10; $i++) 
                                                     <option value="{{$i}}" {{ old('title', $i) == $evaluacion->title ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
@@ -154,7 +154,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="extension">
+                                            <select class="form-select" aria-label="Default select example" name="extension" @if(Auth::user()->rol_id == 1) disabled @endif>
                                                 @for ($i = 1; $i <= 10; $i++) 
                                                     <option value="{{$i}}" {{ old('extension', $i) == $evaluacion->extension ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
@@ -171,7 +171,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="key_words">
+                                            <select class="form-select" aria-label="Default select example" name="key_words" @if(Auth::user()->rol_id == 1) disabled @endif>
                                                 @for ($i = 1; $i <= 10; $i++)
                                                     <option value="{{$i}}" {{ old('key_words', $i) == $evaluacion->key_words ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
@@ -188,7 +188,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="abstract_keywords">
+                                            <select class="form-select" aria-label="Default select example" name="abstract_keywords" @if(Auth::user()->rol_id == 1) disabled @endif>
                                                 @for ($i = 1; $i <= 10; $i++)
                                                     <option value="{{$i}}" {{ old('abstract_keywords', $i) == $evaluacion->abstract_keywords ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
@@ -205,7 +205,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="problematic">
+                                            <select class="form-select" aria-label="Default select example" name="problematic" @if(Auth::user()->rol_id == 1) disabled @endif>
                                                 @for ($i = 1; $i <= 10; $i++)
                                                     <option value="{{$i}}" {{ old('problematic', $i) == $evaluacion->problematic ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
@@ -222,7 +222,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="theoretical">
+                                            <select class="form-select" aria-label="Default select example" name="theoretical" @if(Auth::user()->rol_id == 1) disabled @endif>
                                                 @for ($i = 1; $i <= 10; $i++)
                                                     <option value="{{$i}}" {{ old('theoretical', $i) == $evaluacion->theoretical ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
@@ -239,7 +239,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="methodology">
+                                            <select class="form-select" aria-label="Default select example" name="methodology" @if(Auth::user()->rol_id == 1) disabled @endif>
                                                 @for ($i = 1; $i <= 10; $i++)
                                                     <option value="{{$i}}" {{ old('methodology', $i) == $evaluacion->methodology ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
@@ -256,7 +256,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="proposal">
+                                            <select class="form-select" aria-label="Default select example" name="proposal" @if(Auth::user()->rol_id == 1) disabled @endif>
                                                 @for ($i = 1; $i <= 10; $i++)
                                                     <option value="{{$i}}" {{ old('proposal', $i) == $evaluacion->proposal ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
@@ -273,7 +273,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="results">
+                                            <select class="form-select" aria-label="Default select example" name="results" @if(Auth::user()->rol_id == 1) disabled @endif>
                                                 @for ($i = 1; $i <= 10; $i++)
                                                     <option value="{{$i}}" {{ old('results', $i) == $evaluacion->results ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
@@ -290,7 +290,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="APA_table">
+                                            <select class="form-select" aria-label="Default select example" name="APA_table" @if(Auth::user()->rol_id == 1) disabled @endif>
                                                 @for ($i = 1; $i <= 10; $i++)
                                                     <option value="{{$i}}" {{ old('APA_table', $i) == $evaluacion->APA_table ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
@@ -307,7 +307,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="APA_references">
+                                            <select class="form-select" aria-label="Default select example" name="APA_references" @if(Auth::user()->rol_id == 1) disabled @endif>
                                                 @for ($i = 1; $i <= 10; $i++)
                                                     <option value="{{$i}}" {{ old('APA_references', $i) == $evaluacion->APA_references ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
@@ -324,7 +324,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="format">
+                                            <select class="form-select" aria-label="Default select example" name="format" @if(Auth::user()->rol_id == 1) disabled @endif>
                                                 @for ($i = 1; $i <= 10; $i++) 
                                                     <option value="{{$i}}" {{ old('format', $i) == $evaluacion->format ? 'selected' : '' }}>{{$i}}</option>
                                                 @endfor
@@ -359,7 +359,7 @@
                                 </td>
                                 <td style="width: 100px;">
                                     <div class="criterios2" style="align-items: center; justify-content: center; display:flex;" role="alert">
-                                        <input class="form-check-input custom-radio" type="radio" name="status" value="A" {{ old('status',  $evaluacion->status) == 'A' ? 'checked' : '' }}>
+                                        <input class="form-check-input custom-radio" type="radio" name="status" value="A" {{ old('status',  $evaluacion->status) == 'A' ? 'checked' : '' }} @if(Auth::user()->rol_id == 1) disabled @endif>
                                     </div>
                                 </td>
                                 <td>
@@ -377,7 +377,7 @@
                                 </td>
                                 <td style="width: 100px;">
                                     <div class="criterios2" style="align-items: center; justify-content: center; display:flex;" role="alert">
-                                        <input class="form-check-input custom-radio" type="radio" name="status" value="AC" {{ old('status',  $evaluacion->status) == 'AC' ? 'checked' : '' }}>
+                                        <input class="form-check-input custom-radio" type="radio" name="status" value="AC" {{ old('status',  $evaluacion->status) == 'AC' ? 'checked' : '' }} @if(Auth::user()->rol_id == 1) disabled @endif>
                                     </div>
                                 </td>
                                 <td>
@@ -395,7 +395,7 @@
                                 </td>
                                 <td style="width: 100px;">
                                     <div class="criterios2" style="align-items: center; justify-content: center; display:flex;" role="alert">
-                                        <input class="form-check-input custom-radio" type="radio" name="status" value="R" {{ old('status',  $evaluacion->status) == 'R' ? 'checked' : '' }}>
+                                        <input class="form-check-input custom-radio" type="radio" name="status" value="R" {{ old('status',  $evaluacion->status) == 'R' ? 'checked' : '' }} @if(Auth::user()->rol_id == 1) disabled @endif>
                                     </div>
                                 </td>
                                 <td>
@@ -414,7 +414,7 @@
                                 </td>
                             </tr>
                             <td colspan="3">
-                                <textarea class="form-control" placeholder="Deje su comentario aqui" id="comentario" style="height: 100px" name="comment">{{ old('comment', $evaluacion->comment) }}</textarea>
+                                <textarea class="form-control" placeholder="Deje su comentario aqui" id="comentario" style="height: 100px" name="comment" @if(Auth::user()->rol_id == 1) disabled @endif>{{ old('comment', $evaluacion->comment) }}</textarea>
                             </td>
                         </table>
                 </div>

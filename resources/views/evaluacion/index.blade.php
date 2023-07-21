@@ -49,7 +49,7 @@
                                 Nivel Preuniversitario.(Bachillerato.)
                                 @elseif( $p->thematic_area == 'B')
                                 Nivel Básico.(Primaria o secundaria.)
-                                @elseif( $p->pthematic_area == 'STEM')
+                                @elseif( $p->thematic_area == 'STEM')
                                 Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
                                 @else
                                 {{ $p->modality }}

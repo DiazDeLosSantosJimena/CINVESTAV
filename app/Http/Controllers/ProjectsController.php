@@ -82,7 +82,7 @@ class ProjectsController extends Controller
 
         if($request->input('status') == 0){
             $data = array(
-                'destinatario'=> $user,
+                'destinatario'=> 'al222110811@gmail.com',//$user,
                 'asunto'=> 'Información acerca del registro del proyecto.',
                 'nombre'=> $project->title,
                 'comentario' => $request->comentario,
@@ -90,7 +90,7 @@ class ProjectsController extends Controller
             );
         }else{
             $data = array(
-                'destinatario'=> $user,
+                'destinatario'=> 'al222110811@gmail.com',//$user,
                 'asunto'=> 'Información acerca del registro del proyecto.',
                 'nombre'=> $project->title,
                 'comentario' => $request->comentario,
@@ -256,11 +256,11 @@ class ProjectsController extends Controller
      */
     public function show($id)
     {
-        //$proyect = ProjectsUsers::with('user','projects')->where('id', $id)->first();
-        $proyect = ProjectsUsers::find($id);
+        $uni = ProjectsUsers::with('user','projects')->where('id', $id)->first();
+        //$proyect = ProjectsUsers::find($id);
         $authors = Authors::where('project_id', $id)->get();
-        $files = Files::where('project_id', $proyect->projects->id)->get();
-        return view('evaluacion.evaluacion', compact('proyect', 'files', 'authors'));
+        $files = Files::where('project_id', $uni->projects->id)->get();
+        return view('proyectos.show', compact('uni', 'files', 'authors'));
     }
 
     /**

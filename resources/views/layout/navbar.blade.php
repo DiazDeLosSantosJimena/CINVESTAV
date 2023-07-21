@@ -37,6 +37,7 @@
                 <a href="{{ route('evaluacion.index') }}" class="mdl-layout__tab" id="evaluaciones">Evaluación</a>
                 @endif
                 @if(Auth::user()->rol_id === 1)
+                <a href="{{ route('usuarios') }}" class="mdl-layout__tab" id="usuarios">Usuarios</a>
                 <a href="{{ route('taller.index') }}" class="mdl-layout__tab" id="taller">Talleres</a>
                 @endif
                 @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 4 || Auth::user()->rol_id === 1)

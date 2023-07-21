@@ -73,7 +73,7 @@ class UsersController extends Controller
 
     public function usuarios()
     {
-        $usuariosG = User::where('rol_id', 3)->get();
+        $usuariosG = User::where('rol_id', '=', 3)->orWhere('rol_id', '=', 4)->get();
         $usuarios = \DB::select('SELECT users.id, users.name, users.apm, users.app,users.academic_degree, users.email, users.phone, users.country,
         users.state, users.municipality, users.rol_id, users.deleted_at FROM users, roles WHERE users.rol_id = roles.id AND
         roles.id = "2"');
@@ -81,7 +81,8 @@ class UsersController extends Controller
         $proyects = \DB::SELECT('SELECT proUser.id, pro.title
         FROM projects AS pro 
             JOIN projects_users AS proUser ON pro.id = proUser.project_id
-        WHERE pro.status > 1 AND proUser.id NOT IN (SELECT project_user
+            JOIN files ON files.project_id = pro.id
+        WHERE files.archive = 3 AND pro.status > 1 AND proUser.id NOT IN (SELECT project_user
             FROM evaluations
             GROUP BY project_user
             HAVING COUNT(*) >= 3)');
@@ -148,7 +149,7 @@ class UsersController extends Controller
             'rol_id' => 2,
         ));
 
-        return redirect('usuarios');
+        return redirect('usuarios')->with('status', 'Registro exitoso!');
     }
 
     

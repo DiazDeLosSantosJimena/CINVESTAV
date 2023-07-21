@@ -17,6 +17,17 @@ class EvaluationsController extends Controller
 {
     public function index()
     {
+        if(Auth::user()->rol_id == 1){
+            $proyectos = DB::table('evaluations')
+            ->join('projects_users', 'projects_users.id', '=', 'evaluations.project_user')
+            ->join('projects', 'projects_users.project_id', '=', 'projects.id')
+            ->join('users', 'evaluations.user_id', '=', 'users.id')
+            ->select('projects.title', 'projects.modality', 'projects.thematic_area', 'users.email','evaluations.id as id_evaluar', 'evaluations.status')
+            ->get();
+
+            return view('evaluacion.indexAdmin', compact('proyectos'));
+        }
+
         $user = Auth::user()->id;
 
         $evaluados  = DB::table('projects_users')
@@ -130,8 +141,16 @@ class EvaluationsController extends Controller
         $evaluacion->format = $c12;
         $evaluacion->status = $criterio;
         $evaluacion->comment = $comentario;
-
         $evaluacion->save();
+
+        $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
+        $projectUser = ProjectsUsers::where('id', $evaluacion->project_user)->first();
+        $project = Projects::find($projectUser->project_user);
+
+        if(count($statusPro) >= 2){
+            $project->status = 3;
+            $project->save();
+        }
 
         return redirect()->route('evaluacion.index')->with('status', 'Se ha asignado la calificación!');
     }
@@ -155,6 +174,21 @@ class EvaluationsController extends Controller
         $evaluacion = Evaluations::findOrFail($id);
         $input = $request->all();
         $evaluacion->update($input);
+
+        $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
+        $projectUser = ProjectsUsers::where('id', $evaluacion->project_user)->first();
+        $project = Projects::find($projectUser->project_id);
+
+        //dd($projectUser);
+
+        if(count($statusPro) >= 2){
+            $project->status = 3;
+            $project->save();
+        }else{
+            $project->status = 2;
+            $project->save();
+        }
+
         return redirect()->route('evaluacion.index')->with('status', 'Se actualizó la calificación con exito!');
     }
 

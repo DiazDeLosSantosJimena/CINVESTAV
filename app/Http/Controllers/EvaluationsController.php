@@ -10,6 +10,7 @@ use App\Models\ProjectsUsers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
@@ -149,25 +150,28 @@ class EvaluationsController extends Controller
         $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
         $projectUser = ProjectsUsers::where('id', $evaluacion->project_user)->first();
         $project = Projects::find($projectUser->project_user);
+        $user = User::find($projectUser->user_id);
 
         if (count($statusPro) == 3) {
-            $user = User::find($projectUser->user_id);
-            //$user->email
-            //$user->name
+            $user->email;
+            //$user->name;
             // ============= Correo de Notificación =============
-
-            
-
+            Mail::send('mail.evaluated', compact('data'), function ($message) use ($user) {
+                $message->to($user->email, 'Admin Uippe')
+                    ->subject('Proyecto Evaluado')
+                    ->from('hello@example.com', 'Soporte CINVESTAV');
+            });
             // ==================================================
 
             $project->status = 3;
             $project->save();
         } elseif (count($statusPro) >= 2) {
+            dd($user);
             $project->status = 3;
             $project->save();
         }
 
-        return redirect()->route('evaluacion.index')->with('status', 'Se ha asignado la calificación!');
+        //return redirect()->route('evaluacion.index')->with('status', 'Se ha asignado la calificación!');
     }
 
     public function asignEvaluator(Request $request)

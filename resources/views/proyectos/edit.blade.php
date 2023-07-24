@@ -33,7 +33,7 @@
             <h3>Editar Proyectos</h3>
         </div>
         @else
-        <div class="col-12 mx-5">
+        <div class="col-12 mx-5 my-4">
             <h3>Editar mi Proyecto</h3>
         </div>
         @endif
@@ -139,20 +139,6 @@
                     <div class="form-text" id="archivo2-addon4">(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)</div>
                 </div>
                 @error('extenso')
-                <label class="form-check-label text-danger" for="flexRadioDefault1">
-                    {{ $message }}
-                </label>
-                @enderror
-            </div>
-            <div class="col-3 text-center mt-4">
-                <p>Formato de pago: <strong class="text-danger">*</strong></p>
-            </div>
-            <div class="col-9">
-                <div class="mb-3 mt-3">
-                    <input class="form-control @error('pago') is-invalid @enderror" type="file" id="pago" name="pago">
-                    <div class="form-text" id="pago-addon4">(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .pdf, pdf no mayor a 2MB)</div>
-                </div>
-                @error('pago')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">
                     {{ $message }}
                 </label>

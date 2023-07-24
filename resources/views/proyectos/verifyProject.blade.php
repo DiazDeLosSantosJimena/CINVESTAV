@@ -166,7 +166,7 @@
         console.log(value);
         var inStatus = document.querySelector('#inStatus');
         var labelEjemplo = document.querySelector('#ejemplo');
-        labelEjemplo.textContent = "Ejemplo: Felicitaciones tu proyecto está en la lista de evaluaciones, pronto se te dará a conocer el veredicto final.";
+        labelEjemplo.textContent = "Ejemplo: Felicitaciones el registro de tu proyecto ha sido aceptado, le pedimos que ingrese a la plataforma y suba el formato de pago para su respectiva ponencia, posteriormente se te dará a conocer el veredicto final.";
         inStatus.value = value;
     }
 
@@ -175,7 +175,7 @@
         var inStatus = document.querySelector('#inStatus');
         var labelEjemplo = document.querySelector('#ejemplo');
         var labelEjemplo = document.querySelector('#ejemplo');
-        labelEjemplo.textContent = "Ejemplo: Lamentamos informarle que el registro de su proyecto no es el correcto por lo que le pedimos que ingrese a la plataforma y verifique los datos de su registro.";
+        labelEjemplo.textContent = "Ejemplo: Lamentamos informarle que el registro de su proyecto no es el correcto.";
         inStatus.value = value;
     }
 </script>

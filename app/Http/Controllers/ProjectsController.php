@@ -56,50 +56,53 @@ class ProjectsController extends Controller
     {
         return view('proyectos.addProyect');
     }
- 
-    public function pagoView($id) {
+
+    public function pagoView($id)
+    {
         $project = Projects::find($id);
         return view('proyectos.pago', compact('project'));
     }
 
-    public function verifyProject($id) {
+    public function verifyProject($id)
+    {
         $proyect = ProjectsUsers::find($id);
         $files = Files::where('project_id', $proyect->projects->id)->get();
         $authors = Authors::where('project_id', $proyect->projects->id)->get();
         return view('proyectos.verifyProject', compact('proyect', 'files', 'authors'));
     }
 
-    public function accept(Request $request,$id) {
+    public function accept(Request $request, $id)
+    {
 
         $project = Projects::find($id);
         $project->status = $request->status;
         $project->save();
-        
+
         /* CORREO */
-        
+
         $project_user = ProjectsUsers::where('project_id', $project->id)->get('user_id');
         $user = User::find($project_user)->value('email', 'id');
 
-        if($request->input('status') == 0){
+        if ($request->input('status') == 0) {
             $data = array(
-                'destinatario'=> 'al222110811@gmail.com',//$user,
-                'asunto'=> 'Información acerca del registro del proyecto.',
-                'nombre'=> $project->title,
+                'destinatario' => 'al222110811@gmail.com', //$user,
+                'asunto' => 'Información acerca del registro del proyecto.',
+                'nombre' => $project->title,
                 'comentario' => $request->comentario,
                 'comentario2' => 'Le pedímos revise nuevamente su registro correspondiente al proyecto de '
             );
-        }else{
+        } else {
             $data = array(
-                'destinatario'=> 'al222110811@gmail.com',//$user,
-                'asunto'=> 'Información acerca del registro del proyecto.',
-                'nombre'=> $project->title,
+                'destinatario' => 'al222110811@gmail.com', //$user,
+                'asunto' => 'Información acerca del registro del proyecto.',
+                'nombre' => $project->title,
                 'comentario' => $request->comentario,
                 'comentario2' => 'Nos complace informarle que hemos recibido su registro correspondiente a '
             );
         }
 
-        Mail::send('mail.comprobante', compact('data'), function($message) use ($data){
-            $message->to($data['destinatario'],'Admin Uippe')
+        Mail::send('mail.comprobante', compact('data'), function ($message) use ($data) {
+            $message->to($data['destinatario'], 'Admin Uippe')
                 ->subject($data['asunto']);
             $message->from('hello@example.com', 'Soporte UIPPE');
         });
@@ -107,7 +110,8 @@ class ProjectsController extends Controller
         return redirect('proyectos')->with('status', 'Estatus del proyecto actualizado, notificación al ponente!');
     }
 
-    public function pagoCreate(Request $request, $id) {
+    public function pagoCreate(Request $request, $id)
+    {
 
         $messages = [
             'pago.required' => 'Suba el archivo requerido.',
@@ -125,7 +129,7 @@ class ProjectsController extends Controller
         ]);
         $request->file('pago')->storeAs('public', $archive3->name);
         $archive3->save();
-        
+
         return redirect()->route('proyectos.index')->with('status', 'Formato de Pago subido con exito!');
     }
 
@@ -256,11 +260,18 @@ class ProjectsController extends Controller
      */
     public function show($id)
     {
-        $uni = ProjectsUsers::with('user','projects')->where('id', $id)->first();
-        //$proyect = ProjectsUsers::find($id);
-        $authors = Authors::where('project_id', $id)->get();
-        $files = Files::where('project_id', $uni->projects->id)->get();
-        return view('proyectos.show', compact('uni', 'files', 'authors'));
+        $proUser = ProjectsUsers::find($id);
+        $user = Auth::user();
+
+        if ($proUser->user_id == $user->id || $user->rol_id == 1) {
+            $uni = ProjectsUsers::with('user', 'projects')->where('id', $id)->first();
+            //$proyect = ProjectsUsers::find($id);
+            $authors = Authors::where('project_id', $id)->get();
+            $files = Files::where('project_id', $uni->projects->id)->get();
+            return view('proyectos.show', compact('uni', 'files', 'authors'));
+        } else {
+            return redirect('/');
+        }
     }
 
     /**
@@ -290,7 +301,7 @@ class ProjectsController extends Controller
 
         $authors = Authors::where('project_id', $id->id)->get();
 
-        foreach($authors as $author){
+        foreach ($authors as $author) {
             $auth = Authors::find($author->id);
             $auth->delete();
         }
@@ -354,17 +365,6 @@ class ProjectsController extends Controller
             ], $messages);
         }
 
-        if ($request->file('pago')) {
-            $messages = [
-                'pago.required' => 'Suba el archivo requerido.',
-                'pago.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
-                'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
-            ];
-            $request->validate([
-                'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
-            ], $messages);
-        }
-
         $messages = [
             'titulo.required' => 'El título es obligatorio.',
             'eje.required' => 'Seleccione al menos 1 eje tematico.',
@@ -425,25 +425,6 @@ class ProjectsController extends Controller
             $files->save();
         }
 
-        if ($request->file('pago')) {
-            $files = Files::where('project_id', $project->id)->where('archive', 3)->first();
-            //busca en el storage la ruta del archivo y lo elimina
-            $path = Storage::path('public/' . $files->name);
-            unlink($path);
-            $exists = Storage::disk('public')->exists($files->name);
-            if ($exists) {
-                Storage::disk('public')->delete($files->name);
-            }
-
-            //guarda el nuevo archivo
-            $files->name = $request->file('pago');
-            $files->name = 'proposals/' . $project->id . '_' . date('Y-m-d') . '_' . $request->file('pago')->getClientOriginalName();
-            $files->type = $request->file('pago')->extension();
-            $request->file('pago')->storeAs('public', $files->name);
-
-            $files->save();
-        }
-
         return redirect()->route('proyectos.index')->with('status', 'El registro se actualizo correctamente.');
     }
 
@@ -500,15 +481,15 @@ class ProjectsController extends Controller
         FROM projects_users AS proUser
             JOIN users ON users.id = proUser.user_id
             JOIN projects AS pro ON pro.id = proUser.project_id
-        WHERE pro.id = '.$id);
+        WHERE pro.id = ' . $id);
         $authors = Authors::where('project_id', $id)->get();
 
-        $pdf = PDF::loadView('Documentos.pdf',['proyect'=>$proyect]);
+        $pdf = PDF::loadView('Documentos.pdf', ['proyect' => $proyect]);
         // return view ('Documentos.pdf', compact('Projects'));
         //----------Visualizar el PDF ------------------
-       return $pdf->stream();
-       // ------Descargar el PDF------
-       //return $pdf->download('___libros.pdf');
+        return $pdf->stream();
+        // ------Descargar el PDF------
+        //return $pdf->download('___libros.pdf');
 
 
     }

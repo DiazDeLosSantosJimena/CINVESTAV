@@ -63,7 +63,7 @@
                 <ul>
                     <li>Ingresa la nueva contraseña.</li>
                     <div class="input-group mb-3">
-                        <input type="password" name="pass1" id="password" class="form-control" placeholder="Nueva Contraseña" pattern="(?=.*\d)(?=.*[!@#$%^&*]).{8,}" title="La contraseña debe tener al menos 8 caracteres, 1 número y 1 carácter especial">
+                        <input type="password" name="pass1" id="password" class="form-control" placeholder="Nueva Contraseña" pattern="(?=.*\d)(?=.*[!@#$%^&*-_.]).{8,}" title="La contraseña debe tener al menos 8 caracteres, 1 número y 1 carácter especial">
                         <button class="btn btn-secondary" onclick="mostrarContrasena()" type="button" id="button-addon2">
                             <i class="fa-solid fa-eye"></i>
                         </button>
@@ -71,7 +71,7 @@
                     
                     <li>Verifica la contraseña.</li>
                     <div class="input-group mb-3">
-                        <input type="password" name="pass2" id="password2" class="form-control" placeholder="Nueva Contraseña" pattern="(?=.*\d)(?=.*[!@#$%^&*]).{8,}" title="La contraseña debe tener al menos 8 caracteres, 1 número y 1 carácter especial">
+                        <input type="password" name="pass2" id="password2" class="form-control" placeholder="Nueva Contraseña" pattern="(?=.*\d)(?=.*[!@#$%^&*-_.]).{8,}" title="La contraseña debe tener al menos 8 caracteres, 1 número y 1 carácter especial">
                         <button class="btn btn-outline-primary" onclick="mostrarContrasena2()" type="button" id="button-addon2">
                             <i class="fa-solid fa-eye"></i>
                         </button>

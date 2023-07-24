@@ -18,7 +18,8 @@ class UsersController extends Controller
         return view('auth/register');
     }
 
-    public function indexView() {
+    public function indexView()
+    {
         return view('layout.index');
     }
 
@@ -73,6 +74,7 @@ class UsersController extends Controller
 
     public function usuarios()
     {
+        $usuariosE = User::where('rol_id', '=', 5)->get();
         $usuariosG = User::where('rol_id', '=', 3)->orWhere('rol_id', '=', 4)->get();
         $usuarios = \DB::select('SELECT users.id, users.name, users.apm, users.app,users.academic_degree, users.email, users.phone, users.country,
         users.state, users.municipality, users.rol_id, users.deleted_at FROM users, roles WHERE users.rol_id = roles.id AND
@@ -92,10 +94,11 @@ class UsersController extends Controller
             JOIN projects_users AS proUs ON proUs.id = eva.project_user
             JOIN projects AS pro ON pro.id = proUs.project_id');
         $users = User::where('rol_id', '2')->get();
-        return view('usuarios.index', compact('usuarios', 'proyects', 'users', 'proyectsEvaluators', 'usuariosG'));
+        return view('usuarios.index', compact('usuarios', 'proyects', 'users', 'proyectsEvaluators', 'usuariosG', 'usuariosE'));
     }
 
-    public function js_juez(Request $request) {
+    public function js_juez(Request $request)
+    {
 
         $projects = $request->get('id_proyecto');
         $evaluador = \DB::SELECT('SELECT id, name, app, apm, email, deleted_at
@@ -104,9 +107,52 @@ class UsersController extends Controller
             SELECT us.id
             FROM evaluations AS eva
                 JOIN users AS us ON us.id = eva.user_id
-            WHERE eva.project_user = '.$projects.')');
+            WHERE eva.project_user = ' . $projects . ')');
 
         return view('usuarios.js_proyecto', compact('evaluador'));
+    }
+
+    public function agregarInvitado(Request $request){
+
+        $messages = [
+            'nameE.required' => 'Es necesario colocar un nombre.',
+            'appE.required' => 'Es necesario colocar el primer apellido.',
+            'apmE.string' => 'Formato Invalido.',
+            'academic_degreeE.required' => 'Es necesario colocar el grado academico.',
+            'email.required' => 'Es necesario colocar un correo.',
+            'email.unique' => 'El correo ya está registrado, ingrese un correo nuevo.',
+            'phoneE.required' => 'Es necesario colocar un teléfono.',
+            'countryE.required' => 'Es necesario colocar este campo.',
+            'stateE.required' => 'Es necesario colocar este campo.',
+            'municipalityE.required' => 'Es necesario colocar este campo.',
+        ];
+
+        $request->validate([
+            'nameE' => ['required', 'string', 'max:255'],
+            'appE' => ['required', 'string', 'max:255'],
+            'apmE' => ['string', 'max:255'],
+            'academic_degreeE' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:' . User::class ],
+            'phoneE' => ['required', 'string'],
+            'countryE' => ['required', 'string', 'max:255'],
+            'stateE' => ['required', 'string', 'max:255'],
+            'municipalityE' => ['required', 'string', 'max:255'],
+        ], $messages);
+
+        User::create(array(
+            'name' => $request->input('nameE'),
+            'app' => $request->input('appE'),
+            'apm' => $request->input('apmE'),
+            'academic_degree' => $request->input('academic_degreeE'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phoneE'),
+            'country' => $request->input('countryE'),
+            'state' => $request->input('stateE'),
+            'municipality' => $request->input('municipalityE'),
+            'rol_id' => 5,
+        ));
+
+        return redirect('usuarios')->with('status', 'Registro exitoso!');
     }
 
     public function agregarjuez(Request $request)
@@ -152,47 +198,80 @@ class UsersController extends Controller
         return redirect('usuarios')->with('status', 'Registro exitoso!');
     }
 
-    
+
     public function salvarjuez(User $id, Request $request)
     {
-        $messages = [
-            'name.required' => 'Es necesario colocar un nombre.',
-            'app.required' => 'Es necesario colocar el primer apellido.',
-            'apm.string' => 'Formato Invalido.',
-            'academic_degree.required' => 'Es necesario colocar el grado academico.',
-            'email.required' => 'Es necesario colocar un correo.',
-            'phone.required' => 'Es necesario colocar un teléfono.',
-            'country.required' => 'Es necesario colocar este campo.',
-            'state.required' => 'Es necesario colocar este campo.',
-            'municipality.required' => 'Es necesario colocar este campo.',
-        ];
+        if ($id->rol_id == 2) {
+            $messages = [
+                'name.required' => 'Es necesario colocar un nombre.',
+                'app.required' => 'Es necesario colocar el primer apellido.',
+                'apm.string' => 'Formato Invalido.',
+                'academic_degree.required' => 'Es necesario colocar el grado academico.',
+                'email.required' => 'Es necesario colocar un correo.',
+                'phone.required' => 'Es necesario colocar un teléfono.',
+                'country.required' => 'Es necesario colocar este campo.',
+                'state.required' => 'Es necesario colocar este campo.',
+                'municipality.required' => 'Es necesario colocar este campo.',
+            ];
 
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'app' => ['required', 'string', 'max:255'],
-            'apm' => ['string', 'max:255'],
-            'academic_degree' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email'],
-            'phone' => ['required', 'string'],
-            'country' => ['required', 'string', 'max:255'],
-            'state' => ['required', 'string', 'max:255'],
-            'municipality' => ['required', 'string', 'max:255'],
-        ], $messages);
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'app' => ['required', 'string', 'max:255'],
+                'apm' => ['string', 'max:255'],
+                'academic_degree' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'email'],
+                'phone' => ['required', 'string'],
+                'country' => ['required', 'string', 'max:255'],
+                'state' => ['required', 'string', 'max:255'],
+                'municipality' => ['required', 'string', 'max:255'],
+            ], $messages);
+        } else {
+            $messages = [
+                'name.required' => 'Es necesario colocar un nombre.',
+                'app.required' => 'Es necesario colocar el primer apellido.',
+                'apm.string' => 'Formato Invalido.',
+                'academic_degree.required' => 'Es necesario colocar el grado academico.',
+                'phone.required' => 'Es necesario colocar un teléfono.',
+                'country.required' => 'Es necesario colocar este campo.',
+                'state.required' => 'Es necesario colocar este campo.',
+                'municipality.required' => 'Es necesario colocar este campo.',
+            ];
 
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'app' => ['required', 'string', 'max:255'],
+                'apm' => ['string', 'max:255'],
+                'academic_degree' => ['required', 'string', 'max:255'],
+                'phone' => ['required', 'string'],
+                'country' => ['required', 'string', 'max:255'],
+                'state' => ['required', 'string', 'max:255'],
+                'municipality' => ['required', 'string', 'max:255'],
+            ], $messages);
+        }
         $query = User::find($id->id);
 
-        $query->name = trim($request->name);
-        $query->app = trim($request->app);
-        $query->apm = trim($request->apm);
-        $query->academic_degree = $request->academic_degree;
-        $query->email = trim($request->email);
-        $query->phone = trim($request->phone);
-        $query->country = trim($request->country);
-        $query->state = trim($request->state);
-        $query->municipality = trim($request->municipality);
+        if ($query->rol_id == 2) {
+            $query->name = trim($request->name);
+            $query->app = trim($request->app);
+            $query->apm = trim($request->apm);
+            $query->academic_degree = $request->academic_degree;
+            $query->email = trim($request->email);
+            $query->phone = trim($request->phone);
+            $query->country = trim($request->country);
+            $query->state = trim($request->state);
+            $query->municipality = trim($request->municipality);
+        } else {
+            $query->name = trim($request->name);
+            $query->app = trim($request->app);
+            $query->apm = trim($request->apm);
+            $query->academic_degree = $request->academic_degree;
+            $query->phone = trim($request->phone);
+            $query->country = trim($request->country);
+            $query->state = trim($request->state);
+            $query->municipality = trim($request->municipality);
+        }
 
         $query->save();
         return redirect()->route('usuarios')->with('status', 'Registro actualizado con exito!');
     }
-
 }

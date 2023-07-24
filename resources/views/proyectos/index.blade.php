@@ -84,30 +84,30 @@
                             </a>
                         </td>
                         @if(Auth::user()->id === $prop->user_id)
-                        <td class="text-center">
-                            <a href="{{ route('proyectos.edit', $prop->id) }}" class="btn btn-info text-white">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                        </td>
-                        @if($prop->projects->status >= 1 && $prop->projects->status > 2)
-                        <td class="text-center">
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
-                                <i class="bi bi-trash3-fill"></i>
-                            </button>
-                        </td>
+                            @if($prop->projects->status <= 1)
+                            <td class="text-center">
+                                <a href="{{ route('proyectos.edit', $prop->id) }}" class="btn btn-info text-white">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </button>
+                            </td>
+                            @endif
+                            @if($prop->projects->status > 1)
+                            <td id="pago{{ $prop->projects->id }}">
+                                <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning">Pago <i class="bi bi-card-heading"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ route('pdf', $prop->projects->id )}}" class="btn btn-danger text-white">
+                                    <i class="bi bi-file-earmark-pdf-fill"></i>
+                                </a>
+                            </td>
+                            @endif
                         @endif
-                        @if($prop->projects->status > 1)
-                        <td id="pago{{ $prop->projects->id }}">
-                            <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning">Pago <i class="bi bi-card-heading"></i></a>
-                        </td>
-                        <td class="text-center">
-                            <a href="{{ route('pdf', $prop->projects->id )}}" class="btn btn-danger text-white">
-                                <i class="bi bi-file-earmark-pdf-fill"></i>
-                            </a>
-                        </td>
-                        @endif
-                        @endif
-                        @if(Auth::user()->rol_id == 1)
+                        @if(Auth::user()->rol_id == 1 && $prop->projects->status == 1)
                         <td class="text-center" id="pago{{ $prop->projects->id }}">
                             <a href="{{ route('proyectos.verifyProject', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-check-square-fill text-white"></i></a>
                         </td>

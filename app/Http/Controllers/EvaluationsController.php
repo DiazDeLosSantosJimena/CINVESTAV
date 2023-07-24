@@ -17,13 +17,13 @@ class EvaluationsController extends Controller
 {
     public function index()
     {
-        if(Auth::user()->rol_id == 1){
+        if (Auth::user()->rol_id == 1) {
             $proyectos = DB::table('evaluations')
-            ->join('projects_users', 'projects_users.id', '=', 'evaluations.project_user')
-            ->join('projects', 'projects_users.project_id', '=', 'projects.id')
-            ->join('users', 'evaluations.user_id', '=', 'users.id')
-            ->select('projects.title', 'projects.modality', 'projects.thematic_area', 'users.email','evaluations.id as id_evaluar', 'evaluations.status')
-            ->get();
+                ->join('projects_users', 'projects_users.id', '=', 'evaluations.project_user')
+                ->join('projects', 'projects_users.project_id', '=', 'projects.id')
+                ->join('users', 'evaluations.user_id', '=', 'users.id')
+                ->select('projects.title', 'projects.modality', 'projects.thematic_area', 'users.email', 'evaluations.id as id_evaluar', 'evaluations.status')
+                ->get();
 
             return view('evaluacion.indexAdmin', compact('proyectos'));
         }
@@ -31,80 +31,83 @@ class EvaluationsController extends Controller
         $user = Auth::user()->id;
 
         $evaluados  = DB::table('projects_users')
-        ->join('projects', 'projects_users.project_id', '=', 'projects.id')
-        ->join('users', 'projects_users.user_id', '=', 'users.id')
-        ->join('evaluations', 'projects_users.id', '=', 'evaluations.project_user')
-        ->select('projects_users.id', 'projects.title', 'projects.modality', 'projects.thematic_area', 'users.email','evaluations.id as id_evaluar')
-        ->whereNotNull('evaluations.title')
-        ->where('evaluations.user_id', $user)
-        ->get();
+            ->join('projects', 'projects_users.project_id', '=', 'projects.id')
+            ->join('users', 'projects_users.user_id', '=', 'users.id')
+            ->join('evaluations', 'projects_users.id', '=', 'evaluations.project_user')
+            ->select('projects_users.id', 'projects.title', 'projects.modality', 'projects.thematic_area', 'users.email', 'evaluations.id as id_evaluar')
+            ->whereNotNull('evaluations.title')
+            ->where('evaluations.user_id', $user)
+            ->get();
 
         $proyectos = DB::table('projects_users')
             ->join('projects', 'projects_users.project_id', '=', 'projects.id')
             ->join('users', 'projects_users.user_id', '=', 'users.id')
             ->join('evaluations', 'projects_users.id', '=', 'evaluations.project_user')
-            ->select('projects_users.id', 'projects.title', 'projects.modality', 'projects.thematic_area', 'users.email','evaluations.id as id_evaluar')
+            ->select('projects_users.id', 'projects.title', 'projects.modality', 'projects.thematic_area', 'users.email', 'evaluations.id as id_evaluar')
             ->whereNull('evaluations.title')
             ->where('evaluations.user_id', $user)
             ->get();
-           
+
         return view('evaluacion.index', compact('proyectos', 'evaluados', 'user'));
     }
 
     public function show($id)
     {
-        //$pro = ProjectsUsers::find('user_id');
+        $evaluador_project = Evaluations::find($id);
+        $proyectoF = ProjectsUsers::where('id', $evaluador_project->id)->first();
 
-        $user = DB::table('evaluations')
-        ->join('projects_users', 'evaluations.project_user', '=', 'projects_users.id')
-        ->join('users', 'projects_users.user_id', '=', 'users.id')
-        ->join('projects', 'projects_users.project_id', '=', 'projects.id')
-        ->select('users.name', 'users.app', 'users.apm', 'users.academic_degree', 'users.email', 'users.phone','users.country', 'users.state', 'users.municipality', 'projects.modality', 'projects.title', 'projects.thematic_area', 'projects.sending_institution')
-        ->where('evaluations.id', $id)
-        ->get();
+        if ($evaluador_project->user_id != Auth::user()->id) {
+            return redirect()->route('evaluacion.index');
+        } else {
+            $user = DB::table('evaluations')
+                ->join('projects_users', 'evaluations.project_user', '=', 'projects_users.id')
+                ->join('users', 'projects_users.user_id', '=', 'users.id')
+                ->join('projects', 'projects_users.project_id', '=', 'projects.id')
+                ->select('users.name', 'users.app', 'users.apm', 'users.academic_degree', 'users.email', 'users.phone', 'users.country', 'users.state', 'users.municipality', ('projects.id AS project_id'), 'projects.modality', 'projects.title', 'projects.thematic_area', 'projects.sending_institution')
+                ->where('evaluations.id', $id)
+                ->get();
 
-        $autores = DB::table('projects_users')
-        ->join('authors', 'projects_users.project_id', '=', 'authors.project_id')
-        ->select('authors.name', 'authors.app', 'authors.apm')
-        ->get();
+            $autores = DB::table('projects_users')
+                ->join('authors', 'projects_users.project_id', '=', 'authors.project_id')
+                ->select('authors.name', 'authors.app', 'authors.apm')
+                ->get();
 
-        $files = DB::table('projects_users')
-        ->join('files', 'projects_users.project_id', '=', 'files.project_id')
-        ->select('files.id','files.name')
-        ->get();
+            $files = Files::where('project_id', '=', $proyectoF->project_id)->get();
 
-        $evaluacion = Evaluations::find($id);
-        return view('evaluacion.evaluacion', compact('user','autores','files','evaluacion'))->with('Evaluations', $evaluacion);
-        
-        
-        // //  dd($evaluacion);
-       
+            $evaluacion = Evaluations::find($id);
+            return view('evaluacion.evaluacion', compact('user', 'autores', 'files', 'evaluacion'))->with('Evaluations', $evaluacion);
+        }
     }
 
     public function edit($id)
     {
-        
-        //$proyect = ProjectsUsers::with('user','projects')->where('id', $id)->first();
-        $user = DB::table('evaluations')
-        ->join('projects_users', 'evaluations.project_user', '=', 'projects_users.id')
-        ->join('users', 'projects_users.user_id', '=', 'users.id')
-        ->join('projects', 'projects_users.project_id', '=', 'projects.id')
-        ->select('users.name', 'users.app', 'users.apm', 'users.academic_degree', 'users.email', 'users.phone','users.country', 'users.state', 'users.municipality', 'projects.modality', 'projects.title', 'projects.thematic_area', 'projects.sending_institution')
-        ->where('evaluations.id', $id)
-        ->get();
+        $evaluador_project = Evaluations::find($id);
+        $proyectoF = ProjectsUsers::where('id', $evaluador_project->id)->first();
 
-        $autores = DB::table('projects_users')
-        ->join('authors', 'projects_users.project_id', '=', 'authors.project_id')
-        ->select('authors.name', 'authors.app', 'authors.apm')
-        ->get();
+        if ($evaluador_project->user_id != Auth::user()->id) {
+            return redirect()->route('evaluacion.index');
+        } else {
+            $user = DB::table('evaluations')
+                ->join('projects_users', 'evaluations.project_user', '=', 'projects_users.id')
+                ->join('users', 'projects_users.user_id', '=', 'users.id')
+                ->join('projects', 'projects_users.project_id', '=', 'projects.id')
+                ->select('users.name', 'users.app', 'users.apm', 'users.academic_degree', 'users.email', 'users.phone', 'users.country', 'users.state', 'users.municipality', ('projects.id AS project_id'), 'projects.modality', 'projects.title', 'projects.thematic_area', 'projects.sending_institution')
+                ->where('evaluations.id', $id)
+                ->get();
 
-        $files = DB::table('projects_users')
-        ->join('files', 'projects_users.project_id', '=', 'files.project_id')
-        ->select('files.id','files.name')
-        ->get();
+            $autores = DB::table('projects_users')
+                ->join('authors', 'projects_users.project_id', '=', 'authors.project_id')
+                ->select('authors.name', 'authors.app', 'authors.apm')
+                ->get();
 
-        $evaluacion = Evaluations::find($id);
-        return view('evaluacion.edit', compact('user','autores','files','evaluacion'));
+            $files = DB::table('files')
+                ->select('id', 'name')
+                ->where('project_id', $proyectoF->project_id)
+                ->get();
+
+            $evaluacion = Evaluations::find($id);
+            return view('evaluacion.edit', compact('user', 'autores', 'files', 'evaluacion'));
+        }
     }
 
     public function calificacion(Request $request, $id)
@@ -147,7 +150,19 @@ class EvaluationsController extends Controller
         $projectUser = ProjectsUsers::where('id', $evaluacion->project_user)->first();
         $project = Projects::find($projectUser->project_user);
 
-        if(count($statusPro) >= 2){
+        if (count($statusPro) == 3) {
+            $user = User::find($projectUser->user_id);
+            //$user->email
+            //$user->name
+            // ============= Correo de Notificación =============
+
+            
+
+            // ==================================================
+
+            $project->status = 3;
+            $project->save();
+        } elseif (count($statusPro) >= 2) {
             $project->status = 3;
             $project->save();
         }
@@ -181,10 +196,10 @@ class EvaluationsController extends Controller
 
         //dd($projectUser);
 
-        if(count($statusPro) >= 2){
+        if (count($statusPro) >= 2) {
             $project->status = 3;
             $project->save();
-        }else{
+        } else {
             $project->status = 2;
             $project->save();
         }

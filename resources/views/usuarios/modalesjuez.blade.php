@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-12 my-2">
                             <label for="exampleFormControlInput1" class="form-label">Telefono:</label>
-                            <input type="text" class="form-control" name="phone" placeholder="000-000-000" value="{{ old('phone') }}">
+                            <input type="text" class="form-control" name="phone" placeholder="000-000-0000" value="{{ old('phone') }}">
                             @error('phone')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
@@ -53,11 +53,22 @@
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
-                        <div class="col-12">
-                            <label for="" class="form-check-label text-secondary">
-                                La contraseña de los evaluadores es por defecto 123123
+                        <div class="col-12 text-center my-3">
+                            <button class="btn btn-success" onclick="generatePassword()">Generar Contraseña</button>
+                        </div>
+                        @error('password')
+                        <div class="col-12 text-end">
+                            <label class="form-check-label @error('password') text-danger @enderror text-secondary">
+                                {{ $message }}
                             </label>
                         </div>
+                        @enderror
+                        <div class="col-12 my-3">
+                            <label class="form-check-label text-secondary" id="labelPass">
+                                Contraseña generada:
+                            </label>
+                        </div>
+                        <input class="form-control" type="hidden" value="" id="passwordGenerate" name="password" readonly>
                         <hr>
                         <div class="col-4 my-2">
                             <label for="exampleFormControlInput1" class="form-label">Pais:</label>
@@ -97,7 +108,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Evaluadores</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Invitados Especiales</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -242,12 +253,6 @@
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
-                        <div class="col-12">
-                            <label for="" class="form-check-label text-secondary">
-                                La contraseña de los evaluadores es por defecto 123123
-                            </label>
-                        </div>
-                        <hr>
                         <div class="col-4 my-2">
                             <label for="exampleFormControlInput1" class="form-label">Pais:</label>
                             <input type="text" class="form-control" name="country" value="{{ old('country', $usuario -> country) }}">
@@ -597,6 +602,25 @@
 </div>
 @endforeach
 <!-- DELETE USER MODAL END -->
+
+<script>
+    // Función para generar una contraseña aleatoria
+    function generatePassword() {
+        var length = 12; // Longitud de la contraseña (puedes ajustarla según tus necesidades)
+        var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+"; // Caracteres permitidos en la contraseña
+        var password = "";
+
+        for (var i = 0; i < length; i++) {
+            var randomIndex = Math.floor(Math.random() * charset.length);
+            password += charset.charAt(randomIndex);
+        }
+
+        // Mostrar la contraseña generada en la página
+        document.getElementById("labelPass").textContent = "Contraseña generada: " + password;
+        document.querySelector('#passwordGenerate').value = password;
+        event.preventDefault();
+    }
+</script>
 
 <script>
     $(function() {

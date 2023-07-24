@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
                 'academic_degree' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
                 'foto' => ['required', 'mimes:jpeg,png,jpg'],
-                'password' => ['required', Rules\Password::defaults()],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ], $messages);
         }else if($request->input('role_id') == "4"){
             $request->validate([
@@ -67,7 +67,7 @@ class RegisteredUserController extends Controller
                 'phone' => ['required', 'string', 'max:255'],
                 'academic_degree' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-                'password' => ['required', Rules\Password::defaults()],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ], $messages);
         }else{
             $request->validate([
@@ -79,7 +79,7 @@ class RegisteredUserController extends Controller
                 'phone' => ['required', 'string', 'max:255'],
                 'academic_degree' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-                'password' => ['required', Rules\Password::defaults()],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ], $messages);
         }
 

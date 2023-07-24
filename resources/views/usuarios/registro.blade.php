@@ -124,7 +124,7 @@
         <div class="col-6">
             <div class="mb-3">
                 <label for="confirmPass" class="form-label">Confirmar contraseña:</label> <label for="nombre" class="text-danger">*</label>
-                <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Confirme la contraseña anterior">
+                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirme la contraseña anterior">
             </div>
         </div>
         <div class="col-12 mx-5">
@@ -195,61 +195,4 @@
             btnEnviar.className = "btn btn-success disabled";
         }
     });
-</script>
-
-<script>
-function autoFill() {
-  var input1Value = document.getElementById('input1').value;
-
-  // Obtener solo el nombre del archivo de la ruta completa
-  var nombreImagen = obtenerNombreImagen(input1Value);
-    // Obtener la fecha actual
-    var fechaActual = obtenerFechaActual();
-
-// Concatenar la fecha actual con el nombre de la imagen
-var nombreConFecha = fechaActual + '' + nombreImagen;
-
-
-  // Llenar el campo de entrada 2 con el nombre de la imagen
-  document.getElementById('input2').value = nombreConFecha;
-}
-
-function obtenerNombreImagen(rutaCompleta) {
-  var indiceUltimaBarra = rutaCompleta.lastIndexOf('\\');
-  var nombreImagen = rutaCompleta.substring(indiceUltimaBarra + 1);
-  return nombreImagen;
-}
-function obtenerFechaActual() {
-  var fecha = new Date();
-
-  var dia = fecha.getDate();
-  if (dia < 10) {
-    dia = '0' + dia;
-  }
-
-  var mes = fecha.getMonth() + 1;
-  if (mes < 10) {
-    mes = '0' + mes;
-  }
-
-  var anio = fecha.getFullYear();
-  
-  var horas = fecha.getHours();
-  if (horas < 10) {
-    horas = '0' + horas;
-  }
-
-  var minutos = fecha.getMinutes();
-  if (minutos < 10) {
-    minutos = '0' + minutos;
-  }
-
-  var segundos = fecha.getSeconds();
-  if (segundos < 10) {
-    segundos = '0' + segundos;
-  }
-
-  var fechaActual = anio + '' + mes + '' + dia + '' + horas + '' + minutos + '' + segundos;
-  return fechaActual;
-}
 </script>

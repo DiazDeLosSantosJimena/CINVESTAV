@@ -112,7 +112,7 @@
         <div class="col-6">
             <div class="mb-3">
                 <label for="confirmPass" class="form-label">Confirmar contraseña:</label> <label for="nombre" class="text-danger">*</label>
-                <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Confirme la contraseña anterior">
+                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirme la contraseña anterior">
             </div>
         </div>
         <div class="col-12 mx-5">

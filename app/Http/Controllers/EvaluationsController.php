@@ -88,9 +88,7 @@ class EvaluationsController extends Controller
         $evaluador_project = Evaluations::find($id);
         $proyectoF = ProjectsUsers::where('id', $evaluador_project->project_user)->first();
 
-        if ($evaluador_project->user_id != Auth::user()->id) {
-            return redirect()->route('evaluacion.index');
-        } else {
+        if ($evaluador_project->user_id == Auth::user()->id || Auth::user()->rol_id == 1) {
             $user = DB::table('evaluations')
                 ->join('projects_users', 'evaluations.project_user', '=', 'projects_users.id')
                 ->join('users', 'projects_users.user_id', '=', 'users.id')
@@ -111,6 +109,8 @@ class EvaluationsController extends Controller
 
             $evaluacion = Evaluations::find($id);
             return view('evaluacion.edit', compact('user', 'autores', 'files', 'evaluacion'));
+        } else {
+            return redirect()->route('evaluacion.index');
         }
     }
 
@@ -150,19 +150,27 @@ class EvaluationsController extends Controller
         $evaluacion->comment = $comentario;
         $evaluacion->save();
 
+        $cantEvaluaciones = Evaluations::where('project_user', $evaluacion->project_user)->get();
         $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
         $projectUser = ProjectsUsers::where('id', $evaluacion->project_user)->first();
         $project = Projects::find($projectUser->project_id);
         $user = User::find($projectUser->user_id);
-        $userEmail = $user->email;
-        $userName = $user->name;
+
+        if (count($statusPro) >= 2) {
+            $project->status = 3;
+            $project->save();
+        }else{
+            $project->status = 2;
+            $project->save();
+        }
+
         $data = [
-            'destinatario' => $userEmail,
-            'usuario' => $userName,
+            'destinatario' => 'al222110811@gmail.com',
+            'usuario' => $user->name,
             'proyecto' => $project->title,
         ];
 
-        if (count($statusPro) == 3) {
+        if (count($cantEvaluaciones) == 3) {
             // ============= Correo de Notificación =============
             Mail::send('mail.evaluado', compact('data'), function ($message) use ($data) {
                 $message->to($data['destinatario'], 'example')
@@ -170,12 +178,7 @@ class EvaluationsController extends Controller
                     ->from('hello@example.com', 'Soporte CINVESTAV');
             });
             // ==================================================
-            $project->status = 3;
-            $project->save();
-        } elseif (count($statusPro) >= 2) {
-            $project->status = 3;
-            $project->save();
-        }
+        } 
 
         return redirect()->route('evaluacion.index')->with('status', 'Se ha asignado la calificación!');
     }
@@ -202,24 +205,13 @@ class EvaluationsController extends Controller
 
         $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
         $projectUser = ProjectsUsers::where('id', $evaluacion->project_user)->first();
-        //$project = Projects::find($projectUser->project_user);
-        $project = Projects::where('id', $projectUser->project_id)->first();
-        $user = User::find($projectUser->user_id);
-        $userEmail = $user->email;
-        $userName = $user->name;
+        $project = Projects::find($projectUser->project_id);
 
-        if (count($statusPro) == 3) {
-            // ============= Correo de Notificación =============
-            Mail::send('mail.evaluated', function ($message) use ($userEmail) {
-                $message->to($userEmail, 'CINVESTAV')
-                    ->subject('Proyecto Evaluado')
-                    ->from('hello@example.com', 'Soporte CINVESTAV');
-            });
-            // ==================================================
+        if (count($statusPro) >= 2) {
             $project->status = 3;
             $project->save();
-        } elseif (count($statusPro) >= 2) {
-            $project->status = 3;
+        }else{
+            $project->status = 2;
             $project->save();
         }
 

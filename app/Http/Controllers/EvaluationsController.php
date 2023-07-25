@@ -150,7 +150,7 @@ class EvaluationsController extends Controller
         $evaluacion->comment = $comentario;
         $evaluacion->save();
 
-        $cantEvaluaciones = Evaluations::where('project_user', $evaluacion->project_user)->get();
+        $cantEvaluaciones = Evaluations::where('project_user', $evaluacion->project_user)->where('status', '!=', '')->get();
         $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
         $projectUser = ProjectsUsers::where('id', $evaluacion->project_user)->first();
         $project = Projects::find($projectUser->project_id);
@@ -165,7 +165,7 @@ class EvaluationsController extends Controller
         }
 
         $data = [
-            'destinatario' => 'al222110811@gmail.com',
+            'destinatario' => $user->email,
             'usuario' => $user->name,
             'proyecto' => $project->title,
         ];
@@ -173,7 +173,7 @@ class EvaluationsController extends Controller
         if (count($cantEvaluaciones) == 3) {
             // ============= Correo de Notificación =============
             Mail::send('mail.evaluado', compact('data'), function ($message) use ($data) {
-                $message->to($data['destinatario'], 'example')
+                $message->to($data['destinatario'], 'CINVESTAV')
                     ->subject('Proyecto Evaluado')
                     ->from('hello@example.com', 'Soporte CINVESTAV');
             });

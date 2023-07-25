@@ -166,7 +166,7 @@
 															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
 																<div style="font-family: 'Trebuchet MS', Tahoma, sans-serif">
 																	<div class style="font-size: 12px; font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
-																		<p style="margin: 0; font-size: 16px; text-align: left; mso-line-height-alt: 19.2px;"><span style="font-size:30px;color:#2b303a;"><strong><span style="font-size:22px;">Estimado Participante</span><br></strong></span></p>
+																		<p style="margin: 0; font-size: 16px; text-align: left; mso-line-height-alt: 19.2px;"><span style="font-size:30px;color:#2b303a;"><strong><span style="font-size:22px;">Estimado Participante {{$data['usuario']}}</span><br></strong></span></p>
 																	</div>
 																</div>
 															</td>
@@ -193,7 +193,7 @@
 															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
 																<div style="font-family: Arial, sans-serif">
 																	<div class style="font-size: 12px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; mso-line-height-alt: 18px; color: #555555; line-height: 1.5;">
-																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Esperamos que te encuentres bien. Nos complace informarte que el proyecto que presentaste ha sido evaluado con éxito. Ahora puedes revisar tu calificación en nuestra plataforma de evaluación.</span></p>
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Esperamos que te encuentres bien. Nos complace informarte que el proyecto "{{$data['proyecto']}}", que presentaste ha sido evaluado con éxito. Ahora puedes revisar tu calificación en nuestra plataforma de evaluación.</span></p>
 																	</div>
 																</div>
 															</td>

@@ -83,7 +83,7 @@ class EvaluationsController extends Controller
     public function edit($id)
     {
         $evaluador_project = Evaluations::find($id);
-        $proyectoF = ProjectsUsers::where('id', $evaluador_project->id)->first();
+        $proyectoF = ProjectsUsers::where('id', $evaluador_project->project_user)->first(); 
 
         if ($evaluador_project->user_id != Auth::user()->id) {
             return redirect()->route('evaluacion.index');
@@ -149,15 +149,20 @@ class EvaluationsController extends Controller
 
         $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
         $projectUser = ProjectsUsers::where('id', $evaluacion->project_user)->first();
-        $project = Projects::find($projectUser->project_user);
+        $project = Projects::find($projectUser->project_id);
         $user = User::find($projectUser->user_id);
+        $userEmail = $user->email;
+        $userName = $user->name;
+        $data = [
+            'destinatario' => $userEmail,
+            'usuario' => $userName,
+            'proyecto' => $project->title,
+        ];
 
         if (count($statusPro) == 3) {
-            $user->email;
-            //$user->name;
             // ============= Correo de Notificación =============
-            Mail::send('mail.evaluated', compact('data'), function ($message) use ($user) {
-                $message->to($user->email, 'Admin Uippe')
+            Mail::send('mail.evaluado', compact('data'), function ($message) use ($data) {
+                $message->to($data['destinatario'], 'example')
                     ->subject('Proyecto Evaluado')
                     ->from('hello@example.com', 'Soporte CINVESTAV');
             });

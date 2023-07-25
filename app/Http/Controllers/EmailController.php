@@ -94,7 +94,7 @@ class EmailController extends Controller
         ];
 
         Mail::send('mail.soporte', compact('data'), function ($message) use ($data) {
-            $message->to($data['destinatario'], 'Admin Uippe')
+            $message->to($data['destinatario'], 'example')
                 ->subject($data['asunto'])
                 ->from('hello@example.com', 'Soporte CINVESTAV');
         });

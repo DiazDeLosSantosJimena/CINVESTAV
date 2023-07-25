@@ -55,7 +55,7 @@ class EvaluationsController extends Controller
     public function show($id)
     {
         $evaluador_project = Evaluations::find($id);
-        $proyectoF = ProjectsUsers::where('id', $evaluador_project->id)->first();
+        $proyectoF = ProjectsUsers::where('id', $evaluador_project->project_user)->first();
 
         if ($evaluador_project->user_id != Auth::user()->id) {
             return redirect()->route('evaluacion.index');
@@ -64,7 +64,7 @@ class EvaluationsController extends Controller
                 ->join('projects_users', 'evaluations.project_user', '=', 'projects_users.id')
                 ->join('users', 'projects_users.user_id', '=', 'users.id')
                 ->join('projects', 'projects_users.project_id', '=', 'projects.id')
-                ->select('users.name', 'users.app', 'users.apm', 'users.academic_degree', 'users.email', 'users.phone', 'users.country', 'users.state', 'users.municipality', ('projects.id AS project_id'), 'projects.modality', 'projects.title', 'projects.thematic_area', 'projects.sending_institution')
+                ->select('users.name', 'users.app', 'users.apm', 'users.academic_degree', 'users.email', 'users.phone', 'users.country', 'users.state', 'users.municipality', 'projects.modality', 'projects.title', 'projects.thematic_area', 'projects.sending_institution')
                 ->where('evaluations.id', $id)
                 ->get();
 
@@ -73,7 +73,10 @@ class EvaluationsController extends Controller
                 ->select('authors.name', 'authors.app', 'authors.apm')
                 ->get();
 
-            $files = Files::where('project_id', '=', $proyectoF->project_id)->get();
+            $files = DB::table('files')
+                ->select('id', 'name')
+                ->where('project_id', $proyectoF->project_id)
+                ->get();
 
             $evaluacion = Evaluations::find($id);
             return view('evaluacion.evaluacion', compact('user', 'autores', 'files', 'evaluacion'))->with('Evaluations', $evaluacion);
@@ -83,7 +86,7 @@ class EvaluationsController extends Controller
     public function edit($id)
     {
         $evaluador_project = Evaluations::find($id);
-        $proyectoF = ProjectsUsers::where('id', $evaluador_project->id)->first();
+        $proyectoF = ProjectsUsers::where('id', $evaluador_project->project_user)->first();
 
         if ($evaluador_project->user_id != Auth::user()->id) {
             return redirect()->route('evaluacion.index');
@@ -92,7 +95,7 @@ class EvaluationsController extends Controller
                 ->join('projects_users', 'evaluations.project_user', '=', 'projects_users.id')
                 ->join('users', 'projects_users.user_id', '=', 'users.id')
                 ->join('projects', 'projects_users.project_id', '=', 'projects.id')
-                ->select('users.name', 'users.app', 'users.apm', 'users.academic_degree', 'users.email', 'users.phone', 'users.country', 'users.state', 'users.municipality', ('projects.id AS project_id'), 'projects.modality', 'projects.title', 'projects.thematic_area', 'projects.sending_institution')
+                ->select('users.name', 'users.app', 'users.apm', 'users.academic_degree', 'users.email', 'users.phone', 'users.country', 'users.state', 'users.municipality', 'projects.modality', 'projects.title', 'projects.thematic_area', 'projects.sending_institution')
                 ->where('evaluations.id', $id)
                 ->get();
 
@@ -153,8 +156,6 @@ class EvaluationsController extends Controller
         $user = User::find($projectUser->user_id);
 
         if (count($statusPro) == 3) {
-            $user->email;
-            //$user->name;
             // ============= Correo de Notificación =============
             Mail::send('mail.evaluated', compact('data'), function ($message) use ($user) {
                 $message->to($user->email, 'Admin Uippe')
@@ -162,16 +163,14 @@ class EvaluationsController extends Controller
                     ->from('hello@example.com', 'Soporte CINVESTAV');
             });
             // ==================================================
-
             $project->status = 3;
             $project->save();
         } elseif (count($statusPro) >= 2) {
-            dd($user);
             $project->status = 3;
             $project->save();
         }
 
-        //return redirect()->route('evaluacion.index')->with('status', 'Se ha asignado la calificación!');
+        return redirect()->route('evaluacion.index')->with('status', 'Se ha asignado la calificación!');
     }
 
     public function asignEvaluator(Request $request)
@@ -196,15 +195,24 @@ class EvaluationsController extends Controller
 
         $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
         $projectUser = ProjectsUsers::where('id', $evaluacion->project_user)->first();
-        $project = Projects::find($projectUser->project_id);
+        //$project = Projects::find($projectUser->project_user);
+        $project = Projects::where('id', $projectUser->project_id)->first();
+        $user = User::find($projectUser->user_id);
+        $userEmail = $user->email;
+        $userName = $user->name;
 
-        //dd($projectUser);
-
-        if (count($statusPro) >= 2) {
+        if (count($statusPro) == 3) {
+            // ============= Correo de Notificación =============
+            Mail::send('mail.evaluated', function ($message) use ($userEmail) {
+                $message->to($userEmail, 'CINVESTAV')
+                    ->subject('Proyecto Evaluado')
+                    ->from('hello@example.com', 'Soporte CINVESTAV');
+            });
+            // ==================================================
             $project->status = 3;
             $project->save();
-        } else {
-            $project->status = 2;
+        } elseif (count($statusPro) >= 2) {
+            $project->status = 3;
             $project->save();
         }
 

@@ -76,9 +76,10 @@ class UsersController extends Controller
     {
         $usuariosE = User::where('rol_id', '=', 5)->get();
         $usuariosG = User::where('rol_id', '=', 3)->orWhere('rol_id', '=', 4)->get();
-        $usuarios = \DB::select('SELECT users.id, users.name, users.apm, users.app,users.academic_degree, users.email, users.phone, users.country,
-        users.state, users.municipality, users.rol_id, users.deleted_at FROM users, roles WHERE users.rol_id = roles.id AND
-        roles.id = "2"');
+        // $usuarios = \DB::select('SELECT users.id, users.name, users.apm, users.app,users.academic_degree, users.email, users.phone, users.country,
+        // users.state, users.municipality, users.rol_id, users.deleted_at FROM users, roles WHERE users.rol_id = roles.id AND
+        // roles.id = "2"');
+        $usuarios = User::with('roles')->where('rol_id', 2)->get();
         //$proyects = Projects::where('status', '>', '1')->get();
         $proyects = \DB::SELECT('SELECT proUser.id, pro.title
         FROM projects AS pro 

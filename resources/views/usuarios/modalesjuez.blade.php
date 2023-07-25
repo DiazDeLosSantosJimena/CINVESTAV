@@ -103,7 +103,7 @@
 </div>
 <!-- ADD MODAL END -->
 
-<!-- ADD MODAL START -->
+<!-- ADD Special Invit MODAL START -->
 <div class="modal fade" id="modalaltaPublicE" tabindex="-1" aria-labelledby="modalaltaPublicELabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -195,7 +195,7 @@
         </div>
     </div>
 </div>
-<!-- ADD MODAL END -->
+<!-- ADD Special Invit MODAL END -->
 
 <!-- EDIT MODAL START -->
 @foreach ($usuarios as $usuario)

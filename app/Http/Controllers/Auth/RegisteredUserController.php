@@ -37,14 +37,14 @@ class RegisteredUserController extends Controller
             'state.required' => 'Se requiere colocar el estado de procedencia.',
             'municipality.required' => 'Se requiere colocar el municipio de procedencia.',
             'phone.required' => 'Se requiere colocar el número de contacto.',
-            'academic_degree.required' => 'Se requiere colocar el grado academico.',
+            'alternative_contact.required' => 'Se requiere colocar otro medio de contacto.',
             'email.required' => 'Se requiere un correo de contacto.',
             'email.unique' => 'Correo ya registrado, intente nuevamente o ingrese un correo diferente.',
             'foto.required' => 'Es necesario ingresar una foto para el ponente.',
             'foto.mimes' => 'Ingrese el formato solicitado.',
         ];
 
-        if($request->input('role_id') == "3"){
+        if ($request->input('role_id') == "3") {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'app' => ['required', 'string', 'max:255'],
@@ -52,12 +52,12 @@ class RegisteredUserController extends Controller
                 'state' => ['required', 'string', 'max:255'],
                 'municipality' => ['required', 'string', 'max:255'],
                 'phone' => ['required', 'string', 'max:255'],
-                'academic_degree' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-                'foto' => ['required', 'mimes:jpeg,png,jpg'],
+                'alternative_contact' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+                'foto' => 'required|mimes:jpeg,png,jpg',
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ], $messages);
-        }else if($request->input('role_id') == "4"){
+        } else if ($request->input('role_id') == "4") {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'app' => ['required', 'string', 'max:255'],
@@ -65,11 +65,11 @@ class RegisteredUserController extends Controller
                 'state' => ['required', 'string', 'max:255'],
                 'municipality' => ['required', 'string', 'max:255'],
                 'phone' => ['required', 'string', 'max:255'],
-                'academic_degree' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+                'alternative_contact' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ], $messages);
-        }else{
+        } else {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'app' => ['required', 'string', 'max:255'],
@@ -77,8 +77,8 @@ class RegisteredUserController extends Controller
                 'state' => ['required', 'string', 'max:255'],
                 'municipality' => ['required', 'string', 'max:255'],
                 'phone' => ['required', 'string', 'max:255'],
-                'academic_degree' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+                'alternative_contact' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ], $messages);
         }
@@ -101,7 +101,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->input('password')),
             'phone' => $request->input('phone'),
             'photo' =>  $foto2,
-            'academic_degree' =>  $request->input('academic_degree'),
+            'alternative_contact' => $request->input('alternative_contact'),
             'country' => $request->input('country'),
             'state' => $request->input('state'),
             'municipality' => $request->input('municipality'),
@@ -113,5 +113,5 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
-    }   
+    }
 }

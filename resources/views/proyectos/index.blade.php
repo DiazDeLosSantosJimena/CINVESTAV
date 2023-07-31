@@ -10,7 +10,7 @@
         </div>
         @endif
         <div class="col mdl-cell--hide-tablet mx-5">
-            <h2>Proyectos</h2>
+            <h2>Ponencias Registradas</h2>
         </div>
         <div class="col mdl-cell--hide-desktop mdl-cell--hide-phone mx-5">
             <h2>Proyectos</h2>
@@ -84,11 +84,10 @@
                             </a>
                         </td>
                         @if(Auth::user()->id === $prop->user_id)
-                            @if($prop->projects->status <= 1)
-                            <td class="text-center">
-                                <a href="{{ route('proyectos.edit', $prop->id) }}" class="btn btn-info text-white">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
+                        @if($prop->projects->status <= 1) <td class="text-center">
+                            <a href="{{ route('proyectos.edit', $prop->id) }}" class="btn btn-info text-white">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
                             </td>
                             <td class="text-center">
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
@@ -106,12 +105,12 @@
                                 </a>
                             </td>
                             @endif
-                        @endif
-                        @if(Auth::user()->rol_id == 1 && $prop->projects->status == 1)
-                        <td class="text-center" id="pago{{ $prop->projects->id }}">
-                            <a href="{{ route('proyectos.verifyProject', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-check-square-fill text-white"></i></a>
-                        </td>
-                        @endif
+                            @endif
+                            @if(Auth::user()->rol_id == 1 && $prop->projects->status == 1)
+                            <td class="text-center" id="pago{{ $prop->projects->id }}">
+                                <a href="{{ route('proyectos.verifyProject', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-check-square-fill text-white"></i></a>
+                            </td>
+                            @endif
                     </tr>
                     @endforeach
                 </tbody>
@@ -157,7 +156,7 @@
 
     @foreach($proyectos2 as $prop)
     @if($prop -> archive == 3)
-    
+
     var btnPago = document.querySelector('#pago{{ $prop->id }}');
     var accion = document.querySelector('#acciones');
     btnPago.style.display = "none";

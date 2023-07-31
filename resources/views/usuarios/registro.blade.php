@@ -17,6 +17,62 @@
             background-size: cover;
             background-position: center;
         }
+
+        /* checkbox-rect2 */
+        .checkbox-rect2 input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-rect2 input[type="checkbox"]+label {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 20px;
+            font: 14px/20px "Open Sans", Arial, sans-serif;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .checkbox-rect2 input[type="checkbox"]:hover+label:hover {
+            color: rgb(23, 86, 228);
+        }
+
+        .checkbox-rect2 input[type="checkbox"]:hover+label:before {
+            border: 1px solid #343a3f;
+            box-shadow: 2px 1px 0 #343a3f;
+        }
+
+        .checkbox-rect2 input[type="checkbox"]+label:last-child {
+            margin-bottom: 0;
+        }
+
+        .checkbox-rect2 input[type="checkbox"]+label:before {
+            content: "";
+            display: block;
+            width: 1.4em;
+            height: 1.4em;
+            border: 1px solid #343a3f;
+            border-radius: 0.2em;
+            position: absolute;
+            left: 0;
+            top: 0;
+            -webkit-transition: all 0.2s, background 0.2s ease-in-out;
+            transition: all 0.2s, background 0.2s ease-in-out;
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: -2px -1px 0 #343a3f;
+            background: #f3f3f3;
+        }
+
+        .checkbox-rect2 input[type="checkbox"]:checked+label:before {
+            border: 2px solid #fff;
+            border-radius: 0.3em;
+            background: #00e0ef;
+            box-shadow: 2px 1px 0 #50565a;
+        }
+
+        /* checkbox-rect2 end */
     </style>
 </head>
 
@@ -83,10 +139,10 @@
             </div>
             <div class="col-6">
                 <div class="mb-3">
-                    <label for="tel" class="form-label">Grado Academico:</label> <label for="tel" class="text-danger">*</label>
-                    <input type="text" class="form-control @error('academic_degree') is-invalid @enderror" name="academic_degree" id="academic_degree" placeholder="Ingrese su grado academico" value="{{ old('academic_degree') }}">
+                    <label for="tel" class="form-label">Otro medio de contacto:</label> <label for="tel" class="text-danger">*</label>
+                    <input type="text" class="form-control @error('alternative_contact') is-invalid @enderror" name="alternative_contact" id="alternative_contact" placeholder="(Correo/Celular)" value="{{ old('alternative_contact') }}">
                 </div>
-                @error('academic_degree')
+                @error('alternative_contact')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">
                     {{ $message }}
                 </label>
@@ -96,7 +152,7 @@
             <div class="col-12">
                 <div class="mb-3 my-2">
                     <label for="tel" class="form-label">Foto del ponente:</label> <label for="tel" class="text-danger">*</label>
-                    <input class="form-control @error('foto') is-invalid @enderror" type="file" name="foto" oninput="autoFill()" id="input1">
+                    <input class="form-control @error('foto') is-invalid @enderror" type="file" accept="image/*" name="foto" oninput="autoFill()" id="input1">
                     <input type="hidden" class="form-control" aria-label="First name" name="foto_name" id="input2" readonly>
                     <div class="form-text" id="foto-addon">(Favor de seleccionar el archivo que desea cargar. Tipo de archivo jpeg | jpg | png, no mayor a 2MB)</div>
                 </div>
@@ -177,11 +233,11 @@
                 </div>
                 <input type="hidden" value="3" name="role_id" id="role_id">
                 <div class="col-12 d-flex justify-content-center align-content-center my-3">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="1" name="verify" id="confirm">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            He revisado los datos proporcionados y certifico que la información capturadas sean correctas y responsabilidad de quien la captura.
-                        </label>
+                    <div class="item">
+                        <div class="checkbox-rect2">
+                            <input class="confirm" type="checkbox" id="checkbox-rect2" value="" name="verify" onclick="checkedBox(this.value)">
+                            <label for="checkbox-rect2" class="form-check-label">He revisado los datos proporcionados y certifico que la información capturadas sean correctas y responsabilidad de quien la captura.</label>
+                        </div>
                     </div>
                 </div>
                 <div class="col-6 text-center mt-3">
@@ -195,16 +251,22 @@
     </div>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script>
-        var checkBox = document.querySelector("#confirm");
+        var checkBox = document.getElementsByClassName('confirm');
         var btnEnviar = document.querySelector("#btnRegistro");
 
-        checkBox.addEventListener('click', () => {
-            if (checkBox.checked) {
+        checkBox[0].value = 1; 
+        checkedBox = (val) => {
+            if (val == 1) {
                 btnEnviar.className = "btn btn-success";
-            } else {
+                checkBox[0].value = 0; 
+            } else if(val == 0) {
                 btnEnviar.className = "btn btn-success disabled";
+                checkBox[0].value = 1;
+            }else{
+
             }
-        });
+        }
     </script>
 </body>
+
 </html>

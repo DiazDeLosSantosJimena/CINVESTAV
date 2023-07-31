@@ -27,7 +27,7 @@
     <div class="container d-flex justify-content-center align-items-center">
         <div class="row">
             <div class="col-12 text-center row">
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12 col-md-12">
                     <a href="registroPonente" class="btn">
                         <div class="card text-center rounded-5 border-light shadow" style="color: #0178a0; background-color: #f2f2f2;">
                             <div class="card-body">
@@ -43,7 +43,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-sm-12 col-md-6">
+                <!-- <div class="col-sm-12 col-md-6">
                     <a class="btn" href="registroGeneral" role="button">
                         <div class="card text-center rounded-5 border-light shadow" style="color: #0178a0; background-color: #f2f2f2;">
                             <div class="card-body">
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                     </a>
-                </div>
+                </div> -->
             </div>
             <div class="col-12 text-center mt-5">
                 <a href="{{ route('login') }}" type="button" class="btn btn-info" style="color: white;">Regresar</a>

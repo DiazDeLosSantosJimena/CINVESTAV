@@ -28,13 +28,12 @@
 
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
-
+                    @error('email')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
                     <div class="mb-4">
                         <label for="email" class="form-label">&nbsp;<i class="fa-solid fa-envelope"></i> Correo Electrónico:</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{old('email')}}" placeholder="Correo" required>
-                        @error('email')
-                        <span class="text-danger">{{$message}}</span>
-                        @enderror
                     </div>
 
                     <div class="mb-4">

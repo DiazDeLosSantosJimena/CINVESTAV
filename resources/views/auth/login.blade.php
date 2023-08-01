@@ -59,17 +59,15 @@
                     <div class="d-grid mt-2">
                         <button type="submit" class="btn btn-outline-primary">Iniciar Sesión</button>
                     </div>
-
-                    <p class="sign-up mt-3">
+                    </form>
+                    <p class="sign-up text-center mt-3">
                         No tienes una cuenta?
                         <a href="{{route('register')}}">
-                            <div class="d-grid mt-2">
+                            <div class="d-grid text-center">
                                 <button type="submit" class="btn btn-outline-primary">Registrarme</button>
                             </div>
                         </a>
                     </p>
-                </form>
-
             </div>
         </div>
     </div>

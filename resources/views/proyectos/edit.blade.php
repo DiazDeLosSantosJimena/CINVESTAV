@@ -386,11 +386,10 @@
     @foreach($authors as $author)
 
     var registro = {
-        id: "{{ $author->id }}",
         nombre: "{{ $author->name }}",
         apellidoPaterno: "{{ $author->app }}",
         apellidoMaterno: "{{ $author->apm }}",
-        titulo: "{{ $author->academic_degree }}",
+        titulo: "{{ $author->institution_of_origin }}",
         pais: "{{ $author->state }}"
     };
 
@@ -419,6 +418,7 @@
     fila.appendChild(celdaApellidoMaterno);
 
     var celdaTitulo = document.createElement('td');
+    celdaTitulo.className = "text-center";
     celdaTitulo.textContent = registro.titulo;
     fila.appendChild(celdaTitulo);
 
@@ -427,6 +427,7 @@
     fila.appendChild(celdaPais);
     
     var celdaAcciones = document.createElement('td');
+    celdaAcciones.className = "text-center";
     var botonEditar = document.createElement('button');
     botonEditar.textContent = 'Borrar';
     botonEditar.classList.add('btn', 'btn-sm', 'btn-danger', 'borrar-btn');
@@ -461,8 +462,7 @@
 
     document.getElementById('registrarBtn').addEventListener('click', function(event) {
         event.preventDefault();
-
-        var idAuthor = document.getElementById('idAuthor').value;
+        
         var nombre = document.getElementById('nombreA').value;
         var apellidoPaterno = document.getElementById('apellidoPaternoA').value;
         var apellidoMaterno = document.getElementById('apellidoMaternoA').value;
@@ -504,6 +504,7 @@
                 fila.appendChild(celdaApellidoMaterno);
 
                 var celdaTitulo = document.createElement('td');
+                celdaTitulo.className = "text-center";
                 celdaTitulo.textContent = registro.titulo;
                 fila.appendChild(celdaTitulo);
 
@@ -512,6 +513,7 @@
                 fila.appendChild(celdaPais);
 
                 var celdaAcciones = document.createElement('td');
+                celdaAcciones.className = "text-center";
                 var botonBorrar = document.createElement('button');
                 botonBorrar.textContent = 'Borrar';
                 botonBorrar.classList.add('btn', 'btn-sm', 'btn-danger', 'borrar-btn');
@@ -521,7 +523,6 @@
 
                 tableBody.appendChild(fila);
 
-                document.getElementById('idAuthor').value = '';
                 document.getElementById('tituloA').value = '';
                 document.getElementById('nombreA').value = '';
                 document.getElementById('apellidoPaternoA').value = '';

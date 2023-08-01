@@ -400,6 +400,7 @@
 
                 var celdaTitulo = document.createElement('td');
                 celdaTitulo.textContent = titulo;
+                celdaTitulo.className = "text-center";
                 fila.appendChild(celdaTitulo);
 
                 var celdaPais = document.createElement('td');
@@ -408,6 +409,7 @@
 
                 var celdaAcciones = document.createElement('td');
                 var botonEliminar = document.createElement('button');
+                celdaAcciones.className = "text-center";
                 botonEliminar.textContent = 'Eliminar';
                 botonEliminar.classList.add('btn', 'btn-danger', 'btn-sm');
                 botonEliminar.addEventListener('click', function() {
@@ -458,6 +460,7 @@
             fila.appendChild(celdaApellidoMaterno);
 
             var celdaTitulo = document.createElement('td');
+            celdaTitulo.className = "text-center";
             celdaTitulo.textContent = registro.titulo;
             fila.appendChild(celdaTitulo);
 
@@ -466,6 +469,7 @@
             fila.appendChild(celdaPais);
 
             var celdaAcciones = document.createElement('td');
+            celdaAcciones.className = "text-center";
             var botonEliminar = document.createElement('button');
             botonEliminar.textContent = 'Eliminar';
             botonEliminar.classList.add('btn', 'btn-danger', 'btn-sm');

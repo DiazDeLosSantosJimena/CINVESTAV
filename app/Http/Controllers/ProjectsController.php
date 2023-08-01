@@ -138,6 +138,7 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $messages = [
             'titulo.required' => 'El título es obligatorio.',
             'eje.required' => 'Seleccione al menos 1 eje tematico.',
@@ -210,10 +211,11 @@ class ProjectsController extends Controller
         $datos = json_decode($registro, true);
         if ($datos !== null) {
             foreach ($datos as $dato) {
-                $title = $dato['titulo'];
                 $names = $dato['nombre'];
                 $app = $dato['apellidoPaterno'];
                 $apm = $dato['apellidoMaterno'];
+                $title = $dato['titulo'];
+                $state = $dato['pais'];
 
                 $author = new Authors();
 
@@ -221,7 +223,8 @@ class ProjectsController extends Controller
                 $author->name = $names;
                 $author->app = $app;
                 $author->apm = $apm;
-                $author->academic_degree = $title;
+                $author->institution_of_origin = $title;
+                $author->state = $state;
 
                 $author->save();
             }
@@ -307,40 +310,26 @@ class ProjectsController extends Controller
         }
 
         // ============= Authors =============
-        // $registro = $request->input('registroA');
-        // $datos = json_decode($registro, true);
-        // //dd($datos);
-        // foreach ($datos as $dato) {
-        //     //dd(intval($dato['idAuthor']));
-        //     $idAuthor = $dato['id'];
-        //     $title = $dato['titulo'];
-        //     $names = $dato['nombre'];
-        //     $app = $dato['apellidoPaterno'];
-        //     $apm = $dato['apellidoMaterno'];
+        $registro = $request->input('registroA');
+        $datos = json_decode($registro, true);
+        //dd($datos);
+        foreach ($datos as $dato) {
+            $names = $dato['nombre'];
+            $app = $dato['apellidoPaterno'];
+            $apm = $dato['apellidoMaterno'];
+            $title = $dato['titulo'];
+            $state = $dato['pais'];
 
-        //     $authors = Authors::find($idAuthor);
+            $author = new Authors();
 
-        //     if ($authors != null) {
-        //         $authors = Authors::find($idAuthor)->where('project_id', $id->id)->first();
-
-        //         $authors->academic_degree = $title;
-        //         $authors->name = $names;
-        //         $authors->app = $app;
-        //         $authors->apm = $apm;
-
-        //         $authors->save();
-        //     } else {
-        //         $author = new Authors();
-
-        //         $author->project_id = $id->id;
-        //         $author->name = $names;
-        //         $author->app = $app;
-        //         $author->apm = $apm;
-        //         $author->academic_degree = $title;
-
-        //         $author->save();
-        //     }
-        // }
+            $author->project_id = $id->id;
+            $author->name = $names;
+            $author->app = $app;
+            $author->apm = $apm;
+            $author->institution_of_origin = $title;
+            $author->state = $state;
+            $author->save();
+        }
 
         // ===================================
         if ($request->file('resumen')) {

@@ -233,7 +233,7 @@
                     </div>
                     <div class="col-sm-12 col-md-12 mt-2 text-end">
                         <input type="hidden" id="registroarray" name="registroA">
-                        <button class="btn btn-success" id="registrarBtn">Registrar</button>
+                        <button type="button" class="btn btn-success" id="registrarBtn">Registrar</button>
                     </div>
                 </div>
             </div>
@@ -356,21 +356,23 @@
     var registros = [];
     var btnRegister = document.getElementById('registrarBtn');
 
-    document.getElementById('registrarBtn').addEventListener('click', function(event) {
+    btnRegister.addEventListener('click', function(event) {
         event.preventDefault();
 
-        var titulo = document.getElementById('tituloA').value;
         var nombre = document.getElementById('nombreA').value;
         var apellidoPaterno = document.getElementById('apellidoPaternoA').value;
         var apellidoMaterno = document.getElementById('apellidoMaternoA').value;
+        var titulo = document.getElementById('tituloA').value;
+        var pais = document.getElementById('paisA').value;
 
-        if (titulo !== '' && nombre !== '' && apellidoPaterno !== '') {
+        if (nombre !== '' && apellidoPaterno !== '' && titulo !== '' && pais !== '') {
             if (registros.length < 3) {
                 var registro = {
-                    titulo: titulo,
                     nombre: nombre,
                     apellidoPaterno: apellidoPaterno,
-                    apellidoMaterno: apellidoMaterno
+                    apellidoMaterno: apellidoMaterno,
+                    titulo: titulo,
+                    pais: pais,
                 };
 
                 registros.push(registro);
@@ -378,54 +380,103 @@
                 document.getElementById("registroarray").value = JSON.stringify(registros);
                 console.log(registros);
 
-                var navbar = document.querySelector('#proyectos');
-                navbar.className = "mdl-layout__tab is-active";
-
+                // Aquí comienza el código para agregar los registros a la tabla
                 var tableBody = document.getElementById('registrosTableBody');
 
                 var fila = document.createElement('tr');
 
+                // Crea las celdas para cada atributo del registro
                 var celdaNombre = document.createElement('td');
-                celdaNombre.textContent = registro.nombre;
+                celdaNombre.textContent = nombre;
                 fila.appendChild(celdaNombre);
 
                 var celdaApellidoPaterno = document.createElement('td');
-                celdaApellidoPaterno.textContent = registro.apellidoPaterno;
+                celdaApellidoPaterno.textContent = apellidoPaterno;
                 fila.appendChild(celdaApellidoPaterno);
 
                 var celdaApellidoMaterno = document.createElement('td');
-                celdaApellidoMaterno.textContent = registro.apellidoMaterno;
+                celdaApellidoMaterno.textContent = apellidoMaterno;
                 fila.appendChild(celdaApellidoMaterno);
 
                 var celdaTitulo = document.createElement('td');
-                celdaTitulo.textContent = registro.titulo;
+                celdaTitulo.textContent = titulo;
                 fila.appendChild(celdaTitulo);
 
-                var celdaAcciones = document.createElement('td');
-                var botonEditar = document.createElement('button');
-                botonEditar.textContent = 'Borrar';
-                botonEditar.classList.add('btn', 'btn-sm', 'btn-danger', 'borrar-btn');
-                botonEditar.dataset.index = registros.length - 1;
-                celdaAcciones.appendChild(botonEditar);
-                fila.appendChild(celdaAcciones);
+                var celdaPais = document.createElement('td');
+                celdaPais.textContent = pais;
+                fila.appendChild(celdaPais);
 
-                botonEditar.addEventListener('click', function() {
-                    var rowIndex = this.dataset.index;
-                    registros.splice(rowIndex, 1);
-                    tableBody.removeChild(this.parentNode.parentNode);
-                    console.log(registros);
+                var celdaAcciones = document.createElement('td');
+                var botonEliminar = document.createElement('button');
+                botonEliminar.textContent = 'Eliminar';
+                botonEliminar.classList.add('btn', 'btn-danger', 'btn-sm');
+                botonEliminar.addEventListener('click', function() {
+                    eliminarRegistro(registro);
                 });
+                celdaAcciones.appendChild(botonEliminar);
+                fila.appendChild(celdaAcciones);
 
                 tableBody.appendChild(fila);
 
-                document.getElementById('tituloA').value = '';
+                // Restablecer los campos de entrada después de agregar el registro
                 document.getElementById('nombreA').value = '';
                 document.getElementById('apellidoPaternoA').value = '';
                 document.getElementById('apellidoMaternoA').value = '';
+                document.getElementById('tituloA').value = '';
+                document.getElementById('paisA').value = '';
             } else {
                 alert('No se pueden hacer más de 3 registros.');
             }
         }
     });
+
+    function eliminarRegistro(registro) {
+        var index = registros.indexOf(registro);
+        if (index !== -1) {
+            registros.splice(index, 1);
+            actualizarTabla();
+        }
+    }
+
+    function actualizarTabla() {
+        var tableBody = document.getElementById('registrosTableBody');
+        tableBody.innerHTML = '';
+
+        registros.forEach(function(registro) {
+            var fila = document.createElement('tr');
+
+            var celdaNombre = document.createElement('td');
+            celdaNombre.textContent = registro.nombre;
+            fila.appendChild(celdaNombre);
+
+            var celdaApellidoPaterno = document.createElement('td');
+            celdaApellidoPaterno.textContent = registro.apellidoPaterno;
+            fila.appendChild(celdaApellidoPaterno);
+
+            var celdaApellidoMaterno = document.createElement('td');
+            celdaApellidoMaterno.textContent = registro.apellidoMaterno;
+            fila.appendChild(celdaApellidoMaterno);
+
+            var celdaTitulo = document.createElement('td');
+            celdaTitulo.textContent = registro.titulo;
+            fila.appendChild(celdaTitulo);
+
+            var celdaPais = document.createElement('td');
+            celdaPais.textContent = registro.pais;
+            fila.appendChild(celdaPais);
+
+            var celdaAcciones = document.createElement('td');
+            var botonEliminar = document.createElement('button');
+            botonEliminar.textContent = 'Eliminar';
+            botonEliminar.classList.add('btn', 'btn-danger', 'btn-sm');
+            botonEliminar.addEventListener('click', function() {
+                eliminarRegistro(registro);
+            });
+            celdaAcciones.appendChild(botonEliminar);
+            fila.appendChild(celdaAcciones);
+
+            tableBody.appendChild(fila);
+        });
+    }
 </script>
 @endsection

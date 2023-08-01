@@ -44,6 +44,11 @@
                         @enderror
                     </div>
 
+                    <!--                CAPTCHA
+                    
+                    
+                    
+                    -->
                     <div class="form-group d-flex align-items-center justify-content-between">
                         <div class="form-check">
                             <a href="{{route('forgotpass')}}" class="forgot-pass">Olvide mi contraseña</a>
@@ -52,5 +57,10 @@
                     <div class="d-grid mt-2">
                         <button type="submit" class="btn btn-outline-primary">Iniciar Sesión</button>
                     </div>
-                    <p class="sign-up mt-3">No tienes una cuenta?<a href="{{route('register')}}"> Registrate</a></p>
+
+                <p class="sign-up mt-3">No tienes una cuenta?<a href="{{route('register')}}"> 
+                    <div class="d-grid mt-2">
+                        <button type="submit" class="btn btn-outline-primary">Registrarme</button>
+                    </div>
+                </a></p>
                 </form>

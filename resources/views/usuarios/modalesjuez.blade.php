@@ -34,8 +34,8 @@
                         </div>
                         <div class="col-12 my-2">
                             <label for="exampleInputEmail1" class="form-label">Grado Academico:</label>
-                            <input type="text" class="form-control" name="academic_degree" value="{{ old('academic_degree') }}">
-                            @error('academic_degree')
+                            <input type="text" class="form-control" name="alternative_contact" value="{{ old('alternative_contact') }}">
+                            @error('alternative_contact')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
@@ -138,8 +138,8 @@
                         </div>
                         <div class="col-12 my-2">
                             <label for="exampleInputEmail1" class="form-label">Grado Academico:</label>
-                            <input type="text" class="form-control" name="academic_degreeE" value="{{ old('academic_degreeE') }}">
-                            @error('academic_degreeE')
+                            <input type="text" class="form-control" name="alternative_contact" value="{{ old('alternative_contact') }}">
+                            @error('alternative_contact')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
@@ -234,8 +234,8 @@
                         </div>
                         <div class="col-12 my-2">
                             <label for="exampleInputEmail1" class="form-label">Grado Academico:</label>
-                            <input type="text" class="form-control" name="academic_degree" value="{{ old('academic_degree', $usuario -> academic_degree) }}">
-                            @error('academic_degree')
+                            <input type="text" class="form-control" name="alternative_contact" value="{{ old('alternative_contact', $usuario -> alternative_contact) }}">
+                            @error('alternative_contact')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
@@ -440,9 +440,9 @@
                             @enderror
                         </div>
                         <div class="col-12 my-2">
-                            <label for="exampleInputEmail1" class="form-label">Grado Academico:</label>
-                            <input type="text" class="form-control" name="academic_degree" value="{{ old('academic_degree', $usuario -> academic_degree) }}">
-                            @error('academic_degree')
+                            <label for="exampleInputEmail1" class="form-label">Contacto Alterno:</label>
+                            <input type="text" class="form-control" name="alternative_contact" value="{{ old('alternative_contact', $usuario -> alternative_contact) }}">
+                            @error('alternative_contact')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
@@ -524,8 +524,8 @@
                         </div>
                         <div class="col-12 my-2">
                             <label for="exampleInputEmail1" class="form-label">Grado Academico:</label>
-                            <input type="text" class="form-control" name="academic_degree" value="{{ old('academic_degree', $usuario -> academic_degree) }}">
-                            @error('academic_degree')
+                            <input type="text" class="form-control" name="alternative_contact" value="{{ old('alternative_contact', $usuario -> alternative_contact) }}">
+                            @error('alternative_contact')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>

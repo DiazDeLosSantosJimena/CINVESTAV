@@ -307,40 +307,40 @@ class ProjectsController extends Controller
         }
 
         // ============= Authors =============
-        $registro = $request->input('registroA');
-        $datos = json_decode($registro, true);
-        //dd($datos);
-        foreach ($datos as $dato) {
-            //dd(intval($dato['idAuthor']));
-            $idAuthor = $dato['id'];
-            $title = $dato['titulo'];
-            $names = $dato['nombre'];
-            $app = $dato['apellidoPaterno'];
-            $apm = $dato['apellidoMaterno'];
+        // $registro = $request->input('registroA');
+        // $datos = json_decode($registro, true);
+        // //dd($datos);
+        // foreach ($datos as $dato) {
+        //     //dd(intval($dato['idAuthor']));
+        //     $idAuthor = $dato['id'];
+        //     $title = $dato['titulo'];
+        //     $names = $dato['nombre'];
+        //     $app = $dato['apellidoPaterno'];
+        //     $apm = $dato['apellidoMaterno'];
 
-            $authors = Authors::find($idAuthor);
+        //     $authors = Authors::find($idAuthor);
 
-            if ($authors != null) {
-                $authors = Authors::find($idAuthor)->where('project_id', $id->id)->first();
+        //     if ($authors != null) {
+        //         $authors = Authors::find($idAuthor)->where('project_id', $id->id)->first();
 
-                $authors->academic_degree = $title;
-                $authors->name = $names;
-                $authors->app = $app;
-                $authors->apm = $apm;
+        //         $authors->academic_degree = $title;
+        //         $authors->name = $names;
+        //         $authors->app = $app;
+        //         $authors->apm = $apm;
 
-                $authors->save();
-            } else {
-                $author = new Authors();
+        //         $authors->save();
+        //     } else {
+        //         $author = new Authors();
 
-                $author->project_id = $id->id;
-                $author->name = $names;
-                $author->app = $app;
-                $author->apm = $apm;
-                $author->academic_degree = $title;
+        //         $author->project_id = $id->id;
+        //         $author->name = $names;
+        //         $author->app = $app;
+        //         $author->apm = $apm;
+        //         $author->academic_degree = $title;
 
-                $author->save();
-            }
-        }
+        //         $author->save();
+        //     }
+        // }
 
         // ===================================
         if ($request->file('resumen')) {
@@ -453,16 +453,6 @@ class ProjectsController extends Controller
             Storage::disk('public')->delete($files->name);
         }
         $files->delete();
-        //====== ARCHIVO 3
-        $files = Files::where('project_id', $id)->where('archive', 3)->first();
-        //busca en el storage la ruta del archivo y lo elimina
-        $path = Storage::path('public/' . $files->name);
-        unlink($path);
-        $exists = Storage::disk('public')->exists($files->name);
-        if ($exists) {
-            Storage::disk('public')->delete($files->name);
-        }
-        $files->delete();
 
         $pAuthors = Authors::where('project_id', $id)->delete();
 
@@ -477,14 +467,15 @@ class ProjectsController extends Controller
     {
         //$proyect = ProjectsUsers::with('user', 'projects')->where('project_id', $id)->first();
         //$proyect = Projects::all();
-        $proyect = \DB::SELECT('SELECT users.name, users.app, users.apm, users.academic_degree, users.photo, users.phone, users.email, users.country, users.state, users.municipality, pro.title, pro.modality, pro.thematic_area
+        $proyect = \DB::SELECT('SELECT users.name, users.app, users.apm, users.alternative_contact, users.photo, users.phone, users.email, users.country, users.state, users.municipality, pro.title, pro.modality, pro.thematic_area
         FROM projects_users AS proUser
             JOIN users ON users.id = proUser.user_id
             JOIN projects AS pro ON pro.id = proUser.project_id
         WHERE pro.id = ' . $id);
+
         $authors = Authors::where('project_id', $id)->get();
 
-        $pdf = PDF::loadView('Documentos.pdf', ['proyect' => $proyect]);
+        $pdf = PDF::loadView('Documentos.pdf', ['proyect' => $proyect, 'authors' => $authors]);
         // return view ('Documentos.pdf', compact('Projects'));
         //----------Visualizar el PDF ------------------
         return $pdf->stream();

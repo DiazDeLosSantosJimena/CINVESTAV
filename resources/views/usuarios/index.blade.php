@@ -52,9 +52,9 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Titulo academico</th>
                                         <th>Email</th>
                                         <th class="text-center">Teléfono</th>
+                                        <th>Contacto Alterno</th>
                                         <th class="text-center">País</th>
                                         <th class="text-center">Estado</th>
                                         <th class="text-center">Municipio</th>
@@ -67,9 +67,9 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $usuario->name .' '. $usuario->app .' '. $usuario->apm}}</td>
-                                        <td>{{ $usuario->academic_degree }}</td>
                                         <td>{{ $usuario->email}}</td>
                                         <td>{{ $usuario->phone}}</td>
+                                        <td>{{ $usuario->alternative_contact }}</td>
                                         <td class="text-center">{{ $usuario->country}}</td>
                                         <td class="text-center">{{ $usuario->state}}</td>
                                         <td class="text-center">{{ $usuario->municipality}}</td>
@@ -123,7 +123,7 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $usuario->name}}</td>
                                         <td>{{ $usuario->app .' '. $usuario->apm }}</td>
-                                        <td>{{ $usuario->academic_degree}}</td>
+                                        <td>{{ $usuario->alternative_contact}}</td>
                                         <td>{{ $usuario->email}}</td>
                                         <td>{{ $usuario->title}}</td>
                                         <td class="text-center">
@@ -168,7 +168,7 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $usuario->name}}</td>
                                         <td>{{ $usuario->apm}}</td>
-                                        <td>{{ $usuario->academic_degree}}</td>
+                                        <td>{{ $usuario->alternative_contact}}</td>
                                         <td>{{ $usuario->email}}</td>
                                         <td>{{ $usuario->phone}}</td>
                                         <td>{{ $usuario->country}}</td>
@@ -222,7 +222,7 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $usuario->name .' '. $usuario->app .' '. $usuario->apm}}</td>
-                                        <td>{{ $usuario->academic_degree }}</td>
+                                        <td>{{ $usuario->alternative_contact }}</td>
                                         <td>{{ $usuario->email}}</td>
                                         <td>{{ $usuario->phone}}</td>
                                         <td class="text-center">{{ $usuario->country}}</td>

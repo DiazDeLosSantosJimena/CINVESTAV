@@ -18,7 +18,7 @@
                     <p><strong>Teléfono:</strong><br> {{ $uni->user->phone }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Grado Academico:</strong><br> {{ $uni->user->academic_degree }}</p>
+                    <p><strong>Contacto Alterno:</strong><br> {{ $uni->user->alternative_contact }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
                     <p><strong>País:</strong><br> {{ $uni->user->country }}</p>

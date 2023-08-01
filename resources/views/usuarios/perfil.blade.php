@@ -34,7 +34,7 @@
                     <p>{{Auth::user()->phone}}</p>
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    <h5>Medio de contacto alterno:</h5>
+                    <h5>Contacto alterno:</h5>
                     <p>{{Auth::user()->alternative_contact}}</p>
                 </div>
             </div>

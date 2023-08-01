@@ -76,7 +76,7 @@ class UsersController extends Controller
     {
         $usuariosE = User::where('rol_id', '=', 5)->get();
         $usuariosG = User::where('rol_id', '=', 3)->orWhere('rol_id', '=', 4)->get();
-        // $usuarios = \DB::select('SELECT users.id, users.name, users.apm, users.app,users.academic_degree, users.email, users.phone, users.country,
+        // $usuarios = \DB::select('SELECT users.id, users.name, users.apm, users.app,users.alternative_contact, users.email, users.phone, users.country,
         // users.state, users.municipality, users.rol_id, users.deleted_at FROM users, roles WHERE users.rol_id = roles.id AND
         // roles.id = "2"');
         $usuarios = User::with('roles')->where('rol_id', 2)->get();
@@ -89,7 +89,7 @@ class UsersController extends Controller
             FROM evaluations
             GROUP BY project_user
             HAVING COUNT(*) >= 3)');
-        $proyectsEvaluators = \DB::SELECT('SELECT eva.id AS evaluationId, us.name, us.app, us.apm, us.academic_degree, us.email, us.deleted_at, pro.title
+        $proyectsEvaluators = \DB::SELECT('SELECT eva.id AS evaluationId, us.name, us.app, us.apm, us.alternative_contact, us.email, us.deleted_at, pro.title
         FROM evaluations AS eva
             JOIN users AS us ON eva.user_id = us.id
             JOIN projects_users AS proUs ON proUs.id = eva.project_user
@@ -119,7 +119,7 @@ class UsersController extends Controller
             'nameE.required' => 'Es necesario colocar un nombre.',
             'appE.required' => 'Es necesario colocar el primer apellido.',
             'apmE.string' => 'Formato Invalido.',
-            'academic_degreeE.required' => 'Es necesario colocar el grado academico.',
+            'alternative_contact.required' => 'Es necesario colocar el grado academico.',
             'email.required' => 'Es necesario colocar un correo.',
             'email.unique' => 'El correo ya está registrado, ingrese un correo nuevo.',
             'phoneE.required' => 'Es necesario colocar un teléfono.',
@@ -132,7 +132,7 @@ class UsersController extends Controller
             'nameE' => ['required', 'string', 'max:255'],
             'appE' => ['required', 'string', 'max:255'],
             'apmE' => ['string', 'max:255'],
-            'academic_degreeE' => ['required', 'string', 'max:255'],
+            'alternative_contact' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:' . User::class ],
             'phoneE' => ['required', 'string'],
             'countryE' => ['required', 'string', 'max:255'],
@@ -144,7 +144,7 @@ class UsersController extends Controller
             'name' => $request->input('nameE'),
             'app' => $request->input('appE'),
             'apm' => $request->input('apmE'),
-            'academic_degree' => $request->input('academic_degreeE'),
+            'alternative_contact' => $request->input('alternative_contact'),
             'email' => $request->input('email'),
             'phone' => $request->input('phoneE'),
             'country' => $request->input('countryE'),
@@ -162,7 +162,7 @@ class UsersController extends Controller
             'name.required' => 'Es necesario colocar un nombre.',
             'app.required' => 'Es necesario colocar el primer apellido.',
             'apm.string' => 'Formato Invalido.',
-            'academic_degree.required' => 'Es necesario colocar el grado academico.',
+            'alternative_contact.required' => 'Es necesario colocar el grado academico.',
             'email.required' => 'Es necesario colocar un correo.',
             'phone.required' => 'Es necesario colocar un teléfono.',
             'country.required' => 'Es necesario colocar este campo.',
@@ -175,7 +175,7 @@ class UsersController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'app' => ['required', 'string', 'max:255'],
             'apm' => ['string', 'max:255'],
-            'academic_degree' => ['required', 'string', 'max:255'],
+            'alternative_contact' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email'],
             'phone' => ['required', 'string'],
             'country' => ['required', 'string', 'max:255'],
@@ -188,7 +188,7 @@ class UsersController extends Controller
             'name' => $request->input('name'),
             'app' => $request->input('app'),
             'apm' => $request->input('apm'),
-            'academic_degree' => $request->input('academic_degree'),
+            'alternative_contact' => $request->input('alternative_contact'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
             'country' => $request->input('country'),
@@ -209,7 +209,7 @@ class UsersController extends Controller
                 'name.required' => 'Es necesario colocar un nombre.',
                 'app.required' => 'Es necesario colocar el primer apellido.',
                 'apm.string' => 'Formato Invalido.',
-                'academic_degree.required' => 'Es necesario colocar el grado academico.',
+                'alternative_contact.required' => 'Es necesario colocar el grado academico.',
                 'email.required' => 'Es necesario colocar un correo.',
                 'phone.required' => 'Es necesario colocar un teléfono.',
                 'country.required' => 'Es necesario colocar este campo.',
@@ -221,7 +221,7 @@ class UsersController extends Controller
                 'name' => ['required', 'string', 'max:255'],
                 'app' => ['required', 'string', 'max:255'],
                 'apm' => ['string', 'max:255'],
-                'academic_degree' => ['required', 'string', 'max:255'],
+                'alternative_contact' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'email'],
                 'phone' => ['required', 'string'],
                 'country' => ['required', 'string', 'max:255'],
@@ -233,7 +233,7 @@ class UsersController extends Controller
                 'name.required' => 'Es necesario colocar un nombre.',
                 'app.required' => 'Es necesario colocar el primer apellido.',
                 'apm.string' => 'Formato Invalido.',
-                'academic_degree.required' => 'Es necesario colocar el grado academico.',
+                'alternative_contact.required' => 'Es necesario colocar el grado academico.',
                 'phone.required' => 'Es necesario colocar un teléfono.',
                 'country.required' => 'Es necesario colocar este campo.',
                 'state.required' => 'Es necesario colocar este campo.',
@@ -244,7 +244,7 @@ class UsersController extends Controller
                 'name' => ['required', 'string', 'max:255'],
                 'app' => ['required', 'string', 'max:255'],
                 'apm' => ['string', 'max:255'],
-                'academic_degree' => ['required', 'string', 'max:255'],
+                'alternative_contact' => ['required', 'string', 'max:255'],
                 'phone' => ['required', 'string'],
                 'country' => ['required', 'string', 'max:255'],
                 'state' => ['required', 'string', 'max:255'],
@@ -257,7 +257,7 @@ class UsersController extends Controller
             $query->name = trim($request->name);
             $query->app = trim($request->app);
             $query->apm = trim($request->apm);
-            $query->academic_degree = $request->academic_degree;
+            $query->alternative_contact = $request->alternative_contact;
             $query->email = trim($request->email);
             $query->phone = trim($request->phone);
             $query->country = trim($request->country);
@@ -267,7 +267,7 @@ class UsersController extends Controller
             $query->name = trim($request->name);
             $query->app = trim($request->app);
             $query->apm = trim($request->apm);
-            $query->academic_degree = $request->academic_degree;
+            $query->alternative_contact = $request->alternative_contact;
             $query->phone = trim($request->phone);
             $query->country = trim($request->country);
             $query->state = trim($request->state);

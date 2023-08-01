@@ -25,6 +25,22 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+// ======================= Errors =======================
+Route::get('error', function () {
+    abort('404');
+});
+Route::get('error', function () {
+    abort('401');
+});
+Route::get('error', function () {
+    abort('429');
+});
+Route::get('error', function () {
+    abort('500');
+});
+Route::get('error', function () {
+    abort('503');
+});
 Route::get('/', function () {
     return view('sesiones/login');
 });

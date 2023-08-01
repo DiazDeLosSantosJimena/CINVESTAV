@@ -25,7 +25,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th class="text-center" scope="col">Nombre del Proyecto</th>
+                        <th class="text-center" scope="col">Nombre de la Ponencia</th>
                         <th scope="col" class="text-center">Modalidad de participación</th>
                         <th scope="col" class="text-center">Eje Tematico</th>
                         @if(Auth::user()->rol_id !== 3)

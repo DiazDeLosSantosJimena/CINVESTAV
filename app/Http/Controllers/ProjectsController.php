@@ -85,7 +85,7 @@ class ProjectsController extends Controller
 
         if ($request->input('status') == 0) {
             $data = array(
-                'destinatario' => 'al222110811@gmail.com', //$user,
+                'destinatario' => $user,
                 'asunto' => 'Información acerca del registro del proyecto.',
                 'nombre' => $project->title,
                 'comentario' => $request->comentario,
@@ -93,7 +93,7 @@ class ProjectsController extends Controller
             );
         } else {
             $data = array(
-                'destinatario' => 'al222110811@gmail.com', //$user,
+                'destinatario' => $user,
                 'asunto' => 'Información acerca del registro del proyecto.',
                 'nombre' => $project->title,
                 'comentario' => $request->comentario,

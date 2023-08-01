@@ -10,7 +10,7 @@
             <div class="row">
                 @if(Auth::user()->photo != "")
                 <div class="col-12">
-                    <img src="{{ asset('img/perfil/'.Auth::user()->photo ) }}" alt="Photo" class="img-fluid" style="width: 220px;">
+                    <img src="{{ asset('img/perfil/'.Auth::user()->photo ) }}" alt="Photo" class="img-fluid rounded" style="width: 220px;">
                 </div>
                 @endif
                 <div class="col-md-4 col-sm-4">
@@ -34,8 +34,8 @@
                     <p>{{Auth::user()->phone}}</p>
                 </div>
                 <div class="col-md-4 col-sm-6">
-                    <h5>Grado academico:</h5>
-                    <p>{{Auth::user()->academic_degree}}</p>
+                    <h5>Medio de contacto alterno:</h5>
+                    <p>{{Auth::user()->alternative_contact}}</p>
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') | CINVESTAV</title>
+    @yield('estilos')
     @include('layout.head')
 </head>
 
@@ -25,13 +26,13 @@
                 <a href="{{ route('inicio') }}" class="mdl-layout__tab" id="inicio">Inicio</a>
                 {{-- @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1) --}}
                 @if(Auth::user()->rol_id === 3)
-                <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent mdl-cell--hide-desktop" id="add" href="{{ route('proyectos.create') }}">
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell--hide-desktop" id="add" href="{{ route('proyectos.create') }}">
                     <i class="material-icons" role="presentation">add</i>
-                   <span class="visuallyhidden">Add</span>
+                    <span class="visuallyhidden">Add</span>
                 </a>
                 @endif
                 @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
-                <a href="{{ route('proyectos.index') }}" class="mdl-layout__tab" id="proyectos">Proyectos</a>
+                <a href="{{ route('proyectos.index') }}" class="mdl-layout__tab" id="proyectos">Ponencias</a>
                 @endif
                 @if(Auth::user()->rol_id === 2 || Auth::user()->rol_id === 1)
                 <a href="{{ route('evaluacion.index') }}" class="mdl-layout__tab" id="evaluaciones">Evaluación</a>

@@ -137,7 +137,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c1">
+                                            <select class="form-select c1" aria-label="Default select example" name="c1">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -153,7 +153,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c2">
+                                            <select class="form-select c2" aria-label="Default select example" name="c2">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -169,7 +169,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c3">
+                                            <select class="form-select c3" aria-label="Default select example" name="c3">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -185,7 +185,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c4">
+                                            <select class="form-select c4" aria-label="Default select example" name="c4">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -201,7 +201,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c5">
+                                            <select class="form-select c5" aria-label="Default select example" name="c5">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -217,7 +217,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c6">
+                                            <select class="form-select c6" aria-label="Default select example" name="c6">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -233,7 +233,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c7">
+                                            <select class="form-select c7" aria-label="Default select example" name="c7">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -249,7 +249,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c8">
+                                            <select class="form-select c8 " aria-label="Default select example" name="c8">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -265,7 +265,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c9">
+                                            <select class="form-select c9" aria-label="Default select example" name="c9">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -281,7 +281,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c10">
+                                            <select class="form-select c10" aria-label="Default select example" name="c10">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -297,7 +297,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c11">
+                                            <select class="form-select c11" aria-label="Default select example" name="c11">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -313,7 +313,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c12">
+                                            <select class="form-select c12" aria-label="Default select example" name="c12">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -323,7 +323,7 @@
                                 <tr class="align-middle table-group-divider">
                                     <th style="text-align: end;">Total:</th>
                                     <th class="text-center">
-                                        <p>0</p>
+                                        <p id="totalCriterios">0</p>
                                     </th>
                                 </tr>
                             </tbody>
@@ -423,4 +423,30 @@
         </div>
     </div>
 </div>
+<script>
+    window.addEventListener('load', () => {
+        // Llama a la función para realizar la suma inicial
+        calcularSuma();
+    });
+
+    // Función para realizar la suma de las puntuaciones evaluadas
+    function calcularSuma() {
+        var totalSuma = 0;
+        var criterios = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11', 'c12'];
+
+        criterios.forEach((criterio) => {
+            var valor = parseInt(document.querySelector(`.${criterio}`).value);
+            totalSuma += isNaN(valor) ? 0 : valor;
+        });
+
+        // Muestra el resultado de la suma en el elemento con id "total"
+        document.getElementById("totalCriterios").textContent = `${totalSuma}`;
+    }
+
+    // Agrega eventos change a los select para recalcular la suma cuando cambian
+    var criterios = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11', 'c12'];
+    criterios.forEach((criterio) => {
+        document.querySelector(`.${criterio}`).addEventListener('change', calcularSuma);
+    });
+</script>
 @endsection

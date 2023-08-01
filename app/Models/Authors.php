@@ -14,7 +14,8 @@ class Authors extends Model
         'name',
         'apm',
         'app',
-        'academic_degree'
+        'institution_of_origin',
+        'state'
     ];
 
     public function Project() {

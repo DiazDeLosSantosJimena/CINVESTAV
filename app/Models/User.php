@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'apm',
         'app',
-        'academic_degree',
+        'alternative_contact',
         'email',
         'password',
         'phone',

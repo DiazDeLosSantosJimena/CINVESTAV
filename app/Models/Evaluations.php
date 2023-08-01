@@ -15,6 +15,7 @@ class Evaluations extends Model
         'title',
         'extension',
         'key_words',
+        'abstract_keywords',
         'problematic',
         'theoretical',
         'methodology',

@@ -7,6 +7,7 @@ use App\Models\Projects;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -152,6 +153,13 @@ class UsersController extends Controller
             'municipality' => $request->input('municipalityE'),
             'rol_id' => 5,
         ));
+        /*$mail= $request->input('email');
+
+        Mail::send('vista', function ($message) use ($mail) {
+            $message->to($mail, 'CINVESTAV')
+                ->subject('Invitación al Evento')
+                ->from('hello@example.com', 'CINVESTAV');
+        });*/
 
         return redirect('usuarios')->with('status', 'Registro exitoso!');
     }

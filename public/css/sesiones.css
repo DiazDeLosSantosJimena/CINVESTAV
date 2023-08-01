@@ -44,27 +44,24 @@ body {
 
 /*Responsive*/
 @media screen and (max-width:1300px) {
-
     /*Universal*/
-    .contenedor {
+    .contenedor{
         width: 80%;
         text-align: justify;
         margin-top: 10%;
     }
-
-    body {
+    body{
         background-image: url("../img/cinestav_fondo.jpg");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
     }
-
+    
     /*Recuperacion.blade.php*/
-    .in {
+    .in{
         padding-inline: 6%;
     }
-
-    .boton {
+    .boton{
         text-align: center;
     }
-}
+    }

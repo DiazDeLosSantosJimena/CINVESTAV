@@ -29,7 +29,9 @@
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     @error('email')
-                    <span class="text-danger">{{$message}}</span>
+                    <div class="mb-4 text-center">
+                        <span class="text-danger">{{$message}}</span>
+                    </div>
                     @enderror
                     <div class="mb-4">
                         <label for="email" class="form-label">&nbsp;<i class="fa-solid fa-envelope"></i> Correo Electrónico:</label>
@@ -58,9 +60,18 @@
                         <button type="submit" class="btn btn-outline-primary">Iniciar Sesión</button>
                     </div>
 
-                <p class="sign-up mt-3">No tienes una cuenta?<a href="{{route('register')}}"> 
-                    <div class="d-grid mt-2">
-                        <button type="submit" class="btn btn-outline-primary">Registrarme</button>
-                    </div>
-                </a></p>
+                    <p class="sign-up mt-3">
+                        No tienes una cuenta?
+                        <a href="{{route('register')}}">
+                            <div class="d-grid mt-2">
+                                <button type="submit" class="btn btn-outline-primary">Registrarme</button>
+                            </div>
+                        </a>
+                    </p>
                 </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

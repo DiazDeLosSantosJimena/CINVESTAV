@@ -44,25 +44,7 @@ Route::get('error', function () {
 Route::get('/', function () {
     return view('sesiones/login');
 });
-
-Route::get('registroPonente', function () {
-    return view('usuarios.registro');
-})->name('registroPonente');
-
-// Route::get('registroGeneral', function () {
-//     return view('usuarios.registroG');
-// })->name('registroGeneral');
-
-////////////////////////////////////////EMAILS///////////////////////////////////////
-Route::get('recuperacion', function () {
-    return view('mail/recuperacion');
-});
-
-Route::get('activacion', function () {
-    return view('mail/activacion');
-});
-
-Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
+// ========================================================
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -70,6 +52,16 @@ Route::get('/', function () {
     }
     return redirect()->route('login');
 })->middleware(['auth', 'verified'])->name('inicio');
+
+// ============================ REGISTRO ============================
+Route::get('registroPonente', function () {
+    return view('usuarios.registro');
+})->name('registroPonente');
+// Route::get('registroGeneral', function () {
+//     return view('usuarios.registroG');
+// })->name('registroGeneral');
+Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
+//===================================================================
 
 Route::middleware('auth')->group(function () {
     // --------------------- Resource --------------------- 
@@ -128,6 +120,12 @@ Route::middleware('auth')->group(function () {
 });
 
 ///////////////////////////////////////CORREOS////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Route::get('recuperacion', function () {
+    return view('mail/recuperacion');
+});
+Route::get('activacion', function () {
+    return view('mail/activacion');
+});
 Route::get('forgotpass', [EmailController::class, 'forgotpass'])->name('forgotpass');
 Route::name('recuperar')->get('recuperar', [EmailController::class, 'recuperar']);
 Route::name('reset')->get('reset', [EmailController::class, 'reset'])->middleware('signed');

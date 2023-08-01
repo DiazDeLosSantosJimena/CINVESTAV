@@ -387,10 +387,11 @@
 
     var registro = {
         id: "{{ $author->id }}",
-        titulo: "{{ $author->academic_degree }}",
         nombre: "{{ $author->name }}",
         apellidoPaterno: "{{ $author->app }}",
-        apellidoMaterno: "{{ $author->apm }}"
+        apellidoMaterno: "{{ $author->apm }}",
+        titulo: "{{ $author->academic_degree }}",
+        pais: "{{ $author->state }}"
     };
 
     registros.push(registro);
@@ -421,6 +422,10 @@
     celdaTitulo.textContent = registro.titulo;
     fila.appendChild(celdaTitulo);
 
+    var celdaPais = document.createElement('td');
+    celdaPais.textContent = registro.pais;
+    fila.appendChild(celdaPais);
+    
     var celdaAcciones = document.createElement('td');
     var botonEditar = document.createElement('button');
     botonEditar.textContent = 'Borrar';
@@ -458,19 +463,20 @@
         event.preventDefault();
 
         var idAuthor = document.getElementById('idAuthor').value;
-        var titulo = document.getElementById('tituloA').value;
         var nombre = document.getElementById('nombreA').value;
         var apellidoPaterno = document.getElementById('apellidoPaternoA').value;
         var apellidoMaterno = document.getElementById('apellidoMaternoA').value;
+        var titulo = document.getElementById('tituloA').value;
+        var pais = document.getElementById('paisA').value;
 
-        if (titulo !== '' && nombre !== '' && apellidoPaterno !== '') {
+        if (nombre !== '' && apellidoPaterno !== '' && titulo !== '' && pais !== '') {
             if (registros.length < 3) {
                 var registro = {
-                    id: idAuthor,
-                    titulo: titulo,
                     nombre: nombre,
                     apellidoPaterno: apellidoPaterno,
-                    apellidoMaterno: apellidoMaterno
+                    apellidoMaterno: apellidoMaterno,
+                    titulo: titulo,
+                    pais: pais,
                 };
 
                 registros.push(registro);
@@ -501,6 +507,10 @@
                 celdaTitulo.textContent = registro.titulo;
                 fila.appendChild(celdaTitulo);
 
+                var celdaPais = document.createElement('td');
+                celdaPais.textContent = pais;
+                fila.appendChild(celdaPais);
+
                 var celdaAcciones = document.createElement('td');
                 var botonBorrar = document.createElement('button');
                 botonBorrar.textContent = 'Borrar';
@@ -516,6 +526,7 @@
                 document.getElementById('nombreA').value = '';
                 document.getElementById('apellidoPaternoA').value = '';
                 document.getElementById('apellidoMaternoA').value = '';
+                document.getElementById('paisA').value = '';
             } else {
                 alert('No se pueden hacer más de 3 registros.');
             }

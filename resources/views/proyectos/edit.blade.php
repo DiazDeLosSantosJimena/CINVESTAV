@@ -71,14 +71,23 @@
     }
 
     .checkbox-rect2 input[type="checkbox"]:checked+label:before {
+        content: "\2713";
         border: 2px solid #fff;
         border-radius: 0.3em;
-        background: #00e0ef;
+        background: #0078a1;
         box-shadow: 2px 1px 0 #50565a;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        margin-bottom: auto;
+        color: #fff;
+        width: 1.7em;
+        height: 1.7em;
     }
 
     /* checkbox-rect2 end */
 </style>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 @endsection
 @section('content')
 <div class="container">
@@ -136,27 +145,33 @@
             </div>
             <div class="col-sm-12 col-md-12">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="eje" id="eje1" value="U" {{ old('modality',  $proyect->projects->thematic_area) == 'U' ? 'checked' : '' }}>
+                    <input class="form-check-input" type="radio" name="eje" id="eje1" value="U" {{ old('eje',  $proyect->projects->thematic_area) == 'U' ? 'checked' : '' }}>
                     <label class="form-check-label" for="eje1">
                         Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="eje" id="eje2" value="P" {{ old('modality',  $proyect->projects->thematic_area) == 'P' ? 'checked' : '' }}>
+                    <input class="form-check-input" type="radio" name="eje" id="eje2" value="P" {{ old('eje',  $proyect->projects->thematic_area) == 'P' ? 'checked' : '' }}>
                     <label class="form-check-label" for="eje2">
                         Nivel Preuniversitario.(Bachillerato.)
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="eje" id="eje3" value="B" {{ old('modality',  $proyect->projects->thematic_area) == 'B' ? 'checked' : '' }}>
+                    <input class="form-check-input" type="radio" name="eje" id="eje3" value="B" {{ old('eje',  $proyect->projects->thematic_area) == 'B' ? 'checked' : '' }}>
                     <label class="form-check-label" for="eje3">
                         Nivel Básico.(Primaria o secundaria.)
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="eje" id="eje4" value="STEM" {{ old('modality',  $proyect->projects->thematic_area) == 'STEM' ? 'checked' : '' }}>
+                    <input class="form-check-input" type="radio" name="eje" id="eje4" value="STEM" {{ old('eje',  $proyect->projects->thematic_area) == 'STEM' ? 'checked' : '' }}>
                     <label class="form-check-label" for="eje4">
                         Ciencia, Tecnológia, Ingenieria y Matemáticas(STEM)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="eje" id="eje5" value="HM" {{ old('eje',  $proyect->projects->thematic_area) == 'HM' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="eje5">
+                        Historia de las Matemáticas
                     </label>
                 </div>
             </div>
@@ -177,7 +192,7 @@
             </div>
             <div class="col-9">
                 <div class="mb-3 mt-3">
-                    <input class="form-control @error('resumen') is-invalid @enderror" type="file" id="resumen" name="resumen">
+                    <input class="form-control @error('resumen') is-invalid @enderror" type="file" id="resumen" accept=".docx" name="resumen">
                     <div class="form-text" id="resumen-addon4">(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)</div>
                 </div>
                 @error('resumen')
@@ -192,7 +207,7 @@
             </div>
             <div class="col-9">
                 <div class="mb-3 mt-3">
-                    <input class="form-control @error('extenso') is-invalid @enderror" type="file" id="extenso" name="extenso">
+                    <input class="form-control @error('extenso') is-invalid @enderror" type="file" id="extenso" accept=".docx,image/jpeg" name="extenso">
                     <div class="form-text" id="archivo2-addon4">(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)</div>
                 </div>
                 @error('extenso')
@@ -234,21 +249,22 @@
         <div class="collapse my-3" id="collapseExample">
             <div class="card card-body">
                 <div class="row">
-                    <div class="col-sm-12 col-md-3 mb-3">
+                    <div class="col-sm-12 col-md-4 mb-3">
                         <label for="nombre" class="form-label">Nombre.</label> <label for="nombreA" class="text-danger">*</label>
                         <input type="text" class="form-control" id="nombreA" name="nombreA" aria-describedby="nombre" value="">
                     </div>
-                    <div class="col-sm-12 col-md-3 mb-3">
+                    <div class="col-sm-12 col-md-4 mb-3">
                         <label for="apellidoPaterno" class="form-label">Apellido Paterno.</label> <label for="apellidoPaternoA" class="text-danger">*</label>
                         <input type="text" class="form-control" id="apellidoPaternoA" name="apellidoPaternoA" aria-describedby="apellidoPaterno" value="">
                     </div>
-                    <div class="col-sm-12 col-md-3 mb-3">
+                    <div class="col-sm-12 col-md-4 mb-3">
                         <label for="apellidoMaterno" class="form-label">Apellido Materno.</label>
                         <input type="text" class="form-control" id="apellidoMaternoA" name="apellidoMaternoA" aria-describedby="apellidoMaterno" value="">
                     </div>
-                    <div class="col-sm-12 col-md-3 mb-3">
+                    <div class="col-sm-12 col-md-12 mb-3">
                         <label for="titulo" class="form-label">Institución de Procedencia.</label> <label for="tituloA" class="text-danger">*</label>
                         <input type="text" class="form-control" id="tituloA" name="tituloA" aria-describedby="titulo" value="">
+                        <div class="form-text" id="basic-addon4">Le pedimos no utilizar siglas y escribir el nombre completo de la institución o empresa de procedencia.</div>
                     </div>
                     <div class="col-sm-12 col-md-12 mb-3">
                         <label for="titulo" class="form-label">País.</label> <label for="paisA" class="text-danger">*</label>
@@ -278,23 +294,6 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-sm-2 col-md-3">
-            <div class="bd-callout bd-callout-info">
-                <p class="mx-3">Datos extra:</p>
-            </div>
-        </div>
-        <div class="col-12 row">
-            <div class="col-12">
-                <label for="inst_pro" class="form-label">Institución de procedencia: <strong class="text-danger">*</strong></label>
-                <input type="text" id="inst_pro" name="inst_pro" class="form-control @error('inst_pro') is-invalid @enderror" aria-labelledby="Institución" value="{{ old('inst_pro', $proyect->projects->sending_institution) }}">
-                <div class="form-text" id="basic-addon4">Le pedimos no utilizar siglas y escribir el nombre completo de la institución o empresa de procedencia.</div>
-            </div>
-            @error('inst_pro')
-            <label class="form-check-label text-danger" for="flexRadioDefault1">
-                {{ $message }}
-            </label>
-            @enderror
-        </div>
         <hr class="my-4">
         <div class="col-12 d-flex justify-content-center align-content-center my-3">
             <div class="item">
@@ -304,6 +303,19 @@
                 </div>
             </div>
         </div>
+        <!--CAPTCHA-->
+        <div class="col-12 d-flex justify-content-center align-content-center my-3">
+            <div class="form-group">
+                <div class="g-recaptcha" id="captchalogin" data-sitekey="6LcSYHcnAAAAAKKbYvQhXhQtN3evu7yxowlNSW04" data-callback='onSubmit' data-action='submit'></div>
+            </div>
+        </div>
+        @error('g-recaptcha-response')
+        <div class="col-12 d-flex justify-content-center align-content-center">
+            <label class="form-check-label text-danger" for="flexRadioDefault1">
+                {{ $message }}
+            </label>
+        </div>
+        @enderror
         <div class="col-6 text-center mt-3">
             <a href="{{ route('proyectos.index') }}" class="btn btn-secondary">Cancelar</a>
         </div>
@@ -370,9 +382,9 @@
         ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)";
     } else if (radioModality2.checked === true) {
         archivoPPTX.style.display = 'none';
-        archive1.textContent = "Formato-CARTEL-EICAL-13.docx";
+        archive1.textContent = "Formato-CARTEL-EICAL-14.docx";
         archive2.textContent = "Cartel_Formato-XIII-EICAL.pptx";
-        archive1.href = "{{ Storage::url('proposals/Formato-CARTEL-EICAL-13.docx') }}";
+        archive1.href = "{{ Storage::url('proposals/Formato-CARTEL-EICAL-14.docx') }}";
         archive2.href = "{{ Storage::url('proposals/Cartel_Formato-XIII-EICAL.pptx') }}";
         ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .jpg, jpg no mayor a 2MB)";
     }

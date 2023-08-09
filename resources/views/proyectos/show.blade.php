@@ -62,8 +62,10 @@
                         Nivel Básico.(Primaria o secundaria.)
                         @elseif( $uni->projects->thematic_area == 'STEM')
                         Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                        @elseif( $uni->projects->thematic_area == 'HM')
+                        Historia de las Matemáticas
                         @else
-                        {{ $uni->projects->modality }}
+                        {{ $uni->projects->thematic_area }}
                         @endif
                     </p>
                 </div>
@@ -83,9 +85,6 @@
                 </div>
                 @endforeach
                 @endif
-                <div class="col-md-12 col-sm-12 my-3">
-                    <p><strong>Institución de procedencia:</strong><br> {{ $uni->projects->sending_institution }}</p>
-                </div>
             </div>
         </div>
         <div class="col-md-12 col-sm-12 my-2">

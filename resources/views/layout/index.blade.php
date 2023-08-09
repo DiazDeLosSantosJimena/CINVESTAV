@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-12 text-center">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                    <h4>Ponencias Registradas</h4>
+                                    <h4>@if(Auth::user()->rol_id == 1) Ponencias @else Registro de ponencias @endif</h4>
                                 </div>
                             </div>
                         </div>

@@ -150,7 +150,7 @@ class ProjectsController extends Controller
             'extenso.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
             'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
             'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
-            'inst_pro.required' => 'Ingrese el instituto de procedencia.',
+            //'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
         ];
         if ($request->modality === 'P') {
             $request->validate([
@@ -159,8 +159,8 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:docx', 'max:1024'],
+                //'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
-                'inst_pro' => ['required', 'string', 'max:255'],
             ], $messages);
         } else if ($request->modality === 'C') {
             $messages = [
@@ -171,11 +171,9 @@ class ProjectsController extends Controller
                 'resumen.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
                 'resumen.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
                 'extenso.required' => 'Suba el archivo requerido.',
-                'inst_pro.required' => 'Ingrese el instituto de procedencia.',
                 'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato (.jpg) indicado.',
-                // 'pago.required' => 'Suba el archivo requerido.',
-                // 'pago.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
-                'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
+                //'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
+                //'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
             ];
             $request->validate([
                 'titulo' => ['required', 'string', 'max:255'],
@@ -183,8 +181,8 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:jpg', 'max:2048'],
+                //'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
-                'inst_pro' => ['required', 'string', 'max:255'],
             ], $messages);
         } else {
             $request->validate([
@@ -193,8 +191,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file'],
                 'extenso' => ['required', 'file'],
-                //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
-                'inst_pro' => ['required', 'string', 'max:255'],
+                //'g-recaptcha-response' => ['required'],
             ], $messages);
         }
 
@@ -202,7 +199,7 @@ class ProjectsController extends Controller
             'modality' => $request->modality,
             'title' => $request->titulo,
             'thematic_area' => $request->eje,
-            'sending_institution' => $request->inst_pro,
+            //'sending_institution' => $request->inst_pro,
             'status' => 1
         ]);
         $proyect->save();
@@ -302,6 +299,21 @@ class ProjectsController extends Controller
     public function update(Request $request, Projects $id)
     {
 
+        $messages = [
+            'titulo.required' => 'El título es obligatorio.',
+            'eje.required' => 'Seleccione al menos 1 eje tematico.',
+            'modality.required' => 'Seleccione una de las modalidades de participación.',
+            //'inst_pro.required' => 'Ingrese el instituto de procedencia.',
+        ];
+
+        $request->validate([
+            'titulo' => ['required', 'string', 'max:255'],
+            'eje' => ['required', 'string'],
+            'modality' => ['required', 'string'],
+            'g-recaptcha-response' => ['required'],
+            //'inst_pro' => ['required', 'string', 'max:255'],
+        ], $messages);
+
         $authors = Authors::where('project_id', $id->id)->get();
 
         foreach ($authors as $author) {
@@ -354,26 +366,12 @@ class ProjectsController extends Controller
             ], $messages);
         }
 
-        $messages = [
-            'titulo.required' => 'El título es obligatorio.',
-            'eje.required' => 'Seleccione al menos 1 eje tematico.',
-            'modality.required' => 'Seleccione una de las modalidades de participación.',
-            'inst_pro.required' => 'Ingrese el instituto de procedencia.',
-        ];
-
-        $request->validate([
-            'titulo' => ['required', 'string', 'max:255'],
-            'eje' => ['required', 'string'],
-            'modality' => ['required', 'string'],
-            'inst_pro' => ['required', 'string', 'max:255'],
-        ], $messages);
-
         $project = Projects::find($id->id);
 
         $project->modality = $request->modality;
         $project->title = trim($request->titulo);
         $project->thematic_area = $request->eje;
-        $project->sending_institution = trim($request->inst_pro);
+        //$project->sending_institution = trim($request->inst_pro);
 
         $project->save();
 

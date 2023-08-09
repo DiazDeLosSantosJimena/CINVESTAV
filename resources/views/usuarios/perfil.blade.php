@@ -33,10 +33,17 @@
                     <h5>Teléfono:</h5>
                     <p>{{Auth::user()->phone}}</p>
                 </div>
+                @if(Auth::user()->rol_id == 3)
                 <div class="col-md-4 col-sm-6">
                     <h5>Contacto alterno:</h5>
                     <p>{{Auth::user()->alternative_contact}}</p>
                 </div>
+                @else
+                <div class="col-md-4 col-sm-6">
+                    <h5>Grado Academico:</h5>
+                    <p>{{Auth::user()->alternative_contact}}</p>
+                </div>
+                @endif
             </div>
         </div>
         <hr>

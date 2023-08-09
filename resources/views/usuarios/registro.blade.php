@@ -51,8 +51,8 @@
         .checkbox-rect2 input[type="checkbox"]+label:before {
             content: "";
             display: block;
-            width: 1.4em;
-            height: 1.4em;
+            width: 1.7em;
+            height: 1.7em;
             border: 1px solid #343a3f;
             border-radius: 0.2em;
             position: absolute;
@@ -66,14 +66,23 @@
         }
 
         .checkbox-rect2 input[type="checkbox"]:checked+label:before {
+            content: "\2713";
             border: 2px solid #fff;
             border-radius: 0.3em;
-            background: #00e0ef;
+            background: #0078a1;
             box-shadow: 2px 1px 0 #50565a;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            margin-bottom: auto;
+            color: #fff;
+            width: 1.7em;
+            height: 1.7em;
         }
 
         /* checkbox-rect2 end */
     </style>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 
 <body>
@@ -240,6 +249,19 @@
                         </div>
                     </div>
                 </div>
+                <!--CAPTCHA-->
+                <div class="col-12 d-flex justify-content-center align-content-center my-3">
+                    <div class="form-group">
+                        <div class="g-recaptcha" id="captchalogin" data-sitekey="6LcSYHcnAAAAAKKbYvQhXhQtN3evu7yxowlNSW04" data-callback='onSubmit' data-action='submit'></div>
+                    </div>
+                </div>
+                @error('g-recaptcha-response')
+                <div class="col-12 d-flex justify-content-center align-content-center">
+                    <label class="form-check-label text-danger" for="flexRadioDefault1">
+                        {{ $message }}
+                    </label>
+                </div>
+                @enderror
                 <div class="col-6 text-center mt-3">
                     <a href="{{ route('register') }}" type="button" class="btn btn-secondary">Regresar</a>
                 </div>
@@ -254,15 +276,15 @@
         var checkBox = document.getElementsByClassName('confirm');
         var btnEnviar = document.querySelector("#btnRegistro");
 
-        checkBox[0].value = 1; 
+        checkBox[0].value = 1;
         checkedBox = (val) => {
             if (val == 1) {
                 btnEnviar.className = "btn btn-success";
-                checkBox[0].value = 0; 
-            } else if(val == 0) {
+                checkBox[0].value = 0;
+            } else if (val == 0) {
                 btnEnviar.className = "btn btn-success disabled";
                 checkBox[0].value = 1;
-            }else{
+            } else {
 
             }
         }

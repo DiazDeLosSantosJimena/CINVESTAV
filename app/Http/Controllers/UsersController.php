@@ -25,46 +25,6 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
@@ -114,7 +74,8 @@ class UsersController extends Controller
         return view('usuarios.js_proyecto', compact('evaluador'));
     }
 
-    public function agregarInvitado(Request $request){
+    public function agregarInvitado(Request $request)
+    {
 
         $messages = [
             'nameE.required' => 'Es necesario colocar un nombre.',
@@ -134,7 +95,7 @@ class UsersController extends Controller
             'appE' => ['required', 'string', 'max:255'],
             'apmE' => ['string', 'max:255'],
             'alternative_contact' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'unique:' . User::class ],
+            'email' => ['required', 'email', 'unique:' . User::class],
             'phoneE' => ['required', 'string'],
             'countryE' => ['required', 'string', 'max:255'],
             'stateE' => ['required', 'string', 'max:255'],
@@ -209,77 +170,139 @@ class UsersController extends Controller
         return redirect('usuarios')->with('status', 'Registro exitoso!');
     }
 
+    public function salvarPonente(User $id, Request $request) {
+        $messages = [
+            'name.required' => 'Es necesario colocar un nombre.',
+            'app.required' => 'Es necesario colocar el primer apellido.',
+            'apm.string' => 'Formato Invalido.',
+            'alternative_contact.required' => 'Es necesario colocar otro medio de contacto.',
+            'phone.required' => 'Es necesario colocar un teléfono.',
+            'country.required' => 'Es necesario colocar este campo.',
+            'state.required' => 'Es necesario colocar este campo.',
+            'municipality.required' => 'Es necesario colocar este campo.',
+        ];
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'app' => ['required', 'string', 'max:255'],
+            'apm' => ['string', 'max:255'],
+            'alternative_contact' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string'],
+            'country' => ['required', 'string', 'max:255'],
+            'state' => ['required', 'string', 'max:255'],
+            'municipality' => ['required', 'string', 'max:255'],
+        ], $messages);
+
+        $query = User::find($id->id);
+        $query->name = trim($request->name);
+        $query->app = trim($request->app);
+        $query->apm = trim($request->apm);
+        $query->alternative_contact = $request->alternative_contact;
+        $query->phone = trim($request->phone);
+        $query->country = trim($request->country);
+        $query->state = trim($request->state);
+        $query->municipality = trim($request->municipality);
+
+        $query->save();
+
+        return redirect()->route('usuarios')->with('status', 'Registro actualizado con exito!');
+    }
+
+    public function salvarInvitado(User $id, Request $request)
+    {
+        $messages = [
+            'name.required' => 'Es necesario colocar un nombre.',
+            'app.required' => 'Es necesario colocar el primer apellido.',
+            'apm.string' => 'Formato Invalido.',
+            'alternative_contact.required' => 'Es necesario colocar otro medio de contacto.',
+            'phone.required' => 'Es necesario colocar un teléfono.',
+            'country.required' => 'Es necesario colocar este campo.',
+            'state.required' => 'Es necesario colocar este campo.',
+            'municipality.required' => 'Es necesario colocar este campo.',
+        ];
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'app' => ['required', 'string', 'max:255'],
+            'apm' => ['string', 'max:255'],
+            'alternative_contact' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string'],
+            'country' => ['required', 'string', 'max:255'],
+            'state' => ['required', 'string', 'max:255'],
+            'municipality' => ['required', 'string', 'max:255'],
+        ], $messages);
+
+        $query = User::find($id->id);
+        $query->name = trim($request->name);
+        $query->app = trim($request->app);
+        $query->apm = trim($request->apm);
+        $query->alternative_contact = $request->alternative_contact;
+        $query->email = trim($request->email);
+        $query->phone = trim($request->phone);
+        $query->country = trim($request->country);
+        $query->state = trim($request->state);
+        $query->municipality = trim($request->municipality);
+
+        $query->save();
+        return redirect()->route('usuarios')->with('status', 'Registro actualizado con exito!');
+    }
 
     public function salvarjuez(User $id, Request $request)
     {
-        if ($id->rol_id == 2) {
+        if($request->input('password') != null || $request->input('password_current') != null){
             $messages = [
-                'name.required' => 'Es necesario colocar un nombre.',
-                'app.required' => 'Es necesario colocar el primer apellido.',
-                'apm.string' => 'Formato Invalido.',
-                'alternative_contact.required' => 'Es necesario colocar el grado academico.',
-                'email.required' => 'Es necesario colocar un correo.',
-                'phone.required' => 'Es necesario colocar un teléfono.',
-                'country.required' => 'Es necesario colocar este campo.',
-                'state.required' => 'Es necesario colocar este campo.',
-                'municipality.required' => 'Es necesario colocar este campo.',
+                'password.required' => 'Los campos no coinciden.',
+                'password_current.required' => 'Los campos no coinciden.',
+                'password_current.same' => 'Los campos no coinciden.',
             ];
-
             $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'app' => ['required', 'string', 'max:255'],
-                'apm' => ['string', 'max:255'],
-                'alternative_contact' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'email'],
-                'phone' => ['required', 'string'],
-                'country' => ['required', 'string', 'max:255'],
-                'state' => ['required', 'string', 'max:255'],
-                'municipality' => ['required', 'string', 'max:255'],
+                'password' => ['required', 'max:255'],
+                'password_current' => 'required|same:password',
             ], $messages);
-        } else {
-            $messages = [
-                'name.required' => 'Es necesario colocar un nombre.',
-                'app.required' => 'Es necesario colocar el primer apellido.',
-                'apm.string' => 'Formato Invalido.',
-                'alternative_contact.required' => 'Es necesario colocar el grado academico.',
-                'phone.required' => 'Es necesario colocar un teléfono.',
-                'country.required' => 'Es necesario colocar este campo.',
-                'state.required' => 'Es necesario colocar este campo.',
-                'municipality.required' => 'Es necesario colocar este campo.',
-            ];
 
-            $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'app' => ['required', 'string', 'max:255'],
-                'apm' => ['string', 'max:255'],
-                'alternative_contact' => ['required', 'string', 'max:255'],
-                'phone' => ['required', 'string'],
-                'country' => ['required', 'string', 'max:255'],
-                'state' => ['required', 'string', 'max:255'],
-                'municipality' => ['required', 'string', 'max:255'],
-            ], $messages);
+            $passValidate = true;
+        }else{
+            $passValidate = false;
         }
+
+        $messages = [
+            'name.required' => 'Es necesario colocar un nombre.',
+            'app.required' => 'Es necesario colocar el primer apellido.',
+            'apm.string' => 'Formato Invalido.',
+            'alternative_contact.required' => 'Es necesario colocar otro medio de contacto.',
+            'email.required' => 'Es necesario colocar un correo.',
+            'phone.required' => 'Es necesario colocar un teléfono.',
+            'country.required' => 'Es necesario colocar este campo.',
+            'state.required' => 'Es necesario colocar este campo.',
+            'municipality.required' => 'Es necesario colocar este campo.',
+        ];
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'app' => ['required', 'string', 'max:255'],
+            'apm' => ['string', 'max:255'],
+            'alternative_contact' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email'],
+            'phone' => ['required', 'string'],
+            'country' => ['required', 'string', 'max:255'],
+            'state' => ['required', 'string', 'max:255'],
+            'municipality' => ['required', 'string', 'max:255'],
+        ], $messages);
+
         $query = User::find($id->id);
 
-        if ($query->rol_id == 2) {
-            $query->name = trim($request->name);
-            $query->app = trim($request->app);
-            $query->apm = trim($request->apm);
-            $query->alternative_contact = $request->alternative_contact;
-            $query->email = trim($request->email);
-            $query->phone = trim($request->phone);
-            $query->country = trim($request->country);
-            $query->state = trim($request->state);
-            $query->municipality = trim($request->municipality);
-        } else {
-            $query->name = trim($request->name);
-            $query->app = trim($request->app);
-            $query->apm = trim($request->apm);
-            $query->alternative_contact = $request->alternative_contact;
-            $query->phone = trim($request->phone);
-            $query->country = trim($request->country);
-            $query->state = trim($request->state);
-            $query->municipality = trim($request->municipality);
+        $query->name = trim($request->name);
+        $query->app = trim($request->app);
+        $query->apm = trim($request->apm);
+        $query->alternative_contact = $request->alternative_contact;
+        $query->email = trim($request->email);
+        $query->phone = trim($request->phone);
+        $query->country = trim($request->country);
+        $query->state = trim($request->state);
+        $query->municipality = trim($request->municipality);
+        
+        if($passValidate == true){
+            $query->password = Hash::make(trim($request->password));
         }
 
         $query->save();

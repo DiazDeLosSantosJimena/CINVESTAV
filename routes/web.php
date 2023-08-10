@@ -76,6 +76,8 @@ Route::middleware('auth')->group(function () {
     Route::name('agregarjuez')->post('agregarjuez', [UsersController::class, 'agregarjuez']);
     Route::name('salvarjuez')->put('salvarjuez/{id}', [UsersController::class, 'salvarjuez']);
     Route::name('agregarInvitado')->post('agregarInvitado', [UsersController::class, 'agregarInvitado']);
+    Route::name('salvarInvitado')->put('salvarInvitado/{id}', [UsersController::class, 'salvarInvitado']);
+    Route::name('salvarPonente')->put('salvarPonente/{id}', [UsersController::class, 'salvarPonente']);
     //---------------------------------------------------------------------
     Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
     Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);

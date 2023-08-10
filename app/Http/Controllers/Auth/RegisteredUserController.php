@@ -53,7 +53,7 @@ class RegisteredUserController extends Controller
                 'state' => ['required', 'string', 'max:255'],
                 'municipality' => ['required', 'string', 'max:255'],
                 'phone' => ['required', 'string', 'max:255'],
-                'alternative_contact' => 'required|regex:/^(\d{10}|\S+@\S+\.\S+)$/|max:255',
+                'alternative_contact' => ['required', 'regex:/^(\d{10}|\S+@\S+\.\S+)$/','max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
                 'foto' => 'required|mimes:jpeg,png,jpg',
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],

@@ -203,7 +203,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Registro</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Registro Evaluador</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -274,6 +274,25 @@
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
+                        <hr class="mb-0">
+                        <div class="col-12">
+                            <h5>Cambio de contraseña</h5>
+                            <div class="form-text" id="basic-addon4">Si deseas realizar un cambio de contraseña, por favor ingresa la nueva contraseña en el espacio proporcionado. En caso contrario, simplemente omite esta sección y continúa completando los demás campos con la información requerida.</div>
+                        </div>
+                        <div class="col-12 my-2">
+                            <label for="exampleFormControlInput1" class="form-label">Contraseña:</label>
+                            <input type="password" class="form-control" name="password" placeholder="" value="">
+                        </div>
+                        @error('password')
+                        <small class="form-text text-danger">{{$message}}</small>
+                        @enderror
+                        <div class="col-12 my-2">
+                            <label for="exampleFormControlInput1" class="form-label">Confirmar contraseña:</label>
+                            <input type="password" class="form-control" name="password_current" placeholder="" value="">
+                        </div>
+                        @error('password_current')
+                        <small class="form-text text-danger">{{$message}}</small>
+                        @enderror
                     </div>
             </div>
             <div class="modal-footer">
@@ -410,11 +429,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Registro</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Registro Ponente</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('salvarjuez', ['id' => $usuario->id]) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('salvarPonente', ['id' => $usuario->id]) }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field('PATCH') }}
                     {{ method_field('PUT') }}
                     <div class="row py-2">
@@ -493,11 +512,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Registro</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Registro Invitado</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('salvarjuez', ['id' => $usuario->id]) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('salvarInvitado', ['id' => $usuario->id]) }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field('PATCH') }}
                     {{ method_field('PUT') }}
                     <div class="row py-2">
@@ -606,8 +625,8 @@
 <script>
     // Función para generar una contraseña aleatoria
     function generatePassword() {
-        var length = 12; // Longitud de la contraseña (puedes ajustarla según tus necesidades)
-        var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+"; // Caracteres permitidos en la contraseña
+        var length = 8; // Longitud de la contraseña (puedes ajustarla según tus necesidades)
+        var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // Caracteres permitidos en la contraseña
         var password = "";
 
         for (var i = 0; i < length; i++) {

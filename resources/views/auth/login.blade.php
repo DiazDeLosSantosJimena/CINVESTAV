@@ -49,6 +49,7 @@
                     
                     
                     -->
+                </form>
                     <div class="form-group d-flex align-items-center justify-content-between">
                         <div class="form-check">
                             <a href="{{route('forgotpass')}}" class="forgot-pass">Olvide mi contraseña</a>
@@ -63,4 +64,4 @@
                         <button type="submit" class="btn btn-outline-primary">Registrarme</button>
                     </div>
                 </a></p>
-                </form>
+                

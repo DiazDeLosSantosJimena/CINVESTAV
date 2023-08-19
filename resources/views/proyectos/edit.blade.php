@@ -183,12 +183,13 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="bd-callout bd-callout-info">
-                <p class="mx-3">Archivos.</p>
+                <p class="mx-3">Archivos. <strong class="text-danger">*</strong></p>
+                <div class="form-text text-danger">Favor de utilizar los formatos disponibles</div>
             </div>
         </div>
         <div class="col-12 row">
             <div class="col-3 text-center mt-4">
-                <p>Archivo 1: <strong class="text-danger">*</strong> <br> ( <a href="#" id="resumeArchive">Archivo 1</a> )</p>
+                <p> <i class="bi bi-file-earmark-arrow-down-fill text-primary h5"></i> Archivo 1:: <strong class="text-danger">*</strong> <br> ( <a href="#" id="resumeArchive">Archivo 1</a> )</p>
             </div>
             <div class="col-9">
                 <div class="mb-3 mt-3">
@@ -203,7 +204,7 @@
             </div>
             <hr>
             <div class="col-3 text-center mt-4">
-                <p>Archivo 2: <strong class="text-danger">*</strong> <br> ( <a href="#" id="archivo2">Archivo 2</a> )</p>
+                <p> <i class="bi bi-file-earmark-arrow-down-fill text-primary h5"></i> Archivo 2: <strong class="text-danger">*</strong> <br> ( <a href="#" id="archivo2">Archivo 2</a> )</p>
             </div>
             <div class="col-9">
                 <div class="mb-3 mt-3">
@@ -217,7 +218,7 @@
                 @enderror
             </div>
             <div class="col-sm-12 col-md-3 text-center mt-4" id="ponenciaPPTX">
-                <p>Archivo 3: <strong class="text-danger">*</strong> <br> ( <a href="{{ Storage::url('proposals/Plantilla-Ponencias-EICAL-14.pptx') }}">Plantilla-ponencia-EICAL-14.pptx"</a> )</p>
+                <p> <i class="bi bi-file-earmark-arrow-down-fill text-primary h5"></i> Archivo 3: <strong class="text-danger">*</strong> <br> ( <a href="{{ Storage::url('proposals/Plantilla-Ponencias-EICAL-14.pptx') }}">Plantilla-ponencia-EICAL-14.pptx"</a> )</p>
             </div>
         </div>
         <div class="col-12 my-4 row">
@@ -437,7 +438,7 @@
     var celdaPais = document.createElement('td');
     celdaPais.textContent = registro.pais;
     fila.appendChild(celdaPais);
-    
+
     var celdaAcciones = document.createElement('td');
     celdaAcciones.className = "text-center";
     var botonEditar = document.createElement('button');
@@ -474,7 +475,7 @@
 
     document.getElementById('registrarBtn').addEventListener('click', function(event) {
         event.preventDefault();
-        
+
         var nombre = document.getElementById('nombreA').value;
         var apellidoPaterno = document.getElementById('apellidoPaternoA').value;
         var apellidoMaterno = document.getElementById('apellidoMaternoA').value;

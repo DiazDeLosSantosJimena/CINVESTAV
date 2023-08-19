@@ -28,11 +28,9 @@ class ProjectsController extends Controller
         if (Auth::user()->rol_id !== 3) {
             $proyectos = ProjectsUsers::with('projects', 'user')->get();
             $modales = Projects::get();
-            $proyectos2 = Projects::select('files.archive', 'projects.id')
+            $proyectos2 = Projects::select('files.archive', 'files.project_id')
                 ->join('files', 'files.project_id', 'projects.id')
-                ->join('projects_users', 'projects_users.project_id', 'projects.id')
-                ->join('users', 'users.id', 'projects_users.user_id')
-                ->where('projects_users.user_id', Auth::user()->id)
+                ->where('files.archive', '3')
                 ->get();
             return view('proyectos.index', compact('proyectos', 'modales', 'proyectos2'));
         }
@@ -112,6 +110,9 @@ class ProjectsController extends Controller
 
     public function pagoCreate(Request $request, $id)
     {
+        $project = Projects::find($id);
+        $project->status = "4";
+        $project->save();
 
         $messages = [
             'pago.required' => 'Suba el archivo requerido.',
@@ -159,7 +160,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:docx', 'max:1024'],
-                'g-recaptcha-response' => ['required'],
+                //'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             ], $messages);
         } else if ($request->modality === 'C') {
@@ -173,7 +174,7 @@ class ProjectsController extends Controller
                 'extenso.required' => 'Suba el archivo requerido.',
                 'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato (.jpg) indicado.',
                 //'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
-                'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
+                //'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
             ];
             $request->validate([
                 'titulo' => ['required', 'string', 'max:255'],
@@ -181,7 +182,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:jpg', 'max:2048'],
-                'g-recaptcha-response' => ['required'],
+                //'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             ], $messages);
         } else {
@@ -191,7 +192,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file'],
                 'extenso' => ['required', 'file'],
-                'g-recaptcha-response' => ['required'],
+                //'g-recaptcha-response' => ['required'],
             ], $messages);
         }
 

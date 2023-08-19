@@ -35,8 +35,7 @@ class UsersController extends Controller
 
     public function usuarios()
     {
-        $usuariosE = User::where('rol_id', '=', 5)->get();
-        $usuariosG = User::where('rol_id', '=', 3)->orWhere('rol_id', '=', 4)->get();
+        $usuariosG = User::where('rol_id', '=', 3)->orWhere('rol_id', '=', 4)->orWhere('rol_id', 5)->get();
         // $usuarios = \DB::select('SELECT users.id, users.name, users.apm, users.app,users.alternative_contact, users.email, users.phone, users.country,
         // users.state, users.municipality, users.rol_id, users.deleted_at FROM users, roles WHERE users.rol_id = roles.id AND
         // roles.id = "2"');
@@ -45,23 +44,21 @@ class UsersController extends Controller
         $proyects = \DB::SELECT('SELECT proUser.id, pro.title
         FROM projects AS pro 
             JOIN projects_users AS proUser ON pro.id = proUser.project_id
-            JOIN files ON files.project_id = pro.id
-        WHERE files.archive = 3 AND pro.status > 1 AND proUser.id NOT IN (SELECT project_user
+        WHERE pro.status > 1 AND proUser.id NOT IN (SELECT project_user
             FROM evaluations
             GROUP BY project_user
             HAVING COUNT(*) >= 3)');
-        $proyectsEvaluators = \DB::SELECT('SELECT eva.id AS evaluationId, us.name, us.app, us.apm, us.alternative_contact, us.email, us.deleted_at, pro.title
+        $proyectsEvaluators = \DB::SELECT('SELECT eva.id AS evaluationId, eva.status, us.id, us.name, us.app, us.apm, us.alternative_contact, us.email, us.deleted_at, pro.title
         FROM evaluations AS eva
             JOIN users AS us ON eva.user_id = us.id
             JOIN projects_users AS proUs ON proUs.id = eva.project_user
             JOIN projects AS pro ON pro.id = proUs.project_id');
         $users = User::where('rol_id', '2')->get();
-        return view('usuarios.index', compact('usuarios', 'proyects', 'users', 'proyectsEvaluators', 'usuariosG', 'usuariosE'));
+        return view('usuarios.index', compact('usuarios', 'proyects', 'users', 'proyectsEvaluators', 'usuariosG'));
     }
 
     public function js_juez(Request $request)
     {
-
         $projects = $request->get('id_proyecto');
         $evaluador = \DB::SELECT('SELECT id, name, app, apm, email, deleted_at
         FROM users

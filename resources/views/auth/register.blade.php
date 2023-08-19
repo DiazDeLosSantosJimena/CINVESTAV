@@ -23,6 +23,7 @@
             display: flex;
         }
     </style>
+
 <body>
     <div class="container d-flex justify-content-center align-items-center">
         <div class="row">
@@ -53,6 +54,22 @@
                                     </div>
                                     <div class="col-12">
                                         <h1 class="display-1"><i class="bi bi-people-fill"></i></h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div> -->
+                <!-- <div class="col-sm-12 col-md-6">
+                    <a class="btn" href="registroInvitado" role="button">
+                        <div class="card text-center rounded-5 border-light shadow" style="color: #0178a0; background-color: #f2f2f2;">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4>Invitado Especial</h4>
+                                    </div>
+                                    <div class="col-12">
+                                        <h1 class="display-1"><i class="bi bi-person-heart"></i></h1>
                                     </div>
                                 </div>
                             </div>

@@ -18,7 +18,7 @@
                     <p><strong>Teléfono:</strong><br> {{ $proyect->user->phone }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Grado Academico:</strong><br> {{ $proyect->user->academic_degree }}</p>
+                    <p><strong>Contacto alterno:</strong><br> {{ $proyect->user->alternative_contact }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
                     <p><strong>País:</strong><br> {{ $proyect->user->country }}</p>
@@ -28,16 +28,6 @@
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
                     <p><strong>Ciudad:</strong><br> {{ $proyect->user->municipality }}</p>
-                </div>
-                <div class="col-md-12 col-sm-12 my-3">
-                    <p><strong>Asistencia:</strong>
-                        <br>
-                        @if($proyect->user->assistance == 'p')
-                        Presencial
-                        @elseif($proyect->user->assistance == 'v')
-                        Virtual
-                        @endif
-                    </p>
                 </div>
             </div>
         </div>
@@ -72,8 +62,10 @@
                         Nivel Básico.(Primaria o secundaria.)
                         @elseif( $proyect->projects->thematic_area == 'STEM')
                         Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                        @elseif( $proyect->projects->thematic_area == 'HM')
+                        Historia de las Matemáticas
                         @else
-                        {{ $proyect->projects->modality }}
+                        {{ $proyect->projects->thematic_area }}
                         @endif
                     </p>
                 </div>
@@ -82,20 +74,20 @@
                     <p><strong>~ Autores ~</strong></p>
                 </div>
                 @foreach($authors as $author)
-                <div class="col-md-4 col-sm-12 my-3">
+                <div class="col-md-3 col-sm-12 my-3">
                     <p><strong>Nombre:</strong><br> {{ $author->name }} </p>
                 </div>
-                <div class="col-md-4 col-sm-12 my-3">
+                <div class="col-md-3 col-sm-12 my-3">
                     <p><strong>Apellido Paterno:</strong><br> {{ $author->app }}</p>
                 </div>
-                <div class="col-md-4 col-sm-12 my-3">
+                <div class="col-md-3 col-sm-12 my-3">
                     <p><strong>Apellido Materno:</strong><br> {{ $author->apm }}</p>
+                </div>
+                <div class="col-md-3 col-sm-12 my-3">
+                    <p><strong>Institución de procedencia:</strong><br> {{ $author->institution_of_origin }}</p>
                 </div>
                 @endforeach
                 @endif
-                <div class="col-md-12 col-sm-12 my-3">
-                    <p><strong>Institución de procedencia:</strong><br> {{ $proyect->projects->sending_institution }}</p>
-                </div>
             </div>
         </div>
         <div class="col-md-12 col-sm-12 my-2">
@@ -166,7 +158,8 @@
         console.log(value);
         var inStatus = document.querySelector('#inStatus');
         var labelEjemplo = document.querySelector('#ejemplo');
-        labelEjemplo.textContent = "Ejemplo: Felicitaciones el registro de tu proyecto ha sido aceptado, le pedimos que ingrese a la plataforma y suba el formato de pago para su respectiva ponencia, posteriormente se te dará a conocer el veredicto final.";
+        // labelEjemplo.textContent = "Ejemplo: Felicitaciones el registro de tu proyecto ha sido aceptado, le pedimos que ingrese a la plataforma y suba el formato de pago para su respectiva ponencia, posteriormente se te dará a conocer el veredicto final.";
+        labelEjemplo.textContent = "Ejemplo: Felicitaciones el registro de tu proyecto ha sido aceptado, posteriormente se te dará a conocer el proceso de pago según el veredicto de nuestros evaluadores y las fechas indicadas en la convocatoria.";
         inStatus.value = value;
     }
 

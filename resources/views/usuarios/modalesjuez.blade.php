@@ -332,31 +332,6 @@
 @endforeach
 <!-- DELETE MODAL END -->
 
-<!-- DELETE MODAL Special Invitations -->
-@foreach($usuariosE as $usuario)
-<div class="modal fade" id="modalDeleteE{{ $usuario->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar registro</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                Esta a punto de eliminar el registro: <br> <strong>{{ $usuario->id .' '. $usuario->name .' '. $usuario->app .' '. $usuario->apm }}</strong> <br> ¿Desea continuar?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <form action="{{ route('usuario.destroy', $usuario->id) }}" method="post">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
-<!-- DELETE MODAL Special Invitations END -->
 
 <!-- DELETE MODAL Evaluations -->
 @foreach($proyectsEvaluators as $usuario)
@@ -408,7 +383,7 @@
                         <div class="col-12 mt-2 my-2">
                             <label for="floatingInput">Selecciona un juez:</label>
                             <select class="form-select" name="id_juez" id="juez" data-search="true" data-silent-initial-value-set="true">
-                                <option value="null" selected>--- Selecciona un Juez antes ---</option>
+                                <option value="0" selected>--- Selecciona un Juez antes ---</option>
                             </select>
                         </div>
                     </div>
@@ -505,96 +480,6 @@
 </div>
 @endforeach
 <!-- EDIT USER MODAL END -->
-
-<!-- EDIT SPECIAL USER MODAL START -->
-@foreach ($usuariosE as $usuario)
-<div class="modal fade" id="editUsuarioE{{ $usuario->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Registro Invitado</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('salvarInvitado', ['id' => $usuario->id]) }}" method="POST" enctype="multipart/form-data">
-                    {{ csrf_field('PATCH') }}
-                    {{ method_field('PUT') }}
-                    <div class="row py-2">
-                        <div class="col-4">
-                            <label for="exampleInputEmail1" class="form-label">Nombre:</label>
-                            <input type="text" class="form-control" name="name" value="{{ old('name', $usuario -> name) }}">
-                            @error('name')
-                            <small class="form-text text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="col-4">
-                            <label for="exampleInputEmail1" class="form-label">Apellido Paterno:</label>
-                            <input type="text" class="form-control" name="app" value="{{ old('app', $usuario -> app) }}">
-                            @error('app')
-                            <small class="form-text text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="col-4 mb-1">
-                            <label for="exampleInputEmail1" class="form-label">Apellido Materno:</label>
-                            <input type="text" class="form-control" name="apm" value="{{ old('apm', $usuario -> apm) }}">
-                            @error('apm')
-                            <small class="form-text text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="col-12 my-2">
-                            <label for="exampleInputEmail1" class="form-label">Grado Academico:</label>
-                            <input type="text" class="form-control" name="alternative_contact" value="{{ old('alternative_contact', $usuario -> alternative_contact) }}">
-                            @error('alternative_contact')
-                            <small class="form-text text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="col-12 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Telefono:</label>
-                            <input type="text" class="form-control" name="phone" placeholder="000-000-000" value="{{ old('phone', $usuario -> phone) }}">
-                            @error('phone')
-                            <small class="form-text text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="col-12 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Email:</label>
-                            <input type="email" class="form-control" name="email" placeholder="correo@ejemplo.com" value="{{ old('email', $usuario -> email) }}">
-                            @error('email')
-                            <small class="form-text text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="col-4 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Pais:</label>
-                            <input type="text" class="form-control" name="country" value="{{ old('country', $usuario -> country) }}">
-                            @error('country')
-                            <small class="form-text text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="col-4 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Estado:</label>
-                            <input type="text" class="form-control" name="state" value="{{ old('state', $usuario -> state) }}">
-                            @error('state')
-                            <small class="form-text text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                        <div class="col-4 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Municipio:</label>
-                            <input type="text" class="form-control" name="municipality" value="{{ old('municipality', $usuario -> municipality) }}">
-                            @error('municipality')
-                            <small class="form-text text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <input type="submit" class="btn btn-success" value="Enviar" />
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endforeach
-<!-- EDIT SPECIAL USER MODAL END -->
 
 <!-- DELETE USER MODAL -->
 @foreach($usuariosG as $usuario)

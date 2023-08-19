@@ -19,7 +19,7 @@
                     <p><strong>Teléfono:</strong><br> {{ $uni->phone }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Grado Academico:</strong><br> {{ $uni->academic_degree }}</p>
+                    <p><strong>Contacto alterno:</strong><br> {{ $uni->alternative_contact }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
                     <p><strong>País:</strong><br> {{ $uni->country }}</p>
@@ -29,11 +29,6 @@
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
                     <p><strong>Ciudad:</strong><br> {{ $uni->municipality }}</p>
-                </div>
-                <div class="col-md-12 col-sm-12 my-3">
-                    <p><strong>Asistencia:</strong>
-                        <br>
-                    </p>
                 </div>
             </div>
         </div>
@@ -68,8 +63,10 @@
                         Nivel Básico.(Primaria o secundaria.)
                         @elseif( $uni->thematic_area == 'STEM')
                         Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                        @elseif( $uni->thematic_area == 'HM')
+                        Historia de las Matemáticas
                         @else
-                        {{ $uni->modality }}
+                        {{ $uni->thematic_area }}
                         @endif
                     </p>
                 </div>
@@ -78,20 +75,20 @@
                     <p><strong>~ Autores ~</strong></p>
                 </div>
                 @foreach($autores as $author)
-                <div class="col-md-4 col-sm-12 my-3">
+                <div class="col-md-3 col-sm-12 my-3">
                     <p><strong>Nombre:</strong><br> {{ $author->name }} </p>
                 </div>
-                <div class="col-md-4 col-sm-12 my-3">
+                <div class="col-md-3 col-sm-12 my-3">
                     <p><strong>Apellido Paterno:</strong><br> {{ $author->app }}</p>
                 </div>
-                <div class="col-md-4 col-sm-12 my-3">
+                <div class="col-md-3 col-sm-12 my-3">
                     <p><strong>Apellido Materno:</strong><br> {{ $author->apm }}</p>
+                </div>
+                <div class="col-md-3 col-sm-12 my-3">
+                    <p><strong>Institución de procedencia:</strong><br> {{ $author->institution_of_origin }}</p>
                 </div>
                 @endforeach
                 @endif
-                <div class="col-md-12 col-sm-12 my-3">
-                    <p><strong>Institución de procedencia:</strong><br> {{ $uni->sending_institution }}</p>
-                </div>
                 @endforeach
             </div>
         </div>
@@ -407,7 +404,9 @@
                         </table>
                 </div>
                 <div class="col d-flex justify-content-end">
+                @if(Auth::user()->rol_id == 2)
                     <button type="submit" class="btn btn-success @if(Auth::user()->rol_id != 2) disabled @endif">Calificar</button>
+                @endif
                     </form>
                 </div>
             </div>

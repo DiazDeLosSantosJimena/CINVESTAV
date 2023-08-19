@@ -60,7 +60,7 @@
                         </td>
                         <td>{{$p->email}}</td>
                         <td class="text-center"><span class="badge text-white text-bg-success">Calificado</span></td>
-                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('evaluacion.edit', $p->id_evaluar) }}" style="background-color: #0178a0;">Volver a calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $p->id) }} --}}
+                        <!-- <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('evaluacion.edit', $p->id_evaluar) }}" style="background-color: #0178a0;">Volver a calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $p->id) }} --}} -->
                     </tr>
                     @endforeach
                 </tbody>

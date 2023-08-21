@@ -343,7 +343,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
-                Esta a punto de eliminar el registro: <br> <strong>{{ $usuario->evaluationId .' '. $usuario->name .' '. $usuario->app .' '. $usuario->apm .' | '. $usuario->title }}</strong> <br> ¿Desea continuar?
+                Esta a punto de eliminar el registro: <br> <strong>{{ $usuario->name .' '. $usuario->app .' '. $usuario->apm .' | '. $usuario->title }}</strong> <br> ¿Desea continuar?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -374,17 +374,23 @@
                         <div class="col-12">
                             <label for="exampleFormControlInput1" class="form-label">Proyecto:</label>
                             <select class="form-select" name="id_proyecto" id="proyecto" data-search="true" data-silent-initial-value-set="true">
-                                <option value="null" selected>Seleccione el proyecto:</option>
+                                <option value="" selected>Seleccione el proyecto:</option>
                                 @foreach($proyects as $proyect)
                                 <option value="{{ $proyect->id }}">{{ $proyect->id .' | '. $proyect->title }}</option>
                                 @endforeach
                             </select>
+                            @error('id_proyecto')
+                            <small class="form-text text-danger">{{$message}}</small>
+                            @enderror
                         </div>
                         <div class="col-12 mt-2 my-2">
                             <label for="floatingInput">Selecciona un juez:</label>
                             <select class="form-select" name="id_juez" id="juez" data-search="true" data-silent-initial-value-set="true">
-                                <option value="0" selected>--- Selecciona un Juez antes ---</option>
+                                <option value="" selected>--- Selecciona un Juez antes ---</option>
                             </select>
+                            @error('id_juez')
+                            <small class="form-text text-danger">{{$message}}</small>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">

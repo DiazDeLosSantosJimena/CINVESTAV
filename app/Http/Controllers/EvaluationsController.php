@@ -186,6 +186,15 @@ class EvaluationsController extends Controller
 
     public function asignEvaluator(Request $request)
     {
+        $messages = [
+            'id_proyecto.required' => 'Es necesario seleccionar al menos un proyecto.',
+            'id_juez.required' => 'Es necesario seleccionar al menos un juez.',
+        ];
+
+        $request->validate([
+            'id_proyecto' => ['required'],
+            'id_juez' => ['required', 'min:1'],
+        ], $messages);
 
         $project_user = ProjectsUsers::where('project_id', $request->id_proyecto)->first();
 

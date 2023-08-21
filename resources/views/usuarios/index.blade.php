@@ -8,7 +8,7 @@
         $("#proyecto").on('change', function() {
             var id_proyecto = $(this).find(":selected").val();
             console.log(id_proyecto);
-            if (id_proyecto === "null") {
+            if (id_proyecto === "") {
                 $("#juez").html('<option value="null">-- Seleccione un Proyecto antes --</option>');
             } else {
                 $("#juez").load('js_juez?id_proyecto=' + id_proyecto);

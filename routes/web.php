@@ -94,9 +94,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/proyectos/{proposal}/pago', [ProjectsController::class, 'pagoView'])->name('proyectos.pagoView');
     Route::get('/proyectos/{proposal}/verifyProject', [ProjectsController::class, 'verifyProject'])->name('proyectos.verifyProject')->middleware('admin');
     Route::name('proyectos.accept')->put('proyectos.accept/{id}', [ProjectsController::class, 'accept']);
-    Route::get('pago', function () {
-        return view('proyectos.pago');
-    })->name('pago');
 
     Route::name('inicio')->get('inicio', [UsersController::class, 'indexView']);
 

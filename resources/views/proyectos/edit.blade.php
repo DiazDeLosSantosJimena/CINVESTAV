@@ -362,6 +362,8 @@
         archive2.textContent = "Formato-extenso-evaluacion-EICAL-14.docx";
         archive1.href = "{{ Storage::url('proposals/Formato-Resumen-ponencia-EICAL-14.docx') }}";
         archive2.href = "{{ Storage::url('proposals/Formato-extenso-evaluacion-EICAL-14.docx') }}";
+        // archive1.href = "https://micrositioeical.recacym.org/html_public/CINVESTAV/public/storage/proposals/Formato-Resumen-ponencia-EICAL-14.docx";
+        // archive2.href = "https://micrositioeical.recacym.org/html_public/CINVESTAV/public/storage/proposals/Formato-extenso-evaluacion-EICAL-14.docx";
         ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)";
     });
 
@@ -371,6 +373,8 @@
         archive2.textContent = "Cartel_Formato-XVI-EICAL.pptx";
         archive1.href = "{{ Storage::url('proposals/Formato-CARTEL-EICAL-14.docx') }}";
         archive2.href = "{{ Storage::url('proposals/Cartel_Formato-XVI-EICAL.pptx') }}";
+        // archive1.href = "https://micrositioeical.recacym.org/html_public/CINVESTAV/public/storage/proposals/Formato-CARTEL-EICAL-14.docx";
+        // archive2.href = "https://micrositioeical.recacym.org/html_public/CINVESTAV/public/storage/proposals/Cartel_Formato-XVI-EICAL.pptx";
         ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .jpg, jpg no mayor a 2MB)";
     });
 
@@ -380,6 +384,8 @@
         archive2.textContent = "Formato-extenso-evaluacion-EICAL-14.docx";
         archive1.href = "{{ Storage::url('proposals/Formato-Resumen-ponencia-EICAL-14.docx') }}";
         archive2.href = "{{ Storage::url('proposals/Formato-extenso-evaluacion-EICAL-14.docx') }}";
+        // archive1.href = "https://micrositioeical.recacym.org/html_public/CINVESTAV/public/storage/proposals/Formato-Resumen-ponencia-EICAL-14.docx";
+        // archive2.href = "https://micrositioeical.recacym.org/html_public/CINVESTAV/public/storage/proposals/Formato-extenso-evaluacion-EICAL-14.docx";
         ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .docx, docx no mayor a 1MB)";
     } else if (radioModality2.checked === true) {
         archivoPPTX.style.display = 'none';
@@ -387,6 +393,8 @@
         archive2.textContent = "Cartel_Formato-XIII-EICAL.pptx";
         archive1.href = "{{ Storage::url('proposals/Formato-CARTEL-EICAL-14.docx') }}";
         archive2.href = "{{ Storage::url('proposals/Cartel_Formato-XIII-EICAL.pptx') }}";
+        // archive1.href = "https://micrositioeical.recacym.org/html_public/CINVESTAV/public/storage/proposals/Formato-CARTEL-EICAL-14.docx";
+        // archive2.href = "https://micrositioeical.recacym.org/html_public/CINVESTAV/public/storage/proposals/Cartel_Formato-XVI-EICAL.pptx";
         ad.textContent = "(Favor de seleccionar el archivo que desea cargar. Tipo de archivo .jpg, jpg no mayor a 2MB)";
     }
 </script>

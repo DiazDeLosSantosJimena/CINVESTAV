@@ -236,6 +236,8 @@
 																<div style="font-family: Arial, sans-serif">
 																	<div class style="font-size: 12px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; mso-line-height-alt: 18px; color: #555555; line-height: 1.5;">
 																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Una vez que haya efectuado el pago, le solicitamos amablemente remitir el comprobante correspondiente al correo de facturación, adjuntando tanto su nombre como el del proyecto en cuestión.</span></p>
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 18px;">&nbsp;</p>
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Le solicitamos amablemente que ingreses en la plataforma y revises los nuevos apartados. Allí encontrarás información crucial que necesitamos que completes.</span></p>
 																	</div>
 																</div>
 															</td>
@@ -312,6 +314,7 @@
 																<table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 																	<tr>
 																		<td class="alignment" style="vertical-align: middle; text-align: center;"><!--[if vml]><table align="left" cellpadding="0" cellspacing="0" role="presentation" style="display:inline-block;padding-left:0px;padding-right:0px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;"><![endif]-->
+																			<!--[if !vml]><!-->
 																		</td>
 																	</tr>
 																</table>

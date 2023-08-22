@@ -57,8 +57,13 @@ class ProjectsController extends Controller
 
     public function pagoView($id)
     {
-        $project = Projects::find($id);
-        return view('proyectos.pago', compact('project'));
+        $registroPago = Files::where('project_id', $id)->where('archive', 3)->get();
+        if(count($registroPago) > 0){
+            return redirect()->route('proyectos.index');
+        }else{
+            $project = Projects::find($id);
+            return view('proyectos.pago', compact('project'));
+        }
     }
 
     public function verifyProject($id)
@@ -160,7 +165,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:docx', 'max:1024'],
-                //'g-recaptcha-response' => ['required'],
+                'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             ], $messages);
         } else if ($request->modality === 'C') {
@@ -173,7 +178,7 @@ class ProjectsController extends Controller
                 'resumen.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
                 'extenso.required' => 'Suba el archivo requerido.',
                 'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato (.jpg) indicado.',
-                //'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
+                'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
                 //'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
             ];
             $request->validate([
@@ -182,7 +187,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:jpg', 'max:2048'],
-                //'g-recaptcha-response' => ['required'],
+                'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             ], $messages);
         } else {
@@ -192,7 +197,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file'],
                 'extenso' => ['required', 'file'],
-                //'g-recaptcha-response' => ['required'],
+                'g-recaptcha-response' => ['required'],
             ], $messages);
         }
 

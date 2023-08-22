@@ -71,6 +71,7 @@ class EvaluationsController extends Controller
             $autores = DB::table('projects_users')
                 ->join('authors', 'projects_users.project_id', '=', 'authors.project_id')
                 ->select('authors.name', 'authors.app', 'authors.apm', 'authors.institution_of_origin')
+                ->where('authors.project_id', $proyectoF->project_id)
                 ->get();
 
             $files = DB::table('files')
@@ -100,6 +101,7 @@ class EvaluationsController extends Controller
             $autores = DB::table('projects_users')
                 ->join('authors', 'projects_users.project_id', '=', 'authors.project_id')
                 ->select('authors.name', 'authors.app', 'authors.apm', 'authors.institution_of_origin')
+                ->where('authors.project_id', $proyectoF->project_id)
                 ->get();
 
             $files = DB::table('files')
@@ -175,6 +177,12 @@ class EvaluationsController extends Controller
                 });
                 
                 // ==================================================
+            }else{
+                $statusPro = Evaluations::where('status', 'R')->where('project_user', $evaluacion->project_user)->get();
+                if(count($statusPro) >= 2){
+                    $project->status = 0;
+                    $project->save();
+                }
             }
         } else {
             $project->status = 2;

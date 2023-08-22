@@ -59,8 +59,8 @@
                             </div>
                         </div>
                     </a>
-                </div> -->
-                <!-- <div class="col-sm-12 col-md-6">
+                </div>
+                <div class="col-sm-12 col-md-6">
                     <a class="btn" href="registroInvitado" role="button">
                         <div class="card text-center rounded-5 border-light shadow" style="color: #0178a0; background-color: #f2f2f2;">
                             <div class="card-body">

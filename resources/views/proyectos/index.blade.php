@@ -94,7 +94,7 @@
                             </a>
                         </td>
                         @if(Auth::user()->id === $prop->user_id)
-                            @if($prop->projects->status <= 1) <td class="text-center">
+                            @if($prop->projects->status == 1) <td class="text-center">
                             <a href="{{ route('proyectos.edit', $prop->id) }}" class="btn btn-info text-white">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
@@ -107,7 +107,7 @@
                             @endif
                             @if($prop->projects->status === 3)
                             <td class="text-center" id="pago{{ $prop->projects->id }}">
-                                <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-currency-dollar"></i></a>
+                                <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning text-white"><i class="bi bi-currency-dollar"></i></a>
                             </td>
                             @endif
                             @if($prop->projects->status >= 3)

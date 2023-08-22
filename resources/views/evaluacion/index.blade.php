@@ -24,7 +24,7 @@
                         <th scope="col" class="text-center">Eje Tematico</th>
                         <th scope="col">Usuario</th>
                         <th scope="col" class="text-center">Estatus</th>
-                        <th scope="col" class="text-center" colspan="3">Acciones</th>
+                        <!-- <th scope="col" class="text-center" colspan="3">Acciones</th> -->
                     </tr>
                 </thead>
                 <tbody class="align-middle">

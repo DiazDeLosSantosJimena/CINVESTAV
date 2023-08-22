@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'g-recaptcha-response' => ['required'],
             ], $messages);
-        } else if ($request->input('role_id') == "4") {
+        } else if ($request->input('role_id') == "4" || $request->input('role_id') == "5") {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'app' => ['required', 'string', 'max:255'],

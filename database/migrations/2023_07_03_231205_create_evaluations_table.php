@@ -28,7 +28,7 @@ return new class extends Migration
             $table->integer('results')->nullable();
             $table->integer('APA_table')->nullable();
             $table->integer('APA_references')->nullable();
-            $table->integer('format')->nullable(); //Fuente,Margen y Extensión
+            $table->integer('format')->nullable(); //Fuente, Margen y Extensión
             $table->string('status')->nullable();
             $table->string('comment')->nullable();
             $table->timestamps();

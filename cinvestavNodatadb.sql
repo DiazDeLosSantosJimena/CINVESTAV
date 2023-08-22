@@ -178,7 +178,6 @@ CREATE TABLE `projects` (
   `modality` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `thematic_area` varchar(255) NOT NULL,
-  `sending_institution` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -221,11 +220,11 @@ CREATE TABLE `roles` (
 /*Data for the table `roles` */
 
 insert  into `roles`(`id`,`name`,`created_at`,`updated_at`) values 
-(1,'admin','2023-08-01 00:23:05','2023-08-01 00:23:05'),
-(2,'evaluador','2023-08-01 00:23:05','2023-08-01 00:23:05'),
-(3,'postulante','2023-08-01 00:23:05','2023-08-01 00:23:05'),
-(4,'Público General','2023-08-01 00:23:05','2023-08-01 00:23:05'),
-(5,'Invitado Especial','2023-08-01 00:23:05','2023-08-01 00:23:05');
+(1,'admin','2023-08-21 23:39:34','2023-08-21 23:39:34'),
+(2,'evaluador','2023-08-21 23:39:34','2023-08-21 23:39:34'),
+(3,'postulante','2023-08-21 23:39:34','2023-08-21 23:39:34'),
+(4,'Público General','2023-08-21 23:39:34','2023-08-21 23:39:34'),
+(5,'Invitado Especial','2023-08-21 23:39:34','2023-08-21 23:39:34');
 
 /*Table structure for table `users` */
 
@@ -259,13 +258,13 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`name`,`app`,`apm`,`photo`,`alternative_contact`,`email`,`email_verified_at`,`password`,`phone`,`country`,`state`,`municipality`,`rol_id`,`deleted_at`,`remember_token`,`created_at`,`updated_at`) values 
-(1,'Admin','-','CINVESTAV','default.jpg','Mtro','admin@cinvestav.com',NULL,'$2y$10$aFwB.qaz2KAtNqLKlGSQzudFRNMlOPosjKBaXBXdwgDfsnPRZM0Na','0000000000','México','México','Toluca',1,NULL,NULL,'2023-08-01 00:23:05','2023-08-01 00:23:05'),
-(2,'Admin2','-','CINVESTAV','default.jpg','Mtro','edu@cinvestav.com',NULL,'$2y$10$E7NxeASOp5hMaJrQ3VrufuUmeWUhqS2vdAYExUdW4c0Ym8b1BrR1G','0000000000','México','México','Toluca',1,NULL,NULL,'2023-08-01 00:23:05','2023-08-01 00:23:05'),
-(3,'Juez 1','-','CINVESTAV','default.jpg','Mtro','juez1@cinvestav.com',NULL,'$2y$10$opePPQ.ilEN150Z2FYXanOjb9.EFDAATOkPebe6eX29BKptSAHg1C','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-01 00:23:05','2023-08-01 00:23:05'),
-(4,'Juez 2','-','CINVESTAV','default.jpg','Mtro','juez2@cinvestav.com',NULL,'$2y$10$1pXjN.WHKBDSNNBywRXVlepsMgeX6mUuEUivgCX4CihXV/tkCDV0u','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-01 00:23:05','2023-08-01 00:23:05'),
-(5,'Juez 3','-','CINVESTAV','default.jpg','Mtro','juez3@cinvestav.com',NULL,'$2y$10$nHClOf7Npdv1JazQjBR0Y.O6mRgPgzXaWlkMGMTlZLqKFWG2DmxUq','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-01 00:23:05','2023-08-01 00:23:05'),
-(6,'Ponente','-','CINVESTAV','default.jpg','contact@cinvestav.com','user@cinvestav.com',NULL,'$2y$10$nEd5A3R/tUjAhrXabVRDW.MgxKwEfMoo0DWchVzN0UZaKkDlo.YDC','0000000000','México','México','Toluca',3,NULL,NULL,'2023-08-01 00:23:05','2023-08-01 00:23:05'),
-(7,'Publico General','-','CINVESTAV','default.jpg','contact@cinvestav.com','publico@cinvestav.com',NULL,'$2y$10$wkow7zI7QL3W212MnfADz.6z1v37Y61EW8mrW/aJ/zLqxG82muwsi','0000000000','México','México','Toluca',4,NULL,NULL,'2023-08-01 00:23:05','2023-08-01 00:23:05');
+(1,'Admin','-','CINVESTAV','default.jpg','Mtro','admin@cinvestav.com',NULL,'$2y$10$fJutfHudSlKmXclxYfl2seiynoTDobHvDZOVZ9aUCDQO3FroOt1eK','0000000000','México','México','Toluca',1,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34'),
+(2,'Admin2','-','CINVESTAV','default.jpg','Mtro','edu@cinvestav.com',NULL,'$2y$10$VqmQwrkwZeurC0Dj6X7TQuBWjZu8ljOugTnL1ao5NGykzBDjOL2bG','0000000000','México','México','Toluca',1,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34'),
+(3,'Juez 1','-','CINVESTAV','default.jpg','Mtro','juez1@cinvestav.com',NULL,'$2y$10$aXWK0a6LifLShgahs3tJhuAZqjOI2RsfxEdsSDLO8XjiiKHPQFKIS','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34'),
+(4,'Juez 2','-','CINVESTAV','default.jpg','Mtro','juez2@cinvestav.com',NULL,'$2y$10$rhUMzXEUF0ZVPhncKDBd3uPGkbJDgyBM1gNL2SvWS9CCe7X5z8m5S','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34'),
+(5,'Juez 3','-','CINVESTAV','default.jpg','Mtro','juez3@cinvestav.com',NULL,'$2y$10$WQokE.dol1olUkfDunzJzefKfzOLtu7tkUV979M.aSy2shwLZdAl6','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34'),
+(6,'Ponente','-','CINVESTAV','default.jpg','contact@cinvestav.com','user@cinvestav.com',NULL,'$2y$10$y4hBTh71MEbtEQj7eu1gb.77eLgTaidyswJ.Uv6KBr6dTogPYHmvS','0000000000','México','México','Toluca',3,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34'),
+(7,'Publico General','-','CINVESTAV','default.jpg','contact@cinvestav.com','publico@cinvestav.com',NULL,'$2y$10$LdF6rzcIWHERBRE69Q6kteAbgtKJIDCdyRTGx8I.Nfx9Ft95MebiO','0000000000','México','México','Toluca',4,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34');
 
 /*Table structure for table `workshopattendances` */
 

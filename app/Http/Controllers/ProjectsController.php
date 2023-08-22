@@ -179,7 +179,7 @@ class ProjectsController extends Controller
                 'extenso.required' => 'Suba el archivo requerido.',
                 'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato (.jpg) indicado.',
                 'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
-                //'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
+                'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
             ];
             $request->validate([
                 'titulo' => ['required', 'string', 'max:255'],

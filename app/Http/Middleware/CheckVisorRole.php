@@ -11,17 +11,14 @@ class CheckVisorRole
 {
     public function handle(Request $request, Closure $next): Response
     {
-        // Verificar si el usuario ha iniciado sesión
-        if (Auth::check()) {
-            // Obtener el usuario autenticado
-            $user = Auth::user();
-            // Verificar el tipo de usuario (por ejemplo, role_id == 2 para el visor)
-            if ($user->role_id == 2 || $user->role_id == 1) {
-                // Usuario es visor continua con la solicitud
-                return $next($request);
-            }
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+        // Verificar el tipo de usuario (por ejemplo, role_id == 2 para el visor)
+        if ($user->rol_id === 2 || $user->rol_id === 1) {
+            // Usuario es visor continua con la solicitud
+            return $next($request);
         }
         // Si no es un usuario visor, redirigir al dashboard
-        return redirect('/dashboard');
+        return redirect('/');
     }
 }

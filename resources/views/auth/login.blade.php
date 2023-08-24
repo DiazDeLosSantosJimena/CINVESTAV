@@ -11,6 +11,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/sesiones.css') }}">
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script>
+        function onSubmit(token) {
+            document.getElementById("captchalogin").submit();
+        }
+    </script>
 </head>
 
 <body>
@@ -28,13 +34,19 @@
 
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
-
+                    @error('email')
+                    <div class="mb-4 text-center">
+                        <span class="text-danger">{{$message}}</span>
+                    </div>
+                    @enderror
+                    @error('g-recaptcha-response')
+                    <div class="mb-4 text-center">
+                        <span class="text-danger">{{$message}}</span>
+                    </div>
+                    @enderror
                     <div class="mb-4">
                         <label for="email" class="form-label">&nbsp;<i class="fa-solid fa-envelope"></i> Correo Electrónico:</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{old('email')}}" placeholder="Correo" required>
-                        @error('email')
-                        <span class="text-danger">{{$message}}</span>
-                        @enderror
                     </div>
 
                     <div class="mb-4">
@@ -44,14 +56,31 @@
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-
-                    <div class="form-group d-flex align-items-center justify-content-between">
-                        <div class="form-check">
-                            <a href="{{route('forgotpass')}}" class="forgot-pass">Olvide mi contraseña</a>
-                        </div>
+                    <!--CAPTCHA-->
+                    <div class="form-group">
+                        <div class="g-recaptcha" id="captchalogin" data-sitekey="6LcSYHcnAAAAAKKbYvQhXhQtN3evu7yxowlNSW04" data-callback='onSubmit' data-action='submit'></div>
                     </div>
                     <div class="d-grid mt-2">
-                        <button type="submit" class="btn btn-outline-primary">Iniciar Sesión</button>
+                        <!-- <button id="captchalogin" type="submit" class="btn btn-outline-primary g-recaptcha" data-sitekey="6LcSYHcnAAAAAKKbYvQhXhQtN3evu7yxowlNSW04" data-callback='onSubmit' data-action='submit'>Iniciar Sesión</button> -->
+                        <button id="captchalogin" type="submit" class="btn btn-outline-primary" data-sitekey="6LcSYHcnAAAAAKKbYvQhXhQtN3evu7yxowlNSW04" data-callback='onSubmit' data-action='submit'>Iniciar Sesión</button>
                     </div>
-                    <p class="sign-up mt-3">No tienes una cuenta?<a href="{{route('register')}}"> Registrate</a></p>
+                    <div class="form-group text-center mt-3">
+                        <a href="{{route('forgotpass')}}">Olvide mi contraseña</a>
+                    </div>
                 </form>
+                <div class="col-12 row">
+                    <div class="col-6">
+                        <p class="text-center mt-3">
+                            No tienes una cuenta?
+                        </p>
+                    </div>
+                    <div class="col-6 text-center mt-3">
+                        <a href="{{route('register')}}" class="btn btn-outline-primary">Registrate</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

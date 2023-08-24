@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'apm',
         'app',
-        'academic_degree',
+        'alternative_contact', //Campo que funciona como contacto alterno en los ponentes y titulo academico en los demás usuarios
         'email',
         'password',
         'phone',

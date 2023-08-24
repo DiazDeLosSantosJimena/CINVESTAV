@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('modality');
             $table->string('title');
             $table->string('thematic_area');
-            $table->string('sending_institution');
             $table->boolean('status');
             $table->timestamps();
         });

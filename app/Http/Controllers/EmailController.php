@@ -86,7 +86,7 @@ class EmailController extends Controller
         $user = Auth::id();
         $email = User::where('id', $user)->value('email');
         $data = [
-            'destinatario' => 'soporteuippe@gmail.com', //Cambiar el correo de soporte
+            'destinatario' => 'soporte.encuentro.eical@gmail.com', //Correo de soporte
             'asunto' => $asunto,
             'comentario' => $comentario,
             'id' => $user,
@@ -94,7 +94,7 @@ class EmailController extends Controller
         ];
 
         Mail::send('mail.soporte', compact('data'), function ($message) use ($data) {
-            $message->to($data['destinatario'], 'Admin Uippe')
+            $message->to($data['destinatario'], 'CINVESTAV')
                 ->subject($data['asunto'])
                 ->from('hello@example.com', 'Soporte CINVESTAV');
         });

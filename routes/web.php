@@ -25,28 +25,26 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+// ======================= Errors =======================
+Route::get('error', function () {
+    abort('404');
+});
+Route::get('error', function () {
+    abort('401');
+});
+Route::get('error', function () {
+    abort('429');
+});
+Route::get('error', function () {
+    abort('500');
+});
+Route::get('error', function () {
+    abort('503');
+});
 Route::get('/', function () {
     return view('sesiones/login');
 });
-
-Route::get('registroPonente', function () {
-    return view('usuarios.registro');
-})->name('registroPonente');
-
-Route::get('registroGeneral', function () {
-    return view('usuarios.registroG');
-})->name('registroGeneral');
-
-////////////////////////////////////////EMAILS///////////////////////////////////////
-Route::get('recuperacion', function () {
-    return view('mail/recuperacion');
-});
-
-Route::get('activacion', function () {
-    return view('mail/activacion');
-});
-
-Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
+// ========================================================
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -55,9 +53,18 @@ Route::get('/', function () {
     return redirect()->route('login');
 })->middleware(['auth', 'verified'])->name('inicio');
 
-Route::get('tablas', function () {
-    return view('layout.cruds.tables');
-})->name('tablas');
+// ============================ REGISTRO ============================
+Route::get('registroPonente', function () {
+    return view('usuarios.registro');
+})->name('registroPonente');
+// Route::get('registroGeneral', function () {
+//     return view('usuarios.registroG');
+// })->name('registroGeneral');
+// Route::get('registroInvitado', function () {
+//     return view('usuarios.registroInvitado');
+// })->name('registroInvitado');
+Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
+//===================================================================
 
 Route::middleware('auth')->group(function () {
     // --------------------- Resource --------------------- 
@@ -78,9 +85,12 @@ Route::middleware('auth')->group(function () {
 
 
     //----------------------------------JUEZ-------------------------------
-    Route::name('usuarios')->get('usuarios', [UsersController::class, 'usuarios']);
-    Route::name('agregarjuez')->post('agregarjuez',[UsersController::class, 'agregarjuez']);
-    Route::name('salvarjuez')->put('salvarjuez/{id}',[UsersController::class, 'salvarjuez']);
+    Route::name('usuarios')->get('usuarios', [UsersController::class, 'usuarios'])->middleware('admin');
+    Route::name('agregarjuez')->post('agregarjuez', [UsersController::class, 'agregarjuez']);
+    Route::name('salvarjuez')->put('salvarjuez/{id}', [UsersController::class, 'salvarjuez']);
+    Route::name('agregarInvitado')->post('agregarInvitado', [UsersController::class, 'agregarInvitado']);
+    Route::name('salvarInvitado')->put('salvarInvitado/{id}', [UsersController::class, 'salvarInvitado']);
+    Route::name('salvarPonente')->put('salvarPonente/{id}', [UsersController::class, 'salvarPonente']);
     //---------------------------------------------------------------------
     Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
     Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
@@ -92,11 +102,8 @@ Route::middleware('auth')->group(function () {
 
     Route::name('subirPago')->post('proyectos/{id}', [ProjectsController::class, 'pagoCreate']);
     Route::get('/proyectos/{proposal}/pago', [ProjectsController::class, 'pagoView'])->name('proyectos.pagoView');
-    Route::get('/proyectos/{proposal}/verifyProject', [ProjectsController::class, 'verifyProject'])->name('proyectos.verifyProject');
+    Route::get('/proyectos/{proposal}/verifyProject', [ProjectsController::class, 'verifyProject'])->name('proyectos.verifyProject')->middleware('admin');
     Route::name('proyectos.accept')->put('proyectos.accept/{id}', [ProjectsController::class, 'accept']);
-    Route::get('pago', function () {
-        return view('proyectos.pago');
-    })->name('pago');
 
     Route::name('inicio')->get('inicio', [UsersController::class, 'indexView']);
 
@@ -108,26 +115,33 @@ Route::middleware('auth')->group(function () {
         return view('usuarios.EditPerfil');
     });
 
-    Route::name('js_proyectos')->get('js_proyectos', [ProjectsController::class, 'js_proyectos']);
+    Route::name('js_juez')->get('js_juez', [UsersController::class, 'js_juez']);
+    Route::name('pdf')->get('pdf/{id}', [ProjectsController::class, 'pdf']);
+
+    //////Cambios en el perfil
+    Route::get('perfil', function () {
+        return view('usuarios.perfil');
+    })->name('perfil');
+
+    Route::name('soportemail')->get('soportemail', [EmailController::class, 'soportemail']);
+
+    // ============================= Middleware =============================
+    Route::name('evaluacion.index')->get('evaluacion', [EvaluationsController::class, 'index'])->middleware('visor');
+    Route::name('proyectos.index')->get('proyectos', [ProjectsController::class, 'index'])->middleware('user');
+    Route::name('proyectos.show')->get('proyectos/{id}', [ProjectsController::class, 'show']);
 });
 
-    Route::name('js_juez')->get('js_juez', [UsersController::class, 'js_juez']);
-    Route::name('pdf')->get('pdf/{id}',[ProjectsController::class, 'pdf']);
-
 ///////////////////////////////////////CORREOS////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Route::get('recuperacion', function () {
+    return view('mail/recuperacion');
+});
+Route::get('activacion', function () {
+    return view('mail/activacion');
+});
 Route::get('forgotpass', [EmailController::class, 'forgotpass'])->name('forgotpass');
 Route::name('recuperar')->get('recuperar', [EmailController::class, 'recuperar']);
 Route::name('reset')->get('reset', [EmailController::class, 'reset'])->middleware('signed');
 Route::name('passchange')->get('passchange', [EmailController::class, 'passchange']);
 
-//////Cambios en el perfil
-Route::get('perfil', function () {
-        return view('usuarios.perfil');
-    })->name('perfil');
 
-Route::name('soportemail')->get('soportemail', [EmailController::class, 'soportemail']);
-
-
-
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <title>Registro Público General</title>
+    <title>Registro Invitado Especial</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{asset('/img/logo_negativo.png')}}" />
     <style>
@@ -17,9 +17,8 @@
             background-size: cover;
             background-position: center;
         }
-
-        /* checkbox-rect2 */
-        .checkbox-rect2 input[type="checkbox"] {
+                /* checkbox-rect2 */
+                .checkbox-rect2 input[type="checkbox"] {
             display: none;
         }
 
@@ -82,6 +81,7 @@
 
         /* checkbox-rect2 end */
     </style>
+    
     <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 
@@ -89,7 +89,7 @@
     <div class="container d-flex justify-content-center align-items-center card">
         <form action="{{ route('registrar')}}" method="post" class="row card-body">
             @csrf
-            <h3 class="my-2">Registro Público General</h3>
+            <h3 class="my-2">Registro Invitado Especial</h3>
             <div class="alert alert-info" role="alert">
                 Tenga en cuenta que los datos proporcionados en el siguiente formulario seran utilizados para la creación de la constancia u otros elementos de asistencia al evento, toda información será enviada al correo que se especifique en el campo de "Correo Electrónico", favor de verificar los datos antes de enviar la información de registro.
             </div>
@@ -147,7 +147,7 @@
             <div class="col-6">
                 <div class="mb-3">
                     <label for="tel" class="form-label">Otro medio de contacto:</label> <label for="tel" class="text-danger">*</label>
-                    <input type="text" class="form-control" name="alternative_contact" id="academic_degree" placeholder="Ingrese su grado academico" value="{{ old('academic_degree') }}">
+                    <input type="text" class="form-control" name="alternative_contact" id="academic_degree" placeholder="Teléfono/Correo" value="{{ old('academic_degree') }}">
                 </div>
                 @error('alternative_contact')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -224,7 +224,7 @@
                         @enderror
                     </div>
                 </div>
-                <input type="hidden" value="4" name="role_id" id="role_id">
+                <input type="hidden" value="5" name="role_id" id="role_id">
                 <div class="col-12 d-flex justify-content-center align-content-center my-3">
                     <div class="item">
                         <div class="checkbox-rect2">

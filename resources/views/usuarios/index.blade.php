@@ -8,8 +8,8 @@
         $("#proyecto").on('change', function() {
             var id_proyecto = $(this).find(":selected").val();
             console.log(id_proyecto);
-            if (id_proyecto == 0) {
-                $("#juez").html('<option value="0">-- Seleccione un Proyecto antes --</option>');
+            if (id_proyecto === "") {
+                $("#juez").html('<option value="null">-- Seleccione un Proyecto antes --</option>');
             } else {
                 $("#juez").load('js_juez?id_proyecto=' + id_proyecto);
             }
@@ -49,14 +49,14 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Titulo academico</th>
                                         <th>Email</th>
                                         <th class="text-center">Teléfono</th>
+                                        <th>Contacto Alterno</th>
                                         <th class="text-center">País</th>
                                         <th class="text-center">Estado</th>
                                         <th class="text-center">Municipio</th>
                                         <th class="text-center">Tipo de usuario</th>
-                                        <th class="text-center" colspan="3">Acciones</th>
+                                         <th class="text-center" colspan="3">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">
@@ -64,9 +64,9 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $usuario->name .' '. $usuario->app .' '. $usuario->apm}}</td>
-                                        <td>{{ $usuario->academic_degree }}</td>
                                         <td>{{ $usuario->email}}</td>
                                         <td>{{ $usuario->phone}}</td>
+                                        <td>{{ $usuario->alternative_contact }}</td>
                                         <td class="text-center">{{ $usuario->country}}</td>
                                         <td class="text-center">{{ $usuario->state}}</td>
                                         <td class="text-center">{{ $usuario->municipality}}</td>
@@ -74,7 +74,10 @@
                                             Ponente
                                             @elseif($usuario->rol_id == 4)
                                             Público General
-                                            @endif</td>
+                                            @elseif($usuario->rol_id == 5)
+                                            Invitado Especial
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             <!-- Button edit modal -->
                                             <button type="button" class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#editUsuario{{ $usuario->id }}"><i class="bi bi-pencil-square"></i></button>
@@ -120,13 +123,15 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $usuario->name}}</td>
                                         <td>{{ $usuario->app .' '. $usuario->apm }}</td>
-                                        <td>{{ $usuario->academic_degree}}</td>
+                                        <td>{{ $usuario->alternative_contact}}</td>
                                         <td>{{ $usuario->email}}</td>
                                         <td>{{ $usuario->title}}</td>
+                                        @if($usuario->status == "")
                                         <td class="text-center">
                                             <!-- Button edit modal -->
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $usuario->evaluationId }}"><i class="bi bi-trash-fill"></i></button>
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -165,7 +170,7 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $usuario->name}}</td>
                                         <td>{{ $usuario->apm}}</td>
-                                        <td>{{ $usuario->academic_degree}}</td>
+                                        <td>{{ $usuario->alternative_contact}}</td>
                                         <td>{{ $usuario->email}}</td>
                                         <td>{{ $usuario->phone}}</td>
                                         <td>{{ $usuario->country}}</td>
@@ -175,7 +180,7 @@
                                             <!-- Button edit modal -->
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $usuario->id }}"><i class="bi bi-pencil-square"></i></button>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center" id="tdDelete{{ $usuario->id }}">
                                             <!-- Button edit modal -->
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $usuario->id }}"><i class="bi bi-trash-fill"></i></button>
                                         </td>
@@ -196,4 +201,15 @@
 @include('usuarios.modalesjuez')
 @endsection
 
+<script>
+    var navbar = document.querySelector('#usuarios');
+    navbar.className = "mdl-layout__tab is-active";
+</script>
+
+<script>
+    @foreach($proyectsEvaluators as $usuario)
+    var tdDelete = document.querySelector("#tdDelete{{ $usuario->id }}");
+    tdDelete.style.display = "none";
+    @endforeach
+</script>
 @endsection

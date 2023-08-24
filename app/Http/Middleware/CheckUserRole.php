@@ -11,17 +11,13 @@ class CheckUserRole
 {
     public function handle(Request $request, Closure $next): Response
     {
-        // Verificar si el usuario ha iniciado sesión
-        if (Auth::check()) {
-            // Obtener el usuario autenticado
-            $user = Auth::user();
-            // Verificar el tipo de usuario (por ejemplo, role_id == 3 para el usuario)
-            if ($user->role_id == 3) {
-                // Usuario continua con la solicitud
-                return $next($request);
-            }
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+        // Verificar el tipo de usuario (por ejemplo, role_id == 3 para el usuario)
+        if ($user->rol_id == 3 || $user->rol_id === 1) {
+            return $next($request);
         }
         // Si no es un usuario, redirigir al dashboard
-        return redirect('/dashboard');
+        return redirect('/');
     }
 }

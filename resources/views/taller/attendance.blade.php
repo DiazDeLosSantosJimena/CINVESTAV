@@ -10,7 +10,7 @@
     </div>
     @endif
     <div class="row">
-        <div class="col-12 mx-5">
+        <div class="col-12 mx-5 my-4">
             <h3>Actividades</h4>
         </div>
 

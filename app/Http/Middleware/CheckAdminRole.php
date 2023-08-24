@@ -12,19 +12,13 @@ class CheckAdminRole
 
     public function handle(Request $request, Closure $next): Response
     {
-        // Verificar si el usuario ha iniciado sesión
-        if (Auth::check()) {
-            // Obtener el usuario autenticado
-            $user = Auth::user();
-
-            // Verificar el tipo de usuario (por ejemplo, role_id == 1 para el administrador)
-            if ($user->role_id == 1) {
-                // Usuario administrador, continuar con la solicitud
-                return $next($request);
-            }
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+        // Verificar el tipo de usuario (por ejemplo, role_id == 3 para el usuario)
+        if ($user->rol_id === 1) {
+            return $next($request);
         }
-
-        // Si no es un usuario administrador, redirigir al inicio
+        // Si no es un usuario, redirigir al dashboard
         return redirect('/');
     }
 }

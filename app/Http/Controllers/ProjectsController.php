@@ -28,11 +28,9 @@ class ProjectsController extends Controller
         if (Auth::user()->rol_id !== 3) {
             $proyectos = ProjectsUsers::with('projects', 'user')->get();
             $modales = Projects::get();
-            $proyectos2 = Projects::select('files.archive', 'projects.id')
+            $proyectos2 = Projects::select('files.archive', 'files.project_id')
                 ->join('files', 'files.project_id', 'projects.id')
-                ->join('projects_users', 'projects_users.project_id', 'projects.id')
-                ->join('users', 'users.id', 'projects_users.user_id')
-                ->where('projects_users.user_id', Auth::user()->id)
+                ->where('files.archive', '3')
                 ->get();
             return view('proyectos.index', compact('proyectos', 'modales', 'proyectos2'));
         }
@@ -59,8 +57,13 @@ class ProjectsController extends Controller
 
     public function pagoView($id)
     {
-        $project = Projects::find($id);
-        return view('proyectos.pago', compact('project'));
+        $registroPago = Files::where('project_id', $id)->where('archive', 3)->get();
+        if(count($registroPago) > 0){
+            return redirect()->route('proyectos.index');
+        }else{
+            $project = Projects::find($id);
+            return view('proyectos.pago', compact('project'));
+        }
     }
 
     public function verifyProject($id)
@@ -102,9 +105,9 @@ class ProjectsController extends Controller
         }
 
         Mail::send('mail.comprobante', compact('data'), function ($message) use ($data) {
-            $message->to($data['destinatario'], 'Admin Uippe')
+            $message->to($data['destinatario'], 'CINVESTAV')
                 ->subject($data['asunto']);
-            $message->from('hello@example.com', 'Soporte UIPPE');
+            $message->from('hello@example.com', 'Información CINVESTAV');
         });
 
         return redirect('proyectos')->with('status', 'Estatus del proyecto actualizado, notificación al ponente!');
@@ -112,6 +115,9 @@ class ProjectsController extends Controller
 
     public function pagoCreate(Request $request, $id)
     {
+        $project = Projects::find($id);
+        $project->status = "4";
+        $project->save();
 
         $messages = [
             'pago.required' => 'Suba el archivo requerido.',
@@ -138,6 +144,7 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $messages = [
             'titulo.required' => 'El título es obligatorio.',
             'eje.required' => 'Seleccione al menos 1 eje tematico.',
@@ -149,7 +156,7 @@ class ProjectsController extends Controller
             'extenso.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
             'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
             'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
-            'inst_pro.required' => 'Ingrese el instituto de procedencia.',
+            'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
         ];
         if ($request->modality === 'P') {
             $request->validate([
@@ -158,8 +165,8 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:docx', 'max:1024'],
+                'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
-                'inst_pro' => ['required', 'string', 'max:255'],
             ], $messages);
         } else if ($request->modality === 'C') {
             $messages = [
@@ -170,11 +177,9 @@ class ProjectsController extends Controller
                 'resumen.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
                 'resumen.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
                 'extenso.required' => 'Suba el archivo requerido.',
-                'inst_pro.required' => 'Ingrese el instituto de procedencia.',
                 'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato (.jpg) indicado.',
-                // 'pago.required' => 'Suba el archivo requerido.',
-                // 'pago.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
                 'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
+                //'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
             ];
             $request->validate([
                 'titulo' => ['required', 'string', 'max:255'],
@@ -182,8 +187,8 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:jpg', 'max:2048'],
+                'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
-                'inst_pro' => ['required', 'string', 'max:255'],
             ], $messages);
         } else {
             $request->validate([
@@ -192,8 +197,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file'],
                 'extenso' => ['required', 'file'],
-                //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
-                'inst_pro' => ['required', 'string', 'max:255'],
+                'g-recaptcha-response' => ['required'],
             ], $messages);
         }
 
@@ -201,7 +205,7 @@ class ProjectsController extends Controller
             'modality' => $request->modality,
             'title' => $request->titulo,
             'thematic_area' => $request->eje,
-            'sending_institution' => $request->inst_pro,
+            //'sending_institution' => $request->inst_pro,
             'status' => 1
         ]);
         $proyect->save();
@@ -210,10 +214,11 @@ class ProjectsController extends Controller
         $datos = json_decode($registro, true);
         if ($datos !== null) {
             foreach ($datos as $dato) {
-                $title = $dato['titulo'];
                 $names = $dato['nombre'];
                 $app = $dato['apellidoPaterno'];
                 $apm = $dato['apellidoMaterno'];
+                $title = $dato['titulo'];
+                $state = $dato['pais'];
 
                 $author = new Authors();
 
@@ -221,7 +226,8 @@ class ProjectsController extends Controller
                 $author->name = $names;
                 $author->app = $app;
                 $author->apm = $apm;
-                $author->academic_degree = $title;
+                $author->institution_of_origin = $title;
+                $author->state = $state;
 
                 $author->save();
             }
@@ -299,6 +305,22 @@ class ProjectsController extends Controller
     public function update(Request $request, Projects $id)
     {
 
+        $messages = [
+            'titulo.required' => 'El título es obligatorio.',
+            'eje.required' => 'Seleccione al menos 1 eje tematico.',
+            'modality.required' => 'Seleccione una de las modalidades de participación.',
+            'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
+            //'inst_pro.required' => 'Ingrese el instituto de procedencia.',
+        ];
+
+        $request->validate([
+            'titulo' => ['required', 'string', 'max:255'],
+            'eje' => ['required', 'string'],
+            'modality' => ['required', 'string'],
+            'g-recaptcha-response' => ['required'],
+            //'inst_pro' => ['required', 'string', 'max:255'],
+        ], $messages);
+
         $authors = Authors::where('project_id', $id->id)->get();
 
         foreach ($authors as $author) {
@@ -311,35 +333,21 @@ class ProjectsController extends Controller
         $datos = json_decode($registro, true);
         //dd($datos);
         foreach ($datos as $dato) {
-            //dd(intval($dato['idAuthor']));
-            $idAuthor = $dato['id'];
-            $title = $dato['titulo'];
             $names = $dato['nombre'];
             $app = $dato['apellidoPaterno'];
             $apm = $dato['apellidoMaterno'];
+            $title = $dato['titulo'];
+            $state = $dato['pais'];
 
-            $authors = Authors::find($idAuthor);
+            $author = new Authors();
 
-            if ($authors != null) {
-                $authors = Authors::find($idAuthor)->where('project_id', $id->id)->first();
-
-                $authors->academic_degree = $title;
-                $authors->name = $names;
-                $authors->app = $app;
-                $authors->apm = $apm;
-
-                $authors->save();
-            } else {
-                $author = new Authors();
-
-                $author->project_id = $id->id;
-                $author->name = $names;
-                $author->app = $app;
-                $author->apm = $apm;
-                $author->academic_degree = $title;
-
-                $author->save();
-            }
+            $author->project_id = $id->id;
+            $author->name = $names;
+            $author->app = $app;
+            $author->apm = $apm;
+            $author->institution_of_origin = $title;
+            $author->state = $state;
+            $author->save();
         }
 
         // ===================================
@@ -365,26 +373,12 @@ class ProjectsController extends Controller
             ], $messages);
         }
 
-        $messages = [
-            'titulo.required' => 'El título es obligatorio.',
-            'eje.required' => 'Seleccione al menos 1 eje tematico.',
-            'modality.required' => 'Seleccione una de las modalidades de participación.',
-            'inst_pro.required' => 'Ingrese el instituto de procedencia.',
-        ];
-
-        $request->validate([
-            'titulo' => ['required', 'string', 'max:255'],
-            'eje' => ['required', 'string'],
-            'modality' => ['required', 'string'],
-            'inst_pro' => ['required', 'string', 'max:255'],
-        ], $messages);
-
         $project = Projects::find($id->id);
 
         $project->modality = $request->modality;
         $project->title = trim($request->titulo);
         $project->thematic_area = $request->eje;
-        $project->sending_institution = trim($request->inst_pro);
+        //$project->sending_institution = trim($request->inst_pro);
 
         $project->save();
 
@@ -453,16 +447,6 @@ class ProjectsController extends Controller
             Storage::disk('public')->delete($files->name);
         }
         $files->delete();
-        //====== ARCHIVO 3
-        $files = Files::where('project_id', $id)->where('archive', 3)->first();
-        //busca en el storage la ruta del archivo y lo elimina
-        $path = Storage::path('public/' . $files->name);
-        unlink($path);
-        $exists = Storage::disk('public')->exists($files->name);
-        if ($exists) {
-            Storage::disk('public')->delete($files->name);
-        }
-        $files->delete();
 
         $pAuthors = Authors::where('project_id', $id)->delete();
 
@@ -477,14 +461,15 @@ class ProjectsController extends Controller
     {
         //$proyect = ProjectsUsers::with('user', 'projects')->where('project_id', $id)->first();
         //$proyect = Projects::all();
-        $proyect = \DB::SELECT('SELECT users.name, users.app, users.apm, users.academic_degree, users.photo, users.phone, users.email, users.country, users.state, users.municipality, pro.title, pro.modality, pro.thematic_area
+        $proyect = \DB::SELECT('SELECT users.name, users.app, users.apm, users.alternative_contact, users.photo, users.phone, users.email, users.country, users.state, users.municipality, pro.title, pro.modality, pro.thematic_area
         FROM projects_users AS proUser
             JOIN users ON users.id = proUser.user_id
             JOIN projects AS pro ON pro.id = proUser.project_id
         WHERE pro.id = ' . $id);
+
         $authors = Authors::where('project_id', $id)->get();
 
-        $pdf = PDF::loadView('Documentos.pdf', ['proyect' => $proyect]);
+        $pdf = PDF::loadView('Documentos.pdf', ['proyect' => $proyect, 'authors' => $authors]);
         // return view ('Documentos.pdf', compact('Projects'));
         //----------Visualizar el PDF ------------------
         return $pdf->stream();

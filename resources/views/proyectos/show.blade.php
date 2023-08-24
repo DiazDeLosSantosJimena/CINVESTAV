@@ -18,7 +18,7 @@
                     <p><strong>Teléfono:</strong><br> {{ $uni->user->phone }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Grado Academico:</strong><br> {{ $uni->user->academic_degree }}</p>
+                    <p><strong>Contacto Alterno:</strong><br> {{ $uni->user->alternative_contact }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
                     <p><strong>País:</strong><br> {{ $uni->user->country }}</p>
@@ -62,8 +62,10 @@
                         Nivel Básico.(Primaria o secundaria.)
                         @elseif( $uni->projects->thematic_area == 'STEM')
                         Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                        @elseif( $uni->projects->thematic_area == 'HM')
+                        Historia de las Matemáticas
                         @else
-                        {{ $uni->projects->modality }}
+                        {{ $uni->projects->thematic_area }}
                         @endif
                     </p>
                 </div>
@@ -72,20 +74,20 @@
                     <p><strong>~ Autores ~</strong></p>
                 </div>
                 @foreach($authors as $author)
-                <div class="col-md-4 col-sm-12 my-3">
+                <div class="col-md-3 col-sm-12 my-3">
                     <p><strong>Nombre:</strong><br> {{ $author->name }} </p>
                 </div>
-                <div class="col-md-4 col-sm-12 my-3">
+                <div class="col-md-3 col-sm-12 my-3">
                     <p><strong>Apellido Paterno:</strong><br> {{ $author->app }}</p>
                 </div>
-                <div class="col-md-4 col-sm-12 my-3">
+                <div class="col-md-3 col-sm-12 my-3">
                     <p><strong>Apellido Materno:</strong><br> {{ $author->apm }}</p>
+                </div>
+                <div class="col-md-3 col-sm-12 my-3">
+                    <p><strong>Institución de procedencia:</strong><br> {{ $author->institution_of_origin }}</p>
                 </div>
                 @endforeach
                 @endif
-                <div class="col-md-12 col-sm-12 my-3">
-                    <p><strong>Institución de procedencia:</strong><br> {{ $uni->projects->sending_institution }}</p>
-                </div>
             </div>
         </div>
         <div class="col-md-12 col-sm-12 my-2">

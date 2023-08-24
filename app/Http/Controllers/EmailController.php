@@ -86,7 +86,7 @@ class EmailController extends Controller
         $user = Auth::id();
         $email = User::where('id', $user)->value('email');
         $data = [
-            'destinatario' => 'soporte@cinvestav.com', //Cambiar el correo de soporte
+            'destinatario' => 'soporte.encuentro.eical@gmail.com', //Correo de soporte
             'asunto' => $asunto,
             'comentario' => $comentario,
             'id' => $user,

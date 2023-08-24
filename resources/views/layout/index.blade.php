@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-12 text-center">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">
-                                    <h4>Ponencias Registradas</h4>
+                                    <h4>@if(Auth::user()->rol_id == 1) Ponencias @else Registro de ponencias @endif</h4>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
             </div>
         </div>
         @endif
-        @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 4 || Auth::user()->rol_id === 1)
+        @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 4 || Auth::user()->rol_id === 1 || Auth::user()->rol_id === 5)
         <div class="col-xl-4 col-md-12 mb-4 py-2">
             <div class="card text-bg-light border-left-primary shadow h-100 rounded-4">
                 <div class="card-body">

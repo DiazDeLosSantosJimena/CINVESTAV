@@ -13,8 +13,6 @@ class Projects extends Model
         'modality',
         'title',
         'thematic_area',
-        'authors',
-        'sending_institution',
         'status'
     ];
 

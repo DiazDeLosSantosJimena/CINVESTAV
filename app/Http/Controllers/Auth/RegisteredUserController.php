@@ -42,6 +42,7 @@ class RegisteredUserController extends Controller
             'email.unique' => 'Correo ya registrado, intente nuevamente o ingrese un correo diferente.',
             'foto.required' => 'Es necesario ingresar una foto para el ponente.',
             'foto.mimes' => 'Ingrese el formato solicitado.',
+            'g-recaptcha-response' => 'Se requiere realizar el captcha.',
         ];
 
         if ($request->input('role_id') == "3") {
@@ -52,12 +53,13 @@ class RegisteredUserController extends Controller
                 'state' => ['required', 'string', 'max:255'],
                 'municipality' => ['required', 'string', 'max:255'],
                 'phone' => ['required', 'string', 'max:255'],
-                'alternative_contact' => ['required', 'string', 'max:255'],
+                'alternative_contact' => ['required', 'regex:/^(\d{10}|\S+@\S+\.\S+)$/','max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
                 'foto' => 'required|mimes:jpeg,png,jpg',
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'g-recaptcha-response' => ['required'],
             ], $messages);
-        } else if ($request->input('role_id') == "4") {
+        } else if ($request->input('role_id') == "4" || $request->input('role_id') == "5") {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'app' => ['required', 'string', 'max:255'],

@@ -64,13 +64,14 @@ class EvaluationsController extends Controller
                 ->join('projects_users', 'evaluations.project_user', '=', 'projects_users.id')
                 ->join('users', 'projects_users.user_id', '=', 'users.id')
                 ->join('projects', 'projects_users.project_id', '=', 'projects.id')
-                ->select('users.name', 'users.app', 'users.apm', 'users.academic_degree', 'users.email', 'users.phone', 'users.country', 'users.state', 'users.municipality', 'projects.modality', 'projects.title', 'projects.thematic_area', 'projects.sending_institution')
+                ->select('users.name', 'users.app', 'users.apm', 'users.alternative_contact', 'users.email', 'users.phone', 'users.country', 'users.state', 'users.municipality', 'projects.modality', 'projects.title', 'projects.thematic_area')
                 ->where('evaluations.id', $id)
                 ->get();
 
             $autores = DB::table('projects_users')
                 ->join('authors', 'projects_users.project_id', '=', 'authors.project_id')
-                ->select('authors.name', 'authors.app', 'authors.apm')
+                ->select('authors.name', 'authors.app', 'authors.apm', 'authors.institution_of_origin')
+                ->where('authors.project_id', $proyectoF->project_id)
                 ->get();
 
             $files = DB::table('files')
@@ -93,13 +94,14 @@ class EvaluationsController extends Controller
                 ->join('projects_users', 'evaluations.project_user', '=', 'projects_users.id')
                 ->join('users', 'projects_users.user_id', '=', 'users.id')
                 ->join('projects', 'projects_users.project_id', '=', 'projects.id')
-                ->select('users.name', 'users.app', 'users.apm', 'users.academic_degree', 'users.email', 'users.phone', 'users.country', 'users.state', 'users.municipality', 'projects.modality', 'projects.title', 'projects.thematic_area', 'projects.sending_institution')
+                ->select('users.name', 'users.app', 'users.apm', 'users.alternative_contact', 'users.email', 'users.phone', 'users.country', 'users.state', 'users.municipality', 'projects.modality', 'projects.title', 'projects.thematic_area')
                 ->where('evaluations.id', $id)
                 ->get();
 
             $autores = DB::table('projects_users')
                 ->join('authors', 'projects_users.project_id', '=', 'authors.project_id')
-                ->select('authors.name', 'authors.app', 'authors.apm')
+                ->select('authors.name', 'authors.app', 'authors.apm', 'authors.institution_of_origin')
+                ->where('authors.project_id', $proyectoF->project_id)
                 ->get();
 
             $files = DB::table('files')
@@ -150,19 +152,17 @@ class EvaluationsController extends Controller
         $evaluacion->comment = $comentario;
         $evaluacion->save();
 
-        $cantEvaluaciones = Evaluations::where('project_user', $evaluacion->project_user)->where('status', '!=', '')->get();
-        $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
+        $statusPro = Evaluations::where('status', '!=', 'null')->where('project_user', $evaluacion->project_user)->get();
         $projectUser = ProjectsUsers::where('id', $evaluacion->project_user)->first();
         $project = Projects::find($projectUser->project_id);
         $user = User::find($projectUser->user_id);
 
-        if (count($statusPro) >= 2) {
-            $project->status = 3;
-            $project->save();
-        }else{
-            $project->status = 2;
-            $project->save();
-        }
+        if (count($statusPro) === 3) {
+            $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
+            if (count($statusPro) >= 2) {
+                $project->status = 3;
+                $project->save();
+                // ======================== Correo de Notificación para subir el formato de pago ========================
 
         $data = [
             'destinatario' => $user->email,
@@ -171,21 +171,39 @@ class EvaluationsController extends Controller
             'np' => $project->project_id,
         ];
 
-        if (count($cantEvaluaciones) == 3) {
-            // ============= Correo de Notificación =============
-            Mail::send('mail.evaluado', compact('data'), function ($message) use ($data) {
-                $message->to($data['destinatario'], 'CINVESTAV')
-                    ->subject('Proyecto Evaluado')
-                    ->from('hello@example.com', 'Soporte CINVESTAV');
-            });
-            // ==================================================
-        } 
+                Mail::send('mail.evaluado', compact('data'), function ($message) use ($data) {
+                    $message->to($data['destinatario'], 'CINVESTAV')
+                        ->subject('Proyecto Evaluado')
+                        ->from('hello@example.com', 'Soporte CINVESTAV');
+                });
+                
+                // ==================================================
+            }else{
+                $statusPro = Evaluations::where('status', 'R')->where('project_user', $evaluacion->project_user)->get();
+                if(count($statusPro) >= 2){
+                    $project->status = 0;
+                    $project->save();
+                }
+            }
+        } else {
+            $project->status = 2;
+            $project->save();
+        }
 
         return redirect()->route('evaluacion.index')->with('status', 'Se ha asignado la calificación!');
     }
 
     public function asignEvaluator(Request $request)
     {
+        $messages = [
+            'id_proyecto.required' => 'Es necesario seleccionar al menos un proyecto.',
+            'id_juez.required' => 'Es necesario seleccionar al menos un juez.',
+        ];
+
+        $request->validate([
+            'id_proyecto' => ['required'],
+            'id_juez' => ['required', 'min:1'],
+        ], $messages);
 
         $project_user = ProjectsUsers::where('project_id', $request->id_proyecto)->first();
 
@@ -203,15 +221,20 @@ class EvaluationsController extends Controller
         $evaluacion = Evaluations::findOrFail($id);
         $input = $request->all();
         $evaluacion->update($input);
-
-        $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
+        $statusPro = Evaluations::where('status', '!=', 'null')->where('project_user', $evaluacion->project_user)->get();
         $projectUser = ProjectsUsers::where('id', $evaluacion->project_user)->first();
         $project = Projects::find($projectUser->project_id);
 
-        if (count($statusPro) >= 2) {
-            $project->status = 3;
-            $project->save();
-        }else{
+        if (count($statusPro) === 3) {
+            $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
+            if (count($statusPro) >= 2) {
+                $project->status = 3;
+                $project->save();
+            } else {
+                $project->status = 2;
+                $project->save();
+            }
+        } else {
             $project->status = 2;
             $project->save();
         }

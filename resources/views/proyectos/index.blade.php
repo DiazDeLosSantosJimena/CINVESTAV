@@ -25,13 +25,16 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th class="text-center" scope="col">Nombre del Proyecto</th>
+                        <th class="text-center" scope="col">Nombre de la Ponencia</th>
                         <th scope="col" class="text-center">Modalidad de participación</th>
                         <th scope="col" class="text-center">Eje Tematico</th>
                         @if(Auth::user()->rol_id !== 3)
                         <th class="text-center">User</th>
                         @endif
-                        <th scope="col" class="text-center">Estatus</th>
+                        <th scope="col" class="text-center">Estado del proyecto</th>
+                        @if(Auth::user()->rol_id === 1)
+                        <th scope="col" class="text-center">Estado de Pago</th>
+                        @endif
                         <th scope="col" class="text-center" colspan="5">Acciones</th>
                     </tr>
                 </thead>
@@ -59,8 +62,10 @@
                                 Nivel Básico.(Primaria o secundaria.)
                                 @elseif( $prop->projects->thematic_area == 'STEM')
                                 Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                                @elseif( $prop->projects->thematic_area == 'HM')
+                                Historia de las Matemáticas
                                 @else
-                                {{ $prop->projects->modality }}
+                                {{ $prop->projects->thematic_area }}
                                 @endif
                             </small>
                         </td>
@@ -72,19 +77,24 @@
                             <span class="badge text-white text-bg-warning">Pendiente</span>
                             @elseif($prop->projects->status === 2)
                             <span class="badge text-white text-bg-info">Registro Aceptado</span>
-                            @elseif($prop->projects->status === 3)
+                            @elseif($prop->projects->status >= 3)
                             <span class="badge text-white text-bg-success">Proyecto Aceptado</span>
                             @else
                             <span class="badge text-white text-bg-danger">Rechazado</span>
                             @endif
                         </td>
+                        @if(Auth::user()->rol_id === 1)
+                        <td class="text-center">
+                            <span class="badge text-white text-bg-warning" id="pago{{ $prop->id }}">Pendiente</span>
+                        </td>
+                        @endif
                         <td class="text-center">
                             <a href="{{ route('proyectos.show', $prop->id) }}" class="btn btn-primary">
                                 <i class="bi bi-info-circle-fill"></i>
                             </a>
                         </td>
                         @if(Auth::user()->id === $prop->user_id)
-                        @if($prop->projects->status <= 1) <td class="text-center">
+                            @if($prop->projects->status == 1) <td class="text-center">
                             <a href="{{ route('proyectos.edit', $prop->id) }}" class="btn btn-info text-white">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
@@ -95,22 +105,24 @@
                                 </button>
                             </td>
                             @endif
-                            @if($prop->projects->status > 1)
-                            <td id="pago{{ $prop->projects->id }}">
-                                <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning">Pago <i class="bi bi-card-heading"></i></a>
+                            @if($prop->projects->status === 3)
+                            <td class="text-center" id="pago{{ $prop->projects->id }}">
+                                <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning text-white"><i class="bi bi-currency-dollar"></i></a>
                             </td>
+                            @endif
+                            @if($prop->projects->status >= 3)
                             <td class="text-center">
                                 <a href="{{ route('pdf', $prop->projects->id )}}" class="btn btn-danger text-white">
                                     <i class="bi bi-file-earmark-pdf-fill"></i>
                                 </a>
                             </td>
                             @endif
-                            @endif
-                            @if(Auth::user()->rol_id == 1 && $prop->projects->status == 1)
-                            <td class="text-center" id="pago{{ $prop->projects->id }}">
+                        @endif
+                        @if(Auth::user()->rol_id == 1 && $prop->projects->status == 1)
+                            <td class="text-center">
                                 <a href="{{ route('proyectos.verifyProject', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-check-square-fill text-white"></i></a>
                             </td>
-                            @endif
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
@@ -151,15 +163,17 @@
 <script>
     var navbar = document.querySelector('#proyectos');
     navbar.className = "mdl-layout__tab is-active";
+    @if(Auth::user()->rol_id != 1)
     var add = document.querySelector('#add');
     add.className = "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent";
+    @endif
 
     @foreach($proyectos2 as $prop)
     @if($prop -> archive == 3)
 
-    var btnPago = document.querySelector('#pago{{ $prop->id }}');
-    var accion = document.querySelector('#acciones');
-    btnPago.style.display = "none";
+    var estadoPago = document.querySelector("#pago{{ $prop->project_id }}");
+    estadoPago.className = "badge text-white text-bg-success";
+    estadoPago.textContent = "Realizado";
 
     @endif
     @endforeach

@@ -46,8 +46,10 @@
                                 Nivel Básico.(Primaria o secundaria.)
                                 @elseif( $p->thematic_area == 'STEM')
                                 Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                                @elseif( $p->thematic_area == 'HM')
+                                Historia de las Matemáticas
                                 @else
-                                {{ $p->modality }}
+                                {{ $p->thematic_area }}
                                 @endif
                             </small>
                         </td>

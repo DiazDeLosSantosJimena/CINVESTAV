@@ -8,8 +8,8 @@
         $("#proyecto").on('change', function() {
             var id_proyecto = $(this).find(":selected").val();
             console.log(id_proyecto);
-            if (id_proyecto == 0) {
-                $("#juez").html('<option value="0">-- Seleccione un Proyecto antes --</option>');
+            if (id_proyecto === "") {
+                $("#juez").html('<option value="null">-- Seleccione un Proyecto antes --</option>');
             } else {
                 $("#juez").load('js_juez?id_proyecto=' + id_proyecto);
             }
@@ -34,9 +34,6 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Evaluadores</button>
             </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-publicEsp-tab" data-bs-toggle="pill" data-bs-target="#pills-publicEsp" type="button" role="tab" aria-controls="pills-publicEsp" aria-selected="false">Invitados Especiales</button>
-            </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
@@ -52,14 +49,14 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Titulo academico</th>
                                         <th>Email</th>
                                         <th class="text-center">Teléfono</th>
+                                        <th>Contacto Alterno</th>
                                         <th class="text-center">País</th>
                                         <th class="text-center">Estado</th>
                                         <th class="text-center">Municipio</th>
                                         <th class="text-center">Tipo de usuario</th>
-                                        <th class="text-center" colspan="3">Acciones</th>
+                                         <th class="text-center" colspan="3">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">
@@ -67,9 +64,9 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $usuario->name .' '. $usuario->app .' '. $usuario->apm}}</td>
-                                        <td>{{ $usuario->academic_degree }}</td>
                                         <td>{{ $usuario->email}}</td>
                                         <td>{{ $usuario->phone}}</td>
+                                        <td>{{ $usuario->alternative_contact }}</td>
                                         <td class="text-center">{{ $usuario->country}}</td>
                                         <td class="text-center">{{ $usuario->state}}</td>
                                         <td class="text-center">{{ $usuario->municipality}}</td>
@@ -77,7 +74,10 @@
                                             Ponente
                                             @elseif($usuario->rol_id == 4)
                                             Público General
-                                            @endif</td>
+                                            @elseif($usuario->rol_id == 5)
+                                            Invitado Especial
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             <!-- Button edit modal -->
                                             <button type="button" class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#editUsuario{{ $usuario->id }}"><i class="bi bi-pencil-square"></i></button>
@@ -123,13 +123,15 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $usuario->name}}</td>
                                         <td>{{ $usuario->app .' '. $usuario->apm }}</td>
-                                        <td>{{ $usuario->academic_degree}}</td>
+                                        <td>{{ $usuario->alternative_contact}}</td>
                                         <td>{{ $usuario->email}}</td>
                                         <td>{{ $usuario->title}}</td>
+                                        @if($usuario->status == "")
                                         <td class="text-center">
                                             <!-- Button edit modal -->
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $usuario->evaluationId }}"><i class="bi bi-trash-fill"></i></button>
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -168,7 +170,7 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $usuario->name}}</td>
                                         <td>{{ $usuario->apm}}</td>
-                                        <td>{{ $usuario->academic_degree}}</td>
+                                        <td>{{ $usuario->alternative_contact}}</td>
                                         <td>{{ $usuario->email}}</td>
                                         <td>{{ $usuario->phone}}</td>
                                         <td>{{ $usuario->country}}</td>
@@ -178,70 +180,12 @@
                                             <!-- Button edit modal -->
                                             <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $usuario->id }}"><i class="bi bi-pencil-square"></i></button>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center" id="tdDelete{{ $usuario->id }}">
                                             <!-- Button edit modal -->
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $usuario->id }}"><i class="bi bi-trash-fill"></i></button>
                                         </td>
                                     </tr>
                                     @endif
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="pills-publicEsp" role="tabpanel" aria-labelledby="pills-publicEsp-tab" tabindex="0">
-                <div class="container">
-                    <div class="row">
-                        <br>
-                        <div class="col mx-5 mt-4">
-                            <h3>Invitados Especiales</h3>
-                        </div>
-                        <div class="col text-end mt-4">
-                            <button type="button" class="btn btn-success" id="btn_alta" data-bs-toggle="modal" data-bs-target="#modalaltaPublicE"><i class="bi bi-plus-lg"></i></button>
-                        </div>
-                        <div class="col-12 table-responsive mt-5">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nombre</th>
-                                        <th>Titulo academico</th>
-                                        <th>Email</th>
-                                        <th class="text-center">Teléfono</th>
-                                        <th class="text-center">País</th>
-                                        <th class="text-center">Estado</th>
-                                        <th class="text-center">Municipio</th>
-                                        <th class="text-center">Tipo de usuario</th>
-                                        <th class="text-center" colspan="3">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="align-middle">
-                                    @foreach($usuariosE as $usuario)
-                                    <tr>
-                                        <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $usuario->name .' '. $usuario->app .' '. $usuario->apm}}</td>
-                                        <td>{{ $usuario->academic_degree }}</td>
-                                        <td>{{ $usuario->email}}</td>
-                                        <td>{{ $usuario->phone}}</td>
-                                        <td class="text-center">{{ $usuario->country}}</td>
-                                        <td class="text-center">{{ $usuario->state}}</td>
-                                        <td class="text-center">{{ $usuario->municipality}}</td>
-                                        <td class="text-center">@if($usuario->rol_id == 5)
-                                            Invitado Especial
-                                            @else
-                                            $usuario->rol_id
-                                            @endif</td>
-                                        <td class="text-center">
-                                            <!-- Button edit modal -->
-                                            <button type="button" class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#editUsuarioE{{ $usuario->id }}"><i class="bi bi-pencil-square"></i></button>
-                                        </td>
-                                        <td class="text-center">
-                                            <!-- Button edit modal -->
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeleteE{{ $usuario->id }}"><i class="bi bi-trash-fill"></i></button>
-                                        </td>
-                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -260,5 +204,12 @@
 <script>
     var navbar = document.querySelector('#usuarios');
     navbar.className = "mdl-layout__tab is-active";
+</script>
+
+<script>
+    @foreach($proyectsEvaluators as $usuario)
+    var tdDelete = document.querySelector("#tdDelete{{ $usuario->id }}");
+    tdDelete.style.display = "none";
+    @endforeach
 </script>
 @endsection

@@ -198,7 +198,7 @@
 													<table class="heading_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" style="text-align:center;width:100%;">
-																<h3 style="margin: 0; color: #656565; direction: ltr; font-family: Arial, Helvetica, sans-serif; font-size: 19px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder"><em>Grado Academico</em></span></h3>
+																<h3 style="margin: 0; color: #656565; direction: ltr; font-family: Arial, Helvetica, sans-serif; font-size: 19px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder"><em>Correo:</em></span></h3>
 															</td>
 														</tr>
 													</table>
@@ -206,7 +206,7 @@
 														<tr>
 															<td class="pad">
 																<div style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:19.2px;">
-																	<p style="margin: 0;">{{ $proyect[0]->academic_degree }}</p>
+																	<p style="margin: 0;">{{ $proyect[0]->email }}</p>
 																</div>
 															</td>
 														</tr>
@@ -248,7 +248,7 @@
 													<table class="heading_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" style="text-align:center;width:100%;">
-																<h3 style="margin: 0; color: #656565; direction: ltr; font-family: Arial, Helvetica, sans-serif; font-size: 19px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder"><em>Correo</em></span></h3>
+																<h3 style="margin: 0; color: #656565; direction: ltr; font-family: Arial, Helvetica, sans-serif; font-size: 19px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder"><em>Contacto Alterno:</em></span></h3>
 															</td>
 														</tr>
 													</table>
@@ -256,7 +256,7 @@
 														<tr>
 															<td class="pad">
 																<div style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:19.2px;">
-																	<p style="margin: 0;">{{ $proyect[0]->email }}</p>
+																	<p style="margin: 0;">{{ $proyect[0]->alternative_contact }}</p>
 																</div>
 															</td>
 														</tr>
@@ -496,6 +496,7 @@
 															</td>
 														</tr>
 													</table>
+													@if(count($authors) > 0)
 													<table class="heading_block block-2" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" style="padding-bottom:5px;padding-left:5px;padding-right:5px;padding-top:15px;text-align:center;width:100%;">
@@ -503,6 +504,8 @@
 															</td>
 														</tr>
 													</table>
+													@else
+													@endif
 												</td>
 											</tr>
 										</tbody>
@@ -511,6 +514,8 @@
 							</tr>
 						</tbody>
 					</table>
+					@if(count($authors) > 0)
+					@foreach($authors as $author)
 					<table class="row row-11" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 						<tbody>
 							<tr>
@@ -530,7 +535,7 @@
 														<tr>
 															<td class="pad">
 																<div style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:19.2px;">
-																	<p style="margin: 0;">Jossue Alejandro</p>
+																	<p style="margin: 0;">{{ $author->name }}</p>
 																</div>
 															</td>
 														</tr>
@@ -548,7 +553,7 @@
 														<tr>
 															<td class="pad">
 																<div style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:19.2px;">
-																	<p style="margin: 0;">Apellidos Autor</p>
+																	<p style="margin: 0;">{{ $author->app .' '. $author->apm }}</p>
 																</div>
 															</td>
 														</tr>
@@ -558,7 +563,7 @@
 													<table class="heading_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" style="text-align:center;width:100%;">
-																<h3 style="margin: 0; color: #656565; direction: ltr; font-family: Arial, Helvetica, sans-serif; font-size: 19px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder"><em>Grado Academico</em></span></h3>
+																<h3 style="margin: 0; color: #656565; direction: ltr; font-family: Arial, Helvetica, sans-serif; font-size: 19px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder"><em>Institución de procedencia</em></span></h3>
 															</td>
 														</tr>
 													</table>
@@ -566,7 +571,7 @@
 														<tr>
 															<td class="pad">
 																<div style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:19.2px;">
-																	<p style="margin: 0;">TSU</p>
+																	<p style="margin: 0;">{{ $author->institution_of_origin }}</p>
 																</div>
 															</td>
 														</tr>
@@ -579,6 +584,9 @@
 							</tr>
 						</tbody>
 					</table>
+					@endforeach
+					@else
+					@endif
 				</td>
 			</tr>
 		</tbody>

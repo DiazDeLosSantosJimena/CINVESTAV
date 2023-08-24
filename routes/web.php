@@ -65,8 +65,18 @@ Route::middleware('auth')->group(function () {
     Route::resource('proyectos', ProjectsController::class);
     Route::resource('authors', AuthorsController::class);
     Route::resource('evaluacion', EvaluationsController::class);
+    //---------------------TALLERES-------------------------------------------
     Route::resource('taller', WorkshopsController::class);
+    Route::name('editTaller')->put('editTaller/{id}', [WorkshopsController::class, 'edit']);
+
+    Route::resource('presentation', PresentationsController::class);
+    Route::name('editPre')->put('editPre/{id}', [PresentationsController::class, 'edit']);
+
     Route::resource('attendance', WorkshopattendanceController::class);
+
+    Route::get('/projects-data', [WorkshopattendanceController::class, 'showProjectsData']);
+
+
     //----------------------------------JUEZ-------------------------------
     Route::name('usuarios')->get('usuarios', [UsersController::class, 'usuarios']);
     Route::name('agregarjuez')->post('agregarjuez',[UsersController::class, 'agregarjuez']);

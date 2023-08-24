@@ -9,12 +9,17 @@ class Workshops extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
+        'nameu',
+        'title',
         'activity',
         'date',
         'hour',
         'site',
-        'status'
+        'status',
+        'level',
+        'participants',
+        'part',
+        'assistance'
     ];
 
     public function Workshopattendance() {

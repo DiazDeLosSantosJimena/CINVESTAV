@@ -65,4 +65,12 @@ class User extends Authenticatable
     public function Evaluations() {
         return $this->hasMany(Evaluations::class,'user_id', 'id');
     }
+
+    public function Workshopattendance() {
+        return $this->hasMany(Workshopattendance::class, 'user_id', 'id');
+    }
+
+    public function Preattendances() {
+        return $this->hasMany(Preattendances::class, 'presentation_id', 'id');
+    }
 }

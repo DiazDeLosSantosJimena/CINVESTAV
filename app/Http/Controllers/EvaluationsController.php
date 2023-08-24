@@ -168,6 +168,7 @@ class EvaluationsController extends Controller
             'destinatario' => $user->email,
             'usuario' => $user->name,
             'proyecto' => $project->title,
+            'np' => $project->project_id,
         ];
 
         if (count($cantEvaluaciones) == 3) {

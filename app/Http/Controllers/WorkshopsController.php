@@ -95,7 +95,7 @@ class WorkshopsController extends Controller
         $query->status = $status;
         $query->level = trim($request->level);
         $query->participants = trim($request->participants);
-        $query->part = trim($request->participants);
+        $query->part;
         $query->assistance = trim($request->assistance);
         $query->save();
 

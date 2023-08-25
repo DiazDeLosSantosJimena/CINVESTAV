@@ -1,3 +1,4 @@
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -5,6 +6,8 @@
 <link rel="stylesheet" href="{{ asset('css/material.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/navbar.css') }}">
 <link rel="shortcut icon" href="{{asset('/img/logo_negativo.png')}}" />
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
 <style>
     body {
         background-image: url("../img/cinestav_fondo.jpg");
@@ -159,6 +162,10 @@
                         He revisado los datos proporcionados y certifico que la información capturadas sean correctas y responsabilidad de quien la captura.
                     </label>
                 </div>
+                <div class="form-group">
+								<label for="captcha" class="col-md-3 control-label"></label>
+								<div class="g-recaptcha col-md-9" data-sitekey="6LeMDQglAAAAAL7gBVY7mm6Q3IJA6hSlNEMwu2JB"></div>
+							</div>  
             </div>
             <div class="col-6 text-center mt-3">
                 <a href="{{ route('usuario.index') }}" type="button" class="btn btn-secondary">Regresar</a>
@@ -168,6 +175,7 @@
             </div>
         </div>
     </form>
+
 </div>
 
 <script>

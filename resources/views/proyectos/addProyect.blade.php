@@ -1,4 +1,4 @@
-@extends('layout.navbar')
+    @extends('layout.navbar')
 @section('title', 'Agregar Proyecto')
 <style>
     .bd-callout {

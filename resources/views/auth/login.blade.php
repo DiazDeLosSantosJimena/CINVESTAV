@@ -45,11 +45,14 @@
                         @enderror
                     </div>
 
+                    <div class="g-recaptcha" data-sitekey="6LfLLW8nAAAAALXNMwVBb7pwryntaZufUkXgEEQF"></div>
+
                     <div class="form-group d-flex align-items-center justify-content-between">
                         <div class="form-check">
                             <a href="{{route('password.request')}}" class="forgot-pass">Olvide mi contraseña</a>
                         </div>
                     </div>
+                    
                     <div class="d-grid mt-2">
                         <button type="submit" class="btn btn-outline-primary">Iniciar Sesión</button>
                     </div>

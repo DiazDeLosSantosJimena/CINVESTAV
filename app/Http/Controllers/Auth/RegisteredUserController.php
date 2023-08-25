@@ -40,6 +40,7 @@ class RegisteredUserController extends Controller
             'academic_degree.required' => 'Se requiere colocar el grado academico.',
             'email.required' => 'Se requiere un correo de contacto.',
             'email.unique' => 'Correo ya registrado, intente nuevamente o ingrese un correo diferente.',
+            ''
         ];
 
         $request->validate([

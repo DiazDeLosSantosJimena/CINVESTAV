@@ -56,8 +56,8 @@
 				margin: 0 auto;
 			}
 
-			.image_block img.fullWidth {
-				max-width: 100% !important;
+			.mobile_hide {
+				display: none;
 			}
 
 			.mobile_hide {
@@ -160,7 +160,7 @@
 													<table class="image_block block-2" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" style="padding-left:40px;padding-right:40px;width:100%;">
-																<div class="alignment" align="center" style="line-height:10px"><img class="fullWidth" src="https://f2edaf7f96.imgdist.com/public/users/Integrators/BeeProAgency/955344_939853/Online%20Review-cuate.png" style="display: block; height: auto; border: 0; max-width: 352px; width: 100%;" width="352" alt="I'm an image" title="I'm an image"></div>
+																<div class="alignment" align="center" style="line-height:10px"><img src="https://f2edaf7f96.imgdist.com/public/users/Integrators/BeeProAgency/955344_939853/Online%20Review-cuate.png" style="display: block; height: auto; border: 0; max-width: 256px; width: 100%;" width="256" alt="I'm an image" title="I'm an image"></div>
 															</td>
 														</tr>
 													</table>
@@ -196,7 +196,7 @@
 															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
 																<div style="font-family: Arial, sans-serif">
 																	<div class style="font-size: 12px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; mso-line-height-alt: 18px; color: #555555; line-height: 1.5;">
-																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Esperamos que usted se encuentre en buen estado. Nos complace comunicarle que el proyecto que usted presentó ha sido evaluado y aprobado exitosamente. En este momento, procederemos con la etapa correspondiente al pago, a fin de finalizar el proceso de registro de manera satisfactoria.&nbsp;</span></p>
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Esperamos que usted se encuentre en buen estado. Nos complace comunicarle que el proyecto que usted presentó ha sido evaluado y aprobado exitosamente. En este momento, procederemos con la etapa correspondiente al pago, a fin de finalizar el proceso de registro de manera satisfactoria.</span></p>
 																	</div>
 																</div>
 															</td>
@@ -217,7 +217,22 @@
 															</td>
 														</tr>
 													</table>
-													<table class="divider_block block-3" width="100%" border="0" cellpadding="20" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+													<table class="text_block block-3" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+														<tr>
+															<td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
+																<div style="font-family: Arial, sans-serif">
+																	<div class style="font-size: 12px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; mso-line-height-alt: 18px; color: #555555; line-height: 1.5;">
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Una vez que haya efectuado el pago, le solicitamos amablemente remitir el comprobante correspondiente al correo de facturación, adjuntando tanto su nombre como los siguientes datos:</span></p>
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;"><strong>Nombre del proyecto: &nbsp;</strong>{{$data['title']}}</span></p>
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;"><strong>Numero de seguimiento: &nbsp;</strong>{{$data['np']}}</span></p>
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 18px;">&nbsp;</p>
+																		<p style="margin: 0; font-size: 12px; text-align: justify; mso-line-height-alt: 22.5px;"><span style="font-size:15px;">Te pedimos amablemente que ingreses en la plataforma y revises los nuevos apartados. Allí encontrarás información crucial que necesitamos que completes.</span></p>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</table>
+													<table class="divider_block block-4" width="100%" border="0" cellpadding="20" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad">
 																<div class="alignment" align="center">

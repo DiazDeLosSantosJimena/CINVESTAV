@@ -56,9 +56,16 @@
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                    <!--CAPTCHA-->
-                    <div class="form-group">
-                        <div class="g-recaptcha" id="captchalogin" data-sitekey="6LcSYHcnAAAAAKKbYvQhXhQtN3evu7yxowlNSW04" data-callback='onSubmit' data-action='submit'></div>
+
+                    <!--                CAPTCHA
+                    
+                    
+                    
+                    -->
+                    <div class="form-group d-flex align-items-center justify-content-between">
+                        <div class="form-check">
+                            <a href="{{route('forgotpass')}}" class="forgot-pass">Olvide mi contraseña</a>
+                        </div>
                     </div>
                     <div class="d-grid mt-2">
                         <!-- <button id="captchalogin" type="submit" class="btn btn-outline-primary g-recaptcha" data-sitekey="6LcSYHcnAAAAAKKbYvQhXhQtN3evu7yxowlNSW04" data-callback='onSubmit' data-action='submit'>Iniciar Sesión</button> -->
@@ -67,20 +74,5 @@
                     <div class="form-group text-center mt-3">
                         <a href="{{route('forgotpass')}}">Olvide mi contraseña</a>
                     </div>
+                </a></p>
                 </form>
-                <div class="col-12 row">
-                    <div class="col-6">
-                        <p class="text-center mt-3">
-                            No tienes una cuenta?
-                        </p>
-                    </div>
-                    <div class="col-6 text-center mt-3">
-                        <a href="{{route('register')}}" class="btn btn-outline-primary">Registrate</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-
-</html>

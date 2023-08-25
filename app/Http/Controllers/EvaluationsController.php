@@ -189,6 +189,23 @@ class EvaluationsController extends Controller
             $project->save();
         }
 
+        $data = [
+            'destinatario' => $user->email,
+            'usuario' => $user->name,
+            'proyecto' => $project->title,
+            'np' => $project->project_id,
+        ];
+
+        if (count($cantEvaluaciones) == 3) {
+            // ============= Correo de Notificación =============
+            Mail::send('mail.evaluado', compact('data'), function ($message) use ($data) {
+                $message->to($data['destinatario'], 'CINVESTAV')
+                    ->subject('Proyecto Evaluado')
+                    ->from('hello@example.com', 'Soporte CINVESTAV');
+            });
+            // ==================================================
+        } 
+
         return redirect()->route('evaluacion.index')->with('status', 'Se ha asignado la calificación!');
     }
 

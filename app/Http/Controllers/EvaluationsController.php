@@ -168,13 +168,13 @@ class EvaluationsController extends Controller
                     'destinatario' => $user->email,
                     'usuario' => $user->name,
                     'proyecto' => $project->title,
-                    'np' => $project->project_id,
+                    'np' => $project->tracking_key,
                 ];
 
                 Mail::send('mail.evaluado', compact('data'), function ($message) use ($data) {
                     $message->to($data['destinatario'], 'CINVESTAV')
                         ->subject('Proyecto Evaluado')
-                        ->from('hello@example.com', 'Soporte CINVESTAV');
+                        ->from('hello@example.com', 'Información CINVESTAV');
                 });
                 
                 // ==================================================

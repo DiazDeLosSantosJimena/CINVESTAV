@@ -181,6 +181,8 @@ class ProjectsController extends Controller
                 //'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             ], $messages);
+
+            $follow_key = "pon-". date('Ymd');
         } else if ($request->modality === 'C') {
             $messages = [
                 'titulo.required' => 'El título es obligatorio.',
@@ -203,6 +205,8 @@ class ProjectsController extends Controller
                 //'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             ], $messages);
+
+            $follow_key = "car-". date('Ymd');
         } else {
             $request->validate([
                 'titulo' => ['required', 'string', 'max:255'],
@@ -212,6 +216,7 @@ class ProjectsController extends Controller
                 'extenso' => ['required', 'file'],
                 //'g-recaptcha-response' => ['required'],
             ], $messages);
+            $follow_key = "pro-". date('Ymd');
         }
 
         $proyect = Projects::create([
@@ -221,6 +226,9 @@ class ProjectsController extends Controller
             //'sending_institution' => $request->inst_pro,
             'status' => 1
         ]);
+
+        $proyect->tracking_key = $follow_key."-".$proyect->id;
+
         $proyect->save();
 
         $registro = $request->input('registroA');
@@ -474,7 +482,7 @@ class ProjectsController extends Controller
     {
         //$proyect = ProjectsUsers::with('user', 'projects')->where('project_id', $id)->first();
         //$proyect = Projects::all();
-        $proyect = \DB::SELECT('SELECT users.name, users.app, users.apm, users.alternative_contact, users.photo, users.phone, users.email, users.country, users.state, users.municipality, pro.title, pro.modality, pro.thematic_area
+        $proyect = \DB::SELECT('SELECT users.name, users.app, users.apm, users.alternative_contact, users.photo, users.phone, users.email, users.country, users.state, users.municipality, pro.title, pro.modality, pro.thematic_area, pro.tracking_key
         FROM projects_users AS proUser
             JOIN users ON users.id = proUser.user_id
             JOIN projects AS pro ON pro.id = proUser.project_id

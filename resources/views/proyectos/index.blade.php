@@ -275,15 +275,14 @@
     add.className = "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent";
     @endif
 
-    {{-- @foreach($proyectos2 as $prop) --}}
-    {{-- @if($prop -> archive == 3) --}}
+    @foreach($proyectos2 as $prop)
+    @if($prop->archive == 3)
 
-    // var estadoPago = document.querySelector("#pago{{ $prop->project_id }}");
-    // estadoPago.className = "badge text-white text-bg-success";
-    // estadoPago.textContent = "Realizado";
+    var estadoPago = document.querySelector("#pago{{ $prop->id }}");
+    estadoPago.style.display = "none";
 
-    {{-- @endif --}}
-    {{-- @endforeach --}}
+    @endif
+    @endforeach
 </script>
 
 @endsection

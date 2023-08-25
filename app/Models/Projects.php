@@ -10,6 +10,7 @@ class Projects extends Model
     use HasFactory;
 
     protected $fillable = [
+        'tracking_key',
         'modality',
         'title',
         'thematic_area',

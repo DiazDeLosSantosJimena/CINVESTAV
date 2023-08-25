@@ -133,6 +133,21 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
+            'name' => 'Jossue',
+            'app' => 'Alejandro',
+            'apm' => 'Candelas',
+            'photo' => '20230824203409ponente.png',
+            'phone' => '7293579266',
+            'alternative_contact' => 'jossueale02@hotmail.com',
+            'email' => 'jossueale@hotmail.com',
+            'password' => Hash::make('elJossue123'),
+            'country' => 'México',
+            'state' => 'México',
+            'municipality' => 'Toluca',
+            'rol_id' => 3,
+        ]);
+
+        User::create([
             'name' => 'Publico General',
             'app' => '-',
             'apm' => 'CINVESTAV',

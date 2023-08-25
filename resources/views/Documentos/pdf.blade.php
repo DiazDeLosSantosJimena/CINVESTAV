@@ -2,7 +2,7 @@
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
 
 <head>
-	<title></title>
+	<title>Detalles de Pago | CINVESTAV</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"><!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings></xml><![endif]-->
 	<style>
@@ -106,6 +106,31 @@
 									<table class="row-content stack" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-radius: 0; color: #000; width: 900px; margin: 0 auto;" width="900">
 										<tbody>
 											<tr>
+												<td class="column column-1" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
+													<table class="paragraph_block block-1" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+														<tr>
+															<td class="pad">
+																<div style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:right;mso-line-height-alt:19.2px;">
+																	<p style="margin: 0;"><strong>Número de Seguimiento:&nbsp;</strong>{{ $proyect[0]->tracking_key }}</p>
+																</div>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="row row-2" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+						<tbody>
+							<tr>
+								<td>
+									<table class="row-content stack" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-radius: 0; color: #000; width: 900px; margin: 0 auto;" width="900">
+										<tbody>
+											<tr>
 												<td class="column column-1" width="50%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
 													<table class="heading_block block-1" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
@@ -150,7 +175,7 @@
 														<tr>
 															<td class="pad">
 																<div style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:200%;text-align:center;mso-line-height-alt:32px;">
-																	<p style="margin: 0; font-size: 20px;">{{ $proyect[0]->name .' '. $proyect[0]->app .' '. $proyect[0]->apm }}</p>
+																	<p style="margin: 0; font-size: 19px;">{{ $proyect[0]->name .' '. $proyect[0]->app .' '. $proyect[0]->apm }}</p>
 																</div>
 															</td>
 														</tr>
@@ -168,7 +193,7 @@
 														<tr>
 															<td class="pad">
 																<div style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:200%;text-align:center;mso-line-height-alt:32px;">
-																	<p style="margin: 0; font-size: 20px;">{{ $proyect[0]->email }}</p>
+																	<p style="margin: 0; font-size: 19px;">{{ $proyect[0]->email }}</p>
 																</div>
 															</td>
 														</tr>
@@ -309,7 +334,6 @@
 							</tr>
 						</tbody>
 					</table>
-					<br><br><br>
 					<table class="row row-8" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #7f7f7f;">
 						<tbody>
 							<tr>

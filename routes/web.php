@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
     Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
     Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsController::class, 'destroy']);
+    Route::name('proyectos.statusPago')->put('proyectos.statusPago/{id}', [ProjectsController::class, 'statusPago']);
 
     Route::name('evaluacion.delete')->delete('evaluacion.delete/{id}', [EvaluationsController::class, 'destroy']);
     Route::name('evaluacion.asignEvaluator')->post('evaluacion.asignEvaluator', [EvaluationsController::class, 'asignEvaluator']);

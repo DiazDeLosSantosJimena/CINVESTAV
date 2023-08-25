@@ -115,10 +115,6 @@ class ProjectsController extends Controller
 
     public function pagoCreate(Request $request, $id)
     {
-        $project = Projects::find($id);
-        $project->status = "4";
-        $project->save();
-
         $messages = [
             'pago.required' => 'Suba el archivo requerido.',
             'pago.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
@@ -139,6 +135,23 @@ class ProjectsController extends Controller
         return redirect()->route('proyectos.index')->with('status', 'Formato de Pago subido con exito!');
     }
 
+    public function statusPago(Request $request, $id) {
+        // dd($request->all());
+        $message = [
+            'verify.required' => 'Es necesario marcar la casilla para poder registrar el formato de pago.',
+        ];
+
+        $request->validate([
+            'verify' => ['required']
+        ], $message);
+        
+        $project = Projects::find($id);
+        $project->status = "4";
+        $project->save();
+
+        return redirect()->route('proyectos.index')->with('status', 'Formato de Pago registrado con exito!');;
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -156,7 +169,7 @@ class ProjectsController extends Controller
             'extenso.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
             'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
             'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
-            'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
+            //'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
         ];
         if ($request->modality === 'P') {
             $request->validate([
@@ -165,7 +178,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:docx', 'max:1024'],
-                'g-recaptcha-response' => ['required'],
+                //'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             ], $messages);
         } else if ($request->modality === 'C') {
@@ -179,7 +192,7 @@ class ProjectsController extends Controller
                 'extenso.required' => 'Suba el archivo requerido.',
                 'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato (.jpg) indicado.',
                 'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
-                'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
+                //'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
             ];
             $request->validate([
                 'titulo' => ['required', 'string', 'max:255'],
@@ -187,7 +200,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:jpg', 'max:2048'],
-                'g-recaptcha-response' => ['required'],
+                //'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             ], $messages);
         } else {
@@ -197,7 +210,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file'],
                 'extenso' => ['required', 'file'],
-                'g-recaptcha-response' => ['required'],
+                //'g-recaptcha-response' => ['required'],
             ], $messages);
         }
 
@@ -470,6 +483,7 @@ class ProjectsController extends Controller
         $authors = Authors::where('project_id', $id)->get();
 
         $pdf = PDF::loadView('Documentos.pdf', ['proyect' => $proyect, 'authors' => $authors]);
+        $pdf->set_paper('A4', 'landscape');
         // return view ('Documentos.pdf', compact('Projects'));
         //----------Visualizar el PDF ------------------
         return $pdf->stream();

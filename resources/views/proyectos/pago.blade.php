@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="col-12 mb-3 text-center">
-            <a href="{{ Storage::url('proposals/Detalles_del_Pago_Ponente.pdf') }}" type="button" class="btn btn-lg" style="background-color: #0178a0; color: white;">
+            <a href="{{ route('pdf', $project->id )}}" type="button" class="btn btn-lg" style="background-color: #0178a0; color: white;">
                 Detalles del Pago
             </a>
         </div>

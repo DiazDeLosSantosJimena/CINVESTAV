@@ -68,21 +68,20 @@
         <div class="col-sm-12 col-md-12 text-center mt-4">
             <p class="h3" style="color: #0078a0;">Universidades Participantes</p>
             <hr>
-            <p>CINVESTAV-IPN</p>
-            <p>Universidad Autónoma del Estado de México</p>
-            <p>Universidad Nacional de Educación a Distancia</p>
-            <p>Universidad Autónoma de Nuevo León</p>
-            <p>Universidad Autónoma de Ciudad Juárez</p>
-            <p>Universidad Autónoma de la Ciudad de México</p>
-            <p>Universidad Veracruzana</p>
-            <p>Universidad de Sonora</p>
-            <p>Universidad Autónoma de Zacatecas</p>
-            <p>Universidad Autónoma de Coahuila</p>
-            <p>Benemérita Universidad Autónoma de Puebla</p>
-            <p>Universidad Autónoma de Baja California</p>
-            <p>Universidad Autónoma de Tlaxcala</p>
-            <p>Universidad Politécnica de Texcoco</p>
-            <p>Universidad Tecnológica del Valle de Toluca</p>
+            <p>Centro de Investigación y de Estudios Avanzados del IPN - CINVESTAV</p>
+            <p>Benemérita Universidad Autónoma de Puebla - BUAP</p>
+            <p>Universidad Autónoma de Coahuila - UAdeC</p>
+            <p>Universidad Autónoma de Ciudad Juárez - UACJ</p>
+            <p>Universidad Autónoma de la Ciudad de México - UACM</p>
+            <p>Universidad Autónoma del Estado de México - UAEM</p>
+            <p>Universidad Autónoma de Nuevo León - UANL</p>
+            <p>Universidad Autónoma de Tlaxcala - UATx</p>
+            <p>Universidad Autónoma de Zacatecas - UAZ</p>
+            <p>Universidad Nacional de Educación a Distancia - UNED</p>
+            <p>Universidad de Sonora - UNISON</p>
+            <p>Universidad Politécnica de Texcoco - UPTex</p>
+            <p>Universidad Tecnológica del Valle de Toluca - UTVT</p>
+            <p>Universidad Veracruzana - UV</p>
         </div>
         <div class="col-12 text-center mdl-cell--hide-phone mdl-cell--hide-tablet">
             <img src="{{ asset('img/CVT_LOGOS.png') }}" alt="Encuentro Internacional Sobre la Enseñanza del Cálculo, Ciencias y Matématicas" style="width: 60%;">

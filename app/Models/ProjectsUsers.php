@@ -24,7 +24,12 @@ class ProjectsUsers extends Model
 
     public function Evaluations()
     {
-        return $this->hasMany(Evaluations::class, 'project_id');
+        return $this->hasMany(Evaluations::class, 'project_user','id');
+    }
+
+    public function Presentations() {
+        return $this->hasMany(Presentations::class,'pro_users','id');
+
     }
 }
 

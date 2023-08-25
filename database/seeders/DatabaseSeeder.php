@@ -43,107 +43,107 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'academic_degree' => 'Mr',
             'name' => 'Admin',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
+            'alternative_contact' => 'Mtro',
             'email' => 'admin@cinvestav.com',
             'password' => Hash::make('admin'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 1,
         ]);
 
         User::create([
-            'academic_degree' => 'Mr',
             'name' => 'Admin2',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
+            'alternative_contact' => 'Mtro',
             'email' => 'edu@cinvestav.com',
             'password' => Hash::make('admin'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 1,
         ]);
 
         User::create([
-            'academic_degree' => 'Mr',
             'name' => 'Juez 1',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
+            'alternative_contact' => 'Mtro',
             'email' => 'juez1@cinvestav.com',
             'password' => Hash::make('juez'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 2,
         ]);
 
         User::create([
-            'academic_degree' => 'Mr',
             'name' => 'Juez 2',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
+            'alternative_contact' => 'Mtro',
             'email' => 'juez2@cinvestav.com',
             'password' => Hash::make('juez'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 2,
         ]);
 
         User::create([
-            'academic_degree' => 'Mr',
             'name' => 'Juez 3',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
+            'alternative_contact' => 'Mtro',
             'email' => 'juez3@cinvestav.com',
             'password' => Hash::make('juez'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 2,
         ]);
 
         User::create([
-            'academic_degree' => 'Mr',
             'name' => 'Ponente',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
+            'alternative_contact' => 'contact@cinvestav.com',
             'email' => 'user@cinvestav.com',
             'password' => Hash::make('user'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 3,
         ]);
 
         User::create([
-            'academic_degree' => 'Mr',
             'name' => 'Publico General',
             'app' => '-',
             'apm' => 'CINVESTAV',
+            'photo' => 'default.jpg',
             'phone' => '0000000000',
+            'alternative_contact' => 'contact@cinvestav.com',
             'email' => 'publico@cinvestav.com',
             'password' => Hash::make('publico'),
             'country' => 'México',
             'state' => 'México',
             'municipality' => 'Toluca',
-            'assistance' => 'p',
             'rol_id' => 4,
         ]);
 

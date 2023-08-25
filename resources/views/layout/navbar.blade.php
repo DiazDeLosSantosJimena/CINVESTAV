@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') | CINVESTAV</title>
+    @yield('estilos')
     @include('layout.head')
 </head>
 
@@ -23,20 +24,25 @@
             </div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect" style="background-color: #2e2e2e;">
                 <a href="{{ route('inicio') }}" class="mdl-layout__tab" id="inicio">Inicio</a>
-                @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
-                <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent mdl-cell--hide-desktop" id="add" href="{{ route('proyectos.create') }}">
-                    <i class="material-icons" role="presentation">add</i>
-                   <span class="visuallyhidden">Add</span>
+                {{-- @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1) --}}
+                @if(Auth::user()->rol_id === 3)
+                <a data-bs-toggle="tooltip" data-trigger="manual" data-placement="bottom" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-cell--hide-desktop" id="add" href="{{ route('proyectos.create') }}">
+                    Agregar Ponencia +
+                    <!-- <i class="material-icons" role="presentation">add</i> -->
+                    <span class="visuallyhidden">Add</span>
                 </a>
-                <a href="{{ route('proyectos.index') }}" class="mdl-layout__tab" id="proyectos">Proyectos</a>
+                @endif
+                @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 1)
+                <a href="{{ route('proyectos.index') }}" class="mdl-layout__tab" id="proyectos">Ponencias</a>
                 @endif
                 @if(Auth::user()->rol_id === 2 || Auth::user()->rol_id === 1)
                 <a href="{{ route('evaluacion.index') }}" class="mdl-layout__tab" id="evaluaciones">Evaluación</a>
                 @endif
                 @if(Auth::user()->rol_id === 1)
+                <a href="{{ route('usuarios') }}" class="mdl-layout__tab" id="usuarios">Usuarios</a>
                 <a href="{{ route('taller.index') }}" class="mdl-layout__tab" id="taller">Talleres</a>
                 @endif
-                @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 4 || Auth::user()->rol_id === 1)
+                @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 4 || Auth::user()->rol_id === 1 || Auth::user()->rol_id === 5)
                 <a href="{{ route('attendance.index') }}" class="mdl-layout__tab" id="attendance">Actividades</a>
                 @endif
                 <a href="{{ route('perfil') }}" class="mdl-layout__tab" id="perfil">Perfíl</a>
@@ -56,7 +62,7 @@
                 <div class="container my-5">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 my-3 text-center">
-                            <img src="{{ asset('img/logo_negativo.png') }}" class="img-fluid" alt="Encuentro" width="150px">
+                            <a href="{{ route('encuentro') }}"><img src="{{ asset('img/logo_negativo.png') }}" class="img-fluid" alt="Encuentro" width="150px"></a>
                         </div>
                         <hr>
                         <div class="col-sm-12 col-md-4 mt-3 text-center">
@@ -73,6 +79,12 @@
             </footer>
         </main>
     </div>
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 </body>
 
 @yield('modales')

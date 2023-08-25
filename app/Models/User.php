@@ -22,10 +22,11 @@ class User extends Authenticatable
         'name',
         'apm',
         'app',
-        'academic_degree',
+        'alternative_contact', //Campo que funciona como contacto alterno en los ponentes y titulo academico en los demás usuarios
         'email',
         'password',
         'phone',
+        'photo',
         'country',
         'state',
         'municipality',
@@ -62,6 +63,14 @@ class User extends Authenticatable
     }
 
     public function Evaluations() {
-        return $this->hasMany(Evaluations::class,'rol_id');
+        return $this->hasMany(Evaluations::class,'user_id', 'id');
+    }
+
+    public function Workshopattendance() {
+        return $this->hasMany(Workshopattendance::class, 'user_id', 'id');
+    }
+
+    public function Preattendances() {
+        return $this->hasMany(Preattendances::class, 'presentation_id', 'id');
     }
 }

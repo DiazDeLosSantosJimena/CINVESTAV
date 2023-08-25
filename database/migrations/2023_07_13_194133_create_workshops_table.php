@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('workshops', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('nameu');
+            $table->string('title');
             $table->string('activity');
             $table->date('date');
             $table->time('hour');
             $table->string('site');
             $table->boolean('status');
+            $table->string('level');
+            $table->integer('participants');
+            $table->integer('part');
+            $table->string('assistance');
             $table->timestamps();
         });
     }

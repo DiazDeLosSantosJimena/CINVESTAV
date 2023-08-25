@@ -19,46 +19,48 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th class="text-center" scope="col">Nombre del Proyecto</th>
+                        <th scope="col" class="text-center">Nombre del Proyecto</th>
                         <th scope="col" class="text-center">Modalidad de participación</th>
-                        <th scope="col">Eje Tematico</th>
+                        <th scope="col" class="text-center">Eje Tematico</th>
                         <th scope="col">Usuario</th>
                         <th scope="col" class="text-center">Estatus</th>
-                        <th scope="col" class="text-center" colspan="3">Acciones</th>
+                        <!-- <th scope="col" class="text-center" colspan="3">Acciones</th> -->
                     </tr>
                 </thead>
                 <tbody class="align-middle">
                     @foreach($evaluados as $p)
                     <tr>
-                        <td>{{$p->projects->id}}</td>
-                        <td>{{$p->projects->title}}</td>
+                        <td>{{$p->id}}</td>
+                        <td class="text-center">{{$p->title}}</td>
                         <td class="text-center">
-                            @if($p->projects->modality == 'P')
+                            @if($p->modality == 'P')
                             Ponencia
-                            @elseif($p->projects->modality == 'C')
+                            @elseif($p->modality == 'C')
                             Cartel
                             @else
-                            {{ $p->projects->modality }}
+                            {{ $p->modality }}
                             @endif
                         </td>
                         <td class="text-center">
                             <small>
-                                @if($p->projects->thematic_area == 'U')
+                                @if($p->thematic_area == 'U')
                                 Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
-                                @elseif( $p->projects->thematic_area == 'P')
+                                @elseif($p->thematic_area == 'P')
                                 Nivel Preuniversitario.(Bachillerato.)
-                                @elseif( $p->projects->thematic_area == 'B')
+                                @elseif($p->thematic_area == 'B')
                                 Nivel Básico.(Primaria o secundaria.)
-                                @elseif( $p->projects->thematic_area == 'STEM')
+                                @elseif($p->thematic_area == 'STEM')
                                 Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                                @elseif($p->thematic_area == 'HM')
+                                Historia de las Matemáticas
                                 @else
-                                {{ $p->projects->modality }}
+                                {{ $p->thematic_area }}
                                 @endif
                             </small>
                         </td>
-                        <td>{{$p->user->email}}</td>
+                        <td>{{$p->email}}</td>
                         <td class="text-center"><span class="badge text-white text-bg-success">Calificado</span></td>
-                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('evaluacion.edit', $p->id) }}" style="background-color: #0178a0;">Volver a calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $prop->id) }} --}}
+                        <!-- <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('evaluacion.edit', $p->id_evaluar) }}" style="background-color: #0178a0;">Volver a calificar <i class="bi bi-pencil-square"></i></a></th>{{-- {{ route('proyectos.edit', $p->id) }} --}} -->
                     </tr>
                     @endforeach
                 </tbody>
@@ -81,35 +83,37 @@
                 <tbody class="align-middle">
                     @foreach ($proyectos as $p)
                     <tr>
-                        <td>{{$p->projects->id}}</td>
-                        <td>{{$p->projects->title}}</td>
+                        <td>{{$p->id}}</td>
+                        <td>{{$p->title}}</td>
                         <td class="text-center">
-                            @if($p->projects->modality == 'P')
+                            @if($p->modality == 'P')
                             Ponencia
-                            @elseif($p->projects->modality == 'C')
+                            @elseif($p->modality == 'C')
                             Cartel
                             @else
-                            {{ $p->projects->modality }}
+                            {{ $p->modality }}
                             @endif
                         </td>
                         <td class="text-center">
                             <small>
-                                @if($p->projects->thematic_area == 'U')
+                                @if($p->thematic_area == 'U')
                                 Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
-                                @elseif( $p->projects->thematic_area == 'P')
+                                @elseif( $p->thematic_area == 'P')
                                 Nivel Preuniversitario.(Bachillerato.)
-                                @elseif( $p->projects->thematic_area == 'B')
+                                @elseif( $p->thematic_area == 'B')
                                 Nivel Básico.(Primaria o secundaria.)
-                                @elseif( $p->projects->thematic_area == 'STEM')
+                                @elseif( $p->thematic_area == 'STEM')
                                 Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                                @elseif( $p->thematic_area == 'HM')
+                                Historia de las Matemáticas
                                 @else
-                                {{ $p->projects->modality }}
+                                {{ $p->thematic_area }}
                                 @endif
                             </small>
                         </td>
-                        <td>{{$p->user->email}}</td>
+                        <td>{{$p->email}}</td>
                         <td class="text-center"><span class="badge text-white text-bg-danger">Sin Calificar</span></td>
-                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('evaluacion.show', $p->id) }}" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>
+                        <th class="text-center" scope="row"><a type="button" class="btn btn-primary" href="{{ route('evaluacion.show', $p->id_evaluar) }}" style="background-color: #0178a0;">Calificar <i class="bi bi-pencil-square"></i></a></th>
                     </tr>
                     @endforeach
                 </tbody>

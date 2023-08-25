@@ -13,8 +13,6 @@ class Projects extends Model
         'modality',
         'title',
         'thematic_area',
-        'authors',
-        'sending_institution',
         'status'
     ];
 
@@ -32,9 +30,7 @@ class Projects extends Model
         return $this->hasMany(Authors::class,'project_id','id');
     }
 
-    public function Evaluations() {
-        return $this->hasMany(Evaluations::class,'project_id','id');
-
-    }
+    
+    
 
 }

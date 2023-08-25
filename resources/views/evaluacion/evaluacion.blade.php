@@ -8,36 +8,27 @@
                 <div class="col-md-12 col-sm-12 text-center">
                     <h3>Datos del Ponente</h3>
                 </div>
+                @foreach ($user as $uni)
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Nombre del postulante:</strong><br> {{ $proyect->user->name .' '. $proyect->user->app .' '. $proyect->user->apm }}</p>
+                    <p><strong>Nombre del postulante:</strong><br> {{ $uni->name .' '. $uni->app .' '. $uni->apm }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Correo:</strong><br> {{ $proyect->user->email }}</p>
+                    <p><strong>Correo:</strong><br> {{ $uni->email }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Teléfono:</strong><br> {{ $proyect->user->phone }}</p>
+                    <p><strong>Teléfono:</strong><br> {{ $uni->phone }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Grado Academico:</strong><br> {{ $proyect->user->academic_degree }}</p>
+                    <p><strong>Contacto alterno:</strong><br> {{ $uni->alternative_contact }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>País:</strong><br> {{ $proyect->user->country }}</p>
+                    <p><strong>País:</strong><br> {{ $uni->country }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Estado:</strong><br> {{ $proyect->user->state }}</p>
+                    <p><strong>Estado:</strong><br> {{ $uni->state }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Ciudad:</strong><br> {{ $proyect->user->municipality }}</p>
-                </div>
-                <div class="col-md-12 col-sm-12 my-3">
-                    <p><strong>Asistencia:</strong>
-                        <br>
-                        @if($proyect->user->assistance == 'p')
-                        Presencial
-                        @elseif($proyect->user->assistance == 'v')
-                        Virtual
-                        @endif
-                    </p>
+                    <p><strong>Ciudad:</strong><br> {{ $uni->municipality }}</p>
                 </div>
             </div>
         </div>
@@ -47,60 +38,63 @@
                     <h3>Datos del Proyecto</h3>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Título del proyecto:</strong><br> {{ $proyect->projects->title }}</p>
+                    <p><strong>Título del proyecto:</strong><br> {{ $uni->title }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
                     <p><strong>Modalidad de participación:</strong>
                         <br>
-                        @if($proyect->projects->modality == 'P')
+                        @if($uni->modality == 'P')
                         Ponencia
-                        @elseif( $proyect->projects->modality == 'C')
+                        @elseif( $uni->modality == 'C')
                         Cartel
                         @else
-                        {{ $proyect->projects->modality }}
+                        {{ $uni->modality }}
                         @endif
                     </p>
                 </div>
                 <div class="col-md-12 col-sm-12 my-3">
                     <p><strong>Eje tematico:</strong>
                         <br>
-                        @if($proyect->projects->thematic_area == 'U')
+                        @if($uni->thematic_area == 'U')
                         Nivel Universitario por área.(Cálculo, Algebra, Geometría Analitca, Algebra Lineal, etc.)
-                        @elseif( $proyect->projects->thematic_area == 'P')
+                        @elseif( $uni->thematic_area == 'P')
                         Nivel Preuniversitario.(Bachillerato.)
-                        @elseif( $proyect->projects->thematic_area == 'B')
+                        @elseif( $uni->thematic_area == 'B')
                         Nivel Básico.(Primaria o secundaria.)
-                        @elseif( $proyect->projects->thematic_area == 'STEM')
+                        @elseif( $uni->thematic_area == 'STEM')
                         Ciencia, Tecnológia, Ingenieria y Matemáticas (STEM).
+                        @elseif( $uni->thematic_area == 'HM')
+                        Historia de las Matemáticas
                         @else
-                        {{ $proyect->projects->modality }}
+                        {{ $uni->thematic_area }}
                         @endif
                     </p>
                 </div>
-                @if(count($authors) > 0)
+                @if(count($autores) > 0)
                 <div class="col-md-12 col-sm-12 my-3 text-center">
                     <p><strong>~ Autores ~</strong></p>
                 </div>
-                @foreach($authors as $author)
-                <div class="col-md-4 col-sm-12 my-3">
+                @foreach($autores as $author)
+                <div class="col-md-3 col-sm-12 my-3">
                     <p><strong>Nombre:</strong><br> {{ $author->name }} </p>
                 </div>
-                <div class="col-md-4 col-sm-12 my-3">
+                <div class="col-md-3 col-sm-12 my-3">
                     <p><strong>Apellido Paterno:</strong><br> {{ $author->app }}</p>
                 </div>
-                <div class="col-md-4 col-sm-12 my-3">
+                <div class="col-md-3 col-sm-12 my-3">
                     <p><strong>Apellido Materno:</strong><br> {{ $author->apm }}</p>
+                </div>
+                <div class="col-md-3 col-sm-12 my-3">
+                    <p><strong>Institución de procedencia:</strong><br> {{ $author->institution_of_origin }}</p>
                 </div>
                 @endforeach
                 @endif
-                <div class="col-md-12 col-sm-12 my-3">
-                    <p><strong>Institución de procedencia:</strong><br> {{ $proyect->projects->sending_institution }}</p>
-                </div>
+                @endforeach
             </div>
         </div>
         <div class="col-md-12 col-sm-12 my-2">
             <div class="row">
-                <div class="col-md-12 col-sm-12 text-center">
+                <div class="col-md-12 col-sm-12 text-center mb-3">
                     <h3>Documentos</h3>
                 </div>
                 @foreach($files as $file)
@@ -113,7 +107,7 @@
                 @endforeach
             </div>
         </div>
-        @if(Auth::user()->rol_id == 1 || Auth::user()->rol_id == 2)
+        @if(Auth::user()->rol_id == 2)
         <hr>
         <div class="col-md-12 col-sm-12">
             <div class="row">
@@ -121,11 +115,9 @@
                     <h3>Calificación</h3>
                 </div>
                 <div class="table-responsive">
-                    <form action="{{ route('evaluacion.store') }}" method="POST">
+                    <form action="{{ route('evaluacion.calificacion', $evaluacion->id) }}" method="POST">
                         @csrf
-                        <input type="hidden" value="{{ $proyect->user->id }}" name="user">
-                        <input type="hidden" value="{{ $proyect->projects->id }}" name="project">
-                        <input type="hidden" value="{{ $proyect->projects->title }}" name="nombre">
+                        @method('put')
                         <table class="table table-borderless">
                             <thead>
                                 <tr class="text-center">
@@ -142,7 +134,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c1">
+                                            <select class="form-select c1" aria-label="Default select example" name="c1">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -158,7 +150,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c2">
+                                            <select class="form-select c2" aria-label="Default select example" name="c2">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -174,7 +166,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c3">
+                                            <select class="form-select c3" aria-label="Default select example" name="c3">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -190,7 +182,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c4">
+                                            <select class="form-select c4" aria-label="Default select example" name="c4">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -206,7 +198,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c5">
+                                            <select class="form-select c5" aria-label="Default select example" name="c5">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -222,7 +214,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c6">
+                                            <select class="form-select c6" aria-label="Default select example" name="c6">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -238,7 +230,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c7">
+                                            <select class="form-select c7" aria-label="Default select example" name="c7">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -254,7 +246,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c8">
+                                            <select class="form-select c8 " aria-label="Default select example" name="c8">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -270,7 +262,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c9">
+                                            <select class="form-select c9" aria-label="Default select example" name="c9">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -286,7 +278,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c10">
+                                            <select class="form-select c10" aria-label="Default select example" name="c10">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -302,7 +294,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c11">
+                                            <select class="form-select c11" aria-label="Default select example" name="c11">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -318,7 +310,7 @@
                                     </td>
                                     <td>
                                         <div class="calif indicador" role="alert">
-                                            <select class="form-select" aria-label="Default select example" name="c12">
+                                            <select class="form-select c12" aria-label="Default select example" name="c12">
                                                 @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
                                                     @endfor
                                             </select>
@@ -328,7 +320,7 @@
                                 <tr class="align-middle table-group-divider">
                                     <th style="text-align: end;">Total:</th>
                                     <th class="text-center">
-                                        <p>0</p>
+                                        <p id="totalCriterios">0</p>
                                     </th>
                                 </tr>
                             </tbody>
@@ -428,4 +420,30 @@
         </div>
     </div>
 </div>
+<script>
+    window.addEventListener('load', () => {
+        // Llama a la función para realizar la suma inicial
+        calcularSuma();
+    });
+
+    // Función para realizar la suma de las puntuaciones evaluadas
+    function calcularSuma() {
+        var totalSuma = 0;
+        var criterios = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11', 'c12'];
+
+        criterios.forEach((criterio) => {
+            var valor = parseInt(document.querySelector(`.${criterio}`).value);
+            totalSuma += isNaN(valor) ? 0 : valor;
+        });
+
+        // Muestra el resultado de la suma en el elemento con id "total"
+        document.getElementById("totalCriterios").textContent = `${totalSuma}`;
+    }
+
+    // Agrega eventos change a los select para recalcular la suma cuando cambian
+    var criterios = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10', 'c11', 'c12'];
+    criterios.forEach((criterio) => {
+        document.querySelector(`.${criterio}`).addEventListener('change', calcularSuma);
+    });
+</script>
 @endsection

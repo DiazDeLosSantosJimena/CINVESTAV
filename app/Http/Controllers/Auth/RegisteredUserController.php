@@ -42,7 +42,7 @@ class RegisteredUserController extends Controller
             'email.unique' => 'Correo ya registrado, intente nuevamente o ingrese un correo diferente.',
             'foto.required' => 'Es necesario ingresar una foto para el ponente.',
             'foto.mimes' => 'Ingrese el formato solicitado.',
-            'g-recaptcha-response' => 'Se requiere realizar el captcha.',
+            //'g-recaptcha-response' => 'Se requiere realizar el captcha.',
         ];
 
         if ($request->input('role_id') == "3") {
@@ -57,7 +57,7 @@ class RegisteredUserController extends Controller
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
                 'foto' => 'required|mimes:jpeg,png,jpg',
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                'g-recaptcha-response' => ['required'],
+                //'g-recaptcha-response' => ['required'],
             ], $messages);
         } else if ($request->input('role_id') == "4" || $request->input('role_id') == "5") {
             $request->validate([

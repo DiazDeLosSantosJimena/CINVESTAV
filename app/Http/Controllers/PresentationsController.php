@@ -46,7 +46,7 @@ class PresentationsController extends Controller
         )
         ->join('projects', 'projects_users.project_id', '=', 'projects.id')
         ->join('users', 'projects_users.user_id', '=', 'users.id')
-        ->where('projects.status', 2)
+        ->where('projects.status', 4) //Modificar el 2 por el 4
         ->whereNotIn('projects_users.id', function ($query) {
             $query->select('presentations.pro_users')
                 ->from('presentations')
@@ -104,7 +104,7 @@ class PresentationsController extends Controller
             'status' => 1,
             'assistance' => $request->input('assistance'),
             'participants' => $request->input('participants'),
-            'part' => $request->input('participants')
+            'part' => 0
         ));
 
         return redirect('presentation')->with('status', 'Horario asignado correctamente!');

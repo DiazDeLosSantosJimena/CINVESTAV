@@ -86,16 +86,17 @@ class EvaluationsController extends Controller
 
     public function edit($id)
     {
-        
-        //$proyect = ProjectsUsers::with('user','projects')->where('id', $id)->first();
-<<<<<<<<< Temporary merge branch 1
-        $user = DB::table('evaluations')
-        ->join('projects_users', 'evaluations.project_user', '=', 'projects_users.id')
-        ->join('users', 'projects_users.user_id', '=', 'users.id')
-        ->join('projects', 'projects_users.project_id', '=', 'projects.id')
-        ->select('users.name', 'users.app', 'users.apm', 'users.academic_degree', 'users.email', 'users.phone','users.country', 'users.state', 'users.municipality', 'projects.modality', 'projects.title', 'projects.thematic_area', 'projects.sending_institution')
-        ->where('evaluations.id', $id)
-        ->get();
+        $evaluador_project = Evaluations::find($id);
+        $proyectoF = ProjectsUsers::where('id', $evaluador_project->project_user)->first();
+
+        if ($evaluador_project->user_id == Auth::user()->id || Auth::user()->rol_id == 1) {
+            $user = DB::table('evaluations')
+                ->join('projects_users', 'evaluations.project_user', '=', 'projects_users.id')
+                ->join('users', 'projects_users.user_id', '=', 'users.id')
+                ->join('projects', 'projects_users.project_id', '=', 'projects.id')
+                ->select('users.name', 'users.app', 'users.apm', 'users.alternative_contact', 'users.email', 'users.phone', 'users.country', 'users.state', 'users.municipality', 'projects.modality', 'projects.title', 'projects.thematic_area')
+                ->where('evaluations.id', $id)
+                ->get();
 
             $autores = DB::table('projects_users')
                 ->join('authors', 'projects_users.project_id', '=', 'authors.project_id')
@@ -108,19 +109,11 @@ class EvaluationsController extends Controller
                 ->where('project_id', $proyectoF->project_id)
                 ->get();
 
-        $evaluacion = Evaluations::find($id);
-        return view('evaluacion.edit', compact('user','autores','files','evaluacion'));
-=========
-        $proyect = ProjectsUsers::find($id);
-
-        $id = Evaluations::join('projects_users', 'evaluations.project_id', '=', 'projects_users.project_id')
-        ->where('projects_users.project_id', $proyect->id)
-        ->pluck('evaluations.id')
-        ->first();
-        $files = Files::where('project_id', $proyect->projects->id)->get();
-        //  dd($files);
-        return view('evaluacion.evaluacion', compact('proyect', 'files', 'id'));
->>>>>>>>> Temporary merge branch 2
+            $evaluacion = Evaluations::find($id);
+            return view('evaluacion.edit', compact('user', 'autores', 'files', 'evaluacion'));
+        } else {
+            return redirect()->route('evaluacion.index');
+        }
     }
 
     public function calificacion(Request $request, $id)

@@ -38,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody class="align-middle text-center">
-
+                   
                 </tbody>
             </table>
         </div>
@@ -199,7 +199,7 @@
                         celdaAsistencia.innerHTML = proyecto.assistance;
 
 
-                        // Botón para agregar el proyecto a la tabla de "Ponencias seleccionadas"
+                       
                         var botonAgregar = document.createElement("button");
                         botonAgregar.innerHTML = "Agregar";
                         botonAgregar.className = "btn btn-success";

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Workshopattendance;
 use App\Models\Workshops;
 use App\Models\Preattendances;
+use App\Models\Presentations;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,14 +29,22 @@ class WorkshopattendanceController extends Controller
     public function show($opcion)
     {
 
-        $talleres = Workshops::where('activity', $opcion)->get(['id', 'nameu', 'title', 'date', 'hour', 'site', 'participants', 'assistance']);
+        $talleres = Workshops::where('activity', $opcion)
+        ->where('participants', '>', DB::raw('part'))
+        ->get(['id', 'nameu', 'title', 'date', 'hour', 'site', 'participants', 'assistance']);
+    
 
         return response()->json($talleres);
     }
     public function showProjectsData()
     {
-        // Realiza la consulta SQL para obtener los datos de proyectos
-        $projectsData = DB::select("SELECT presentations.id, projects.title, projects.thematic_area, users.name, users.app, users.apm, presentations.date, presentations.hour, presentations.site, presentations.assistance FROM projects_users INNER JOIN presentations ON projects_users.id = presentations.pro_users INNER JOIN projects ON projects_users.project_id = projects.id INNER JOIN users ON projects_users.user_id = users.id");
+
+        $projectsData = DB::select("SELECT presentations.id, projects.title, projects.thematic_area, users.name, users.app, users.apm, presentations.date, presentations.hour, presentations.site, presentations.assistance 
+        FROM projects_users INNER JOIN presentations ON projects_users.id = presentations.pro_users 
+        INNER JOIN projects ON projects_users.project_id = projects.id 
+        INNER JOIN users ON projects_users.user_id = users.id 
+        WHERE presentations.participants > presentations.part");
+    
 
         return response()->json($projectsData);
     }
@@ -72,6 +81,17 @@ class WorkshopattendanceController extends Controller
                     'workshop_id' => $workshop_id[$i],
                     'user_id' =>  $user_id,
                 ));
+
+                
+                $workshop = Workshops::find($workshop_id[$i]);
+
+                if ($workshop) {
+                   
+                    if ($workshop->participants > $workshop->part) {
+                        $workshop->part++; 
+                        $workshop->save();
+                    }
+                }
             }
         }
 
@@ -98,6 +118,16 @@ class WorkshopattendanceController extends Controller
                     'presentation_id' => $presentation_id[$i],
                     'user_id' =>  $user_id,
                 ));
+
+                $presentations = Presentations::find($presentation_id[$i]);
+
+                if ($presentations) {
+                    
+                    if ($presentations->participants > $presentations->part) {
+                        $presentations->part++; 
+                        $presentations->save();
+                    }
+                }
             }
         }
         return redirect('attendance');

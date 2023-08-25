@@ -56,7 +56,7 @@ class WorkshopsController extends Controller
             'status' => 1,
             'level' => $request->input('level'),
             'participants' => $request->input('participants'),
-            'part' => $request->input('participants'),
+            'part' => 0,
             'assistance' => $request->input('assistance')
         ));
 

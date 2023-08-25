@@ -11,19 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('workshops', function (Blueprint $table) {
+        Schema::create('presentations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nameu');
-            $table->string('title');
-            $table->string('activity');
+            $table->foreignId('pro_users')->constrained('projects_users');
             $table->date('date');
             $table->time('hour');
             $table->string('site');
-            $table->boolean('status');
-            $table->string('level');
+            $table->string('assistance');
             $table->integer('participants');
             $table->integer('part');
-            $table->string('assistance');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('workshops');
+        Schema::dropIfExists('presentations');
     }
 };

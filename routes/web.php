@@ -57,12 +57,12 @@ Route::get('/', function () {
 Route::get('registroPonente', function () {
     return view('usuarios.registro');
 })->name('registroPonente');
-// Route::get('registroGeneral', function () {
-//     return view('usuarios.registroG');
-// })->name('registroGeneral');
-// Route::get('registroInvitado', function () {
-//     return view('usuarios.registroInvitado');
-// })->name('registroInvitado');
+Route::get('registroGeneral', function () {
+    return view('usuarios.registroG');
+})->name('registroGeneral');
+Route::get('registroInvitado', function () {
+    return view('usuarios.registroInvitado');
+})->name('registroInvitado');
 Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
 //===================================================================
 

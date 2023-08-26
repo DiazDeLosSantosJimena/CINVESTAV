@@ -330,7 +330,7 @@ class ProjectsController extends Controller
             'titulo.required' => 'El título es obligatorio.',
             'eje.required' => 'Seleccione al menos 1 eje tematico.',
             'modality.required' => 'Seleccione una de las modalidades de participación.',
-            'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
+            // 'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
             //'inst_pro.required' => 'Ingrese el instituto de procedencia.',
         ];
 
@@ -338,7 +338,7 @@ class ProjectsController extends Controller
             'titulo' => ['required', 'string', 'max:255'],
             'eje' => ['required', 'string'],
             'modality' => ['required', 'string'],
-            'g-recaptcha-response' => ['required'],
+            // 'g-recaptcha-response' => ['required'],
             //'inst_pro' => ['required', 'string', 'max:255'],
         ], $messages);
 

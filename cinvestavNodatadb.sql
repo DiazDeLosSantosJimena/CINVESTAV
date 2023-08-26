@@ -116,7 +116,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
@@ -132,7 +132,9 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (9,'2023_07_02_231805_create_authors_table',1),
 (10,'2023_07_03_231205_create_evaluations_table',1),
 (11,'2023_07_13_194133_create_workshops_table',1),
-(12,'2023_07_13_194225_create_workshopattendances_table',1);
+(12,'2023_07_13_194225_create_workshopattendances_table',1),
+(13,'2023_07_21_175904_create_presentations_table',1),
+(14,'2023_07_21_181432_create_preattendances_table',1);
 
 /*Table structure for table `password_reset_tokens` */
 
@@ -169,12 +171,55 @@ CREATE TABLE `personal_access_tokens` (
 
 /*Data for the table `personal_access_tokens` */
 
+/*Table structure for table `preattendances` */
+
+DROP TABLE IF EXISTS `preattendances`;
+
+CREATE TABLE `preattendances` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `presentation_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `preattendances_presentation_id_foreign` (`presentation_id`),
+  KEY `preattendances_user_id_foreign` (`user_id`),
+  CONSTRAINT `preattendances_presentation_id_foreign` FOREIGN KEY (`presentation_id`) REFERENCES `presentations` (`id`),
+  CONSTRAINT `preattendances_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `preattendances` */
+
+/*Table structure for table `presentations` */
+
+DROP TABLE IF EXISTS `presentations`;
+
+CREATE TABLE `presentations` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `pro_users` bigint(20) unsigned NOT NULL,
+  `date` date NOT NULL,
+  `hour` time NOT NULL,
+  `site` varchar(255) NOT NULL,
+  `assistance` varchar(255) NOT NULL,
+  `participants` int(11) NOT NULL,
+  `part` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `presentations_pro_users_foreign` (`pro_users`),
+  CONSTRAINT `presentations_pro_users_foreign` FOREIGN KEY (`pro_users`) REFERENCES `projects_users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `presentations` */
+
 /*Table structure for table `projects` */
 
 DROP TABLE IF EXISTS `projects`;
 
 CREATE TABLE `projects` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `tracking_key` varchar(255) DEFAULT NULL,
   `modality` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `thematic_area` varchar(255) NOT NULL,
@@ -220,11 +265,11 @@ CREATE TABLE `roles` (
 /*Data for the table `roles` */
 
 insert  into `roles`(`id`,`name`,`created_at`,`updated_at`) values 
-(1,'admin','2023-08-21 23:39:34','2023-08-21 23:39:34'),
-(2,'evaluador','2023-08-21 23:39:34','2023-08-21 23:39:34'),
-(3,'postulante','2023-08-21 23:39:34','2023-08-21 23:39:34'),
-(4,'Público General','2023-08-21 23:39:34','2023-08-21 23:39:34'),
-(5,'Invitado Especial','2023-08-21 23:39:34','2023-08-21 23:39:34');
+(1,'admin','2023-08-25 18:39:11','2023-08-25 18:39:11'),
+(2,'evaluador','2023-08-25 18:39:11','2023-08-25 18:39:11'),
+(3,'postulante','2023-08-25 18:39:11','2023-08-25 18:39:11'),
+(4,'Público General','2023-08-25 18:39:11','2023-08-25 18:39:11'),
+(5,'Invitado Especial','2023-08-25 18:39:11','2023-08-25 18:39:11');
 
 /*Table structure for table `users` */
 
@@ -258,13 +303,13 @@ CREATE TABLE `users` (
 /*Data for the table `users` */
 
 insert  into `users`(`id`,`name`,`app`,`apm`,`photo`,`alternative_contact`,`email`,`email_verified_at`,`password`,`phone`,`country`,`state`,`municipality`,`rol_id`,`deleted_at`,`remember_token`,`created_at`,`updated_at`) values 
-(1,'Admin','-','CINVESTAV','default.jpg','Mtro','admin@cinvestav.com',NULL,'$2y$10$fJutfHudSlKmXclxYfl2seiynoTDobHvDZOVZ9aUCDQO3FroOt1eK','0000000000','México','México','Toluca',1,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34'),
-(2,'Admin2','-','CINVESTAV','default.jpg','Mtro','edu@cinvestav.com',NULL,'$2y$10$VqmQwrkwZeurC0Dj6X7TQuBWjZu8ljOugTnL1ao5NGykzBDjOL2bG','0000000000','México','México','Toluca',1,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34'),
-(3,'Juez 1','-','CINVESTAV','default.jpg','Mtro','juez1@cinvestav.com',NULL,'$2y$10$aXWK0a6LifLShgahs3tJhuAZqjOI2RsfxEdsSDLO8XjiiKHPQFKIS','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34'),
-(4,'Juez 2','-','CINVESTAV','default.jpg','Mtro','juez2@cinvestav.com',NULL,'$2y$10$rhUMzXEUF0ZVPhncKDBd3uPGkbJDgyBM1gNL2SvWS9CCe7X5z8m5S','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34'),
-(5,'Juez 3','-','CINVESTAV','default.jpg','Mtro','juez3@cinvestav.com',NULL,'$2y$10$WQokE.dol1olUkfDunzJzefKfzOLtu7tkUV979M.aSy2shwLZdAl6','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34'),
-(6,'Ponente','-','CINVESTAV','default.jpg','contact@cinvestav.com','user@cinvestav.com',NULL,'$2y$10$y4hBTh71MEbtEQj7eu1gb.77eLgTaidyswJ.Uv6KBr6dTogPYHmvS','0000000000','México','México','Toluca',3,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34'),
-(7,'Publico General','-','CINVESTAV','default.jpg','contact@cinvestav.com','publico@cinvestav.com',NULL,'$2y$10$LdF6rzcIWHERBRE69Q6kteAbgtKJIDCdyRTGx8I.Nfx9Ft95MebiO','0000000000','México','México','Toluca',4,NULL,NULL,'2023-08-21 23:39:34','2023-08-21 23:39:34');
+(1,'Admin','-','CINVESTAV','default.jpg','Mtro','admin@cinvestav.com',NULL,'$2y$10$wphOfSZz3MXgqi/jTMSUcuY944HcbhI4yj83iHDuxBBMSSzuZdqqi','0000000000','México','México','Toluca',1,NULL,NULL,'2023-08-25 18:39:11','2023-08-25 18:39:11'),
+(2,'Admin2','-','CINVESTAV','default.jpg','Mtro','edu@cinvestav.com',NULL,'$2y$10$gP8TofUrJ1x9m1bvc4yFTuZlRsHeZOq70IHe.DV0GAkgxtsbJXtLG','0000000000','México','México','Toluca',1,NULL,NULL,'2023-08-25 18:39:11','2023-08-25 18:39:11'),
+(3,'Juez 1','-','CINVESTAV','default.jpg','Mtro','juez1@cinvestav.com',NULL,'$2y$10$bJdlT0K9hMUSBX7toSB7/e22y4eDX5LqyJkmYx6EMMUNtqsIol2TG','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-25 18:39:11','2023-08-25 18:39:11'),
+(4,'Juez 2','-','CINVESTAV','default.jpg','Mtro','juez2@cinvestav.com',NULL,'$2y$10$oDvQLfw8LrzHfb/vWUAFLuK9ndn60MGjXr2PesF3HNvAQEImsRNRa','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-25 18:39:11','2023-08-25 18:39:11'),
+(5,'Juez 3','-','CINVESTAV','default.jpg','Mtro','juez3@cinvestav.com',NULL,'$2y$10$vj0w8FxgaFcfYTvmBpMJV.d90jQzyzT9c9lqU1PKK4NEl9eH8DXyu','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-25 18:39:11','2023-08-25 18:39:11'),
+(6,'Ponente','-','CINVESTAV','default.jpg','contact@cinvestav.com','user@cinvestav.com',NULL,'$2y$10$WivG4yLHsMCH05FPsCkqxOhkgTT7N4DqYVA.Pzz6nT/8.MBLCkxJe','0000000000','México','México','Toluca',3,NULL,NULL,'2023-08-25 18:39:11','2023-08-25 18:39:11'),
+(7,'Publico General','-','CINVESTAV','default.jpg','contact@cinvestav.com','publico@cinvestav.com',NULL,'$2y$10$b1bviKpVpsZ2slTKwDVAieXqL8BMTmIKOGAOthQQ9wc0lCUq3W7q.','0000000000','México','México','Toluca',4,NULL,NULL,'2023-08-25 18:39:12','2023-08-25 18:39:12');
 
 /*Table structure for table `workshopattendances` */
 
@@ -291,12 +336,17 @@ DROP TABLE IF EXISTS `workshops`;
 
 CREATE TABLE `workshops` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `nameu` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
   `activity` varchar(255) NOT NULL,
   `date` date NOT NULL,
   `hour` time NOT NULL,
   `site` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL,
+  `level` varchar(255) NOT NULL,
+  `participants` int(11) NOT NULL,
+  `part` int(11) NOT NULL,
+  `assistance` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)

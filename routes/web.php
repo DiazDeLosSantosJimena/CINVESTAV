@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('authors', AuthorsController::class);
     Route::resource('evaluacion', EvaluationsController::class);
     //---------------------TALLERES-------------------------------------------
-    Route::resource('taller', WorkshopsController::class);
+    Route::resource('taller', WorkshopsController::class)->middleware('admin');
     Route::name('editTaller')->put('editTaller/{id}', [WorkshopsController::class, 'edit']);
 
     Route::resource('presentation', PresentationsController::class);

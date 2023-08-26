@@ -169,7 +169,7 @@ class ProjectsController extends Controller
             'extenso.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
             'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
             'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
-            //'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
+            'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
         ];
         if ($request->modality === 'P') {
             $request->validate([
@@ -178,7 +178,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:docx', 'max:1024'],
-                //'g-recaptcha-response' => ['required'],
+                'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             ], $messages);
 
@@ -194,7 +194,7 @@ class ProjectsController extends Controller
                 'extenso.required' => 'Suba el archivo requerido.',
                 'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato (.jpg) indicado.',
                 'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
-                //'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
+                'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
             ];
             $request->validate([
                 'titulo' => ['required', 'string', 'max:255'],
@@ -202,7 +202,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file', 'mimes:docx', 'max:1024'],
                 'extenso' => ['required', 'file', 'mimes:jpg', 'max:2048'],
-                //'g-recaptcha-response' => ['required'],
+                'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             ], $messages);
 
@@ -214,7 +214,7 @@ class ProjectsController extends Controller
                 'modality' => ['required', 'string'],
                 'resumen' => ['required', 'file'],
                 'extenso' => ['required', 'file'],
-                //'g-recaptcha-response' => ['required'],
+                'g-recaptcha-response' => ['required'],
             ], $messages);
             $follow_key = "pro-". date('Ymd');
         }
@@ -330,7 +330,7 @@ class ProjectsController extends Controller
             'titulo.required' => 'El título es obligatorio.',
             'eje.required' => 'Seleccione al menos 1 eje tematico.',
             'modality.required' => 'Seleccione una de las modalidades de participación.',
-            // 'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
+            'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
             //'inst_pro.required' => 'Ingrese el instituto de procedencia.',
         ];
 
@@ -338,7 +338,7 @@ class ProjectsController extends Controller
             'titulo' => ['required', 'string', 'max:255'],
             'eje' => ['required', 'string'],
             'modality' => ['required', 'string'],
-            // 'g-recaptcha-response' => ['required'],
+            'g-recaptcha-response' => ['required'],
             //'inst_pro' => ['required', 'string', 'max:255'],
         ], $messages);
 

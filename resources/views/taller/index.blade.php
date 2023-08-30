@@ -30,6 +30,7 @@
                             <tr>
                                 <th class="text-center" scope="col">Nombre del Taller</th>
                                 <th scope="col" class="text-center">Presentadores</th>
+                                <th scope="col" class="text-center">Actividad</th>
                                 <th scope="col" class="text-center">Fecha</th>
                                 <th scope="col" class="text-center">Hora</th>
                                 <th scope="col" class="text-center" colspan="3">Acciones</th>
@@ -40,6 +41,17 @@
                             <tr>
                                 <td class="text-center">{{$info->title}}</td>
                                 <td class="text-center">{{$info->nameu}}</td>
+                                <td class="text-center">
+                                    @if($info->activity == 1)
+                                    Conferencias Magistrales
+                                    @elseif($info->activity == 2)
+                                    Conferencias Especiales
+                                    @elseif($info->activity == 3)
+                                    Grupos Temáticos
+                                    @else
+                                    Talleres
+                                    @endif
+                                </td>
                                 <td class="text-center">{{$info->date}}</td>
                                 <td class="text-center">{{$info->hour}}</td>
                                 <td class="text-center">

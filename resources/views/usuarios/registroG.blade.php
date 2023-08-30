@@ -147,7 +147,7 @@
             <div class="col-6">
                 <div class="mb-3">
                     <label for="tel" class="form-label">Otro medio de contacto:</label> <label for="tel" class="text-danger">*</label>
-                    <input type="text" class="form-control" name="alternative_contact" id="academic_degree" placeholder="Ingrese su grado academico" value="{{ old('academic_degree') }}">
+                    <input type="text" class="form-control" name="alternative_contact" id="academic_degree" placeholder="Correo/Celular" value="{{ old('academic_degree') }}">
                 </div>
                 @error('alternative_contact')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">

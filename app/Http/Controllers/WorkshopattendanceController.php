@@ -31,6 +31,7 @@ class WorkshopattendanceController extends Controller
 
         $talleres = Workshops::where('activity', $opcion)
         ->where('participants', '>', DB::raw('part'))
+        ->where('status', 1)
         ->get(['id', 'nameu', 'title', 'date', 'hour', 'site', 'participants', 'assistance']);
     
 

@@ -169,6 +169,21 @@ class UsersController extends Controller
     }
 
     public function salvarPonente(User $id, Request $request) {
+        if($request->input('password') != null || $request->input('password_current') != null){
+            $messages = [
+                'password.required' => 'Los campos no coinciden.',
+                'password_current.required' => 'Los campos no coinciden.',
+                'password_current.same' => 'Los campos no coinciden.',
+            ];
+            $request->validate([
+                'password' => ['required', 'max:255'],
+                'password_current' => 'required|same:password',
+            ], $messages);
+
+            $passValidate = true;
+        }else{
+            $passValidate = false;
+        }
         $messages = [
             'name.required' => 'Es necesario colocar un nombre.',
             'app.required' => 'Es necesario colocar el primer apellido.',
@@ -200,6 +215,9 @@ class UsersController extends Controller
         $query->country = trim($request->country);
         $query->state = trim($request->state);
         $query->municipality = trim($request->municipality);
+        if($passValidate == true){
+            $query->password = Hash::make(trim($request->password));
+        }
 
         $query->save();
 

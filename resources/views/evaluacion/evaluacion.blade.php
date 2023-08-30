@@ -135,7 +135,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select c1" aria-label="Default select example" name="c1">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c1') == $i ? 'selected' : ''}}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>
@@ -151,7 +151,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select c2" aria-label="Default select example" name="c2">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c2') == $i ? 'selected' : ''}}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>
@@ -167,7 +167,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select c3" aria-label="Default select example" name="c3">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c3') == $i ? 'selected' : ''}}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>
@@ -183,7 +183,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select c4" aria-label="Default select example" name="c4">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c4') == $i ? 'selected' : ''}}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>
@@ -199,7 +199,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select c5" aria-label="Default select example" name="c5">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c5') == $i ? 'selected' : ''}}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>
@@ -215,7 +215,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select c6" aria-label="Default select example" name="c6">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c6') == $i ? 'selected' : ''}}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>
@@ -231,7 +231,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select c7" aria-label="Default select example" name="c7">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c7') == $i ? 'selected' : ''}}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>
@@ -247,7 +247,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select c8 " aria-label="Default select example" name="c8">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c8') == $i ? 'selected' : ''}}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>
@@ -263,7 +263,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select c9" aria-label="Default select example" name="c9">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c9') == $i ? 'selected' : ''}}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>
@@ -279,7 +279,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select c10" aria-label="Default select example" name="c10">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c10') == $i ? 'selected' : ''}}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>
@@ -295,7 +295,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select c11" aria-label="Default select example" name="c11">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c11') == $i ? 'selected' : ''}}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>
@@ -311,7 +311,7 @@
                                     <td>
                                         <div class="calif indicador" role="alert">
                                             <select class="form-select c12" aria-label="Default select example" name="c12">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}" {{ old('c12') == $i ? 'selected' : ''}}>{{$i}}</option>
                                                     @endfor
                                             </select>
                                         </div>
@@ -371,7 +371,6 @@
                                     </div>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td>
                                     <div class="criterios2" role="alert">
@@ -389,7 +388,15 @@
                                     </div>
                                 </td>
                             </tr>
-
+                            @error('criterio')
+                            <tr>
+                                <td>
+                                    <label class="form-check-label text-danger" for="flexRadioDefault1">
+                                        {{ $message }}
+                                    </label>
+                                </td>
+                            </tr>
+                            @enderror
                             <tr class="align-middle table-group-divider">
                             <tr>
                                 <td colspan="3">
@@ -400,9 +407,13 @@
                             </tr>
                             <td colspan="3">
                                 <textarea class="form-control" placeholder="Deje su comentario aqui" id="comentario" style="height: 100px" name="comentario"></textarea>
+                                @error('comentario')
+                                <label class="form-check-label text-danger" for="flexRadioDefault1">
+                                    {{ $message }}
+                                </label>
+                                @enderror
                             </td>
                         </table>
-
                 </div>
                 <div class="col d-flex justify-content-end">
                     <button type="submit" class="btn btn-success">Calificar</button>

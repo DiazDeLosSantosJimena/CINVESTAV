@@ -62,7 +62,7 @@
                     </div>
                     <div class="d-grid mt-2">
                         <!-- <button id="captchalogin" type="submit" class="btn btn-outline-primary g-recaptcha" data-sitekey="6LcSYHcnAAAAAKKbYvQhXhQtN3evu7yxowlNSW04" data-callback='onSubmit' data-action='submit'>Iniciar Sesión</button> -->
-                        <button id="captchalogin" type="submit" class="btn btn-outline-primary" data-sitekey="6LcSYHcnAAAAAKKbYvQhXhQtN3evu7yxowlNSW04" data-callback='onSubmit' data-action='submit'>Iniciar Sesión</button>
+                        <button id="botonLogin" type="submit" class="btn btn-outline-primary">Iniciar Sesión</button>
                     </div>
                     <div class="form-group text-center mt-3">
                         <a href="{{route('forgotpass')}}">Olvide mi contraseña</a>
@@ -81,6 +81,26 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const captchaLoginButton = document.getElementById('botonLogin');
+            let submitting = false;
+
+            captchaLoginButton.addEventListener('click', function(event) {
+                if (document.querySelector('#email').value != "" && document.querySelector('#password').value != "") {
+                    if (!submitting) {
+                        submitting = true;
+                        captchaLoginButton.disabled = true;
+                        captchaLoginButton.innerHTML = 'Iniciando sesión...';
+                    } else {
+                        event.preventDefault(); // Evita el envío del formulario si ya está deshabilitado
+                    }
+                }else{
+                    
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

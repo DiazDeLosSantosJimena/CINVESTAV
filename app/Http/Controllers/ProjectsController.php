@@ -115,10 +115,6 @@ class ProjectsController extends Controller
 
     public function pagoCreate(Request $request, $id)
     {
-        $project = Projects::find($id);
-        $project->status = "4";
-        $project->save();
-
         $messages = [
             'pago.required' => 'Suba el archivo requerido.',
             'pago.max' => 'Sobrepasa el tamaño establecido, por favor ingrese el documento con el tamaño especificado.',
@@ -137,6 +133,23 @@ class ProjectsController extends Controller
         $archive3->save();
 
         return redirect()->route('proyectos.index')->with('status', 'Formato de Pago subido con exito!');
+    }
+
+    public function statusPago(Request $request, $id) {
+        // dd($request->all());
+        $message = [
+            'verify.required' => 'Es necesario marcar la casilla para poder registrar el formato de pago.',
+        ];
+
+        $request->validate([
+            'verify' => ['required']
+        ], $message);
+        
+        $project = Projects::find($id);
+        $project->status = "4";
+        $project->save();
+
+        return redirect()->route('proyectos.index')->with('status', 'Formato de Pago registrado con exito!');;
     }
 
     /**
@@ -168,6 +181,8 @@ class ProjectsController extends Controller
                 'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             ], $messages);
+
+            $follow_key = "pon-". date('Ymd');
         } else if ($request->modality === 'C') {
             $messages = [
                 'titulo.required' => 'El título es obligatorio.',
@@ -179,7 +194,7 @@ class ProjectsController extends Controller
                 'extenso.required' => 'Suba el archivo requerido.',
                 'extenso.mimes' => 'Formato de archivo incorrecto, por favor suba el formato (.jpg) indicado.',
                 'pago.mimes' => 'Formato de archivo incorrecto, por favor suba el formato indicado.',
-                //'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
+                'g-recaptcha-response' => 'Error en el captcha, favor de resolverlo nuevamente.',
             ];
             $request->validate([
                 'titulo' => ['required', 'string', 'max:255'],
@@ -190,6 +205,8 @@ class ProjectsController extends Controller
                 'g-recaptcha-response' => ['required'],
                 //'pago' => ['required', 'file', 'mimes:pdf', 'max:2048'],
             ], $messages);
+
+            $follow_key = "car-". date('Ymd');
         } else {
             $request->validate([
                 'titulo' => ['required', 'string', 'max:255'],
@@ -199,6 +216,7 @@ class ProjectsController extends Controller
                 'extenso' => ['required', 'file'],
                 'g-recaptcha-response' => ['required'],
             ], $messages);
+            $follow_key = "pro-". date('Ymd');
         }
 
         $proyect = Projects::create([
@@ -208,6 +226,9 @@ class ProjectsController extends Controller
             //'sending_institution' => $request->inst_pro,
             'status' => 1
         ]);
+
+        $proyect->tracking_key = $follow_key."-".$proyect->id;
+
         $proyect->save();
 
         $registro = $request->input('registroA');
@@ -461,7 +482,7 @@ class ProjectsController extends Controller
     {
         //$proyect = ProjectsUsers::with('user', 'projects')->where('project_id', $id)->first();
         //$proyect = Projects::all();
-        $proyect = \DB::SELECT('SELECT users.name, users.app, users.apm, users.alternative_contact, users.photo, users.phone, users.email, users.country, users.state, users.municipality, pro.title, pro.modality, pro.thematic_area
+        $proyect = \DB::SELECT('SELECT users.name, users.app, users.apm, users.alternative_contact, users.photo, users.phone, users.email, users.country, users.state, users.municipality, pro.title, pro.modality, pro.thematic_area, pro.tracking_key
         FROM projects_users AS proUser
             JOIN users ON users.id = proUser.user_id
             JOIN projects AS pro ON pro.id = proUser.project_id
@@ -470,6 +491,7 @@ class ProjectsController extends Controller
         $authors = Authors::where('project_id', $id)->get();
 
         $pdf = PDF::loadView('Documentos.pdf', ['proyect' => $proyect, 'authors' => $authors]);
+        $pdf->set_paper('A4', 'landscape');
         // return view ('Documentos.pdf', compact('Projects'));
         //----------Visualizar el PDF ------------------
         return $pdf->stream();

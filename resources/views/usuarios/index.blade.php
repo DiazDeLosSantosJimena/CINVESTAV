@@ -110,7 +110,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Institucion</th>
+                                        <th>Apellidos</th>
                                         <th>Titulo academico</th>
                                         <th>Email</th>
                                         <th>Proyecto</th>
@@ -153,7 +153,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Institucion</th>
+                                        <th>Apellidos</th>
                                         <th>Titulo academico</th>
                                         <th>Email</th>
                                         <th>Teléfono</th>
@@ -169,7 +169,7 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $usuario->name}}</td>
-                                        <td>{{ $usuario->apm}}</td>
+                                        <td>{{ $usuario->app .' '. $usuario->apm}}</td>
                                         <td>{{ $usuario->alternative_contact}}</td>
                                         <td>{{ $usuario->email}}</td>
                                         <td>{{ $usuario->phone}}</td>

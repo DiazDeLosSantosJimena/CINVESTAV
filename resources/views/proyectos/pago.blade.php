@@ -27,11 +27,11 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="bd-callout bd-callout-info">
-                <p class="mx-3">A continuación ingrese el documento del formato de pago correspondiente, según lo indicado por correo electrónico. Una vez subido el formato de pago, por favor continúe con el proceso indicado. En caso de no haber recibido ningun correo con las indicaciónes sobre el formato de pago por favor mande un correo a: soporte.encuentro.eical@gmail.com</p>
+                <p class="mx-3">A continuación ingrese el documento del formato de pago correspondiente, según lo indicado por correo electrónico. Una vez subido el formato de pago, por favor continúe con el proceso indicado. En caso de no haber recibido ningun correo con las indicaciónes sobre el formato de pago por favor mande un correo a: <strong>soporte.encuentro.eical@gmail.com</strong></p>
             </div>
         </div>
         <div class="col-12 mb-3 text-center">
-            <a href="{{ Storage::url('proposals/Detalles_del_Pago_Ponente.pdf') }}" type="button" class="btn btn-lg" style="background-color: #0178a0; color: white;">
+            <a href="{{ route('pdf', $project->id )}}" type="button" class="btn btn-lg" style="background-color: #0178a0; color: white;">
                 Detalles del Pago
             </a>
         </div>

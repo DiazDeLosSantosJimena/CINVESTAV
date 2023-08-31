@@ -26,18 +26,27 @@ CREATE TABLE `authors` (
   `name` varchar(50) NOT NULL,
   `app` varchar(50) NOT NULL,
   `apm` varchar(50) NOT NULL,
-  `academic_degree` varchar(255) NOT NULL,
+  `institution_of_origin` varchar(255) NOT NULL,
+  `state` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `authors_project_id_foreign` (`project_id`),
   CONSTRAINT `authors_project_id_foreign` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `authors` */
 
-insert  into `authors`(`id`,`project_id`,`name`,`app`,`apm`,`academic_degree`,`created_at`,`updated_at`) values 
-(1,1,'Autor 1','-','CINVESTAV','CINVESTAV','2023-07-24 17:27:46','2023-07-24 17:27:46');
+insert  into `authors`(`id`,`project_id`,`name`,`app`,`apm`,`institution_of_origin`,`state`,`created_at`,`updated_at`) values 
+(1,1,'Autor 1','Ponencia','CINVESTAV','Universidad Tecnológica del Valle de Toluca','México','2023-08-22 15:49:49','2023-08-22 15:49:49'),
+(2,1,'Autor 2','Ponencia','CINVESTAV','Instituto Politécnico Nacional','México','2023-08-22 15:49:49','2023-08-22 15:49:49'),
+(3,1,'Autor 3','Ponencia','CINVESTAV','Universidad Autonoma del Estado de México','México','2023-08-22 15:49:49','2023-08-22 15:49:49'),
+(4,2,'Autor 1','CARTEL','CINVESTAV','Universidad Tecnológica del Valle de Toluca','México','2023-08-22 15:52:03','2023-08-22 15:52:03'),
+(5,2,'Autor 2','CARTEL','CINVESTAV','Instituto Politécnico Nacional','México','2023-08-22 15:52:03','2023-08-22 15:52:03'),
+(6,2,'Autor 3','CARTEL','CINVESTAV','Universidad Autonoma del Estado de México','México','2023-08-22 15:52:03','2023-08-22 15:52:03'),
+(10,3,'Autor 1','-','CINVESTAV','Instituto Politécnico Nacional','México','2023-08-25 13:21:44','2023-08-25 13:21:44'),
+(11,3,'Autor 2','-','CINVESTAV','Universidad Autonoma del Estado de México','México','2023-08-25 13:21:44','2023-08-25 13:21:44'),
+(12,4,'Autor 1','-','CINVESTAV','Universidad Autónoma de la Ciudad de México','México','2023-08-25 13:22:04','2023-08-25 13:22:04');
 
 /*Table structure for table `evaluations` */
 
@@ -73,9 +82,9 @@ CREATE TABLE `evaluations` (
 /*Data for the table `evaluations` */
 
 insert  into `evaluations`(`id`,`user_id`,`project_user`,`title`,`extension`,`key_words`,`abstract_keywords`,`problematic`,`theoretical`,`methodology`,`proposal`,`results`,`APA_table`,`APA_references`,`format`,`status`,`comment`,`created_at`,`updated_at`) values 
-(1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,'A','A','2023-07-24 17:28:37','2023-07-24 17:31:04'),
-(2,4,1,1,1,1,1,1,1,1,1,1,1,1,1,'A','A','2023-07-24 17:28:49','2023-07-24 17:38:17'),
-(3,5,1,1,1,1,1,1,1,1,1,1,1,1,1,'A','A','2023-07-24 17:28:58','2023-07-24 17:42:55');
+(1,3,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2023-08-25 13:33:39','2023-08-25 13:33:39'),
+(2,4,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2023-08-25 13:33:47','2023-08-25 13:33:47'),
+(3,5,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2023-08-25 13:33:56','2023-08-25 13:33:56');
 
 /*Table structure for table `failed_jobs` */
 
@@ -110,14 +119,19 @@ CREATE TABLE `files` (
   PRIMARY KEY (`id`),
   KEY `files_project_id_foreign` (`project_id`),
   CONSTRAINT `files_project_id_foreign` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `files` */
 
 insert  into `files`(`id`,`project_id`,`name`,`type`,`archive`,`created_at`,`updated_at`) values 
-(1,1,'proposals/1_2023-07-24_Formato-Resumen-ponencia-EICAL-14.docx','docx',1,'2023-07-24 17:27:46','2023-07-24 17:27:46'),
-(2,1,'proposals/1_2023-07-24_Formato-extenso-evaluacion-EICAL-14.docx','docx',2,'2023-07-24 17:27:46','2023-07-24 17:27:46'),
-(3,1,'proposals/1_2023-07-24_Formato de Pago Universal.pdf','pdf',3,'2023-07-24 17:28:22','2023-07-24 17:28:22');
+(1,1,'proposals/1_2023-08-22_Formato-Resumen-ponencia-EICAL-14.docx','docx',1,'2023-08-22 15:49:49','2023-08-22 15:49:49'),
+(2,1,'proposals/1_2023-08-22_Formato-extenso-evaluacion-EICAL-14.docx','docx',2,'2023-08-22 15:49:49','2023-08-22 15:49:49'),
+(3,2,'proposals/2_2023-08-22_Formato-CARTEL-EICAL-14.docx','docx',1,'2023-08-22 15:52:03','2023-08-22 15:52:03'),
+(4,2,'proposals/2_2023-08-22_art.jpg','jpg',2,'2023-08-22 15:52:03','2023-08-22 15:52:03'),
+(5,3,'proposals/3_2023-08-25_Formato-Resumen-ponencia-EICAL-14.docx','docx',1,'2023-08-25 13:15:51','2023-08-25 13:15:51'),
+(6,3,'proposals/3_2023-08-25_Formato-CARTEL-EICAL-14.docx','docx',2,'2023-08-25 13:15:51','2023-08-25 13:15:51'),
+(7,4,'proposals/4_2023-08-25_Formato-CARTEL-EICAL-14.docx','docx',1,'2023-08-25 13:20:38','2023-08-25 13:20:38'),
+(8,4,'proposals/4_2023-08-25_art.jpg','jpg',2,'2023-08-25 13:20:38','2023-08-25 13:20:38');
 
 /*Table structure for table `migrations` */
 
@@ -128,7 +142,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
@@ -144,7 +158,9 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (9,'2023_07_02_231805_create_authors_table',1),
 (10,'2023_07_03_231205_create_evaluations_table',1),
 (11,'2023_07_13_194133_create_workshops_table',1),
-(12,'2023_07_13_194225_create_workshopattendances_table',1);
+(12,'2023_07_13_194225_create_workshopattendances_table',1),
+(13,'2023_07_21_175904_create_presentations_table',1),
+(14,'2023_07_21_181432_create_preattendances_table',1);
 
 /*Table structure for table `password_reset_tokens` */
 
@@ -181,26 +197,71 @@ CREATE TABLE `personal_access_tokens` (
 
 /*Data for the table `personal_access_tokens` */
 
+/*Table structure for table `preattendances` */
+
+DROP TABLE IF EXISTS `preattendances`;
+
+CREATE TABLE `preattendances` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `presentation_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `preattendances_presentation_id_foreign` (`presentation_id`),
+  KEY `preattendances_user_id_foreign` (`user_id`),
+  CONSTRAINT `preattendances_presentation_id_foreign` FOREIGN KEY (`presentation_id`) REFERENCES `presentations` (`id`),
+  CONSTRAINT `preattendances_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `preattendances` */
+
+/*Table structure for table `presentations` */
+
+DROP TABLE IF EXISTS `presentations`;
+
+CREATE TABLE `presentations` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `pro_users` bigint(20) unsigned NOT NULL,
+  `date` date NOT NULL,
+  `hour` time NOT NULL,
+  `site` varchar(255) NOT NULL,
+  `assistance` varchar(255) NOT NULL,
+  `participants` int(11) NOT NULL,
+  `part` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `presentations_pro_users_foreign` (`pro_users`),
+  CONSTRAINT `presentations_pro_users_foreign` FOREIGN KEY (`pro_users`) REFERENCES `projects_users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `presentations` */
+
 /*Table structure for table `projects` */
 
 DROP TABLE IF EXISTS `projects`;
 
 CREATE TABLE `projects` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `tracking_key` varchar(255) DEFAULT NULL,
   `modality` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `thematic_area` varchar(255) NOT NULL,
-  `sending_institution` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `projects` */
 
-insert  into `projects`(`id`,`modality`,`title`,`thematic_area`,`sending_institution`,`status`,`created_at`,`updated_at`) values 
-(1,'P','CINVESTAV','STEM','Universidad Tecnológica del Valle de Toluca',3,'2023-07-24 17:27:45','2023-07-24 17:39:59');
+insert  into `projects`(`id`,`tracking_key`,`modality`,`title`,`thematic_area`,`status`,`created_at`,`updated_at`) values 
+(1,'pon-20230822-1','P','CINVESTAV - Ponencia','HM',1,'2023-08-22 15:49:49','2023-08-22 15:49:49'),
+(2,'car-20230822-2','C','CINVESTAV CARTEL','P',1,'2023-08-22 15:52:03','2023-08-25 13:33:19'),
+(3,'pon-20230825-3','P','CINVESTAV PRUEBA UT - Ponencia','B',1,'2023-08-25 13:15:51','2023-08-25 13:21:44'),
+(4,'car-20230825-4','C','CINVESTAV PRUEBA UT - CARTEL','STEM',1,'2023-08-25 13:20:38','2023-08-25 13:22:04');
 
 /*Table structure for table `projects_users` */
 
@@ -217,12 +278,15 @@ CREATE TABLE `projects_users` (
   KEY `projects_users_user_id_foreign` (`user_id`),
   CONSTRAINT `projects_users_project_id_foreign` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`),
   CONSTRAINT `projects_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `projects_users` */
 
 insert  into `projects_users`(`id`,`project_id`,`user_id`,`created_at`,`updated_at`) values 
-(1,1,6,'2023-07-24 17:27:46','2023-07-24 17:27:46');
+(1,1,6,'2023-08-22 15:49:49','2023-08-22 15:49:49'),
+(2,2,6,'2023-08-22 15:52:03','2023-08-22 15:52:03'),
+(3,3,6,'2023-08-25 13:15:51','2023-08-25 13:15:51'),
+(4,4,6,'2023-08-25 13:20:38','2023-08-25 13:20:38');
 
 /*Table structure for table `roles` */
 
@@ -239,11 +303,11 @@ CREATE TABLE `roles` (
 /*Data for the table `roles` */
 
 insert  into `roles`(`id`,`name`,`created_at`,`updated_at`) values 
-(1,'admin','2023-07-24 17:27:01','2023-07-24 17:27:01'),
-(2,'evaluador','2023-07-24 17:27:01','2023-07-24 17:27:01'),
-(3,'postulante','2023-07-24 17:27:01','2023-07-24 17:27:01'),
-(4,'Público General','2023-07-24 17:27:01','2023-07-24 17:27:01'),
-(5,'Invitado Especial','2023-07-24 17:27:01','2023-07-24 17:27:01');
+(1,'admin','2023-08-24 23:55:29','2023-08-24 23:55:29'),
+(2,'evaluador','2023-08-24 23:55:29','2023-08-24 23:55:29'),
+(3,'postulante','2023-08-24 23:55:29','2023-08-24 23:55:29'),
+(4,'Público General','2023-08-24 23:55:29','2023-08-24 23:55:29'),
+(5,'Invitado Especial','2023-08-24 23:55:29','2023-08-24 23:55:29');
 
 /*Table structure for table `users` */
 
@@ -255,7 +319,7 @@ CREATE TABLE `users` (
   `app` varchar(50) NOT NULL,
   `apm` varchar(50) DEFAULT NULL,
   `photo` text DEFAULT NULL,
-  `academic_degree` varchar(255) NOT NULL,
+  `alternative_contact` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -272,18 +336,20 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_email_unique` (`email`),
   KEY `users_rol_id_foreign` (`rol_id`),
   CONSTRAINT `users_rol_id_foreign` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`app`,`apm`,`photo`,`academic_degree`,`email`,`email_verified_at`,`password`,`phone`,`country`,`state`,`municipality`,`rol_id`,`deleted_at`,`remember_token`,`created_at`,`updated_at`) values 
-(1,'Admin','-','CINVESTAV','default.jpg','Mr','admin@cinvestav.com',NULL,'$2y$10$0JB2R2d8jHoI24dtAlNstOZ3RNbDaOBvBMyOyAtJrTECm5Z8TR9zi','0000000000','México','México','Toluca',1,NULL,NULL,'2023-07-24 17:27:02','2023-07-24 17:27:02'),
-(2,'Admin2','-','CINVESTAV','default.jpg','Mr','edu@cinvestav.com',NULL,'$2y$10$JskhlkhNPwHY0nPss/5gkeTbaLzbUjWpaQAD7saqb12yj05.v5VQW','0000000000','México','México','Toluca',1,NULL,NULL,'2023-07-24 17:27:02','2023-07-24 17:27:02'),
-(3,'Juez 1','-','CINVESTAV','default.jpg','Mr','juez1@cinvestav.com',NULL,'$2y$10$dzFhBQm0u0rNA695hI2HeOeY6FnNi6Hxs8rYcwYyc4BNWyajdXnZO','0000000000','México','México','Toluca',2,NULL,NULL,'2023-07-24 17:27:02','2023-07-24 17:27:02'),
-(4,'Juez 2','-','CINVESTAV','default.jpg','Mr','juez2@cinvestav.com',NULL,'$2y$10$g7CHE9nukU7oo8WWcnJNSezR9NJDThJXD0//I62jcpq4L3HCMSsFW','0000000000','México','México','Toluca',2,NULL,NULL,'2023-07-24 17:27:02','2023-07-24 17:27:02'),
-(5,'Juez 3','-','CINVESTAV','default.jpg','Mr','juez3@cinvestav.com',NULL,'$2y$10$W7BYHjSwAnmyAzIPmzmKdO1nYskKoEwl9iNjjPCEodQ12lv.f1shu','0000000000','México','México','Toluca',2,NULL,NULL,'2023-07-24 17:27:02','2023-07-24 17:27:02'),
-(6,'Ponente','-','CINVESTAV','default.jpg','Mr','al222110811@gmail.com',NULL,'$2y$10$x1lIHgK49uOvL57le.JVe.LnxUuQnsrpr07F/sHcoSUsvoOopi0aS','0000000000','México','México','Toluca',3,NULL,NULL,'2023-07-24 17:27:02','2023-07-24 17:27:02'),
-(7,'Publico General','-','CINVESTAV','default.jpg','Mr','publico@cinvestav.com',NULL,'$2y$10$QUN7yDc5HKminQDpAUiFQOB63u1QuHiLjsd1oOPzcFSFImLMkuUuS','0000000000','México','México','Toluca',4,NULL,NULL,'2023-07-24 17:27:02','2023-07-24 17:27:02');
+insert  into `users`(`id`,`name`,`app`,`apm`,`photo`,`alternative_contact`,`email`,`email_verified_at`,`password`,`phone`,`country`,`state`,`municipality`,`rol_id`,`deleted_at`,`remember_token`,`created_at`,`updated_at`) values 
+(1,'Admin','-','CINVESTAV','default.jpg','Mtro','admin@cinvestav.com',NULL,'$2y$10$NZJr4VLvwAKzO.oJtr6.gO2cX7BX.3yG1c2Iq6dDhd6mranf0vRGW','0000000000','México','México','Toluca',1,NULL,NULL,'2023-08-24 23:55:29','2023-08-24 23:55:29'),
+(2,'Admin2','-','CINVESTAV','default.jpg','Mtro','edu@cinvestav.com',NULL,'$2y$10$4oRBiVhpztRq6mBuomc1wOjioA0fDekAJxVS6EGgv4I0NZnSs7wn6','0000000000','México','México','Toluca',1,NULL,NULL,'2023-08-24 23:55:29','2023-08-24 23:55:29'),
+(3,'Juez 1','-','CINVESTAV','default.jpg','Mtro','juez1@cinvestav.com',NULL,'$2y$10$JUktu5lFR2SV1kHl5ed.COjqegYKAiooExKLRFWyWBsuNXOkMuFaS','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-24 23:55:30','2023-08-24 23:55:30'),
+(4,'Juez 2','-','CINVESTAV','default.jpg','Mtro','juez2@cinvestav.com',NULL,'$2y$10$mHiZarjVML9rM/3A7RVBNuGuTdmCeXg9A0GnzigsBKtakysUDHslK','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-24 23:55:30','2023-08-24 23:55:30'),
+(5,'Juez 3','-','CINVESTAV','default.jpg','Mtro','juez3@cinvestav.com',NULL,'$2y$10$9YrkBmze2H4GNpR8C6aDge9.HnkzSA6CDvK1bFmuFBYHCa6YSlxdy','0000000000','México','México','Toluca',2,NULL,NULL,'2023-08-24 23:55:30','2023-08-24 23:55:30'),
+(6,'Ponente','-','CINVESTAV','default.jpg','contact@cinvestav.com','user@cinvestav.com',NULL,'$2y$10$BU0P6JB5wsUJnKS4C2t9r.BAy7wgznUQE8KTDCcUhVmG9FvgkObPK','0000000000','México','México','Toluca',3,NULL,NULL,'2023-08-24 23:55:30','2023-08-24 23:55:30'),
+(7,'Jossue','Alejandro','Candelas','20230824203409ponente.png','jossueale02@hotmail.com','jossueale@hotmail.com',NULL,'$2y$10$W8XlY9BHdx3dh0CgDD9Hp.zKY9SfMhnkB2uCKd4rfjY6bQbZriBYm','7293579266','México','México','Toluca',3,NULL,NULL,'2023-08-24 23:55:30','2023-08-24 23:55:30'),
+(8,'Publico General','-','CINVESTAV','default.jpg','contact@cinvestav.com','publico@cinvestav.com',NULL,'$2y$10$fjLX3./Wt1J3VIuBxLvuKuZaQWAX70K2cATWTF4EzC/KWTT0xfoma','0000000000','México','México','Toluca',4,NULL,NULL,'2023-08-24 23:55:30','2023-08-24 23:55:30'),
+(9,'Jimena','de los Santos','Diaz','default.jpg','jimena.diaz@utvtol.edu.mx','al222110707@gmail.com',NULL,'$2y$10$qKjp7jHSIPo7wgWUFyC/auZNnA0vAXATbVhE7.FlsUPKOSdgmdLLG','7222222222','México','México','Xonacatlan',4,NULL,NULL,'2023-08-25 13:12:43','2023-08-25 13:12:43');
 
 /*Table structure for table `workshopattendances` */
 
@@ -310,18 +376,28 @@ DROP TABLE IF EXISTS `workshops`;
 
 CREATE TABLE `workshops` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `nameu` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
   `activity` varchar(255) NOT NULL,
   `date` date NOT NULL,
   `hour` time NOT NULL,
   `site` varchar(255) NOT NULL,
   `status` tinyint(1) NOT NULL,
+  `level` varchar(255) NOT NULL,
+  `participants` int(11) NOT NULL,
+  `part` int(11) NOT NULL,
+  `assistance` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `workshops` */
+
+insert  into `workshops`(`id`,`nameu`,`title`,`activity`,`date`,`hour`,`site`,`status`,`level`,`participants`,`part`,`assistance`,`created_at`,`updated_at`) values 
+(1,'Dr. Miguel Delgado, UNED, España\r\nDr. Carlos Armando Cuevas Vallejo, Cinvestav, México\r\nDra. Magally Martínez Reyes, UAEM','T1- Enfoque didáctico para dinamizar un aula de forma lúdica y experimental para educación básica','3','2010-09-17','02:58:00','Auditorio 1',1,'Superior',30,0,'Virtual','2023-08-24 22:37:04','2023-08-25 14:11:48'),
+(2,'Dr. José Rigoberto Gabriel Argüelles, Dra. Eloísa Benítez Mariño, Universidad Veracruzana','T2- Visualizaciones de algunos conceptos de cálculo con el uso de tecnología','3','1970-04-09','01:04:00','Auditorio 2',1,'Medio superior',20,0,'Presencial','2023-08-24 22:37:20','2023-08-25 00:32:35'),
+(3,'Dr. José Ismael Arcos Quezada, UAEMex','T3 - El primer curso de Cálculo, para estudiantes de ingeniería, no centrado en el límite','4','2007-09-15','21:01:00','Auditorio 3',1,'Secundaria',5,0,'Virtual','2023-08-24 22:37:45','2023-08-25 00:00:00');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('tracking_key')->nullable();
             $table->string('modality');
             $table->string('title');
             $table->string('thematic_area');

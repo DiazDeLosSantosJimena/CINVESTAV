@@ -57,12 +57,12 @@ Route::get('/', function () {
 Route::get('registroPonente', function () {
     return view('usuarios.registro');
 })->name('registroPonente');
-// Route::get('registroGeneral', function () {
-//     return view('usuarios.registroG');
-// })->name('registroGeneral');
-// Route::get('registroInvitado', function () {
-//     return view('usuarios.registroInvitado');
-// })->name('registroInvitado');
+Route::get('registroGeneral', function () {
+    return view('usuarios.registroG');
+})->name('registroGeneral');
+Route::get('registroInvitado', function () {
+    return view('usuarios.registroInvitado');
+})->name('registroInvitado');
 Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
 //===================================================================
 
@@ -72,8 +72,18 @@ Route::middleware('auth')->group(function () {
     Route::resource('proyectos', ProjectsController::class);
     Route::resource('authors', AuthorsController::class);
     Route::resource('evaluacion', EvaluationsController::class);
-    Route::resource('taller', WorkshopsController::class);
+    //---------------------TALLERES-------------------------------------------
+    Route::resource('taller', WorkshopsController::class)->middleware('admin');
+    Route::name('editTaller')->put('editTaller/{id}', [WorkshopsController::class, 'edit']);
+
+    Route::resource('presentation', PresentationsController::class);
+    Route::name('editPre')->put('editPre/{id}', [PresentationsController::class, 'edit']);
+
     Route::resource('attendance', WorkshopattendanceController::class);
+
+    Route::get('/projects-data', [WorkshopattendanceController::class, 'showProjectsData']);
+
+
     //----------------------------------JUEZ-------------------------------
     Route::name('usuarios')->get('usuarios', [UsersController::class, 'usuarios'])->middleware('admin');
     Route::name('agregarjuez')->post('agregarjuez', [UsersController::class, 'agregarjuez']);
@@ -85,6 +95,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
     Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
     Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsController::class, 'destroy']);
+    Route::name('proyectos.statusPago')->put('proyectos.statusPago/{id}', [ProjectsController::class, 'statusPago']);
 
     Route::name('evaluacion.delete')->delete('evaluacion.delete/{id}', [EvaluationsController::class, 'destroy']);
     Route::name('evaluacion.asignEvaluator')->post('evaluacion.asignEvaluator', [EvaluationsController::class, 'asignEvaluator']);

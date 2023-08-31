@@ -118,6 +118,16 @@ class EvaluationsController extends Controller
 
     public function calificacion(Request $request, $id)
     {
+        $messages = [
+            'criterio.required' => 'Es necesario seleccionar un criterio.',
+            'comentario.required' => 'Es necesario proporcionar un comentario para continuar con la evaluación.',
+        ];
+
+        $request->validate([
+            'criterio' => ['required'],
+            'comentario' => ['required', 'string', 'max:255'],
+        ], $messages);
+
         $evaluacion = Evaluations::findOrFail($id);
         $c1 = $request->input('c1');
         $c2 = $request->input('c2');
@@ -155,39 +165,43 @@ class EvaluationsController extends Controller
         $statusPro = Evaluations::where('status', '!=', 'null')->where('project_user', $evaluacion->project_user)->get();
         $projectUser = ProjectsUsers::where('id', $evaluacion->project_user)->first();
         $project = Projects::find($projectUser->project_id);
-        $user = User::find($projectUser->user_id);
 
-        if (count($statusPro) === 3) {
-            $statusPro = Evaluations::where('status', 'A')->where('project_user', $evaluacion->project_user)->get();
+        if (count($statusPro) >= 2) {
+
+            $statusPro = Evaluations::where('status', 'A')->orWhere('status', 'AC')->where('project_user', $evaluacion->project_user)->get();
+
             if (count($statusPro) >= 2) {
-                $project->status = 3;
-                $project->save();
-                // ======================== Correo de Notificación para subir el formato de pago ========================
+                if ($project->status != 3) {
+                    // ======================== Correo de Notificación para subir el formato de pago ========================
+                    $user = User::find($projectUser->user_id);
 
-        $data = [
-            'destinatario' => $user->email,
-            'usuario' => $user->name,
-            'proyecto' => $project->title,
-            'np' => $project->project_id,
-        ];
+                    $data = [
+                        'destinatario' => $user->email,
+                        'usuario' => $user->name,
+                        'proyecto' => $project->title,
+                        'np' => $project->tracking_key,
+                    ];
 
-                Mail::send('mail.evaluado', compact('data'), function ($message) use ($data) {
-                    $message->to($data['destinatario'], 'CINVESTAV')
-                        ->subject('Proyecto Evaluado')
-                        ->from('hello@example.com', 'Soporte CINVESTAV');
-                });
-                
-                // ==================================================
-            }else{
+                    Mail::send('mail.evaluado', compact('data'), function ($message) use ($data) {
+                        $message->to($data['destinatario'], 'CINVESTAV')
+                            ->subject('Proyecto Evaluado')
+                            ->from('hello@example.com', 'Información CINVESTAV');
+                    });
+                    // ==================================================
+                    $project->status = 3;
+                    $project->save();
+                }else{
+
+                }
+            } else {
                 $statusPro = Evaluations::where('status', 'R')->where('project_user', $evaluacion->project_user)->get();
-                if(count($statusPro) >= 2){
+                if (count($statusPro) >= 2) {
                     $project->status = 0;
                     $project->save();
                 }
             }
         } else {
-            $project->status = 2;
-            $project->save();
+
         }
 
         return redirect()->route('evaluacion.index')->with('status', 'Se ha asignado la calificación!');

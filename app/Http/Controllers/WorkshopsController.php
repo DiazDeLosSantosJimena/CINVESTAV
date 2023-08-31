@@ -7,84 +7,74 @@ use Illuminate\Http\Request;
 
 class WorkshopsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
+        
         $talle = Workshops::all();
         return view('taller.index', compact('talle'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('taller.add');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+  
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required',
+            'nameu' => 'required',
+            'title' => 'required',
             'activity' => 'required',
             'date' => 'required',
             'hour' => 'required',
             'site' => 'required',
+            'level'=> 'required',
+            'participants'=>'required',
+            'assistance' =>'required'
 
         ];
 
         $message = [
-            'name.required' => 'El nombre es requerido',
+            'nameu.required' => 'El nombre del presentador es requerido',
+            'title.required' => 'El titulo de la actividad es requerido',
             'activity.required' => 'La actividad es requerida',
             'date.required' => 'La fecha es requerida',
             'hour.required' => 'La hora es requerida',
             'site.required' => 'El sitio es requerido',
+            'level.required' => 'El nivel es requerido',
+            'participants.required' => 'El numero de personas es requerido',
+            'assistance.required' => 'La asistencia es requerida',
 
         ];
 
         $this->validate($request, $rules, $message);
 
         Workshops::create(array(
-            'name' => $request->input('name'),
+            'nameu' => $request->input('nameu'),
+            'title' => $request->input('title'),
             'activity' => $request->input('activity'),
             'date' => $request->input('date'),
             'hour' => $request->input('hour'),
             'site' => $request->input('site'),
-            'status' => 1
+            'status' => 1,
+            'level' => $request->input('level'),
+            'participants' => $request->input('participants'),
+            'part' => 0,
+            'assistance' => $request->input('assistance')
         ));
 
         return redirect('taller')->with('status', 'Taller registrado correctamente!');
     }
 
-    /**
-     * Display the specified resource.
-     */
+   
     public function show($id)
     {
         $workshop = Workshops::find($id);
         return view('taller.show', compact('workshop'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+   
+    public function edit(Workshops $id, Request $request)
     {
-        $workshop = Workshops::find($id);
-        return view('taller.edit', compact('workshop'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        $query = Workshops::find($id);
+        
+        $query = Workshops::find($id->id);
 
 
         $status = 1;
@@ -96,12 +86,17 @@ class WorkshopsController extends Controller
         }
 
 
-        $query->name = trim($request->name);
+        $query->nameu = trim($request->nameu);
+        $query->title = trim($request->title);
         $query->activity = trim($request->activity);
         $query->date = trim($request->date);
         $query->hour = trim($request->hour);
         $query->site = trim($request->site);
         $query->status = $status;
+        $query->level = trim($request->level);
+        $query->participants = trim($request->participants);
+        $query->part;
+        $query->assistance = trim($request->assistance);
         $query->save();
 
         return redirect('taller')->with('status', 'El registro se actualizó con exito!');
@@ -112,9 +107,7 @@ class WorkshopsController extends Controller
      */
     public function destroy($id)
     {
-        $workshop = Workshops::findOrFail($id);
-
-        $workshop->delete();
-        return redirect('taller')->with('status', 'Se eliminó el registro con exito!');
+        Workshops::find($id)->delete();
+        return redirect('taller')->with('status', 'Registro eliminado con exito!');
     }
 }

@@ -83,14 +83,14 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const captchaLoginButton = document.getElementById('botonLogin');
+            const captchaLoginButton = document.querySelector('#botonLogin');
             let submitting = false;
 
             captchaLoginButton.addEventListener('click', function(event) {
                 if (document.querySelector('#email').value != "" && document.querySelector('#password').value != "") {
                     if (!submitting) {
                         submitting = true;
-                        captchaLoginButton.disabled = true;
+                        captchaLoginButton.className = "btn btn-outline-primary disabled";
                         captchaLoginButton.innerHTML = 'Iniciando sesión...';
                     } else {
                         event.preventDefault(); // Evita el envío del formulario si ya está deshabilitado

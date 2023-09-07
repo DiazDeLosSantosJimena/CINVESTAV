@@ -118,6 +118,7 @@ class EvaluationsController extends Controller
 
     public function calificacion(Request $request, $id)
     {
+        //dd($id);
         $messages = [
             'criterio.required' => 'Es necesario seleccionar un criterio.',
             'comentario.required' => 'Es necesario proporcionar un comentario para continuar con la evaluación.',
@@ -129,6 +130,7 @@ class EvaluationsController extends Controller
         ], $messages);
 
         $evaluacion = Evaluations::findOrFail($id);
+
         $c1 = $request->input('c1');
         $c2 = $request->input('c2');
         $c3 = $request->input('c3');
@@ -167,10 +169,13 @@ class EvaluationsController extends Controller
         $project = Projects::find($projectUser->project_id);
 
         if (count($statusPro) >= 2) {
+            // $statusEvals = Evaluations::where('status', 'A')->orWhere('status', 'AC')->where('project_user', $evaluacion->project_user)->get();
+            $statusEvals = \DB::SELECT('SELECT * FROM evaluations WHERE project_user = '.$evaluacion->project_user.' AND (status = "A" OR status = "AC")');
 
-            $statusPro = Evaluations::where('status', 'A')->orWhere('status', 'AC')->where('project_user', $evaluacion->project_user)->get();
+            if (count($statusEvals) >= 2) {
 
-            if (count($statusPro) >= 2) {
+                //dd("Consulta de A y AC", $statusEvals);
+
                 if ($project->status != 3) {
                     // ======================== Correo de Notificación para subir el formato de pago ========================
                     $user = User::find($projectUser->user_id);
@@ -194,8 +199,10 @@ class EvaluationsController extends Controller
 
                 }
             } else {
-                $statusPro = Evaluations::where('status', 'R')->where('project_user', $evaluacion->project_user)->get();
-                if (count($statusPro) >= 2) {
+                //$statusEvals = Evaluations::where('status', 'R')->where('project_user', $evaluacion->project_user)->get();
+                $statusEvals = \DB::SELECT('SELECT * FROM evaluations WHERE project_user = '.$evaluacion->project_user.' AND (status = "R")');
+                //dd("Consulta de R", $statusEvals);
+                if (count($statusEvals) >= 2) {
                     $project->status = 0;
                     $project->save();
                 }

@@ -75,13 +75,11 @@ Route::middleware('auth')->group(function () {
     //---------------------TALLERES-------------------------------------------
     Route::resource('taller', WorkshopsController::class)->middleware('admin');
     Route::name('editTaller')->put('editTaller/{id}', [WorkshopsController::class, 'edit']);
-
     Route::resource('presentation', PresentationsController::class);
     Route::name('editPre')->put('editPre/{id}', [PresentationsController::class, 'edit']);
-
     Route::resource('attendance', WorkshopattendanceController::class);
-
     Route::get('/projects-data', [WorkshopattendanceController::class, 'showProjectsData']);
+    Route::name('pdftaller')->get('pdftaller', [WorkshopattendanceController::class, 'pdftaller']);
 
 
     //----------------------------------JUEZ-------------------------------

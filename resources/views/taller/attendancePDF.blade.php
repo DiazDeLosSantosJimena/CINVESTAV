@@ -7,7 +7,7 @@
             <p class="display-1">Mis Talleres</p>
         </div>
         <div class="col-12">
-            <button class="btn btn-primary"> Clic para observar los talleres a los que te inscribiste </button>
+            <a class="btn btn-primary" href="{{route('pdftaller')}}" role="button">Clic para observar los talleres a los que te inscribiste</a>
         </div>
     </div>
 </div>

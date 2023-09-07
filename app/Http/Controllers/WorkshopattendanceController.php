@@ -6,6 +6,7 @@ use App\Models\Workshopattendance;
 use App\Models\Workshops;
 use App\Models\Preattendances;
 use App\Models\Presentations;
+use PDF;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -134,33 +135,18 @@ class WorkshopattendanceController extends Controller
         return redirect('attendance');
     }
 
-
-
-
-
-
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function pdftaller()
     {
-        //
-    }
+        $talleres =\DB::select('SELECT workshops.nameu, workshops.title, workshops.date, workshops.hour, workshops.site,  workshops.id
+        FROM workshops, workshopattendances
+        WHERE  workshops.id = workshopattendances.workshop_id AND workshopattendances.user_id = ' .Auth::user()->rol_id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        //dd($talleres);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $pdf = PDF::loadView('Documentos.pdftalleres',['talleres'=>$talleres]);
+        //----------Visualizar el PDF ------------------
+       return $pdf->stream(); 
+       // ------Descargar el PDF------
+       //return $pdf->download('___libros.pdf');
     }
 }

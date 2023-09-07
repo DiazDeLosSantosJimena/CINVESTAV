@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nameu');
             $table->string('title');
-            $table->string('activity');
+            $table->integer('activity');
             $table->date('date');
             $table->time('hour');
             $table->string('site');

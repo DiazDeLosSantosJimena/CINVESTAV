@@ -27,6 +27,7 @@
                                 <option value="2">Conferencias Especiales</option>
                                 <option value="3">Grupos Temáticos</option>
                                 <option value="4">Talleres</option>
+                                <option value="5">Actividad</option>
                             </select>
                             @error('activity')
                             <small class="form-text text-danger">{{$message}}</small>
@@ -141,6 +142,7 @@
                                     <option value="2" {{ $info->activity == 2 ? 'selected' : '' }}>Conferencias Especiales</option>
                                     <option value="3" {{ $info->activity == 3 ? 'selected' : '' }}>Grupos Temáticos</option>
                                     <option value="4" {{ $info->activity == 4 ? 'selected' : '' }}>Talleres</option>
+                                    <option value="4" {{ $info->activity == 5 ? 'selected' : '' }}>Actividad</option>
                                 </select>
                                 @error('activity')
                                 <small class="form-text text-danger">{{$message}}</small>

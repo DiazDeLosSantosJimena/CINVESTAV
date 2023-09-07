@@ -22,7 +22,8 @@
                 <option value="2">Conferencias Especiales</option>
                 <option value="3">Grupos Temáticos</option>
                 <option value="4">Talleres</option>
-                <option value="5">Proyectos</option>
+                <option value="5">Actividad</option>
+                <option value="6">Proyectos</option>
             </select>
         </div>
         <div class="col-12 table-responsive">
@@ -172,7 +173,7 @@
         var select = document.getElementById("selectTaller");
         var opcionSeleccionada = select.value;
 
-        if (opcionSeleccionada === "5") {
+        if (opcionSeleccionada === "6") {
             axios.get(`/projects-data`)
                 .then(function(response) {
 
@@ -224,7 +225,7 @@
 
         } else {
 
-            axios.get(`/attendance/${opcionSeleccionada}`)
+            axios.get(`attendance/${opcionSeleccionada}`)
                 .then(function(response) {
 
                     var tablaBody = document.getElementById("tablaTalleres").getElementsByTagName("tbody")[0];

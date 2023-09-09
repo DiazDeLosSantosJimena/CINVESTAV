@@ -108,45 +108,41 @@
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                    <table style="text-align: center; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-                                                        <thead style="border: black solid;">
-                                                            <tr>
-                                                                <td>Nombre del Taller</td>
-                                                                <td>Presentadores</td>
-                                                                <td>Fecha</td>
-                                                                <td>Hora</td>
-                                                                <td>Sitio</td>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody style="margin-top: 2px;">
-                                                            @foreach($talleres as $tall)
-                                                            <br>
-                                                            <tr>
-                                                                <td>{{ $tall->title }}</td>
-                                                                <td>{{ $tall->nameu }}</td>
-                                                                <td>{{ $tall->date }}</td>
-                                                                <td>{{ $tall->hour }}</td>
-                                                                <td>{{ $tall->site }}</td>
-                                                            </tr>
-                                                            <hr>
-                                                            @endforeach
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="spacer_block block-3" style="height:60px;line-height:60px;font-size:1px;"> </div>
-                                                    <div class="spacer_block block-4" style="height:60px;line-height:60px;font-size:1px;"> </div>
-                                                    <div class="spacer_block block-5" style="height:60px;line-height:60px;font-size:1px;"> </div>
-                                                    <div class="spacer_block block-6" style="height:60px;line-height:60px;font-size:1px;"> </div>
-                                                    <div class="spacer_block block-7" style="height:60px;line-height:60px;font-size:1px;"> </div>
-                                                    <table border="0" cellpadding="0" cellspacing="0" class="image_block block-10" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
-                                                        <tr>
-                                                            <td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
-                                                                <div align="center" class="alignment" style="line-height:10px"><img src="img/logocinves.png" style="height: auto; border: 0; max-width: 240px; width: 100%;" width="240" /></div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
                                                 </td>
                                             </tr>
-                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <table class="table table-striped">
+                                        <thead class="table-info">
+                                            <tr>
+                                                <td>Presentadores</td>
+                                                <td>Nombre del proyecto</td>
+                                                <td>Hora</td>
+                                                <td>Fecha</td>
+                                                <td>Sitio</td>
+                                            </tr>
+                                        </thead>
+                                        @foreach($talleres as $t)
+                                        <tr>
+                                            <td>{{ $t->nameu}}</td>
+                                            <td>{{ $t->title}}</td>
+                                            <td>{{ $t->date}}</td>
+                                            <td>{{ $t->hour}}</td>
+                                            <td>{{ $t->site}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </table>
+                                    <div class="spacer_block block-3" style="height:60px;line-height:60px;font-size:1px;"> </div>
+                                    <div class="spacer_block block-4" style="height:60px;line-height:60px;font-size:1px;"> </div>
+                                    <div class="spacer_block block-5" style="height:60px;line-height:60px;font-size:1px;"> </div>
+                                    <div class="spacer_block block-6" style="height:60px;line-height:60px;font-size:1px;"> </div>
+                                    <div class="spacer_block block-7" style="height:60px;line-height:60px;font-size:1px;"> </div>
+                                    <table border="0" cellpadding="0" cellspacing="0" class="image_block block-10" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+                                        <tr>
+                                            <td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
+                                                <div align="center" class="alignment" style="line-height:10px"><img src="img/logocinves.png" style="height: auto; border: 0; max-width: 240px; width: 100%;" width="240" /></div>
+                                            </td>
+                                        </tr>
                                     </table>
                                 </td>
                             </tr>
@@ -155,6 +151,10 @@
                 </td>
             </tr>
         </tbody>
+    </table>
+    </td>
+    </tr>
+    </tbody>
     </table><!-- End -->
 </body>
 

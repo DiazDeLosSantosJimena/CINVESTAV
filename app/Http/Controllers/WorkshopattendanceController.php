@@ -31,10 +31,10 @@ class WorkshopattendanceController extends Controller
     {
 
         $talleres = Workshops::where('activity', $opcion)
-        ->where('participants', '>', DB::raw('part'))
-        ->where('status', 1)
-        ->get(['id', 'nameu', 'title', 'date', 'hour', 'site', 'participants', 'assistance']);
-    
+            ->where('participants', '>', DB::raw('part'))
+            ->where('status', 1)
+            ->get(['id', 'nameu', 'title', 'date', 'hour', 'site', 'participants', 'assistance']);
+
 
         return response()->json($talleres);
     }
@@ -46,7 +46,7 @@ class WorkshopattendanceController extends Controller
         INNER JOIN projects ON projects_users.project_id = projects.id 
         INNER JOIN users ON projects_users.user_id = users.id 
         WHERE presentations.participants > presentations.part");
-    
+
 
         return response()->json($projectsData);
     }
@@ -84,13 +84,13 @@ class WorkshopattendanceController extends Controller
                     'user_id' =>  $user_id,
                 ));
 
-                
+
                 $workshop = Workshops::find($workshop_id[$i]);
 
                 if ($workshop) {
-                   
+
                     if ($workshop->participants > $workshop->part) {
-                        $workshop->part++; 
+                        $workshop->part++;
                         $workshop->save();
                     }
                 }
@@ -124,9 +124,9 @@ class WorkshopattendanceController extends Controller
                 $presentations = Presentations::find($presentation_id[$i]);
 
                 if ($presentations) {
-                    
+
                     if ($presentations->participants > $presentations->part) {
-                        $presentations->part++; 
+                        $presentations->part++;
                         $presentations->save();
                     }
                 }
@@ -137,16 +137,27 @@ class WorkshopattendanceController extends Controller
 
     public function pdftaller()
     {
-        $talleres =\DB::select('SELECT workshops.nameu, workshops.title, workshops.date, workshops.hour, workshops.site,  workshops.id
-        FROM workshops, workshopattendances
-        WHERE  workshops.id = workshopattendances.workshop_id AND workshopattendances.user_id = ' .Auth::user()->rol_id);
+        $talleres = \DB::select('SELECT workshops.nameu, workshops.title, workshops.date, workshops.hour, workshops.site,  workshops.id
+            FROM workshops 
+            JOIN workshopattendances ON workshops.id = workshopattendances.workshop_id
+        WHERE workshopattendances.user_id = ' .Auth::user()->id);
 
         //dd($talleres);
 
-        $pdf = PDF::loadView('Documentos.pdftalleres',['talleres'=>$talleres]);
+        $pdf = PDF::loadView('Documentos.pdftalleres', ['talleres' => $talleres]);
         //----------Visualizar el PDF ------------------
-       return $pdf->stream(); 
-       // ------Descargar el PDF------
-       //return $pdf->download('___libros.pdf');
+        return $pdf->stream();
+        // ------Descargar el PDF------
+        //return $pdf->download('___libros.pdf');
+    }
+
+    public function pdfPagoTaller()
+    {
+        $pdf = PDF::loadView('Documentos.pdfDatosTalleres');
+        $pdf->set_paper('A4', 'landscape');
+        //----------Visualizar el PDF ------------------
+        return $pdf->stream();
+        // ------Descargar el PDF------
+        //return $pdf->download('___libros.pdf');
     }
 }

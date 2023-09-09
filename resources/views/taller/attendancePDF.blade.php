@@ -1,13 +1,48 @@
 @extends('layout.navbar')
 @section('title','Talleres')
 @section('content')
-<div class="container text-center">
-    <div class="row">
-        <div class="col-12 my-5">
-            <p class="display-1">Mis Talleres</p>
+<div class="container">
+    <div class="row justify-content-md-center mb-5">
+        <div class="col-12 mx-5 my-4">
+            <p class="display-5">
+            Mis Talleres
+            </p>
         </div>
-        <div class="col-12">
-            <a class="btn btn-primary" href="{{route('pdftaller')}}" role="button">Clic para observar los talleres a los que te inscribiste</a>
+        <div class="col-xl-4 col-md-12 mb-4 py-2">
+            <div class="card text-bg-light border-left-primary shadow h-100 rounded-4">
+                <div class="card-body">
+                    <a href="{{route('pdftaller')}}">
+                        <div class="row no-gutters align-items-center" style="color: #0078a1;">
+                            <div class="col-12 text-center my-5">
+                                <i class="bi bi-filetype-pdf" style="font-size: 5rem; color: #7f7f7f;"></i>
+                            </div>
+                            <div class="col-12 text-center">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">
+                                    <h4>Mis talleres</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-12 mb-4 py-2">
+            <div class="card text-bg-light border-left-primary shadow h-100 rounded-4">
+                <div class="card-body">
+                    <a href="{{route('pdfPagoTaller')}}">
+                        <div class="row no-gutters align-items-center" style="color: #0078a1;">
+                            <div class="col-12 text-center my-5">
+                                <i class="bi bi-cash-coin" style="font-size: 5rem; color: #7f7f7f;"></i>
+                            </div>
+                            <div class="col-12 text-center">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">
+                                    <h4>Detalles de Pago</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

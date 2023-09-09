@@ -80,6 +80,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('attendance', WorkshopattendanceController::class);
     Route::get('/projects-data', [WorkshopattendanceController::class, 'showProjectsData']);
     Route::name('pdftaller')->get('pdftaller', [WorkshopattendanceController::class, 'pdftaller']);
+    Route::name('pdfPagoTaller')->get('pdfPagoTaller', [WorkshopattendanceController::class, 'pdfPagoTaller']);
 
 
     //----------------------------------JUEZ-------------------------------

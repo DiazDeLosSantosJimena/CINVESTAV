@@ -48,8 +48,10 @@
                                     Conferencias Especiales
                                     @elseif($info->activity == 3)
                                     Grupos Temáticos
-                                    @else
+                                    @elseif($info->activity == 4)
                                     Talleres
+                                    @elseif($info->activity == 5)
+                                    Actividad
                                     @endif
                                 </td>
                                 <td class="text-center">{{$info->date}}</td>

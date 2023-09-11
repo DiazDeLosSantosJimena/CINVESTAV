@@ -9,6 +9,7 @@ use App\Models\Presentations;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class WorkshopattendanceController extends Controller
 {
@@ -161,5 +162,26 @@ class WorkshopattendanceController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+
+
+
+
+
+    public function pdftaller()
+    {
+        $talleres =\DB::select('SELECT workshops.nameu, workshops.title, workshops.date, workshops.hour, workshops.site,  workshops.id
+        FROM workshops, workshopattendances
+        WHERE  workshops.id = workshopattendances.workshop_id');
+
+        $pdf = PDF::loadView('taller.pdftalleres',['talleres'=>$talleres]);
+        //----------Visualizar el PDF ------------------
+       return $pdf->stream(); 
+       // ------Descargar el PDF------
+       //return $pdf->download('___libros.pdf');
+
+    
     }
 }

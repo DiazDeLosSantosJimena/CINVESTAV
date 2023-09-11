@@ -24,6 +24,9 @@ use Illuminate\Support\Facades\Auth;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('PDFtaller', function () {
+    return view('taller.attendancePDF');
+})->name('PDFtaller');
 
 // ======================= Errors =======================
 Route::get('error', function () {
@@ -72,18 +75,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('proyectos', ProjectsController::class);
     Route::resource('authors', AuthorsController::class);
     Route::resource('evaluacion', EvaluationsController::class);
-    //---------------------TALLERES-------------------------------------------
     Route::resource('taller', WorkshopsController::class);
-    Route::name('editTaller')->put('editTaller/{id}', [WorkshopsController::class, 'edit']);
-
-    Route::resource('presentation', PresentationsController::class);
-    Route::name('editPre')->put('editPre/{id}', [PresentationsController::class, 'edit']);
-
     Route::resource('attendance', WorkshopattendanceController::class);
-
-    Route::get('/projects-data', [WorkshopattendanceController::class, 'showProjectsData']);
-
-
     //----------------------------------JUEZ-------------------------------
     Route::name('usuarios')->get('usuarios', [UsersController::class, 'usuarios'])->middleware('admin');
     Route::name('agregarjuez')->post('agregarjuez', [UsersController::class, 'agregarjuez']);
@@ -143,5 +136,7 @@ Route::name('recuperar')->get('recuperar', [EmailController::class, 'recuperar']
 Route::name('reset')->get('reset', [EmailController::class, 'reset'])->middleware('signed');
 Route::name('passchange')->get('passchange', [EmailController::class, 'passchange']);
 
+//----------------------PDF-----------------------------------
+Route::name('pdftaller')->get('pdftaller',[WorkshopattendanceController::class, 'pdftaller']);
 
 require __DIR__ . '/auth.php';

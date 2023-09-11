@@ -13,73 +13,38 @@
         <div class="col-12 mx-5 my-4">
             <h3>Actividades</h4>
         </div>
-
-        <div class="col-6 mx-5">
-            <label for="">Selecciona una actividad:</label>
-            <select class="form-select" aria-label="Default select example" id="selectTaller" onchange="mostrarTalleres()">
-                <option selected>Selecciona una opción</option>
-                <option value="1">Conferencias Magistrales</option>
-                <option value="2">Conferencias Especiales</option>
-                <option value="3">Grupos Temáticos</option>
-                <option value="4">Talleres</option>
-                <option value="5">Proyectos</option>
-            </select>
-        </div>
         <div class="col-12 table-responsive">
-            <table class="table" id="tablaTalleres">
+            <table class="table">
                 <thead>
                     <tr class="text-center">
-                        <th>Presentador</th>
                         <th>Nombre del Taller</th>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                        <th>Lugar</th>
+                        <th>Tipo de Actividad</th>
+                        <th>Horarios</th>
                         <th>Asistencia</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle text-center">
-                   
-                </tbody>
-            </table>
-        </div>
-        <hr class="border border-primary border-3 opacity-75">
-        <div class="col-12 table-responsive">
-            <h3>Talleres seleccionados</h3>
-            <table class="table" id="tablaTalleresSeleccionados">
-                <thead>
-                    <tr class="text-center">
-                        <th>Presentador</th>
-                        <th>Nombre del Taller</th>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                        <th>Lugar</th>
-                        <th>Asistencia</th>
-                        <th>Acciones</th>
+                    @foreach($work as $info)
+                    <tr>
+                        <td>{{$info->name}}</td>
+                        <td>{{$info->activity}}</td>
+                        <td>{{$info->hour}}-{{$info->date}}</td>
+                        <td class="text-center" scope="col">
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                <div class="form-check">
+                                    <form action="{{ url('attendance') }}" method="post">
+                                        {!! csrf_field() !!}
+                                        <input class="form-check-input" type="checkbox" value="{{ $info -> id}}" name="workshop_id[]" id="taller{{ $loop->index + 1 }}" onclick="check('{{ $loop->index + 1 }}')">
+                                </div>
+                            </div>
+                        </td>
                     </tr>
-                </thead>
-                <tbody class="align-middle text-center">
+                    @endforeach
 
-                </tbody>
-            </table>
-        </div>
-
-
-        <div class="col-12 table-responsive">
-            <h3>Ponencias seleccionadas</h3>
-            <table class="table" id="tablaPonenciasSeleccionadas">
-                <thead>
-                    <tr class="text-center">
-                        <th>Presentador</th>
-                        <th>Nombre de la Ponencia</th>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                        <th>Lugar</th>
-                        <th>Asistencia</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="align-middle text-center">
-
+                    <div class="text-end mb-5">
+                        <button type="submit" class="btn btn-primary disabled m-3" value="save" id="guardarTaller">Guadar</button>
+                    </div>
+                    </form>
                 </tbody>
             </table>
         </div>

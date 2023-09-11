@@ -238,21 +238,21 @@
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <td>
-                                        <div class="indicador" role="alert">
-                                            <b>8.-</b> Presenta una propuesta o aporte
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="calif indicador" role="alert">
-                                            <select class="form-select c8 " aria-label="Default select example" name="c8">
-                                                @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
-                                                    @endfor
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="indicador" role="alert">
+                                                <b>8.-</b> Presenta una propuesta o aporte
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="calif indicador" role="alert">
+                                                <select class="form-select c8 " aria-label="Default select example" name="c8">
+                                                    @for ($i = 1; $i <= 10; $i++) <option value="{{$i}}">{{$i}}</option>
+                                                        @endfor
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
 
                                 <tr>
                                     <td>

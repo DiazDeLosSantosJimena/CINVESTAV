@@ -1,5 +1,72 @@
 @extends('layout.navbar')
 @section('title', 'Proyectos')
+@section('estilos')
+<style>
+     /* checkbox-rect2 */
+     .checkbox-rect2 input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-rect2 input[type="checkbox"]+label {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 20px;
+            font: 14px/20px "Open Sans", Arial, sans-serif;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .checkbox-rect2 input[type="checkbox"]:hover+label:hover {
+            color: rgb(23, 86, 228);
+        }
+
+        .checkbox-rect2 input[type="checkbox"]:hover+label:before {
+            border: 1px solid #343a3f;
+            box-shadow: 2px 1px 0 #343a3f;
+        }
+
+        .checkbox-rect2 input[type="checkbox"]+label:last-child {
+            margin-bottom: 0;
+        }
+
+        .checkbox-rect2 input[type="checkbox"]+label:before {
+            content: "";
+            display: block;
+            width: 1.7em;
+            height: 1.7em;
+            border: 1px solid #343a3f;
+            border-radius: 0.2em;
+            position: absolute;
+            left: 0;
+            top: 0;
+            -webkit-transition: all 0.2s, background 0.2s ease-in-out;
+            transition: all 0.2s, background 0.2s ease-in-out;
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: -2px -1px 0 #343a3f;
+            background: #f3f3f3;
+        }
+
+        .checkbox-rect2 input[type="checkbox"]:checked+label:before {
+            content: "\2713";
+            border: 2px solid #fff;
+            border-radius: 0.3em;
+            background: #0078a1;
+            box-shadow: 2px 1px 0 #50565a;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            margin-bottom: auto;
+            color: #fff;
+            width: 1.7em;
+            height: 1.7em;
+        }
+
+        /* checkbox-rect2 end */
+</style>
+@endsection
 @section('content')
 <div class="container">
     <div class="row">
@@ -75,53 +142,52 @@
                         <td class="text-center">
                             @if($prop->projects->status === 1)
                             <span class="badge text-white text-bg-warning">Pendiente</span>
-                            @elseif($prop->projects->status === 2)
-                            <span class="badge text-white text-bg-info">Registro Aceptado</span>
-                            @elseif($prop->projects->status >= 3)
-                            <span class="badge text-white text-bg-success">Proyecto Aceptado</span>
+                            @elseif($prop->projects->status === 1)
+                            <span class="badge text-white text-bg-success">Success</span>
                             @else
-                            <span class="badge text-white text-bg-danger">Rechazado</span>
+                            <span class="badge text-white text-bg-danger">Danger</span>
                             @endif
                         </td>
-                        @if(Auth::user()->rol_id === 1)
-                        <td class="text-center">
-                            <span class="badge text-white text-bg-warning" id="pago{{ $prop->id }}">Pendiente</span>
-                        </td>
-                        @endif
                         <td class="text-center">
                             <a href="{{ route('proyectos.show', $prop->id) }}" class="btn btn-primary">
                                 <i class="bi bi-info-circle-fill"></i>
                             </a>
                         </td>
+                        @if($prop->projects->status == 3 && Auth::user()->rol_id == 1)
+                        <td>
+                            <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal" data-bs-target="#formatoPagoModal{{ $prop->projects->id }}">
+                                <i class="bi bi-currency-dollar"></i>
+                            </button>
+                        </td>
+                        @endif
                         @if(Auth::user()->id === $prop->user_id)
                             @if($prop->projects->status == 1) <td class="text-center">
                             <a href="{{ route('proyectos.edit', $prop->id) }}" class="btn btn-info text-white">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            </td>
-                            <td class="text-center">
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
-                                    <i class="bi bi-trash3-fill"></i>
-                                </button>
-                            </td>
-                            @endif
-                            @if($prop->projects->status === 3)
-                            <td class="text-center" id="pago{{ $prop->projects->id }}">
-                                <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning text-white"><i class="bi bi-currency-dollar"></i></a>
-                            </td>
-                            @endif
-                            @if($prop->projects->status >= 3)
-                            <td class="text-center">
-                                <a href="{{ route('pdf', $prop->projects->id )}}" class="btn btn-danger text-white">
-                                    <i class="bi bi-file-earmark-pdf-fill"></i>
-                                </a>
-                            </td>
-                            @endif
+                        </td>
+                        <td class="text-center">
+<<<<<<< HEAD
+                            <a href="{{ route('pdf')}}" class="btn btn-danger text-white">
+                            <i class="bi bi-filetype-pdf"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-danger" id="show-dialog" type="button">
+=======
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
+>>>>>>> ebba7e5cd21259431e905bb537c3b983432eddc5
+                                <i class="bi bi-trash3-fill"></i>
+                            </button>
+                        </td>
+                        <td id="pago{{ $prop->projects->id }}">
+                            <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning">Pago <i class="bi bi-card-heading"></i></a>
+                        </td>
                         @endif
-                        @if(Auth::user()->rol_id == 1 && $prop->projects->status == 1)
-                            <td class="text-center">
-                                <a href="{{ route('proyectos.verifyProject', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-check-square-fill text-white"></i></a>
-                            </td>
+                        @if(Auth::user()->rol_id == 1)
+                        <td class="text-center" id="pago{{ $prop->projects->id }}">
+                            <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-check-square-fill text-white"></i></a>
+                        </td>
                         @endif
                     </tr>
                     @endforeach
@@ -156,6 +222,42 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="formatoPagoModal{{ $prop->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Formato de Pago</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                Si el proyecto <strong>{{ $prop->title }}</strong> cuenta con el formato de pago correspondiente, porfavor marque la casilla.
+                <form action="{{ route('proyectos.statusPago', $prop->id) }}" method="post">
+                {{ csrf_field('PATCH') }}
+                {{ method_field('PUT') }}
+                @error('verify')
+                    <div class="col-12 my-2 text-center">
+                        <small class="form-text text-danger">{{$message}}</small>
+                    </div>
+                @enderror
+                <div class="col-12 d-flex justify-content-center align-content-center mb-3 mt-3">
+                    <div class="item">
+                        <div class="checkbox-rect2">
+                            <input class="confirm" type="checkbox" id="checkPago{{ $prop->id }}" value="1" name="verify">
+                            <label for="checkPago{{ $prop->id }}" class="form-check-label"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-success">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endforeach
 @endsection
 
@@ -169,12 +271,12 @@
     @endif
 
     @foreach($proyectos2 as $prop)
-    @if($prop -> archive == 3)
+    var btnPago = document.querySelector('#pago{{ $prop->id }}');
+    var accion = document.querySelector('#acciones');
 
-    var estadoPago = document.querySelector("#pago{{ $prop->project_id }}");
-    estadoPago.className = "badge text-white text-bg-success";
-    estadoPago.textContent = "Realizado";
-
+    @if($prop->archive == 3)
+        btnPago.style.display = "none";
+        accion.colspan = "3";
     @endif
     @endforeach
 </script>

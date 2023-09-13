@@ -73,7 +73,7 @@
         <div class="col-xl-4 col-md-12 mb-4 py-2">
             <div class="card text-bg-light border-left-primary shadow h-100 rounded-4">
                 <div class="card-body">
-                    <a href="{{ route('usuarios') }}">
+                    <a href="#">
                         <div class="row no-gutters align-items-center" style="color: #0078a1;">
                             <div class="col-12 text-center my-5">
                                 <i class='bi bi-person-fill' style="font-size: 5rem; color: #7f7f7f;"></i>

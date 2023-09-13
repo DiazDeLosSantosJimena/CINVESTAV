@@ -24,26 +24,7 @@ use Illuminate\Support\Facades\Auth;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('PDFtaller', function () {
-    return view('taller.attendancePDF');
-})->name('PDFtaller');
 
-// ======================= Errors =======================
-Route::get('error', function () {
-    abort('404');
-});
-Route::get('error', function () {
-    abort('401');
-});
-Route::get('error', function () {
-    abort('429');
-});
-Route::get('error', function () {
-    abort('500');
-});
-Route::get('error', function () {
-    abort('503');
-});
 Route::get('/', function () {
     return view('sesiones/login');
 });
@@ -56,44 +37,29 @@ Route::get('/', function () {
     return redirect()->route('login');
 })->middleware(['auth', 'verified'])->name('inicio');
 
-// ============================ REGISTRO ============================
-Route::get('registroPonente', function () {
-    return view('usuarios.registro');
-})->name('registroPonente');
-// Route::get('registroGeneral', function () {
-//     return view('usuarios.registroG');
-// })->name('registroGeneral');
-// Route::get('registroInvitado', function () {
-//     return view('usuarios.registroInvitado');
-// })->name('registroInvitado');
-Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
-//===================================================================
+Route::get('tablas', function () {
+    return view('layout.cruds.tables');
+})->name('tablas');
+
+Route::name('inicio')->get('inicio', [UsersController::class, 'indexView']);
 
 Route::middleware('auth')->group(function () {
     // --------------------- Resource --------------------- 
     Route::resource('usuario', UsersController::class);
     Route::resource('proyectos', ProjectsController::class);
     Route::resource('authors', AuthorsController::class);
-    Route::resource('evaluacion', EvaluationsController::class);
-    Route::resource('taller', WorkshopsController::class);
-    Route::resource('attendance', WorkshopattendanceController::class);
-    //----------------------------------JUEZ-------------------------------
-    Route::name('usuarios')->get('usuarios', [UsersController::class, 'usuarios'])->middleware('admin');
-    Route::name('agregarjuez')->post('agregarjuez', [UsersController::class, 'agregarjuez']);
-    Route::name('salvarjuez')->put('salvarjuez/{id}', [UsersController::class, 'salvarjuez']);
-    Route::name('agregarInvitado')->post('agregarInvitado', [UsersController::class, 'agregarInvitado']);
-    Route::name('salvarInvitado')->put('salvarInvitado/{id}', [UsersController::class, 'salvarInvitado']);
-    Route::name('salvarPonente')->put('salvarPonente/{id}', [UsersController::class, 'salvarPonente']);
-    //---------------------------------------------------------------------
     Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
     Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
     Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsController::class, 'destroy']);
+    Route::resource('evaluacion', EvaluationsController::class);
+    Route::resource('usuario', UsersController::class);
+    Route::name('registrar')->post('registrar', [RegisteredUserController::class, 'store']);
+    Route::resource('taller', WorkshopsController::class);
+    Route::resource('attendance', WorkshopattendanceController::class);
+    Route::get('pago', function () {
+        return view('proyectos.pago');
+    })->name('pago');
 
-    Route::name('evaluacion.delete')->delete('evaluacion.delete/{id}', [EvaluationsController::class, 'destroy']);
-    Route::name('evaluacion.asignEvaluator')->post('evaluacion.asignEvaluator', [EvaluationsController::class, 'asignEvaluator']);
-    Route::name('evaluacion.calificacion')->put('evaluacion.calificacion/{id}', [EvaluationsController::class, 'calificacion']);
-
-    Route::name('subirPago')->post('proyectos/{id}', [ProjectsController::class, 'pagoCreate']);
     Route::get('/proyectos/{proposal}/pago', [ProjectsController::class, 'pagoView'])->name('proyectos.pagoView');
     Route::get('/proyectos/{proposal}/verifyProject', [ProjectsController::class, 'verifyProject'])->name('proyectos.verifyProject')->middleware('admin');
     Route::name('proyectos.accept')->put('proyectos.accept/{id}', [ProjectsController::class, 'accept']);
@@ -116,27 +82,11 @@ Route::middleware('auth')->group(function () {
         return view('usuarios.perfil');
     })->name('perfil');
 
-    Route::name('soportemail')->get('soportemail', [EmailController::class, 'soportemail']);
-
-    // ============================= Middleware =============================
-    Route::name('evaluacion.index')->get('evaluacion', [EvaluationsController::class, 'index'])->middleware('visor');
-    Route::name('proyectos.index')->get('proyectos', [ProjectsController::class, 'index'])->middleware('user');
-    Route::name('proyectos.show')->get('proyectos/{id}', [ProjectsController::class, 'show']);
+    Route::get('EditPerfil', function () {
+        return view('usuarios.EditPerfil');
+    });
 });
 
-///////////////////////////////////////CORREOS////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('recuperacion', function () {
-    return view('mail/recuperacion');
-});
-Route::get('activacion', function () {
-    return view('mail/activacion');
-});
-Route::get('forgotpass', [EmailController::class, 'forgotpass'])->name('forgotpass');
-Route::name('recuperar')->get('recuperar', [EmailController::class, 'recuperar']);
-Route::name('reset')->get('reset', [EmailController::class, 'reset'])->middleware('signed');
-Route::name('passchange')->get('passchange', [EmailController::class, 'passchange']);
-
-//----------------------PDF-----------------------------------
-Route::name('pdftaller')->get('pdftaller',[WorkshopattendanceController::class, 'pdftaller']);
+    Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);
 
 require __DIR__ . '/auth.php';

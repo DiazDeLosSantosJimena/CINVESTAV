@@ -31,6 +31,10 @@ return new class extends Migration
             $table->integer('format')->nullable(); //Fuente,Margen y Extensión
             $table->string('status')->nullable();
             $table->string('comment')->nullable();
+=======
+            $table->integer('format')->nullable(); //Fuente, Margen y Extensión
+            $table->string('status')->nullable();
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

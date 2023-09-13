@@ -40,6 +40,9 @@ class RegisteredUserController extends Controller
             'alternative_contact.required' => 'Se requiere colocar otro medio de contacto.',
             'email.required' => 'Se requiere un correo de contacto.',
             'email.unique' => 'Correo ya registrado, intente nuevamente o ingrese un correo diferente.',
+            'foto.required' => 'Es necesario ingresar una foto para el ponente.',
+            'foto.mimes' => 'Ingrese el formato solicitado.',
+            'g-recaptcha-response' => 'Se requiere realizar el captcha.',
         ];
 
         if ($request->input('role_id') == "3") {

@@ -1,163 +1,80 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <title>Registro Ponente</title>
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="shortcut icon" href="{{asset('/img/logo_negativo.png')}}" />
-    <style>
-        body {
-            background-image: url("../img/cinestav_fondo.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* checkbox-rect2 */
-        .checkbox-rect2 input[type="checkbox"] {
-            display: none;
-        }
-
-        .checkbox-rect2 input[type="checkbox"]+label {
-            display: block;
-            position: relative;
-            padding-left: 35px;
-            margin-bottom: 20px;
-            font: 14px/20px "Open Sans", Arial, sans-serif;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-
-        .checkbox-rect2 input[type="checkbox"]:hover+label:hover {
-            color: rgb(23, 86, 228);
-        }
-
-        .checkbox-rect2 input[type="checkbox"]:hover+label:before {
-            border: 1px solid #343a3f;
-            box-shadow: 2px 1px 0 #343a3f;
-        }
-
-        .checkbox-rect2 input[type="checkbox"]+label:last-child {
-            margin-bottom: 0;
-        }
-
-        .checkbox-rect2 input[type="checkbox"]+label:before {
-            content: "";
-            display: block;
-            width: 1.7em;
-            height: 1.7em;
-            border: 1px solid #343a3f;
-            border-radius: 0.2em;
-            position: absolute;
-            left: 0;
-            top: 0;
-            -webkit-transition: all 0.2s, background 0.2s ease-in-out;
-            transition: all 0.2s, background 0.2s ease-in-out;
-            background: rgba(255, 255, 255, 0.03);
-            box-shadow: -2px -1px 0 #343a3f;
-            background: #f3f3f3;
-        }
-
-        .checkbox-rect2 input[type="checkbox"]:checked+label:before {
-            content: "\2713";
-            border: 2px solid #fff;
-            border-radius: 0.3em;
-            background: #0078a1;
-            box-shadow: 2px 1px 0 #50565a;
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            margin-bottom: auto;
-            color: #fff;
-            width: 1.7em;
-            height: 1.7em;
-        }
-
-        /* checkbox-rect2 end */
-    </style>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
-</head>
-
-<body>
-    
-    <div class="container d-flex justify-content-center align-items-center card">
-        <form action="{{ route('registrar')}}" method="post" enctype="multipart/form-data" class="row card-body">
-            @csrf
-            <div class="col-12">
-                <h3 class="my-2">Registro Postulante</h3>
-                <div class="alert alert-info" role="alert">
-                    Tenga en cuenta que los datos proporcionados en el siguiente formulario seran utilizados para la creación de la constancia u otros elementos de asistencia al evento, de igual forma, los datos proporcionados seran subrayados como el <strong>ponente</strong>. Al correo que se especifique en el campo de "Correo Electrónico" sera el <strong>autor de contacto</strong>, favor de verificar los datos antes de enviar la información de registro.
-                </div>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/material.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/navbar.css') }}">
+<link rel="shortcut icon" href="{{asset('/img/logo_negativo.png')}}" />
+<style>
+    body {
+        background-image: url("../img/cinestav_fondo.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+<div class="container d-flex justify-content-center align-items-center card">
+    <form action="{{ route('registrar')}}" method="post" class="row card-body">
+        @csrf
+        <h3 class="my-2">Registro Postulante</h3>
+        <div class="alert alert-info" role="alert">
+            Tenga en cuenta que los datos proporcionados en el siguiente formulario seran utilizados para la creación de la constancia u otros elementos de asistencia al evento, de igual forma, los datos proporcionados seran subrayados como el <strong>ponente</strong>. Al correo que se especifique en el campo de "Correo Electrónico" sera el <strong>autor de contacto</strong>, favor de verificar los datos antes de enviar la información de registro.
+        </div>
+        <div class="col-12 mx-5">
+            <h4>~ Datos Personales ~</h4>
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre:</label> <label for="nombre" class="text-danger">*</label>
+                <input type="text" class="form-control" name="name" id="nombre" placeholder="Ingrese su nombre" value="{{ old('name') }}">
             </div>
-            <div class="col-12 mx-5">
-                <h4>~ Datos Personales ~</h4>
+            @error('name')
+            <label class="form-check-label text-danger" for="flexRadioDefault1">
+                {{ $message }}
+            </label>
+            <br>
+            @enderror
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="app" class="form-label">Apellido Paterno:</label> <label for="app" class="text-danger">*</label>
+                <input type="text" class="form-control" name="app" id="app" placeholder="Ingrese su Apellido Paterno" value="{{ old('app') }}">
             </div>
-            <div class="col-sm-12 col-md-4">
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre:</label> <label for="nombre" class="text-danger">*</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="nombre" placeholder="Ingrese su nombre" value="{{ old('name') }}">
-                </div>
-                @error('name')
-                <label class="form-check-label text-danger" for="flexRadioDefault1">
-                    {{ $message }}
-                </label>
-                <br>
-                @enderror
+            @error('app')
+            <label class="form-check-label text-danger" for="flexRadioDefault1">
+                {{ $message }}
+            </label>
+            <br>
+            @enderror
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+                <label for="apm" class="form-label">Apellido Materno:</label>
+                <input type="text" class="form-control" name="apm" id="apm" placeholder="Ingrese su Apellido Materno" value="{{ old('apm') }}">
             </div>
-            <div class="col-sm-12 col-md-4">
-                <div class="mb-3">
-                    <label for="app" class="form-label">Apellido Paterno:</label> <label for="app" class="text-danger">*</label>
-                    <input type="text" class="form-control @error('app') is-invalid @enderror" name="app" id="app" placeholder="Ingrese su Apellido Paterno" value="{{ old('app') }}">
-                </div>
-                @error('app')
-                <label class="form-check-label text-danger" for="flexRadioDefault1">
-                    {{ $message }}
-                </label>
-                <br>
-                @enderror
+            @error('apm')
+            <label class="form-check-label text-danger" for="flexRadioDefault1">
+                {{ $message }}
+            </label>
+            <br>
+            @enderror
+        </div>
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="tel" class="form-label">Teléfono:</label> <label for="tel" class="text-danger">*</label>
+                <input type="text" class="form-control" name="phone" id="tel" placeholder="Ingrese su número de teléfono" value="{{ old('phone') }}">
             </div>
-            <div class="col-sm-12 col-md-4">
-                <div class="mb-3">
-                    <label for="apm" class="form-label">Apellido Materno:</label>
-                    <input type="text" class="form-control @error('apm') is-invalid @enderror" name="apm" id="apm" placeholder="Ingrese su Apellido Materno" value="{{ old('apm') }}">
-                </div>
-                @error('apm')
-                <label class="form-check-label text-danger" for="flexRadioDefault1">
-                    {{ $message }}
-                </label>
-                <br>
-                @enderror
-            </div>
-            <div class="col-6">
-                <div class="mb-3">
-                    <label for="tel" class="form-label">Teléfono:</label> <label for="tel" class="text-danger">*</label>
-                    <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" id="tel" placeholder="Ingrese su número de teléfono" value="{{ old('phone') }}">
-                </div>
-                @error('phone')
-                <label class="form-check-label text-danger" for="flexRadioDefault1">
-                    {{ $message }}
-                </label>
-                <br>
-                @enderror
-            </div>
-            <div class="col-6">
-                <div class="mb-3">
-                    <label for="tel" class="form-label">Otro medio de contacto:</label> <label for="tel" class="text-danger">*</label>
-                    <input type="text" class="form-control @error('alternative_contact') is-invalid @enderror" name="alternative_contact" id="alternative_contact" placeholder="(Correo/Celular)" value="{{ old('alternative_contact') }}">
-                </div>
-                @error('alternative_contact')
-                <label class="form-check-label text-danger" for="flexRadioDefault1">
-                    {{ $message }}
-                </label>
-                <br>
-                @enderror
+            @error('phone')
+            <label class="form-check-label text-danger" for="flexRadioDefault1">
+                {{ $message }}
+            </label>
+            <br>
+            @enderror
+        </div>
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="tel" class="form-label">Grado Academico:</label> <label for="tel" class="text-danger">*</label>
+                <input type="text" class="form-control" name="academic_degree" id="academic_degree" placeholder="Ingrese su grado academico" value="{{ old('academic_degree') }}">
             </div>
             <div class="col-12">
                 <div class="mb-3 my-2">

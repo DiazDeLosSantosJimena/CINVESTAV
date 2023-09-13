@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Workshopattendance;
 use App\Models\Workshops;
-use App\Models\Preattendances;
-use App\Models\Presentations;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -27,28 +24,9 @@ class WorkshopattendanceController extends Controller
         return view('taller.attendance', compact('work'));
     }
 
-    public function show($opcion)
-    {
-
-        $talleres = Workshops::where('activity', $opcion)
-        ->where('participants', '>', DB::raw('part'))
-        ->get(['id', 'nameu', 'title', 'date', 'hour', 'site', 'participants', 'assistance']);
-    
-
-        return response()->json($talleres);
-    }
-    public function showProjectsData()
-    {
-
-        $projectsData = DB::select("SELECT presentations.id, projects.title, projects.thematic_area, users.name, users.app, users.apm, presentations.date, presentations.hour, presentations.site, presentations.assistance 
-        FROM projects_users INNER JOIN presentations ON projects_users.id = presentations.pro_users 
-        INNER JOIN projects ON projects_users.project_id = projects.id 
-        INNER JOIN users ON projects_users.user_id = users.id 
-        WHERE presentations.participants > presentations.part");
-    
-
-        return response()->json($projectsData);
-    }
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         //
@@ -75,70 +53,23 @@ class WorkshopattendanceController extends Controller
             $separador = ',';
             $workshop_id = explode($separador, $work);
 
-            $contador = count($workshop_id);
-
-            for ($i = 0; $i < $contador; $i++) {
-                Workshopattendance::create(array(
-                    'workshop_id' => $workshop_id[$i],
-                    'user_id' =>  $user_id,
-                ));
-
-                
-                $workshop = Workshops::find($workshop_id[$i]);
-
-                if ($workshop) {
-                   
-                    if ($workshop->participants > $workshop->part) {
-                        $workshop->part++; 
-                        $workshop->save();
-                    }
-                }
-            }
-        }
-
-        if ($request->has('project_ids')) {
-            $rules = [
-                'project_ids.*' => 'exists:projects,id',
-            ];
-
-            $messages = [
-                'project_ids.*.exists' => 'Algunos proyectos seleccionados no son válidos.',
-            ];
-
-            $this->validate($request, $rules, $messages);
-
-            $user_id = Auth::user()->id;
-            $pre = $request->project_ids[0];
-            $separador = ',';
-            $presentation_id = explode($separador, $pre);
-
-            $contador = count($presentation_id);
-
-            for ($i = 0; $i < $contador; $i++) {
-                Preattendances::create(array(
-                    'presentation_id' => $presentation_id[$i],
-                    'user_id' =>  $user_id,
-                ));
-
-                $presentations = Presentations::find($presentation_id[$i]);
-
-                if ($presentations) {
-                    
-                    if ($presentations->participants > $presentations->part) {
-                        $presentations->part++; 
-                        $presentations->save();
-                    }
-                }
-            }
+        $contador = count($usuarios);
+        for ($i = 0; $i < $contador; $i++) {
+            Workshopattendance::create(array(
+                'user_id' => $user_id,
+                'workshop_id' => $usuarios[$i],
+            ));
         }
         return redirect('attendance');
     }
 
-
-
-
-
-
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.

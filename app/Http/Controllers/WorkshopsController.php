@@ -93,10 +93,6 @@ class WorkshopsController extends Controller
         $query->hour = trim($request->hour);
         $query->site = trim($request->site);
         $query->status = $status;
-        $query->level = trim($request->level);
-        $query->participants = trim($request->participants);
-        $query->part = trim($request->participants);
-        $query->assistance = trim($request->assistance);
         $query->save();
 
         return redirect('taller')->with('status', 'El registro se actualizó con exito!');

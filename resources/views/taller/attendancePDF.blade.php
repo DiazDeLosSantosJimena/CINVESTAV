@@ -44,11 +44,14 @@
                 </div>
             </div>
         </div>
+        <div class="col-12 text-end mt-5">
+            <a href="#">Registrar nuevamente mis talleres</a>
+        </div>
     </div>
 </div>
 
 <script>
-    var navbar = document.querySelector('#taller');
+    var navbar = document.querySelector('#attendance');
     navbar.className = "mdl-layout__tab is-active";
 </script>
 @endsection

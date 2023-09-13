@@ -56,7 +56,7 @@
                                         <th class="text-center">Estado</th>
                                         <th class="text-center">Municipio</th>
                                         <th class="text-center">Tipo de usuario</th>
-                                         <th class="text-center" colspan="3">Acciones</th>
+                                        <th class="text-center" colspan="3">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">

@@ -126,7 +126,7 @@ class EvaluationsController extends Controller
 
         $request->validate([
             'criterio' => ['required'],
-            'comentario' => ['required', 'string', 'max:255'],
+            'comentario' => ['required', 'string', 'max:1500'],
         ], $messages);
 
         $evaluacion = Evaluations::findOrFail($id);

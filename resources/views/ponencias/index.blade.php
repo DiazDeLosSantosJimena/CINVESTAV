@@ -75,7 +75,7 @@
 </div>
 
 <script>
-    var navbar = document.querySelector('#ponencias');
+    var navbar = document.querySelector('#taller');
     navbar.className = "mdl-layout__tab is-active";
 </script>
 @section('modales')

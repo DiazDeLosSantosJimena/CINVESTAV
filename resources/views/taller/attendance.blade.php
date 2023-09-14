@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="container">
-    @if(session('status'))
+    @if($status != "")
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Excelente!</strong> {{ session('status') }}
+        {{ $status }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
@@ -39,7 +39,7 @@
                     </tr>
                 </thead>
                 <tbody class="align-middle text-center">
-                   
+
                 </tbody>
             </table>
         </div>
@@ -84,15 +84,22 @@
                 </tbody>
             </table>
         </div>
-
+        @if($status != "")
+        <form id="formularioEnviar" method="POST" action="{{ route('attendance.update', ['id' => Auth::user()->rol_id]) }}">
+            {{ csrf_field('PATCH') }}
+            {{ method_field('PUT') }}
+            <input type="hidden" name="workshop_ids[]" id="talleresIdsInput">
+            <input type="hidden" name="project_ids[]" id="proyectosIdsInput">
+            <button id="enviarButton" type="submit" class="btn btn-primary" style="display: none;">Enviar</button>
+        </form>
+        @else
         <form id="formularioEnviar" method="POST" action="{{ route('attendance.store') }}">
             @csrf
             <input type="hidden" name="workshop_ids[]" id="talleresIdsInput">
             <input type="hidden" name="project_ids[]" id="proyectosIdsInput">
             <button id="enviarButton" type="submit" class="btn btn-primary" style="display: none;">Enviar</button>
         </form>
-
-
+        @endif
     </div>
 </div>
 
@@ -200,7 +207,7 @@
                         celdaAsistencia.innerHTML = proyecto.assistance;
 
 
-                       
+
                         var botonAgregar = document.createElement("button");
                         botonAgregar.innerHTML = "Agregar";
                         botonAgregar.className = "btn btn-success";

@@ -81,6 +81,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/projects-data', [WorkshopattendanceController::class, 'showProjectsData']);
     Route::name('pdftaller')->get('pdftaller', [WorkshopattendanceController::class, 'pdftaller']);
     Route::name('pdfPagoTaller')->get('pdfPagoTaller', [WorkshopattendanceController::class, 'pdfPagoTaller']);
+    Route::name('attendance.reingreso')->get('attendance.reingreso', [WorkshopattendanceController::class, 'reingreso']);
+    Route::name('attendance.update')->put('attendance.update/{id}', [WorkshopattendanceController::class, 'update']);
 
 
     //----------------------------------JUEZ-------------------------------

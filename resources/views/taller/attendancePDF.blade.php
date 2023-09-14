@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="col-12 text-end mt-5">
-            <a href="#">Registrar nuevamente mis talleres</a>
+            <a href="{{ route('attendance.reingreso') }}">Registrar nuevamente mis talleres</a>
         </div>
     </div>
 </div>

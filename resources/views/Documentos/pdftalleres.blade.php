@@ -112,13 +112,14 @@
                                             </tr>
                                     </table>
                                     <br>
+                                    <h2>Talleres</h2>
                                     <table class="table table-striped">
                                         <thead class="table-info">
                                             <tr>
                                                 <td>Presentadores</td>
                                                 <td>Nombre del proyecto</td>
-                                                <td>Hora</td>
                                                 <td>Fecha</td>
+                                                <td>Hora</td>
                                                 <td>Sitio</td>
                                             </tr>
                                         </thead>
@@ -129,6 +130,37 @@
                                             <td>{{ $t->date}}</td>
                                             <td>{{ $t->hour}}</td>
                                             <td>{{ $t->site}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </table>
+                                    </table>
+                                    <br>
+                                    <h2>Ponencias</h2>
+                                    <table class="table table-striped">
+                                        <thead class="table-info">
+                                            <tr>
+                                                <td>Titulo</td>
+                                                <td>Area Tematica</td>
+                                                <td>Nombre</td>
+                                                <td>Apellido paterno</td>
+                                                <td>Apellido materno</td>
+                                                <td>Fecha</td>
+                                                <td>Hora</td>
+                                                <td>Sitio</td>
+                                                <td>Asistencia</td>
+                                            </tr>
+                                        </thead>
+                                        @foreach($ponencias as $p)
+                                        <tr>
+                                            <td>{{ $p->title}}</td>
+                                            <td>{{ $p->thematic_area}}</td>
+                                            <td>{{ $p->name}}</td>
+                                            <td>{{ $p->app}}</td>
+                                            <td>{{ $p->apm}}</td>
+                                            <td>{{ $p->date}}</td>
+                                            <td>{{ $p->hour}}</td>
+                                            <td>{{ $p->site}}</td>
+                                            <td>{{ $p->assistance}}</td>
                                         </tr>
                                         @endforeach
                                     </table>
@@ -159,3 +191,5 @@
 </body>
 
 </html>
+
+

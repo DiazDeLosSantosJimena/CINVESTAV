@@ -91,6 +91,7 @@ Route::middleware('auth')->group(function () {
 });
 
     Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);
+    Route::name('pdftaller')->get('pdftaller',[WorkshopattendanceController::class, 'pdftaller']);
 
     Route::controller(ProjectsController::class)->group(function(){
         Route::name('project.export')->get('project-export','export');

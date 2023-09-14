@@ -79,6 +79,15 @@
         <div class="col mdl-cell--hide-tablet mx-5">
             <h2>Ponencias Registradas</h2>
         </div>
+        @if(Auth::user()->rol_id == 1)
+        <div class="col row text-end mt-5">
+            <div class="col-12">
+                <button class="btn btn-info text-white"><i class="bi bi-file-earmark-excel-fill"></i> Ponencias</button>
+                <button class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i> Aceptadas</button>
+                <button class="btn btn-danger"><i class="bi bi-file-earmark-excel-fill"></i> Rechazadas</button>
+            </div>
+        </div>
+        @endif
         <div class="col mdl-cell--hide-desktop mdl-cell--hide-phone mx-5">
             <h2>Proyectos</h2>
         </div>
@@ -87,7 +96,7 @@
             <a class="btn btn-info rounded-5" href="{{ route('proyectos.create') }}" style="color: white;"><i class="material-icons mt-1" role="presentation">add</i></a>
         </div>
         @endif
-        <div class="col-12 table-responsive">
+        <div class="col-12 table-responsive mt-3">
             <table class="table">
                 <thead>
                     <tr>
@@ -147,7 +156,7 @@
                             @elseif($prop->projects->status >= 3)
                             <span class="badge text-white text-bg-success">Proyecto Aceptado</span>
                             @else
-                            <span class="badge text-white text-bg-danger">Rechazado</span>
+                            <span class="badge text-white text-bg-danger">Presentar como Cartel</span>
                             @endif
                         </td>
                         @if(Auth::user()->rol_id === 1)

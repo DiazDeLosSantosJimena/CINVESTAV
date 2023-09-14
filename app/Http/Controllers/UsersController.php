@@ -35,7 +35,7 @@ class UsersController extends Controller
 
     public function usuarios()
     {
-        $usuariosG = User::where('rol_id', '=', 3)->orWhere('rol_id', '=', 4)->orWhere('rol_id', 5)->get();
+        $usuariosG = User::where('rol_id', '=', 3)->orWhere('rol_id', '=', 4)->orWhere('rol_id', 5)->orderBy('id')->get();
         // $usuarios = \DB::select('SELECT users.id, users.name, users.apm, users.app,users.alternative_contact, users.email, users.phone, users.country,
         // users.state, users.municipality, users.rol_id, users.deleted_at FROM users, roles WHERE users.rol_id = roles.id AND
         // roles.id = "2"');
@@ -52,7 +52,8 @@ class UsersController extends Controller
         FROM evaluations AS eva
             JOIN users AS us ON eva.user_id = us.id
             JOIN projects_users AS proUs ON proUs.id = eva.project_user
-            JOIN projects AS pro ON pro.id = proUs.project_id');
+            JOIN projects AS pro ON pro.id = proUs.project_id
+        ORDER BY eva.id');
         $users = User::where('rol_id', '2')->get();
         return view('usuarios.index', compact('usuarios', 'proyects', 'users', 'proyectsEvaluators', 'usuariosG'));
     }
@@ -284,7 +285,6 @@ class UsersController extends Controller
         $messages = [
             'name.required' => 'Es necesario colocar un nombre.',
             'app.required' => 'Es necesario colocar el primer apellido.',
-            'apm.string' => 'Formato Invalido.',
             'alternative_contact.required' => 'Es necesario colocar otro medio de contacto.',
             'email.required' => 'Es necesario colocar un correo.',
             'phone.required' => 'Es necesario colocar un teléfono.',

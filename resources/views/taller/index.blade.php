@@ -18,11 +18,16 @@
         <div class="container">
             <div class="row">
                 <br>
-                <div class="col mx-5 mt-4">
+                <div class="col mx-5 mt-5">
                     <h3>Talleres</h3>
                 </div>
-                <div class="col text-end mt-4">
+                <div class="col text-end mt-5">
                     <button type="button" class="btn btn-success" id="btn_alta" data-bs-toggle="modal" data-bs-target="#modaladd"><i class="bi bi-plus-lg"></i></button>
+                </div>
+                <div class="col-12 row text-end mt-4">
+                    <div class="col-12">
+                        <button class="btn btn-info text-white"><i class="bi bi-file-earmark-excel-fill"></i> Taller - Usuarios</button>
+                    </div>
                 </div>
                 <div class="col-12 table-responsive mt-5">
                     <table class="table">
@@ -48,8 +53,10 @@
                                     Conferencias Especiales
                                     @elseif($info->activity == 3)
                                     Grupos Temáticos
-                                    @else
+                                    @elseif($info->activity == 4)
                                     Talleres
+                                    @elseif($info->activity == 5)
+                                    Actividad
                                     @endif
                                 </td>
                                 <td class="text-center">{{$info->date}}</td>

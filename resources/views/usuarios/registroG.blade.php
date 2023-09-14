@@ -111,7 +111,7 @@
             <div class="col-sm-12 col-md-4">
                 <div class="mb-3">
                     <label for="app" class="form-label">Apellido Paterno:</label> <label for="app" class="text-danger">*</label>
-                    <input type="text" class="form-control" name="apm" id="app" placeholder="Ingrese su Apellido Paterno" value="{{ old('app') }}">
+                    <input type="text" class="form-control" name="app" id="app" placeholder="Ingrese su Apellido Paterno" value="{{ old('app') }}">
                 </div>
                 @error('app')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -123,7 +123,7 @@
             <div class="col-sm-12 col-md-4">
                 <div class="mb-3">
                     <label for="apm" class="form-label">Apellido Materno:</label>
-                    <input type="text" class="form-control" name="app" id="app" placeholder="Ingrese su Apellido Materno" value="{{ old('apm') }}">
+                    <input type="text" class="form-control" name="apm" id="app" placeholder="Ingrese su Apellido Materno" value="{{ old('apm') }}">
                 </div>
                 @error('apm')
                 <label class="form-check-label text-danger" for="flexRadioDefault1">

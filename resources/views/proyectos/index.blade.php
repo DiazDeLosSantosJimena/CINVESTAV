@@ -79,6 +79,15 @@
         <div class="col mdl-cell--hide-tablet mx-5">
             <h2>Ponencias Registradas</h2>
         </div>
+        @if(Auth::user()->rol_id == 1)
+        <div class="col row text-end mt-5">
+            <div class="col-12">
+               <a href="{{route('project.export')}}"> <button class="btn btn-info text-white"><i class="bi bi-file-earmark-excel-fill"></i> Ponencias</button></a>
+               <a href="{{route('project.exporta')}}"><button class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i> Aceptadas</button></a>
+               <a href="{{route('project.exportar')}}"> <button class="btn btn-danger"><i class="bi bi-file-earmark-excel-fill"></i> Rechazadas</button></a>
+            </div>
+        </div>
+        @endif
         <div class="col mdl-cell--hide-desktop mdl-cell--hide-phone mx-5">
             <h2>Proyectos</h2>
         </div>
@@ -87,7 +96,7 @@
             <a class="btn btn-info rounded-5" href="{{ route('proyectos.create') }}" style="color: white;"><i class="material-icons mt-1" role="presentation">add</i></a>
         </div>
         @endif
-        <div class="col-12 table-responsive">
+        <div class="col-12 table-responsive mt-3">
             <table class="table">
                 <thead>
                     <tr>
@@ -142,12 +151,23 @@
                         <td class="text-center">
                             @if($prop->projects->status === 1)
                             <span class="badge text-white text-bg-warning">Pendiente</span>
-                            @elseif($prop->projects->status === 1)
-                            <span class="badge text-white text-bg-success">Success</span>
+                            @elseif($prop->projects->status === 2)
+                            <span class="badge text-white text-bg-info">Proceso de evaluación</span>
+                            @elseif($prop->projects->status >= 3)
+                            <span class="badge text-white text-bg-success">Proyecto Aceptado</span>
                             @else
-                            <span class="badge text-white text-bg-danger">Danger</span>
+                            <span class="badge text-white text-bg-danger">Presentar como Cartel</span>
                             @endif
                         </td>
+                        @if(Auth::user()->rol_id === 1)
+                        <td class="text-center">
+                            @if($prop->projects->status > 3)
+                            <span class="badge text-white text-bg-success" id="pago{{ $prop->id }}">Realizado</span>
+                            @else
+                            <span class="badge text-white text-bg-warning" id="pago{{ $prop->id }}">Pendiente</span>
+                            @endif
+                        </td>
+                        @endif
                         <td class="text-center">
                             <a href="{{ route('proyectos.show', $prop->id) }}" class="btn btn-primary">
                                 <i class="bi bi-info-circle-fill"></i>
@@ -165,29 +185,23 @@
                             <a href="{{ route('proyectos.edit', $prop->id) }}" class="btn btn-info text-white">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                        </td>
-                        <td class="text-center">
-<<<<<<< HEAD
-                            <a href="{{ route('pdf')}}" class="btn btn-danger text-white">
-                            <i class="bi bi-filetype-pdf"></i>
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <button class="btn btn-danger" id="show-dialog" type="button">
-=======
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
->>>>>>> ebba7e5cd21259431e905bb537c3b983432eddc5
-                                <i class="bi bi-trash3-fill"></i>
-                            </button>
-                        </td>
-                        <td id="pago{{ $prop->projects->id }}">
-                            <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning">Pago <i class="bi bi-card-heading"></i></a>
-                        </td>
+                            </td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $prop->projects->id }}">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </button>
+                            </td>
+                            @endif
+                            @if($prop->projects->status === 3)
+                            <td class="text-center" id="pago{{ $prop->projects->id }}">
+                                <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning text-white"><i class="bi bi-currency-dollar"></i></a>
+                            </td>
+                            @endif
                         @endif
-                        @if(Auth::user()->rol_id == 1)
-                        <td class="text-center" id="pago{{ $prop->projects->id }}">
-                            <a href="{{ route('proyectos.pagoView', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-check-square-fill text-white"></i></a>
-                        </td>
+                        @if(Auth::user()->rol_id == 1 && $prop->projects->status == 1)
+                            <td class="text-center">
+                                <a href="{{ route('proyectos.verifyProject', $prop->projects->id) }}" class="btn btn-warning"><i class="bi bi-check-square-fill text-white"></i></a>
+                            </td>
                         @endif
                     </tr>
                     @endforeach
@@ -233,7 +247,7 @@
             </div>
             <div class="modal-body text-center">
                 Si el proyecto <strong>{{ $prop->title }}</strong> cuenta con el formato de pago correspondiente, porfavor marque la casilla.
-                <form action="{{ route('proyectos.statusPago', $prop->id) }}" method="post">
+                <form action="#" method="post">
                 {{ csrf_field('PATCH') }}
                 {{ method_field('PUT') }}
                 @error('verify')
@@ -271,12 +285,11 @@
     @endif
 
     @foreach($proyectos2 as $prop)
-    var btnPago = document.querySelector('#pago{{ $prop->id }}');
-    var accion = document.querySelector('#acciones');
-
     @if($prop->archive == 3)
-        btnPago.style.display = "none";
-        accion.colspan = "3";
+
+    var estadoPago = document.querySelector("#pago{{ $prop->id }}");
+    estadoPago.style.display = "none";
+
     @endif
     @endforeach
 </script>

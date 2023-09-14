@@ -168,6 +168,9 @@
         }
     }
 </script>
-
+<script>
+    var navbar = document.querySelector('#attendance');
+    navbar.className = "mdl-layout__tab is-active";
+</script>
 
 @endsection

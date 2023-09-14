@@ -29,6 +29,9 @@
         <div class="col-12">
             <button class="btn btn-primary"> Clic para observar los talleres a los que te inscribiste </button>
         </div>
+        <div class="col-12 text-end mt-5">
+            <a href="#">Registrar nuevamente mis talleres</a>
+        </div>
     </div>
 </div>
 

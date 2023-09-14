@@ -86,23 +86,50 @@ class EvaluationsController extends Controller
 
     public function edit($id)
     {
-        //$proyect = ProjectsUsers::with('user','projects')->where('id', $id)->first();
-        $proyect = ProjectsUsers::find($id);
-        $evaluacion = Evaluations::find($id);
-        $id = Evaluations::join('projects_users', 'evaluations.project_id', '=', 'projects_users.project_id')
-        ->where('projects_users.project_id', $proyect->id)
-        ->pluck('evaluations.id')
-        ->first();
-        $files = Files::where('project_id', $proyect->projects->id)->get();
-        $authors = Authors::where('project_id', $proyect->id)->get();
-        return view('evaluacion.edit', compact('proyect', 'files', 'id', 'evaluacion', 'authors'));
+        $evaluador_project = Evaluations::find($id);
+        $proyectoF = ProjectsUsers::where('id', $evaluador_project->project_user)->first();
+
+        if ($evaluador_project->user_id == Auth::user()->id || Auth::user()->rol_id == 1) {
+            $user = DB::table('evaluations')
+                ->join('projects_users', 'evaluations.project_user', '=', 'projects_users.id')
+                ->join('users', 'projects_users.user_id', '=', 'users.id')
+                ->join('projects', 'projects_users.project_id', '=', 'projects.id')
+                ->select('users.name', 'users.app', 'users.apm', 'users.alternative_contact', 'users.email', 'users.phone', 'users.country', 'users.state', 'users.municipality', 'projects.modality', 'projects.title', 'projects.thematic_area')
+                ->where('evaluations.id', $id)
+                ->get();
+
+            $autores = DB::table('projects_users')
+                ->join('authors', 'projects_users.project_id', '=', 'authors.project_id')
+                ->select('authors.name', 'authors.app', 'authors.apm', 'authors.institution_of_origin')
+                ->where('authors.project_id', $proyectoF->project_id)
+                ->get();
+
+            $files = DB::table('files')
+                ->select('id', 'name')
+                ->where('project_id', $proyectoF->project_id)
+                ->get();
+
+            $evaluacion = Evaluations::find($id);
+            return view('evaluacion.edit', compact('user', 'autores', 'files', 'evaluacion'));
+        } else {
+            return redirect()->route('evaluacion.index');
+        }
     }
 
-    public function store(Request $request)
+    public function calificacion(Request $request, $id)
     {
-        $user = Auth::user()->id;
-        $project = $request->input('project');
-        $nombre = $request->input('nombre');
+        //dd($id);
+        $messages = [
+            'criterio.required' => 'Es necesario seleccionar un criterio.',
+            'comentario.required' => 'Es necesario proporcionar un comentario para continuar con la evaluación.',
+        ];
+
+        $request->validate([
+            'criterio' => ['required'],
+            'comentario' => ['required', 'string', 'max:255'],
+        ], $messages);
+
+        $evaluacion = Evaluations::findOrFail($id);
 
         $c1 = $request->input('c1');
         $c2 = $request->input('c2');

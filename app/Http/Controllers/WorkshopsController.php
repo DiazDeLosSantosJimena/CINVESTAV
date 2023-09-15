@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TalleresExport;
 use App\Models\Workshops;
 use Illuminate\Http\Request;
 
@@ -109,5 +111,10 @@ class WorkshopsController extends Controller
     {
         Workshops::find($id)->delete();
         return redirect('taller')->with('status', 'Registro eliminado con exito!');
+    }
+
+    public function export() 
+    {
+        return Excel::download(new TalleresExport, 'Talleres.xlsx');
     }
 }

@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-// <<<<<<< HEAD
+
 use App\Http\Controllers\ProjectsController;
-// =======
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Models\Projects;
 use App\Http\Controllers\EvaluationsController;
 use App\Http\Controllers\EmailController;
 use App\Models\ProjectsUsers;
-// >>>>>>> ebba7e5cd21259431e905bb537c3b983432eddc5
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +39,7 @@ Route::get('error', function () {
 Route::get('error', function () {
     abort('503');
 });
+
 Route::get('/', function () {
     return view('sesiones/login');
 });
@@ -131,6 +130,26 @@ Route::middleware('auth')->group(function () {
     Route::name('evaluacion.index')->get('evaluacion', [EvaluationsController::class, 'index'])->middleware('visor');
     Route::name('proyectos.index')->get('proyectos', [ProjectsController::class, 'index'])->middleware('user');
     Route::name('proyectos.show')->get('proyectos/{id}', [ProjectsController::class, 'show']);
+
+    // ================================ Excel ===============================
+    Route::get('reportes', function () {
+        return view('layout.reportes');
+    })->name('reportes')->middleware('admin');
+    Route::controller(ProjectsController::class)->group(function () {
+        Route::name('project.export')->get('project-export', 'export');
+    });
+    Route::controller(ProjectsController::class)->group(function () {
+        Route::name('project.exporta')->get('project-exporta', 'exporta');
+    });
+    Route::controller(ProjectsController::class)->group(function () {
+        Route::name('project.exportar')->get('project-exportar', 'exportar');
+    });
+    Route::controller(WorkshopsController::class)->group(function () {
+        Route::name('talleres.export')->get('talleres-export', 'export');
+    });
+    Route::controller(ProjectsController::class)->group(function () {
+        Route::name('cartel.export')->get('cartel.export', 'carteles');
+    });
 });
 
 ///////////////////////////////////////CORREOS////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

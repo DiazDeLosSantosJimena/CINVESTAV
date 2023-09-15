@@ -39,11 +39,11 @@
                     <label for="email" class="form-label mt-3">&nbsp;<i class="fa-solid fa-envelope"></i> Correo Electronico:</label>
                     <input type="email" class="form-control w-11 mb-5" name="email" placeholder="correo@proveedor.dominio">
 
-                    <p>Ingresa la direccion de correo que se te asigno, se te enviara un coreo electronico a esa direccion.</p>
+                    <p>Ingresa la dirección de correo que se te asignó, se te enviará un correo electrónico a esa dirección.</p>
                     <ol>
-                        <li>Abre el correo electronico.</li>
-                        <li>Haz click en el enlace.</li>
-                        <li>Reestablece tu contraseña.</li>
+                        <li>Abre el correo electrónico.</li>
+                        <li>Haz clic en el enlace.</li>
+                        <li>Restablece tu contraseña.</li>
                     </ol>
                 </div>
                 <div class="boton mb-5"><button class="btn btn-outline-primary"> Enviar Correo de Recuperación</button></div>

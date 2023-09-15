@@ -21,16 +21,16 @@
 
 <body>
     <div class="contenedor shadow">
-        <div class="log row m-2 align-items-strech">
-            <div class="col bg d-none d-lg-block col-md-6 col-lg-6 col-xl-6 rounded"><!-Imagen></div>
+        <div class="log row m-2 align-items-stretch">
+            <div class="col bg d-none d-lg-block col-md-6 col-lg-6 col-xl-6 rounded"><!-- Imagen --></div>
 
             <div class="col">
-                <!-- Sesion -->
+                <!-- Sesión -->
                 <div class="text-end">
                     <img src="{{asset('img/logotipoutvt.png')}}" width="200px" alt="">
                 </div><!-- Logo -->
 
-                <h2 class="fw-bold text-center pb-3">Inicia Sesión</h2><!-- Form de Inicio de Sesion -->
+                <h2 class="fw-bold text-center pb-3">Inicia Sesión</h2><!-- Formulario de Inicio de Sesión -->
 
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
@@ -50,32 +50,31 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="password" class="form-label">&nbsp;<i class="fa-sharp fa-solid fa-key"></i>Contraseña:</label>
+                        <label for="password" class="form-label">&nbsp;<i class="fa-sharp fa-solid fa-key"></i> Contraseña:</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Contraseña" required>
                         @error('password')
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                    <!--CAPTCHA-->
+                    <!-- CAPTCHA -->
                     <div class="form-group">
                         <div class="g-recaptcha" id="captchalogin" data-sitekey="6LcSYHcnAAAAAKKbYvQhXhQtN3evu7yxowlNSW04" data-callback='onSubmit' data-action='submit'></div>
                     </div>
                     <div class="d-grid mt-2">
-                        <!-- <button id="captchalogin" type="submit" class="btn btn-outline-primary g-recaptcha" data-sitekey="6LcSYHcnAAAAAKKbYvQhXhQtN3evu7yxowlNSW04" data-callback='onSubmit' data-action='submit'>Iniciar Sesión</button> -->
                         <button id="botonLogin" type="submit" class="btn btn-outline-primary">Iniciar Sesión</button>
                     </div>
                 </form>
-                    <div class="form-group text-center mt-3">
-                        <a href="{{route('forgotpass')}}">Olvide mi contraseña</a>
-                    </div>
+                <div class="form-group text-center mt-3">
+                    <a href="{{route('forgotpass')}}">Olvidé mi contraseña</a>
+                </div>
                 <div class="col-12 row">
                     <div class="col-6">
                         <p class="text-center mt-3">
-                            No tienes una cuenta?
+                            ¿No tienes una cuenta?
                         </p>
                     </div>
                     <div class="col-6 text-center mt-3">
-                        <a href="{{route('register')}}" class="btn btn-outline-primary">Registrate</a>
+                        <a href="{{route('register')}}" class="btn btn-outline-primary">Regístrate</a>
                     </div>
                 </div>
             </div>
@@ -95,7 +94,7 @@
                     } else {
                         event.preventDefault(); // Evita el envío del formulario si ya está deshabilitado
                     }
-                }else{
+                } else {
 
                 }
             });

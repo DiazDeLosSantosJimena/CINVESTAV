@@ -325,3 +325,5 @@ class UsersController extends Controller
         return redirect()->route('usuarios')->with('status', 'Registro actualizado con exito!');
     }
 }
+
+// ==================================== UTVT ====================================

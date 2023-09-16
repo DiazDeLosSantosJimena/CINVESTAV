@@ -4,7 +4,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Evaluadores</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar evaluadores</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -19,28 +19,28 @@
                             @enderror
                         </div>
                         <div class="col-4">
-                            <label for="exampleInputEmail1" class="form-label">Apellido Paterno:</label>
+                            <label for="exampleInputEmail1" class="form-label">Apellido paterno:</label>
                             <input type="text" class="form-control" name="app" value="{{ old('app') }}">
                             @error('app')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-4 mb-1">
-                            <label for="exampleInputEmail1" class="form-label">Apellido Materno:</label>
+                            <label for="exampleInputEmail1" class="form-label">Apellido materno:</label>
                             <input type="text" class="form-control" name="apm" value="{{ old('apm') }}">
                             @error('apm')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-12 my-2">
-                            <label for="exampleInputEmail1" class="form-label">Grado Academico:</label>
+                            <label for="exampleInputEmail1" class="form-label">Grado académico:</label>
                             <input type="text" class="form-control" name="alternative_contact" value="{{ old('alternative_contact') }}">
                             @error('alternative_contact')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-12 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Telefono:</label>
+                            <label for="exampleFormControlInput1" class="form-label">Teléfono:</label>
                             <input type="text" class="form-control" name="phone" placeholder="000-000-0000" value="{{ old('phone') }}">
                             @error('phone')
                             <small class="form-text text-danger">{{$message}}</small>
@@ -54,7 +54,7 @@
                             @enderror
                         </div>
                         <div class="col-12 text-center my-3">
-                            <button class="btn btn-success" onclick="generatePassword()">Generar Contraseña</button>
+                            <button class="btn btn-success" onclick="generatePassword()">Generar contraseña</button>
                         </div>
                         @error('password')
                         <div class="col-12 text-end">
@@ -71,7 +71,7 @@
                         <input class="form-control" type="hidden" value="" id="passwordGenerate" name="password" readonly>
                         <hr>
                         <div class="col-4 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Pais:</label>
+                            <label for="exampleFormControlInput1" class="form-label">País:</label>
                             <input type="text" class="form-control" name="country" value="{{ old('country') }}">
                             @error('country')
                             <small class="form-text text-danger">{{$message}}</small>
@@ -108,7 +108,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Invitados Especiales</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar invitados especiales</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -123,28 +123,28 @@
                             @enderror
                         </div>
                         <div class="col-4">
-                            <label for="exampleInputEmail1" class="form-label">Apellido Paterno:</label>
+                            <label for="exampleInputEmail1" class="form-label">Apellido paterno:</label>
                             <input type="text" class="form-control" name="appE" value="{{ old('appE') }}">
                             @error('appE')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-4 mb-1">
-                            <label for="exampleInputEmail1" class="form-label">Apellido Materno:</label>
+                            <label for="exampleInputEmail1" class="form-label">Apellido materno:</label>
                             <input type="text" class="form-control" name="apmE" value="{{ old('apmE') }}">
                             @error('apmE')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-12 my-2">
-                            <label for="exampleInputEmail1" class="form-label">Grado Academico:</label>
+                            <label for="exampleInputEmail1" class="form-label">Grado academico:</label>
                             <input type="text" class="form-control" name="alternative_contact" value="{{ old('alternative_contact') }}">
                             @error('alternative_contact')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-12 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Telefono:</label>
+                            <label for="exampleFormControlInput1" class="form-label">Teléfono:</label>
                             <input type="text" class="form-control" name="phoneE" placeholder="000-000-000" value="{{ old('phoneE') }}">
                             @error('phoneE')
                             <small class="form-text text-danger">{{$message}}</small>
@@ -158,7 +158,7 @@
                             @enderror
                         </div>
                         <div class="col-4 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Pais:</label>
+                            <label for="exampleFormControlInput1" class="form-label">País:</label>
                             <input type="text" class="form-control" name="countryE" value="{{ old('countryE') }}">
                             @error('countryE')
                             <small class="form-text text-danger">{{$message}}</small>
@@ -203,7 +203,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Registro</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar registro</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -219,28 +219,28 @@
                             @enderror
                         </div>
                         <div class="col-4">
-                            <label for="exampleInputEmail1" class="form-label">Apellido Paterno:</label>
+                            <label for="exampleInputEmail1" class="form-label">Apellido paterno:</label>
                             <input type="text" class="form-control" name="app" value="{{ old('app', $usuario -> app) }}">
                             @error('app')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-4 mb-1">
-                            <label for="exampleInputEmail1" class="form-label">Apellido Materno:</label>
+                            <label for="exampleInputEmail1" class="form-label">Apellido materno:</label>
                             <input type="text" class="form-control" name="apm" value="{{ old('apm', $usuario -> apm) }}">
                             @error('apm')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-12 my-2">
-                            <label for="exampleInputEmail1" class="form-label">Grado Academico:</label>
+                            <label for="exampleInputEmail1" class="form-label">Grado académico:</label>
                             <input type="text" class="form-control" name="alternative_contact" value="{{ old('alternative_contact', $usuario -> alternative_contact) }}">
                             @error('alternative_contact')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-12 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Telefono:</label>
+                            <label for="exampleFormControlInput1" class="form-label">Teléfono:</label>
                             <input type="text" class="form-control" name="phone" placeholder="000-000-000" value="{{ old('phone', $usuario -> phone) }}">
                             @error('phone')
                             <small class="form-text text-danger">{{$message}}</small>
@@ -254,7 +254,7 @@
                             @enderror
                         </div>
                         <div class="col-4 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Pais:</label>
+                            <label for="exampleFormControlInput1" class="form-label">País:</label>
                             <input type="text" class="form-control" name="country" value="{{ old('country', $usuario -> country) }}">
                             @error('country')
                             <small class="form-text text-danger">{{$message}}</small>
@@ -370,7 +370,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Asignar Evaluadores a Proyectos</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Asignar evaluadores a proyectos</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -389,7 +389,7 @@
                         <div class="col-12 mt-2 my-2">
                             <label for="floatingInput">Selecciona un juez:</label>
                             <select class="form-select" name="id_juez" id="juez" data-search="true" data-silent-initial-value-set="true">
-                                <option value="null" selected>--- Selecciona un Juez antes ---</option>
+                                <option value="null" selected>--- Selecciona un juez antes ---</option>
                             </select>
                         </div>
                     </div>
@@ -410,7 +410,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Registro</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar registro</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -426,35 +426,35 @@
                             @enderror
                         </div>
                         <div class="col-4">
-                            <label for="exampleInputEmail1" class="form-label">Apellido Paterno:</label>
+                            <label for="exampleInputEmail1" class="form-label">Apellido paterno:</label>
                             <input type="text" class="form-control" name="app" value="{{ old('app', $usuario -> app) }}">
                             @error('app')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-4 mb-1">
-                            <label for="exampleInputEmail1" class="form-label">Apellido Materno:</label>
+                            <label for="exampleInputEmail1" class="form-label">Apellido materno:</label>
                             <input type="text" class="form-control" name="apm" value="{{ old('apm', $usuario -> apm) }}">
                             @error('apm')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-12 my-2">
-                            <label for="exampleInputEmail1" class="form-label">Contacto Alterno:</label>
+                            <label for="exampleInputEmail1" class="form-label">Contacto alterno:</label>
                             <input type="text" class="form-control" name="alternative_contact" value="{{ old('alternative_contact', $usuario -> alternative_contact) }}">
                             @error('alternative_contact')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-12 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Telefono:</label>
+                            <label for="exampleFormControlInput1" class="form-label">Teléfono:</label>
                             <input type="text" class="form-control" name="phone" placeholder="000-000-000" value="{{ old('phone', $usuario -> phone) }}">
                             @error('phone')
                             <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="col-4 my-2">
-                            <label for="exampleFormControlInput1" class="form-label">Pais:</label>
+                            <label for="exampleFormControlInput1" class="form-label">País:</label>
                             <input type="text" class="form-control" name="country" value="{{ old('country', $usuario -> country) }}">
                             @error('country')
                             <small class="form-text text-danger">{{$message}}</small>
@@ -493,7 +493,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Registro</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar registro</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

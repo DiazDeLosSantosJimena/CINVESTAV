@@ -23,16 +23,16 @@
 <div class="container">
     <div class="row">
         <div class="col-12 text-center my-4">
-            <p class="display-4">Formato de Pago</p>
+            <p class="display-4">Formato de pago</p>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="bd-callout bd-callout-info">
-                <p class="mx-3">A continuación ingrese el documento del formato de pago correspondiente, de lo contrario el proyecto no continuara con la evaluación. Una vez subido el formato de pago, el proyecto quedará a la espera de una confirmación que sera enviada vía correo electrónico.</p>
+                <p class="mx-3">A continuación ingrese el documento del formato de pago correspondiente, de lo contrario el proyecto no continuara con la evaluación. Una vez subido el formato de pago, el proyecto quedará a la espera de una confirmación que será enviada vía correo electrónico.</p>
             </div>
         </div>
         <div class="col-12 mb-3 text-center">
             <a href="{{ Storage::url('proposals/Detalles_del_Pago.pdf') }}" type="button" class="btn btn-lg" style="background-color: #0178a0; color: white;">
-                Archivo de Detalles del Pago
+                Archivo de detalles del pago
             </a>
         </div>
         <div class="col-12">

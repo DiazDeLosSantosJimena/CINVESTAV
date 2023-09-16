@@ -6,7 +6,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="row">
                 <div class="col-md-12 col-sm-12 text-center">
-                    <h3>Datos del Ponente</h3>
+                    <h3>Datos del ponente</h3>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
                     <p><strong>Nombre del postulante:</strong><br> {{ $proyect->user->name .' '. $proyect->user->app .' '. $proyect->user->apm }}</p>
@@ -18,7 +18,7 @@
                     <p><strong>Teléfono:</strong><br> {{ $proyect->user->phone }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Grado Academico:</strong><br> {{ $proyect->user->academic_degree }}</p>
+                    <p><strong>Grado academico:</strong><br> {{ $proyect->user->academic_degree }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
                     <p><strong>País:</strong><br> {{ $proyect->user->country }}</p>
@@ -44,7 +44,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="row">
                 <div class="col-md-12 col-sm-12 text-center">
-                    <h3>Datos del Proyecto</h3>
+                    <h3>Datos del proyecto</h3>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
                     <p><strong>Título del proyecto:</strong><br> {{ $proyect->projects->title }}</p>
@@ -86,10 +86,10 @@
                     <p><strong>Nombre:</strong><br> {{ $author->name }} </p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Apellido Paterno:</strong><br> {{ $author->app }}</p>
+                    <p><strong>Apellido paterno:</strong><br> {{ $author->app }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Apellido Materno:</strong><br> {{ $author->apm }}</p>
+                    <p><strong>Apellido materno:</strong><br> {{ $author->apm }}</p>
                 </div>
                 @endforeach
                 @endif
@@ -114,20 +114,20 @@
             </div>
         </div>
         <div class="col-12 text-center mb-3">
-            <h4>Estatus del Proyecto</h4>
+            <h4>Estatus del proyecto</h4>
         </div>
         <div class="col-md-4 col-sm-4 my-2 text-center">
             <a href="{{ route('proyectos.index') }}" class="btn btn-secondary">Regresar</a>
         </div>
         <div class="col-md-4 col-sm-4 my-2 text-center">
             <a class="btn btn-success" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="aceptar(2);">
-                Aceptar Proyecto
+                Aceptar proyecto
             </a>
         </div>
         <div class="col-md-4 col-sm-4 my-2 text-center">
             <!-- <form action="{{ route('proyectos.accept', $proyect->projects->id) }}" method="post"> -->
             <a class="btn btn-danger" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" onclick="rechazar(0);">
-                Rechazar Proyecto
+                Rechazar proyecto
             </a>
         </div>
         <div class="col-12 my-5">
@@ -137,7 +137,7 @@
                         @csrf
                         @method('put')
                         <div class="col my-2">
-                            <h4>Comentario del Veredicto</h4>
+                            <h4>Comentario del veredicto</h4>
                             <small><label class="form-check-label" id="ejemplo">Ejemplo:</label></small>
                         </div>
                         <div class="col-12 my-2">

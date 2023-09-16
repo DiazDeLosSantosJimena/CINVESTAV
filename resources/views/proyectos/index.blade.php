@@ -10,7 +10,7 @@
         </div>
         @endif
         <div class="col mdl-cell--hide-tablet mx-5">
-            <h2>Ponencias Registradas</h2>
+            <h2>Ponencias registradas</h2>
         </div>
         <div class="col mdl-cell--hide-desktop mdl-cell--hide-phone mx-5">
             <h2>Proyectos</h2>
@@ -25,9 +25,9 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th class="text-center" scope="col">Nombre de la Ponencia</th>
+                        <th class="text-center" scope="col">Nombre de la ponencia</th>
                         <th scope="col" class="text-center">Modalidad de participación</th>
-                        <th scope="col" class="text-center">Eje Tematico</th>
+                        <th scope="col" class="text-center">Eje temático</th>
                         @if(Auth::user()->rol_id !== 3)
                         <th class="text-center">User</th>
                         @endif
@@ -71,9 +71,9 @@
                             @if($prop->projects->status === 1)
                             <span class="badge text-white text-bg-warning">Pendiente</span>
                             @elseif($prop->projects->status === 2)
-                            <span class="badge text-white text-bg-info">Registro Aceptado</span>
+                            <span class="badge text-white text-bg-info">Registro aceptado</span>
                             @elseif($prop->projects->status === 3)
-                            <span class="badge text-white text-bg-success">Proyecto Aceptado</span>
+                            <span class="badge text-white text-bg-success">Proyecto aceptado</span>
                             @else
                             <span class="badge text-white text-bg-danger">Rechazado</span>
                             @endif

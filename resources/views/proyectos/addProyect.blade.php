@@ -82,7 +82,7 @@
     <form action="{{ route('proyectos.store') }}" method="post" enctype="multipart/form-data" class="row">
         @csrf
         <div class="col-sm-12 col-md-12 mx-5 my-4">
-            <h3>Registro de Ponencias</h3>
+            <h3>Registro de ponencias</h3>
         </div>
         <div class="col-12">
             <div class="mb-3">

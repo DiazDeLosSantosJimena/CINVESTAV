@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <title>Registro Ponente</title>
+    <title>Registro ponente</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{asset('/img/logo_negativo.png')}}" />
     <style>
@@ -81,13 +81,12 @@
         <form action="{{ route('registrar')}}" method="post" enctype="multipart/form-data" class="row card-body">
             @csrf
             <div class="col-12">
-                <h3 class="my-2">Registro Postulante</h3>
+                <h3 class="my-2">Registro postulante</h3>
                 <div class="alert alert-info" role="alert">
-                    Tenga en cuenta que los datos proporcionados en el siguiente formulario seran utilizados para la creación de la constancia u otros elementos de asistencia al evento, de igual forma, los datos proporcionados seran subrayados como el <strong>ponente</strong>. Al correo que se especifique en el campo de "Correo Electrónico" sera el <strong>autor de contacto</strong>, favor de verificar los datos antes de enviar la información de registro.
-                </div>
+                    Tenga en cuenta que los datos proporcionados en el siguiente formulario serán utilizados para la creación de la constancia u otros elementos de asistencia al evento, de igual forma, los datos proporcionados serán subrayados como el <strong>ponente</strong>. Al correo que se especifique en el campo de "Correo Electrónico" será el <strong>autor de contacto</strong>, favor de verificar los datos antes de enviar la información de registro.                </div>
             </div>
             <div class="col-12 mx-5">
-                <h4>~ Datos Personales ~</h4>
+                <h4>~ Datos personales ~</h4>
             </div>
             <div class="col-sm-12 col-md-4">
                 <div class="mb-3">
@@ -103,7 +102,7 @@
             </div>
             <div class="col-sm-12 col-md-4">
                 <div class="mb-3">
-                    <label for="app" class="form-label">Apellido Paterno:</label> <label for="app" class="text-danger">*</label>
+                    <label for="app" class="form-label">Apellido paterno:</label> <label for="app" class="text-danger">*</label>
                     <input type="text" class="form-control @error('app') is-invalid @enderror" name="app" id="app" placeholder="Ingrese su Apellido Paterno" value="{{ old('app') }}">
                 </div>
                 @error('app')
@@ -115,7 +114,7 @@
             </div>
             <div class="col-sm-12 col-md-4">
                 <div class="mb-3">
-                    <label for="apm" class="form-label">Apellido Materno:</label>
+                    <label for="apm" class="form-label">Apellido materno:</label>
                     <input type="text" class="form-control @error('apm') is-invalid @enderror" name="apm" id="apm" placeholder="Ingrese su Apellido Materno" value="{{ old('apm') }}">
                 </div>
                 @error('apm')
@@ -165,7 +164,7 @@
             </div>
             <div class="col-12">
                 <div class="mb-3">
-                    <label for="email" class="form-label">Correo Electrónico:</label> <label for="email" class="text-danger">*</label>
+                    <label for="email" class="form-label">Correo electrónico:</label> <label for="email" class="text-danger">*</label>
                     <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="nombre@ejemplo.com" value="{{ old('email') }}">
                 </div>
                 @error('email')
@@ -198,7 +197,7 @@
             </div>
             <div class="col-12 row">
                 <div class="col-sm-12 col-md-4 mb-3">
-                    <label for="tel" class="form-label">Pais/Country:</label> <label for="tel" class="text-danger">*</label>
+                    <label for="tel" class="form-label">País/Country:</label> <label for="tel" class="text-danger">*</label>
                     <input type="text" class="form-control @error('country') is-invalid @enderror" id="country" name="country" placeholder="Ingrese su país/country" value="{{ old('country') }}">
                     @error('country')
                     <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -236,7 +235,7 @@
                     <div class="item">
                         <div class="checkbox-rect2">
                             <input class="confirm" type="checkbox" id="checkbox-rect2" value="" name="verify" onclick="checkedBox(this.value)">
-                            <label for="checkbox-rect2" class="form-check-label">He revisado los datos proporcionados y certifico que la información capturadas sean correctas y responsabilidad de quien la captura.</label>
+                            <label for="checkbox-rect2" class="form-check-label">He revisado los datos proporcionados y certifico que la información capturada sean correctas y responsabilidad de quien la captura.</label>
                         </div>
                     </div>
                 </div>

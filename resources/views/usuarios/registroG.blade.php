@@ -24,12 +24,12 @@
     <div class="container d-flex justify-content-center align-items-center card">
         <form action="{{ route('registrar')}}" method="post" class="row card-body">
             @csrf
-            <h3 class="my-2">Registro Público General</h3>
+            <h3 class="my-2">Registro público general</h3>
             <div class="alert alert-info" role="alert">
-                Tenga en cuenta que los datos proporcionados en el siguiente formulario seran utilizados para la creación de la constancia u otros elementos de asistencia al evento, toda información será enviada al correo que se especifique en el campo de "Correo Electrónico", favor de verificar los datos antes de enviar la información de registro.
+                Tenga en cuenta que los datos proporcionados en el siguiente formulario serán utilizados para la creación de la constancia u otros elementos de asistencia al evento, toda información será enviada al correo que se especifique en el campo de "Correo Electrónico", favor de verificar los datos antes de enviar la información de registro.
             </div>
             <div class="col-12 mx-5">
-                <h4>~ Datos Personales ~</h4>
+                <h4>~ Datos personales ~</h4>
             </div>
             <div class="col-sm-12 col-md-4">
                 <div class="mb-3">
@@ -45,7 +45,7 @@
             </div>
             <div class="col-sm-12 col-md-4">
                 <div class="mb-3">
-                    <label for="app" class="form-label">Apellido Paterno:</label> <label for="app" class="text-danger">*</label>
+                    <label for="app" class="form-label">Apellido paterno:</label> <label for="app" class="text-danger">*</label>
                     <input type="text" class="form-control" name="apm" id="app" placeholder="Ingrese su Apellido Paterno" value="{{ old('app') }}">
                 </div>
                 @error('app')
@@ -57,7 +57,7 @@
             </div>
             <div class="col-sm-12 col-md-4">
                 <div class="mb-3">
-                    <label for="apm" class="form-label">Apellido Materno:</label>
+                    <label for="apm" class="form-label">Apellido materno:</label>
                     <input type="text" class="form-control" name="app" id="app" placeholder="Ingrese su Apellido Materno" value="{{ old('apm') }}">
                 </div>
                 @error('apm')
@@ -81,7 +81,7 @@
             </div>
             <div class="col-6">
                 <div class="mb-3">
-                    <label for="tel" class="form-label">Grado Academico:</label> <label for="tel" class="text-danger">*</label>
+                    <label for="tel" class="form-label">Grado académico:</label> <label for="tel" class="text-danger">*</label>
                     <input type="text" class="form-control" name="academic_degree" id="academic_degree" placeholder="Ingrese su grado academico" value="{{ old('academic_degree') }}">
                 </div>
                 @error('academic_degree')
@@ -93,7 +93,7 @@
             </div>
             <div class="col-12">
                 <div class="mb-3">
-                    <label for="email" class="form-label">Correo Electrónico:</label> <label for="email" class="text-danger">*</label>
+                    <label for="email" class="form-label">Correo electrónico:</label> <label for="email" class="text-danger">*</label>
                     <input type="text" class="form-control" name="email" id="email" placeholder="nombre@ejemplo.com" value="{{ old('email') }}">
                 </div>
                 @error('email')
@@ -126,7 +126,7 @@
             </div>
             <div class="col-12 row">
                 <div class="col-sm-12 col-md-4 mb-3">
-                    <label for="tel" class="form-label">Pais/Country:</label> <label for="tel" class="text-danger">*</label>
+                    <label for="tel" class="form-label">País/Country:</label> <label for="tel" class="text-danger">*</label>
                     <input type="text" class="form-control" id="country" name="country" placeholder="Ingrese su país/country" value="{{ old('country') }}">
                     @error('country')
                     <label class="form-check-label text-danger" for="flexRadioDefault1">
@@ -164,7 +164,7 @@
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="p" name="assistance" id="confirm">
                         <label class="form-check-label" for="flexCheckDefault">
-                            He revisado los datos proporcionados y certifico que la información capturadas sean correctas y responsabilidad de quien la captura.
+                            He revisado los datos proporcionados y certifico que la información capturada sean correctas y responsabilidad de quien la captura.
                         </label>
                     </div>
                 </div>

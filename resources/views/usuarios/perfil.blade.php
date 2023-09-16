@@ -18,11 +18,11 @@
                     <p>{{Auth::User()->name}}</p>
                 </div>
                 <div class="col-md-4 col-sm-4">
-                    <h5>Apellido Paterno:</h5>
+                    <h5>Apellido paterno:</h5>
                     <p>{{Auth::user()->app}}</p>
                 </div>
                 <div class="col-md-4 col-sm-4">
-                    <h5>Apellido Materno:</h5>
+                    <h5>Apellido materno:</h5>
                     <p>{{Auth::user()->apm}}</p>
                 </div>
                 <div class="col-md-4 col-sm-6">
@@ -43,7 +43,7 @@
         <div class="col-sm-12 col-md-12">
             <div class="row">
                 <div class="col-12">
-                    <h2>Preguntas y/o Comentarios</h2>
+                    <h2>Preguntas y/o comentarios</h2>
                 </div>
                 <div class="indicador my-3" role="alert">
                     Para preguntas, aclaraciones o correcciones en los datos de la cuenta, por favor llenar el siguiente formulario.
@@ -59,7 +59,7 @@
                         </div>
                         <div class="form-floating">
                             <textarea class="form-control" name="comentario" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                            <label for="floatingTextarea2">Motivo del Correo</label>
+                            <label for="floatingTextarea2">Motivo del correo</label>
                         </div>
                         <div class="text-start my-3">
                             <button type="submit" class="btn btn-success">Enviar</button>

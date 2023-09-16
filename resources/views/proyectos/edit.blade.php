@@ -87,11 +87,11 @@
         {{ method_field('PUT') }}
         @if(Auth::user()->rol_id == 1)
         <div class="col-12 mx-5">
-            <h3>Editar Proyectos</h3>
+            <h3>Editar proyectos</h3>
         </div>
         @else
         <div class="col-12 mx-5 my-4">
-            <h3>Editar mi Ponencia</h3>
+            <h3>Editar mi ponencia</h3>
         </div>
         @endif
         <div class="col-12">
@@ -239,15 +239,15 @@
                         <input type="text" class="form-control" id="nombreA" name="nombreA" aria-describedby="nombre" value="">
                     </div>
                     <div class="col-sm-12 col-md-3 mb-3">
-                        <label for="apellidoPaterno" class="form-label">Apellido Paterno.</label> <label for="apellidoPaternoA" class="text-danger">*</label>
+                        <label for="apellidoPaterno" class="form-label">Apellido paterno.</label> <label for="apellidoPaternoA" class="text-danger">*</label>
                         <input type="text" class="form-control" id="apellidoPaternoA" name="apellidoPaternoA" aria-describedby="apellidoPaterno" value="">
                     </div>
                     <div class="col-sm-12 col-md-3 mb-3">
-                        <label for="apellidoMaterno" class="form-label">Apellido Materno.</label>
+                        <label for="apellidoMaterno" class="form-label">Apellido materno.</label>
                         <input type="text" class="form-control" id="apellidoMaternoA" name="apellidoMaternoA" aria-describedby="apellidoMaterno" value="">
                     </div>
                     <div class="col-sm-12 col-md-3 mb-3">
-                        <label for="titulo" class="form-label">Institución de Procedencia.</label> <label for="tituloA" class="text-danger">*</label>
+                        <label for="titulo" class="form-label">Institución de procedencia.</label> <label for="tituloA" class="text-danger">*</label>
                         <input type="text" class="form-control" id="tituloA" name="tituloA" aria-describedby="titulo" value="">
                     </div>
                     <div class="col-sm-12 col-md-12 mb-3">
@@ -267,8 +267,8 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Apellido Paterno</th>
-                        <th>Apellido Materno</th>
+                        <th>Apellido paterno</th>
+                        <th>Apellido materno</th>
                         <th class="text-center">Institución de Procedencia</th>
                         <th>País</th>
                         <th class="text-center">Acciones</th>
@@ -300,7 +300,7 @@
             <div class="item">
                 <div class="checkbox-rect2">
                     <input class="confirm" type="checkbox" id="checkbox-rect2" value="" name="verify" onclick="checkedBox(this.value)">
-                    <label for="checkbox-rect2" class="form-check-label">He revisado los datos proporcionados y certifico que la información capturadas sean correctas y responsabilidad de quien la captura.</label>
+                    <label for="checkbox-rect2" class="form-check-label">He revisado los datos proporcionados y certifico que la información capturada sean correctas y responsabilidad de quien la captura.</label>
                 </div>
             </div>
         </div>

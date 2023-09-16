@@ -22,7 +22,7 @@
 <div class="container">
     @if(session('status'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Excelente!</strong> {{ session('status') }}
+        <strong>¡Excelente!</strong> {{ session('status') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
@@ -35,7 +35,7 @@
                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Evaluadores</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-publicEsp-tab" data-bs-toggle="pill" data-bs-target="#pills-publicEsp" type="button" role="tab" aria-controls="pills-publicEsp" aria-selected="false">Invitados Especiales</button>
+                <button class="nav-link" id="pills-publicEsp-tab" data-bs-toggle="pill" data-bs-target="#pills-publicEsp" type="button" role="tab" aria-controls="pills-publicEsp" aria-selected="false">Invitados especiales</button>
             </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
@@ -54,7 +54,7 @@
                                         <th>Nombre</th>
                                         <th>Email</th>
                                         <th class="text-center">Teléfono</th>
-                                        <th>Contacto Alterno</th>
+                                        <th>Contacto alterno</th>
                                         <th class="text-center">País</th>
                                         <th class="text-center">Estado</th>
                                         <th class="text-center">Municipio</th>
@@ -99,10 +99,10 @@
                     <div class="row">
                         <br>
                         <div class="col mx-5 mt-4">
-                            <h3>Proyectos y Evaluadores</h3>
+                            <h3>Proyectos y evaluadores</h3>
                         </div>
                         <div class="col text-end mt-4">
-                            <a href="#" class="btn btn-primary mx-2" id="btn_asignUser" data-bs-toggle="modal" data-bs-target="#modalAsignUser">Asignar Proyectos a Evaluadores</a>
+                            <a href="#" class="btn btn-primary mx-2" id="btn_asignUser" data-bs-toggle="modal" data-bs-target="#modalAsignUser">Asignar proyectos a evaluadores</a>
                         </div>
                         <div class="col-12 table-responsive mt-5">
                             <table class="table">
@@ -110,8 +110,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Institucion</th>
-                                        <th>Titulo academico</th>
+                                        <th>Institución</th>
+                                        <th>Titulo académico</th>
                                         <th>Email</th>
                                         <th>Proyecto</th>
                                         <th class="text-center" colspan="3">Acciones</th>
@@ -151,8 +151,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Institucion</th>
-                                        <th>Titulo academico</th>
+                                        <th>Institución</th>
+                                        <th>Titulo académico</th>
                                         <th>Email</th>
                                         <th>Teléfono</th>
                                         <th>Pais</th>
@@ -196,7 +196,7 @@
                     <div class="row">
                         <br>
                         <div class="col mx-5 mt-4">
-                            <h3>Invitados Especiales</h3>
+                            <h3>Invitados especiales</h3>
                         </div>
                         <div class="col text-end mt-4">
                             <button type="button" class="btn btn-success" id="btn_alta" data-bs-toggle="modal" data-bs-target="#modalaltaPublicE"><i class="bi bi-plus-lg"></i></button>
@@ -207,7 +207,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre</th>
-                                        <th>Titulo academico</th>
+                                        <th>Titulo académico</th>
                                         <th>Email</th>
                                         <th class="text-center">Teléfono</th>
                                         <th class="text-center">País</th>
@@ -229,7 +229,7 @@
                                         <td class="text-center">{{ $usuario->state}}</td>
                                         <td class="text-center">{{ $usuario->municipality}}</td>
                                         <td class="text-center">@if($usuario->rol_id == 5)
-                                            Invitado Especial
+                                            Invitado especial
                                             @else
                                             $usuario->rol_id
                                             @endif</td>

@@ -18,7 +18,7 @@
                     <p><strong>Teléfono:</strong><br> {{ $uni->user->phone }}</p>
                 </div>
                 <div class="col-md-6 col-sm-12 my-3">
-                    <p><strong>Contacto Alterno:</strong><br> {{ $uni->user->alternative_contact }}</p>
+                    <p><strong>Contacto alterno:</strong><br> {{ $uni->user->alternative_contact }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
                     <p><strong>País:</strong><br> {{ $uni->user->country }}</p>
@@ -76,10 +76,10 @@
                     <p><strong>Nombre:</strong><br> {{ $author->name }} </p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Apellido Paterno:</strong><br> {{ $author->app }}</p>
+                    <p><strong>Apellido paterno:</strong><br> {{ $author->app }}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 my-3">
-                    <p><strong>Apellido Materno:</strong><br> {{ $author->apm }}</p>
+                    <p><strong>Apellido materno:</strong><br> {{ $author->apm }}</p>
                 </div>
                 @endforeach
                 @endif

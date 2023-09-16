@@ -4,7 +4,7 @@
 <div class="container mb-5">
     <div class="row">
         <div class="col-12 mx-5">
-            <h3>Editar Perfíl</h3>
+            <h3>Editar Perfil</h3>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="row">
@@ -16,13 +16,13 @@
                 </div>
                 <div class="col-4">
                     <div class="mb-3">
-                        <label for="formGroupExampleInput" class="form-label">Apellido Paterno:</label>
+                        <label for="formGroupExampleInput" class="form-label">Apellido paterno:</label>
                         <input type="text" class="form-control" name="app" placeholder="Apellido">
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="mb-3">
-                        <label for="formGroupExampleInput" class="form-label">Apellido Materno:</label>
+                        <label for="formGroupExampleInput" class="form-label">Apellido materno:</label>
                         <input type="text" class="form-control" name="apm" placeholder="Apellido">
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
-                        <label for="formGroupExampleInput" class="form-label">Fecha de Nacimiento:</label>
+                        <label for="formGroupExampleInput" class="form-label">Fecha de nacimiento:</label>
                         <input type="date" class="form-control" name="fn">
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-12">
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Foto de perfíl</label>
+                        <label for="formFile" class="form-label">Foto de perfil</label>
                         <input class="form-control" type="file" name="foto">
                     </div>
                 </div>

@@ -100,6 +100,29 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12">
+            <p class="d-inline-flex gap-1">
+                <a class="btn btn-secondary btn-lg" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Cantidades <i class="bi bi-clipboard2-data"></i>
+                </a>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <br>
+                <div class="card card-body row">
+                    Estos reportes únicamente muestran la cantidad de registros de datos.
+                    <div class="col-12">
+                        <br>
+                        <a class="btn btn-success" href="#">Ponentes</a>
+                        <a class="btn btn-success" href="#">Carteles y Ponencias</a>
+                        <a class="btn btn-success" href="#">Ponencias Aceptadas</a>
+                        <a class="btn btn-success" href="#">Ponencias Rechazadas</a>
+                        <a class="btn btn-success" href="#">Público General</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>

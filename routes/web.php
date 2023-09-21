@@ -9,6 +9,7 @@ use App\Models\Projects;
 use App\Http\Controllers\EvaluationsController;
 use App\Http\Controllers\EmailController;
 use App\Models\ProjectsUsers;
+use App\Models\Workshops;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
@@ -146,6 +147,21 @@ Route::middleware('auth')->group(function () {
     Route::controller(ProjectsController::class)->group(function () {
         Route::name('cartel.export')->get('cartel.export', 'carteles');
     });
+    Route::controller(WorkshopsController::class)->group(function () {
+        Route::name('cantponentes.exportando')->get('cantponentes-exportando', 'exportando');
+    });
+    Route::controller(ProjectsController::class)->group(function () {
+        Route::name('cartelesponencias.cartel')->get('cartelesponencias-cartel', 'cartel');
+    });
+    Route::controller(ProjectsController::class)->group(function () {
+        Route::name('ponenciasaceptadas.aceptadas')->get('ponenciasaceptadas-aceptadas', 'aceptadas');
+    });
+    Route::controller(ProjectsController::class)->group(function () {
+        Route::name('ponenciasrechazadas.rechazadas')->get('ponenciasrechazadas-rechazadas', 'rechazadas');
+    });
+    Route::controller(UsersController::class)->group(function () {
+        Route::name('publicogeneral.general')->get('publicogeneral-general', 'general');
+    });
 });
 
     Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);
@@ -163,9 +179,15 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(WorkshopsController::class)->group(function(){
 Route::name('talleres.export')->get('talleres-export','export');
+
  });               
 
 
 
-        
+
+ //-----------------------------------CAntidades excel------------------------
+
+
+
 require __DIR__ . '/auth.php';
+// ==================================== UTVT ====================================

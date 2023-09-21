@@ -22,6 +22,10 @@ use App\Exports\ProjectsExport;
 use App\Exports\ProjectsAceptadasExport;
 use App\Exports\ProjectsRechazadasExport;
 use App\Exports\CartelesExport;
+use App\Exports\CartelesPonenciasExport;
+use App\Exports\PonenciasAceptadasExport;
+use App\Exports\PonenciasRechazadasExport;
+
 
 class ProjectsController extends Controller
 {
@@ -517,5 +521,18 @@ class ProjectsController extends Controller
     public function carteles() {
         return Excel::download(new CartelesExport, 'Carteles.xlsx');
     }
+    public function cartel() {
+        return Excel::download(new CartelesPonenciasExport, 'CartelesPonencias.xlsx');
+    }
+    public function aceptadas() {
+        return Excel::download(new PonenciasAceptadasExport, 'PonenciasAceptadas.xlsx');
+    }
+    public function rechazadas() {
+        return Excel::download(new PonenciasRechazadasExport, 'PonenciasRechazadas.xlsx');
+    }
+
+   
 
 }
+
+// ==================================== UTVT ====================================

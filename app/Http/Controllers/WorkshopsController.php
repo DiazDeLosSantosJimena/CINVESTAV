@@ -6,6 +6,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TalleresExport;
 use App\Models\Workshops;
 use Illuminate\Http\Request;
+use App\Exports\cantponentesExport;
 
 class WorkshopsController extends Controller
 {
@@ -109,8 +110,15 @@ class WorkshopsController extends Controller
         return redirect('taller')->with('status', 'Registro eliminado con exito!');
     }
 
-    public function export()
+    public function export() 
     {
         return Excel::download(new TalleresExport, 'Talleres.xlsx');
     }
+
+
+    public function exportando() {
+        return Excel::download(new cantponentesExport, 'CantPonentes.xlsx');
+    }
 }
+
+// ==================================== UTVT ====================================

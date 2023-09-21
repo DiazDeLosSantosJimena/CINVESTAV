@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Exports\GeneralExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class UsersController extends Controller
 {
@@ -114,4 +117,10 @@ class UsersController extends Controller
         $query->save();
         return redirect()->route('usuarios')->with('status', 'Registro actualizado con exito!');
     }
+
+    public function general() {
+        return Excel::download(new GeneralExport, 'PublicoGeneral.xlsx');
+    }
 }
+
+// ==================================== UTVT ====================================

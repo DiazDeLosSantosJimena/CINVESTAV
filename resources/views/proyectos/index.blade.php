@@ -79,15 +79,6 @@
         <div class="col mdl-cell--hide-tablet mx-5">
             <h2>Ponencias Registradas</h2>
         </div>
-        @if(Auth::user()->rol_id == 1)
-        <div class="col row text-end mt-5">
-            <div class="col-12">
-               <a href="{{route('project.export')}}"> <button class="btn btn-info text-white"><i class="bi bi-file-earmark-excel-fill"></i> Ponencias</button></a>
-               <a href="{{route('project.exporta')}}"><button class="btn btn-success"><i class="bi bi-file-earmark-excel-fill"></i> Aceptadas</button></a>
-               <a href="{{route('project.exportar')}}"> <button class="btn btn-danger"><i class="bi bi-file-earmark-excel-fill"></i> Rechazadas</button></a>
-            </div>
-        </div>
-        @endif
         <div class="col mdl-cell--hide-desktop mdl-cell--hide-phone mx-5">
             <h2>Proyectos</h2>
         </div>

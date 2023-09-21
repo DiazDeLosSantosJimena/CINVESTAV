@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-// <<<<<<< HEAD
+
 use App\Http\Controllers\ProjectsController;
-use App\Http\Controllers\WorkshopattendanceController;
-// =======
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Models\Projects;
 use App\Http\Controllers\EvaluationsController;
 use App\Http\Controllers\EmailController;
 use App\Models\ProjectsUsers;
-use App\Models\Workshops;
-// >>>>>>> ebba7e5cd21259431e905bb537c3b983432eddc5
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
@@ -27,6 +23,23 @@ use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// ======================= Errors =======================
+Route::get('error', function () {
+    abort('404');
+});
+Route::get('error', function () {
+    abort('401');
+});
+Route::get('error', function () {
+    abort('429');
+});
+Route::get('error', function () {
+    abort('500');
+});
+Route::get('error', function () {
+    abort('503');
+});
 
 Route::get('/', function () {
     return view('sesiones/login');
@@ -51,6 +64,28 @@ Route::middleware('auth')->group(function () {
     Route::resource('usuario', UsersController::class);
     Route::resource('proyectos', ProjectsController::class);
     Route::resource('authors', AuthorsController::class);
+    Route::resource('evaluacion', EvaluationsController::class);
+    //---------------------TALLERES-------------------------------------------
+    Route::resource('taller', WorkshopsController::class)->middleware('admin');
+    Route::name('editTaller')->put('editTaller/{id}', [WorkshopsController::class, 'edit']);
+    Route::resource('presentation', PresentationsController::class);
+    Route::name('editPre')->put('editPre/{id}', [PresentationsController::class, 'edit']);
+    Route::resource('attendance', WorkshopattendanceController::class);
+    Route::get('/projects-data', [WorkshopattendanceController::class, 'showProjectsData']);
+    Route::name('pdftaller')->get('pdftaller', [WorkshopattendanceController::class, 'pdftaller']);
+    Route::name('pdfPagoTaller')->get('pdfPagoTaller', [WorkshopattendanceController::class, 'pdfPagoTaller']);
+    Route::name('attendance.reingreso')->get('attendance.reingreso', [WorkshopattendanceController::class, 'reingreso']);
+    Route::name('attendance.update')->put('attendance.update/{id}', [WorkshopattendanceController::class, 'update']);
+
+
+    //----------------------------------JUEZ-------------------------------
+    Route::name('usuarios')->get('usuarios', [UsersController::class, 'usuarios'])->middleware('admin');
+    Route::name('agregarjuez')->post('agregarjuez', [UsersController::class, 'agregarjuez']);
+    Route::name('salvarjuez')->put('salvarjuez/{id}', [UsersController::class, 'salvarjuez']);
+    Route::name('agregarInvitado')->post('agregarInvitado', [UsersController::class, 'agregarInvitado']);
+    Route::name('salvarInvitado')->put('salvarInvitado/{id}', [UsersController::class, 'salvarInvitado']);
+    Route::name('salvarPonente')->put('salvarPonente/{id}', [UsersController::class, 'salvarPonente']);
+    //---------------------------------------------------------------------
     Route::get('/proyectos/{proposal}/download', [ProjectsController::class, 'downloadFile'])->name('proyectos.download');
     Route::name('proyectos.update')->put('proyectos.update/{id}', [ProjectsController::class, 'update']);
     Route::name('proyectos.delete')->delete('proyectos.delete/{id}', [ProjectsController::class, 'destroy']);
@@ -85,8 +120,31 @@ Route::middleware('auth')->group(function () {
         return view('usuarios.perfil');
     })->name('perfil');
 
-    Route::get('EditPerfil', function () {
-        return view('usuarios.EditPerfil');
+    Route::name('soportemail')->get('soportemail', [EmailController::class, 'soportemail']);
+
+    // ============================= Middleware =============================
+    Route::name('evaluacion.index')->get('evaluacion', [EvaluationsController::class, 'index'])->middleware('visor');
+    Route::name('proyectos.index')->get('proyectos', [ProjectsController::class, 'index'])->middleware('user');
+    Route::name('proyectos.show')->get('proyectos/{id}', [ProjectsController::class, 'show']);
+
+    // ================================ Excel ===============================
+    Route::get('reportes', function () {
+        return view('layout.reportes');
+    })->name('reportes')->middleware('admin');
+    Route::controller(ProjectsController::class)->group(function () {
+        Route::name('project.export')->get('project-export', 'export');
+    });
+    Route::controller(ProjectsController::class)->group(function () {
+        Route::name('project.exporta')->get('project-exporta', 'exporta');
+    });
+    Route::controller(ProjectsController::class)->group(function () {
+        Route::name('project.exportar')->get('project-exportar', 'exportar');
+    });
+    Route::controller(WorkshopsController::class)->group(function () {
+        Route::name('talleres.export')->get('talleres-export', 'export');
+    });
+    Route::controller(ProjectsController::class)->group(function () {
+        Route::name('cartel.export')->get('cartel.export', 'carteles');
     });
 });
 

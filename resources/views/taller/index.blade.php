@@ -24,11 +24,6 @@
                 <div class="col text-end mt-5">
                     <button type="button" class="btn btn-success" id="btn_alta" data-bs-toggle="modal" data-bs-target="#modaladd"><i class="bi bi-plus-lg"></i></button>
                 </div>
-                <div class="col-12 row text-end mt-4">
-                    <div class="col-12">
-                    <a href="{{route('talleres.export')}}">  <button class="btn btn-info text-white"><i class="bi bi-file-earmark-excel-fill"></i> Taller - Usuarios</button></a>
-                    </div>
-                </div>
                 <div class="col-12 table-responsive mt-5">
                     <table class="table">
                         <thead>

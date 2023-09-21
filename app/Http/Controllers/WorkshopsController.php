@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TalleresExport;
 use App\Models\Workshops;
 use Illuminate\Http\Request;
-        use Maatwebsite\Excel\Facades\Excel;
-        use App\Exports\TalleresExport;
 
 class WorkshopsController extends Controller
 {
-    
+
     public function index()
     {
-        
+
         $talle = Workshops::all();
         return view('taller.index', compact('talle'));
     }
 
-  
+
     public function store(Request $request)
     {
         $rules = [
@@ -27,9 +27,9 @@ class WorkshopsController extends Controller
             'date' => 'required',
             'hour' => 'required',
             'site' => 'required',
-            'level'=> 'required',
-            'participants'=>'required',
-            'assistance' =>'required'
+            'level' => 'required',
+            'participants' => 'required',
+            'assistance' => 'required'
 
         ];
 
@@ -65,17 +65,17 @@ class WorkshopsController extends Controller
         return redirect('taller')->with('status', 'Taller registrado correctamente!');
     }
 
-   
+
     public function show($id)
     {
         $workshop = Workshops::find($id);
         return view('taller.show', compact('workshop'));
     }
 
-   
+
     public function edit(Workshops $id, Request $request)
     {
-        
+
         $query = Workshops::find($id->id);
 
 
@@ -109,9 +109,8 @@ class WorkshopsController extends Controller
         return redirect('taller')->with('status', 'Registro eliminado con exito!');
     }
 
-
-    public function export() 
+    public function export()
     {
-        return Excel::download(new TalleresExport, 'Ponencias.xlsx');
+        return Excel::download(new TalleresExport, 'Talleres.xlsx');
     }
 }

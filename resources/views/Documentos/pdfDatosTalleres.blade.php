@@ -71,10 +71,15 @@
     </style>
 </head>
 
+
+
+
+
 <body style="background-color: #fff; margin: 0; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">
     <table class="nl-container" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fff; background-image: url('https://996471dde6.imgdist.com/public/users/Integrators/BeeProAgency/1023877_1008836/logo%20color.jpg'); background-position: top center; background-size: auto; background-repeat: no-repeat; opacity: 20%;">
         <tbody>
             <tr>
+                
                 <td>
                     <table class="row row-1" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
                         <tbody>

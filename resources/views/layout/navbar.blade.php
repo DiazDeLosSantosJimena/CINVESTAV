@@ -42,9 +42,11 @@
                 <a href="#" class="mdl-layout__tab" id="usuarios">Usuarios</a>
                 <a href="{{ route('taller.index') }}" class="mdl-layout__tab" id="taller">Talleres</a>
                 @endif
-                @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 4 || Auth::user()->rol_id === 1 || Auth::user()->rol_id === 5)
-                <a href="@if(Auth::user()->rol_id ==1) {{ route('attendance.index') }} @else # @endif" class="mdl-layout__tab" id="attendance">Actividades</a>
-                <!-- <a href="#" class="mdl-layout__tab" id="attendance">Actividades</a> -->
+                @if(Auth::user()->rol_id === 3 || Auth::user()->rol_id === 4 || Auth::user()->rol_id === 5)
+                <a href="{{ route('attendance.index') }}" class="mdl-layout__tab" id="attendance">Actividades</a>
+                @endif
+                @if(Auth::user()->rol_id === 1)
+                <a href="{{ Route('reportes') }}" class="mdl-layout__tab" id="report">Reportes</a>
                 @endif
                 <a href="{{ route('perfil') }}" class="mdl-layout__tab" id="perfil">Perfíl</a>
                 <a href="{{ route('encuentro') }}" class="mdl-layout__tab" id="encuentro">Acerca De</a>

@@ -93,15 +93,15 @@ Route::middleware('auth')->group(function () {
     Route::name('pdf')->get('pdf',[ProjectsController::class, 'pdf']);
     Route::name('pdftaller')->get('pdftaller',[WorkshopattendanceController::class, 'pdftaller']);
 
-    Route::controller(ProjectsController::class)->group(function(){
-        Route::name('project.export')->get('project-export','export');
-        });
         Route::controller(ProjectsController::class)->group(function(){
-            Route::name('project.exporta')->get('project-exporta','exporta');
+            Route::name('project.export')->get('project-export','export');
             });
             Route::controller(ProjectsController::class)->group(function(){
-                Route::name('project.exportar')->get('project-exportar','exportar');
+                Route::name('project.exporta')->get('project-exporta','exporta');
                 });
+                Route::controller(ProjectsController::class)->group(function(){
+                    Route::name('project.exportar')->get('project-exportar','exportar');
+                    });
 
 Route::controller(WorkshopsController::class)->group(function(){
 Route::name('talleres.export')->get('talleres-export','export');

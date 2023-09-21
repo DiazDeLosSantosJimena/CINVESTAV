@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Workshops;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\TalleresExport;
+        use Maatwebsite\Excel\Facades\Excel;
+        use App\Exports\TalleresExport;
 
 class WorkshopsController extends Controller
 {
